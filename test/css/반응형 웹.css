@@ -1,0 +1,37 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* 작은 화면(예: 모바일) */
+@media (max-width: 600px) {
+    body {
+        background-color: lightblue;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+
+/* 중간 화면(예: 태블릿) */
+@media (min-width: 601px) and (max-width: 900px) {
+    body {
+        background-color: lightgreen;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+}
+
+/* 큰 화면(예: 데스크탑) */
+@media (min-width: 901px) {
+    body {
+        background-color: lightcoral;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
