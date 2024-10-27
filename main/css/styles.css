@@ -1,0 +1,147 @@
+:root {
+    /* css 변수 생성 */
+    
+    --primary-color: #49a6e9;
+    /* 주요 색상 */
+    --second-color: #7149e9;
+    /* 두번째 주요 색상 */
+    --grey-color-1: hsl(209, 61%, 16%);
+    /* hsl : 색(hue), 채도(saturation), 명도(lightness) 로 색 지정*/
+    --grey-color-2: hsl(212, 33%, 89%);
+    --grey-color-3: hsl(210, 36%, 96%);
+    --white-color: #fff;
+    --black-color: #222;
+    --ff-primary: sans-serif;
+    /* font 지정 */
+    --transition: all 0.3s linear;
+    /* 움직이는 대상에 대해서 (전체 시간 방법(linear : 처음부터 끝까지 동일하게) */
+    --spacing: 0.25rem;
+    --radius: 0.5rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 생성하는 box는 margin포함 전체 사이즈를 지정하겠다 */
+}
+
+body {
+    font-family: var(--ff-primary);
+    background-color: var(--grey-color-3);
+    font-size: 0.875rem;
+}
+
+img{
+    width: 100%;
+}
+
+.section {
+    padding: 5rem 0;
+    /* 상하 5rem / 좌우 0 */
+}
+
+.section-center {
+    width: 90vw;
+    /* 부모크기의 90% */
+    margin: 0 auto;
+    /* 상하 0 / 좌우 자동맞춤 */
+    max-width: 1170px;
+}
+
+@media screen and (min-width: 992px) {
+    /* 사용자 screen이 가로 992px보다 커진다면 */
+    .section-center {
+        width: 95vw;
+    }
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.title p {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.about-img {
+    margin-bottom: 2rem;
+}
+
+.about-img img {
+    border-radius: var(--radius);
+    object-fit: cover;
+    height: 20rem;
+}
+
+@media screen and (min-width: 992px) {
+    .about-img {
+        margin-bottom: 0;
+    }
+
+    .about-center {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 2rem;
+    }
+}
+
+.about {
+    background: var(--white-color);
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.btn-container {
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tab-btn:nth-child(1) {
+    border-top-left-radius: var(--radius);
+}
+
+.tab-btn:nth-child(3) {
+    border-top-right-radius: var(--radius);
+}
+
+.tab-btn {
+    padding: 1rem 0;
+    border: none;
+    text-transform: capitalize;
+    font-size: 1rem;
+    display: block;
+    background-color: var(--grey-color-2);
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: var(--spacing);
+}
+
+.tab-btn:hover:not(.ative) {
+    /* tab-btn중 active class가 아닌것을 사용자마우스가 해당했을 때 */
+    background-color: var(--primary-color);
+    color: var(--second-color);
+}
+
+.about-content {
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+    padding: 2rem 1.5rem;
+}
+
+.content {
+    display: none;
+}
+
+.tab-btn.active {
+    background-color: var(--white-color);
+}
+
+.content.active {
+    display: block;
+}

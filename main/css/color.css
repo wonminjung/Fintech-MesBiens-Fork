@@ -1,0 +1,27 @@
+:root {
+    --primary-color: #243642;
+    --secondary-color: #387478;
+    --third-color: #629584;
+    --bg-hover-color: #E2F1E7;
+    --hover-color: #243642;
+    --background-color: #E2F1E7;
+    --container-color: #fff;
+    --sidebar-bg: linear-gradient(to top, var(--third-color), var(--primary-color));
+    --text-color1: #fff;
+    --text-color2: #666;
+    --border-color: #ccc;
+}
+
+/*:root {*/
+/*    --primary-color: #FFB0B0;*/
+/*    --secondary-color: #FFD09B;*/
+/*    --third-color: #FFECC8;*/
+/*    --bg-hover-color: #FFF7D1;*/
+/*    --hover-color: #FFB0B0;*/
+/*    --background-color: #FFF7D1;*/
+/*    --container-color: #fff;*/
+/*    --sidebar-bg: linear-gradient(to top, var(--secondary-color), var(--primary-color));*/
+/*    --text-color1: #fff;*/
+/*    --text-color2: #666;*/
+/*    --border-color: #ccc;*/
+/*}*/
