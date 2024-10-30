@@ -23,7 +23,9 @@ body {
     color: #fff;
     padding: 20px 0 20px 20px;
     min-height: 95.5vh;
-    border-top-right-radius: 20px; border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+
     & h2 {
         margin-right: 7%;
     }
@@ -46,6 +48,7 @@ body {
     position: relative;
     & a {
         color: var(--text-color1);
+        text-decoration: none;
     }
     margin-left: 3em;
 }
@@ -75,9 +78,10 @@ body {
 .sidebar_pages {
     text-decoration: none;
     color: var(--text-color1)  ;
-    display: block;
-    padding: 10px;
-    transition: background-color 0.3s;
+    & a {
+        display: block;
+        padding: 10px;
+    }
 }
 
 .main-content {
@@ -149,45 +153,6 @@ body {
     cursor: pointer;
 }
 
-.calendar {
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 1em;
-    width: 60%; height: 100%;
-    background-color: var(--container-color);
-    display: inline-block;
-}
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-}
-
-.day {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    text-align: center;
-    border-radius: 10px;
-}
-
-/* 미디어 쿼리 추가 */
-@media (max-width: 600px) {
-    .search_bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .search {
-        width: 100%;
-        margin-bottom: 2em;
-    }
-    .search-btn {
-        width: 100%;
-    }
-    .welcome {
-        width: 100%;
-    }
-}
-
 .ppl {
     width: 90%; height: 100%;
     border-radius: 20px;
@@ -198,12 +163,12 @@ body {
     display: flex;
     height: 85%;
 }
+
 .container_right {
     display: inline-block;
     border: 2px solid black;
     border-radius: 20px;
     background-color: var(--container-color);
-    width: 34%; height: 100%;
+    width: 100%; height: 100%;
     padding: 1em;
-    margin-left: 1em;
 }
