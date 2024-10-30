@@ -65,7 +65,7 @@ h2 {
     margin-bottom: 10px;
 }
 
-p.bottom_cont, .sign-up p, .main_page p {
+p.bottom_cont, .sign-up p, .intro_page p {
     margin-bottom: 20px;
     color: var(--text-color2);
 }
@@ -190,16 +190,16 @@ input[type="checkbox"]:checked + label:after {
     text-decoration: underline;
 }
 
-.main_page{
+.intro_page{
     display: flex;
     justify-content: right;
     width: 90%;
 }
-.main_page2 {
+.intro_page2 {
     text-decoration: none;
     color: var(--secondary-color);
 }
-.main_page2:hover {
+.intro_page2:hover {
     text-decoration: underline;
 }
 
