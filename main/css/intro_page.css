@@ -1,9 +1,9 @@
-@import url('color.css');
+@import url('styles.css');
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
     padding: 0px;
-    background: var(--background-color);
+    background: var(--bg-color);
     display: flex;
     min-height: 100vh;
 }
@@ -19,68 +19,60 @@ body {
     flex-direction: column;
     width: 15%;
     min-width: 250px;
-    background: var(--sidebar-bg);
-    color: #fff;
+    background: var(--gradient);
+    color: var(--white);
     padding: 20px 0 20px 20px;
     min-height: 95.5vh;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-
+    border-radius: var(--sidebar-border-raduis);
     & h2 {
         margin-right: 7%;
+        text-align: center;
+        padding: 4px;
     }
-}
-
-.sidebar h2 {
-    text-align: center;
-    padding: 4px;
-    border-radius: 10px;
-}
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav ul li {
-    /*padding: 10px;*/
-    cursor: pointer;
-    position: relative;
-    & a {
-        color: var(--text-color1);
+    & nav ul {
+        list-style: none;
+        padding: 0;
+    }
+    & nav ul li {
+        /*padding: 10px;*/
+        cursor: pointer;
+        position: relative;
+        & a {
+            color: var(--text-color-white);
+            text-decoration: none;
+        }
+        margin-left: 3em;
+    }
+    & nav ul li:hover {
+        background-color: var(--bg-color);
+        border-radius: var(--button-border-radius);
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            border-radius: 50px;
+            box-shadow: 10px 10px black;
+            width: 30px; height: 30px;
+        }
+        &:before {
+            bottom: 100%;
+            box-shadow: 16px 16px var(--bg-hover-color);
+        }
+        &:after {
+            top: 100%;
+            box-shadow: 16px -16px var(--bg-hover-color);
+        }
+        & a {
+            color: var(--text-color-black);
+        }
+    }
+    .sidebar_pages {
         text-decoration: none;
-    }
-    margin-left: 3em;
-}
-.sidebar nav ul li:hover {
-    background-color: var(--background-color);
-    border-top-left-radius: 10px; border-bottom-left-radius: 10px;
-    &:before, &:after {
-        content: "";
-        position: absolute;
-        right: 0;
-        border-radius: 50px;
-        box-shadow: 10px 10px black;
-        width: 30px; height: 30px;
-    }
-    &:before {
-        bottom: 100%;
-        box-shadow: 16px 16px var(--bg-hover-color);
-    }
-    &:after {
-        top: 100%;
-        box-shadow: 16px -16px var(--bg-hover-color);
-    }
-    & a {
-        color: var(--hover-color);
-    }
-}
-.sidebar_pages {
-    text-decoration: none;
-    color: var(--text-color1)  ;
-    & a {
-        display: block;
-        padding: 10px;
+        color: var(--text-color-white)  ;
+        & a {
+            display: block;
+            padding: 10px;
+        }
     }
 }
 
@@ -100,12 +92,12 @@ body {
     margin-bottom: 1em;
     height: 5%;
     background: var(--container-color);
-}
 
-.welcome {
-    border-radius: 10px;
-    flex: 0.5;
-    min-width: 300px;
+    .welcome {
+        border-radius: 10px;
+        flex: 0.5;
+        min-width: 300px;
+    }
 }
 
 .search_bar{
@@ -113,43 +105,45 @@ body {
     align-items: center;
     justify-content: flex-end;
     width: 120%;
+    .search {
+        margin-right: 5px;
+        border-radius: 10px;
+        padding: 0 10px;
+        font-size: 15px;
+        border: 2px solid var(--second-color);
+        width: 40%; height: 2em;
+    }
 }
-.search {
-    margin-right: 5px;
-    border-radius: 10px;
-    padding: 0 10px;
-    font-size: 15px;
-    border: 2px solid var(--secondary-color);
-    width: 40%; height: 2em;
-}
+
 .search-btn {
     width: 70px; height: 25px;
     margin-right: 80px;
     border-radius: 10px;
     border: none;
-    background: var(--secondary-color);
+    background: var(--button-color);
     color: white;
     font-size: 15px;
 }
 .login_sign_up {
     display: flex;
-}
-.login-btn, .sign-up-btn {
-    width: 70px; height: 25px;
-    margin-right: 5px;
-    border: none;
-    background: var(--secondary-color);
-    color: white;
-    border-radius: 10px;
-    font-size: 13px;
-    padding: 2px 5px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    .login-btn, .sign-up-btn {
+        width: 70px; height: 25px;
+        margin-right: 5px;
+        border: none;
+        background: var(--button-color);
+        color: white;
+        border-radius: 10px;
+        font-size: 13px;
+        padding: 2px 5px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 .login-btn:hover, .sign-up-btn:hover, .search-btn:hover{
-    background: var(--hover-color);
+    background: var(--button-hover-color);
     cursor: pointer;
 }
 
