@@ -45,11 +45,11 @@ body {
             border-radius: var(--container-bottom-border-radius);
         }
     }
-                                            @media screen and (max-width: 600px) {
-                                                .container_top, .top {
-                                                    display: none;
-                                                }
-                                            }
+    @media screen and (max-width: 600px) {
+        .container_top, .top {
+        display: none;
+        }
+    }
 }
 
 .bottom_cont, .sign-up {

@@ -2,7 +2,7 @@
 <html lang="kr">
 <head>
   <meta charset="UTF-8">
-  <title>ID찾기 페이지</title>
+  <title>ID / 비밀번호 찾기 페이지</title>
   <link rel="stylesheet" href="../css/findID_page.css">
 </head>
 <body>
@@ -14,13 +14,13 @@
   </div>
   <div class="tab">
     <button class="tablinks active" onclick="openTab(event, 'findID')">아이디 찾기</button>
-    <button class="tablinks" onclick="openTab(event, 'findPWD')">비밀번호 찾기</button>
+    <button class="tablinks" onclick="openTab(event, 'findPassword')">비밀번호 찾기</button>
   </div>
 
   <div class="container_bottom">
     <div class="tab-content active" id="findID">
-      <h2>ID찾기</h2>
-      <p><strong>등록된 이메일로 ID 찾기</strong> <br><br>등록된 <strong>회원 이메일</strong> 주소를 입력해주세요.</p>
+      <h2 class="bottom_cont">ID찾기</h2>
+      <p class="bottom_cont"><strong>등록된 이메일로 ID 찾기</strong><br><br>등록된 <strong>회원 이름과 이메일 주소</strong> 를 입력해주세요.</p>
       <form>
         <input type="text" id="name" placeholder="회원 이름 (홍길동)" required>
         <input type="email" id="email" placeholder="회원 이메일 (fintech123@gmail.com)" required>
@@ -31,33 +31,50 @@
         <input type="text" id="confirm-id" placeholder="인증번호 입력" required>
         <button type="submit" class="confirm-btn">확인</button>
       </form>
-        <div class="sign-up">
-          <p><a href="login_page.html">로그인</a> 하러가기</p>
-        </div>
+      <div class="sign-up">
+        <p><a href="login_page.html">로그인</a> 하러가기</p>
         <div class="intro_page">
           <p><a href="intro_page.html" class="intro_page2">홈으로</a> 나가기</p>
         </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="findPassword">
+      <h2 class="bottom_cont">비밀번호 찾기</h2>
+      <p class="bottom_cont"><strong>등록된 이메일로 비밀번호 찾기</strong><br><br>등록된 <strong>회원 이메일</strong> 주소를 입력해주세요.</p>
+      <form>
+        <input type="email" id="email-password" placeholder="회원 이메일 (fintech123@gmail.com)" required>
+        <button type="submit" class="confirm-btn">비밀번호 재설정</button>
+      </form>
+      <div class="sign-up">
+        <p><a href="login_page.html">로그인</a> 하러가기</p>
+        <div class="intro_page">
+          <p><a href="intro_page.html" class="intro_page2">홈으로</a> 나가기</p>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="tab-content" id="findPWD">
-    <h2>비밀번호 찾기</h2>
-    <p><strong>등록된 이메일로 비밀번호 찾기</strong><br><br>등록된<strong>회원 이메일</strong>주소를 입력해주세요.</p>
-    <form>
-      <input type="text" placeholder="회원 이름 (홍길동)" required>
-      <input type="email" placeholder="회원 이메일 (fintech123@gmail.com)" required>
-      <button type="submit" class="resetpwd-btn">비밀번호 재설정</button>
-
-      <div class="divider"></div>
-    </form>
-  </div>
 </div>
+
+<script>
+  function openTab(evt, tabName) {
+    // 모든 탭 콘텐츠를 숨김
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].classList.remove("active");
+    }
+
+    // 모든 탭 링크에서 active 클래스를 제거
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("active");
+    }
+
+    // 클릭한 탭의 콘텐츠를 보이게 하고 active 클래스 추가
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+</script>
 </body>
-<!-- js를 이용해 로그인 버튼 누르면 지출 캘린더 페이지로 이동 -->
-<!--<script>-->
-<!--    function login_btn(login) {-->
-<!--        login.preventDefault(); // 풀 제출 방지-->
-<!--        window.location.href = "main_page.html"; // 지출 캘린더로 이동-->
-<!--    }-->
-<!--</script>-->
 </html>
