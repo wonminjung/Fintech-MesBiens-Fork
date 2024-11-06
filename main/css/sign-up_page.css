@@ -18,7 +18,6 @@ body {
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    max-height: 800px;
     width: 100%; height: 90%;
     .container_top {
         text-align: center;

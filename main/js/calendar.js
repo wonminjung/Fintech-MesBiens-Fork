@@ -11,7 +11,7 @@ const transactions = {}; // 날짜별 수입/지출 내역 저장
 
 // 달력 생성
 function createCalendar(month, year) {
-    monthYear.textContent = `${month + 1} ${year}`;
+    monthYear.textContent = `${month} ${year}`;
     dateGrid.innerHTML = '';
 
     const firstDay = new Date(year, month).getDay(); // 첫 번째 날의 요일
@@ -52,17 +52,17 @@ function showTransactions(day) {
     const dateKey = `${day}-${currentMonth + 1}-${currentYear}`;
     const transactionsForDate = transactions[dateKey] || [];
 
-    transactionDetails.innerHTML = `<h3>${monthYear.textContent} ${day}의 내역</h3>`;
+    transactionDetails.innerHTML = `<h3>${day} ${monthYear.textContent}의 내역</h3>`;
 
     transactionsForDate.forEach(item => {
         transactionDetails.innerHTML += `<div class="transaction">${item.type}: ${item.amount}</div>`;
     });
 
-    // 예시 데이터 추가
+/*    // 예시 데이터 추가
     transactionsForDate.push({ type: '수입', amount: `예시 수입 ${day}` });
     transactionsForDate.push({ type: '지출', amount: `예시 지출 ${day}` });
 
-    transactions[dateKey] = transactionsForDate;
+    transactions[dateKey] = transactionsForDate; */
 }
 
 // 이전 달로 이동
@@ -87,5 +87,5 @@ nextMonthButton.addEventListener('click', () => {
     createCalendar(currentMonth, currentYear);
 });
 
-// 초기 달력 생성 (10월 2019)
+// 초기 달력 생성 (10월 2024년)
 createCalendar(currentMonth, currentYear);

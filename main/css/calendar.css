@@ -1,71 +1,32 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #E2F1E7;
-    margin: 0;
-    padding: 20px;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    max-width: 800px;
-    margin: auto;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    margin: 0;
-}
-
-input {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.calendar {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 .month {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 }
 
 .month button {
     margin: 0 10px;
     padding: 5px 10px;
     border: none;
-    background: #387478;
-    color: white;
-    border-radius: 5px;
+    background: var(--button-color);
+    color: var(--white);
+    border-radius: var(--button-border-radius);
     cursor: pointer;
 }
 
 .month button:hover {
-    background: #243642;
+    background: var(--button-hover-color);
 }
 
 .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid var(--light-grey);
+    padding: 2px;
 }
 
 .day {
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     font-weight: bold;
 }
@@ -73,14 +34,17 @@ input {
 .date-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    padding: 2px;
 }
 
 .date {
-    border: 1px solid #ccc;
+    border: 1px solid var(--light-grey);
     padding: 10px;
     text-align: center;
     position: relative;
     cursor: pointer;
+    border-radius: var(--button-border-radius);
+    margin: 2px;
 }
 
 .transaction {
@@ -90,7 +54,7 @@ input {
 
 .details {
     margin-top: 20px;
-    background: #f9f9f9;
+    background: var(--bg-color);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: var(--button-border-radius);
 }
