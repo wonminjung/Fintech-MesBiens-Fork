@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height:130vh;
+    height: 130vh;
     background-color: var(--bg-color);
 }
 
@@ -18,6 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     max-width: 500px;
+    max-height: 800px;
     width: 100%;
     .container_top {
         text-align: center;
@@ -26,7 +27,7 @@ body {
         .top {
             background: var(--gradient);
             align-items: center;
-            color: white;
+            color: var(--text-color-white);
             padding: 20px;
             border-radius: var(--container-top-border-radius);
         }
@@ -35,7 +36,6 @@ body {
         background-color: var(--bg-color);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         border-radius: var(--container-bottom-border-radius);
-
         .bottom {
             background: white;
             display: flex;
@@ -45,11 +45,11 @@ body {
             border-radius: var(--container-bottom-border-radius);
         }
     }
-                                            @media screen and (max-width: 600px) {
-                                                .container_top, .top {
-                                                    display: none;
-                                                }
-                                            }
+    @media screen and (max-width: 600px) {
+        .container_top, .top {
+            display: none;
+        }
+    }
 }
 
 .bottom_cont, .sign-up {
@@ -76,72 +76,23 @@ p.bottom_cont, .sign-up p, .intro_page p {
     margin-left: 10%;
 } */
 
-input[type="text"],
-input[type="password"] {
+input[id="name"],
+input[id="email"],
+input[id="username"],
+input[id="password"],
+input[id="confirm-password"] {
     width: 80%;
     height: 60px;
     padding: 10px;
     margin-bottom: 1em;
     border: 1px solid var(--border-color);
-    border-radius: var(--button-border-radius);
+    border-radius: var(--input-border-radius);
     margin-left: 10%;
 }
 
-.remember-me {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-left: 10%;
-    color: var(--text-color-grey);
-    .remember {
-        display: flex;
-        & p {
-            margin-left: 10px;
-        }
-    }
-}
-
-input[type="checkbox"] {
-    display: none; /* 기본 체크박스 숨기기 */
-    & + label {
-        position: relative;
-        padding-left: 25px; /* 체크박스 공간 */
-        cursor: pointer;
-        &:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px; /* 체크박스 크기 */
-            height: 20px; /* 체크박스 크기 */
-            border: 2px solid var(--third-color); /* 테두리 색 */
-            border-radius: 8px; /* 모서리 둥글게 */
-            background-color: white; /* 배경색 */
-            transition: background-color 0.3s, border-color 0.3s; /* 애니메이션 효과 */
-        }
-    }
-    &:checked + label:before {
-        background-color: var(--second-color); /* 체크박스 체크 시 배경색 */
-        border-color: var(--second-color); /* 체크 시 테두리 색 */
-
-    }
-    &:checked + label:after {
-        content: '';
-        position: absolute;
-        left: 8px; /* 체크 표시 위치 */
-        top: 3px; /* 체크 표시 위치 */
-        width: 5px; /* 체크 표시 두께 */
-        height: 10px; /* 체크 표시 높이 */
-        border: solid var(--white); /* 체크 표시 색 */
-        border-width: 0 2px 2px 0; /* 체크 표시 형태 */
-        transform: rotate(45deg); /* 체크 표시 회전 */
-    }
-}
-
-.login-btn {
+.sign-up-btn {
     background-color: var(--button-color);
-    color: var(--text-color-white);
+    color: white;
     border: none;
     padding: 10px;
     border-radius: var(--button-border-radius);
@@ -154,7 +105,6 @@ input[type="checkbox"] {
         background-color: var(--button-hover-color);
     }
 }
-
 .sign-up {
     display: flex;
     flex-direction: column; /* 세로 방향으로 나열 */
@@ -167,7 +117,11 @@ input[type="checkbox"] {
         text-decoration: none;
         color: var(--text-color-dark);
     }
+    & a:hover {
+        text-decoration: underline;
+    }
 }
+
 
 /* 미디어 쿼리 추가 */
 @media (max-width: 600px) {
@@ -181,15 +135,11 @@ input[type="checkbox"] {
     }
 }
 
-.sign-up a:hover {
-    text-decoration: underline;
-}
-
-.intro_page{
+.intro_page {
     display: flex;
     justify-content: right;
     width: 90%;
-    & a {
+    a {
         text-decoration: none;
         color: var(--text-color-dark);
         &:hover {
