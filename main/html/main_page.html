@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>금융 종합 웹서비스 프로그램</title>
     <link rel="stylesheet" href="../css/main_page.css">
+    <link rel="stylesheet" href="../css/calendar.css">
 </head>
 <body>
     <div class="container_main">
@@ -37,8 +38,13 @@
                 <header class="calendar_header">
                     <h2>지출 캘린더</h2>
                     <hr style="border-style: solid">
+                    <div class="month">
+                        <button id="prevMonth">◀</button>
+                        <h2 id="monthYear">October 2019</h2>
+                        <button id="nextMonth">▶</button>
+                    </div>
                 </header>
-                <div class="calendar-grid">
+                <div class="days">
                     <div class="day">일</div>
                     <div class="day">월</div>
                     <div class="day">화</div>
@@ -48,15 +54,18 @@
                     <div class="day">토</div>
                     <!-- 날짜 추가 -->
                 </div>
+                <div class="date-grid" id="dateGrid"></div>
                 <hr style="border-style: dashed">
             </div>
             <div class="container_right">
                 <h2>요약</h2>
+                <h4>수입 / 지출 내역</h4>
+                <div id="transactionDetails"></div>
                 <hr style="border-style: solid">
             </div>
             </div>
         </main>
-
     </div>
+    <script src="calendar.js"></script>
 </body>
 </html>
