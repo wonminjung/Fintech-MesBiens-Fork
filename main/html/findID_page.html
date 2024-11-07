@@ -31,6 +31,8 @@
         <input type="text" id="confirm-id" placeholder="인증번호 입력" required>
         <button type="submit" class="confirm-btn">확인</button>
       </form>
+      <div class="divider"></div>
+      <div class="showid">회원님의 ID는 000입니다.</div>
       <div class="sign-up">
         <p><a href="login_page.html">로그인</a> 하러가기</p>
         <div class="intro_page">
@@ -43,7 +45,15 @@
       <!-- <h2 class="bottom_cont">비밀번호 찾기</h2> -->
       <p class="bottom_cont"><strong>등록된 이메일로 비밀번호 찾기</strong><br><br>등록된 <strong>회원 이메일</strong> 주소를 입력해주세요.</p>
       <form>
-        <input type="email" id="email-password" placeholder="회원 이메일 (fintech123@gmail.com)" required>
+        <input type="text" id="nameforpassword" placeholder="회원 이름 (홍길동)" required>
+        <input type="text" id="idforpassword" placeholder="회원 ID (fintech123)" required>
+        <input type="email" id="emailforpassword" placeholder="회원 이메일 (fintech123@gmail.com)" required>
+        <button type="submit" class="confirm-btn">비밀번호 찾기</button>
+
+        <div class="divider"></div>
+
+        <input type="password" id="passwordreset" placeholder="비밀번호 입력" required>
+        <input type="password" id="passwordcheck" placeholder="비밀번호 확인" required>
         <button type="submit" class="confirm-btn">비밀번호 재설정</button>
       </form>
       <div class="sign-up">

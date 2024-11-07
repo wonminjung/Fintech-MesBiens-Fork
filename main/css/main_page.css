@@ -165,7 +165,7 @@ body {
 
     .day {
         padding: 10px;
-        border: 1px solid var(--border-color);
+        /*border: 1px solid var(--border-color);*/
         text-align: center;
         border-radius: 10px;
     }

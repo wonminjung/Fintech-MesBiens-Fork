@@ -42,7 +42,6 @@ function createCalendar(month, year) {
                 dateDiv.appendChild(transDiv);
             });
         }
-
         dateGrid.appendChild(dateDiv);
     }
 }
