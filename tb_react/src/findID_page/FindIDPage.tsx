@@ -171,7 +171,7 @@ const FindIDPage: React.FC = () => {
             </form>
             <div className="sign-up">
               <p>
-                <a href="login_page.html">로그인</a> 하러가기
+                <a href="/login">로그인</a> 하러가기
               </p>
               <div className="intro_page">
                 <p>

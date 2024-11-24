@@ -14,9 +14,6 @@ const Header: React.FC = () => {
         <a href="/login" type="button" className="login-btn">
           로그인
         </a>
-        {/* <Link to="/login" type="button" className="login-btn">
-          로그인
-        </Link> */}
         <a href="/signup" type="button" className="sign-up-btn">
           회원가입
         </a>
