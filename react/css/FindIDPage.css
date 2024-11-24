@@ -1,4 +1,4 @@
-@import "styles.css";
+@import 'styles.css';
 * {
   box-sizing: border-box;
   margin: 0;
@@ -113,9 +113,9 @@ p.bottom_cont,
     margin-left: 10%;
 }*/
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type='text'],
+input[type='email'],
+input[type='password'] {
   width: 80%;
   height: 60px;
   padding: 10px;
@@ -194,7 +194,7 @@ input[type="password"] {
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex: 1; /* 양쪽 선이 동일한 비율로 늘어남 */
     height: 1px; /* 선의 두께 */
     background-color: #ccc; /* 선의 색상 */

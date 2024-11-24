@@ -1,4 +1,4 @@
-@import "styles.css";
+@import 'styles.css';
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 140vh;
+  height: 150vh;
   background-color: var(--bg-color);
 }
 
@@ -27,18 +27,17 @@ body {
     .top {
       background: var(--gradient);
       align-items: center;
-      color: white;
+      color: var(--text-color-white);
       padding: 20px;
       border-radius: var(--container-top-border-radius);
     }
   }
   .container_bottom {
-    background-color: var(--white);
+    background-color: var(--bg-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: var(--container-bottom-border-radius);
-
     .bottom {
-      background: var(--white);
+      background: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -51,38 +50,6 @@ body {
     .top {
       display: none;
     }
-  }
-}
-
-.tab {
-  display: flex;
-  justify-content: space-around;
-  background-color: var(--white);
-  padding: 10px;
-  & button {
-    background-color: transparent;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    &:hover {
-      background-color: var(--bg-hover-color);
-    }
-  }
-  & button.active {
-    font-weight: bold;
-    border-bottom: 2px solid var(--second-color);
-  }
-}
-.tab-content {
-  display: none;
-  padding: 20px;
-  &.active {
-    display: block;
-  }
-  & bottom-cont {
-    padding: 40px;
-    margin-left: 10%;
   }
 }
 
@@ -111,23 +78,25 @@ p.bottom_cont,
     margin-bottom: 5px;
     display: block;
     margin-left: 10%;
-}*/
+} */
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[id='name'],
+input[id='email'],
+input[id='username'],
+input[id='password'],
+input[id='confirm-password'] {
   width: 80%;
   height: 60px;
   padding: 10px;
   margin-bottom: 1em;
   border: 1px solid var(--border-color);
-  border-radius: var(--button-border-radius);
+  border-radius: var(--input-border-radius);
   margin-left: 10%;
 }
 
-.confirm-btn {
+.sign-up-btn {
   background-color: var(--button-color);
-  color: var(--text-color-white);
+  color: white;
   border: none;
   padding: 10px;
   border-radius: var(--button-border-radius);
@@ -140,7 +109,6 @@ input[type="password"] {
     background-color: var(--button-hover-color);
   }
 }
-
 .sign-up {
   display: flex;
   flex-direction: column; /* 세로 방향으로 나열 */
@@ -152,6 +120,9 @@ input[type="password"] {
     text-align: right;
     text-decoration: none;
     color: var(--text-color-dark);
+  }
+  & a:hover {
+    text-decoration: underline;
   }
 }
 
@@ -167,15 +138,11 @@ input[type="password"] {
   }
 }
 
-.sign-up a:hover {
-  text-decoration: underline;
-}
-
 .intro_page {
   display: flex;
   justify-content: right;
   width: 90%;
-  & a {
+  a {
     text-decoration: none;
     color: var(--text-color-dark);
     &:hover {
@@ -194,7 +161,7 @@ input[type="password"] {
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     flex: 1; /* 양쪽 선이 동일한 비율로 늘어남 */
     height: 1px; /* 선의 두께 */
     background-color: #ccc; /* 선의 색상 */
@@ -207,11 +174,34 @@ input[type="password"] {
   }
 }
 
-.showid {
+.sns-login {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 30px;
+  justify-content: space-between;
+  margin-left: 4em;
+  margin-right: 4em;
+  margin-bottom: 1em;
+  .naver_login,
+  .kakao_login,
+  .google_login {
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 4em;
+    height: 4em;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--sns-border-radius);
+    /*margin-right: 2em; margin-left: 2em;*/
+    margin-bottom: 10px;
+  }
+  /*
+  .naver_login {
+    background-image: url('../../images/naver_sns_circle.png');
+  }
+  .kakao_login {
+    background-image: url('../../images/kakao_sns_circle.png');
+  }
+  .google_login {
+    background-image: url('../../images/google_sns_circle.png');
+  }
+  */
 }
