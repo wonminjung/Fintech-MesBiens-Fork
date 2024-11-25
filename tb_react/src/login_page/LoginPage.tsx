@@ -72,7 +72,7 @@ const LoginPage: React.FC = () => {
             </div>
             <div className="intro_page">
               <p>
-                <a href="intro_page.html" className="intro_page2">
+                <a href="/intro" className="intro_page2">
                   홈으로
                 </a>{" "}
                 나가기

@@ -92,7 +92,7 @@ const SignupPage: React.FC = () => {
             </div>
             <div className="intro_page">
               <p>
-                <a href="intro_page.html">홈으로</a> 나가기
+                <a href="/intro">홈으로</a> 나가기
               </p>
             </div>
           </form>
