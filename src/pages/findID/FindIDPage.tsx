@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./FindIDPage.css";
+// import "./FindIDPage.css";
 
 const FindIDPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("findID");
