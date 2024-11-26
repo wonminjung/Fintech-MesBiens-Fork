@@ -8,6 +8,7 @@ const AccountListContainer = () => {
 
     return (
         <S.AccountListContainer>
+            {/* 계좌 없을 때 */}
             <S.AccountCardListWrapper>
                 {/* AccountCardList map 으로 반복 예정 */}
                 {
@@ -26,7 +27,7 @@ const AccountListContainer = () => {
                 }
             </S.AccountCardListWrapper>
 
-            {/* 임시용 */}
+            {/* 계좌 있을 때, 임시용 */}
             <S.AccountCardListWrapper>
                 <AccountCardListComponent />
             </S.AccountCardListWrapper>

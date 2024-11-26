@@ -17,18 +17,38 @@ const S = {
     `,
     // 설정 버튼
     SettingBtnContainer: styled.div`
+        height: 100%;
         position: relative;
-        height: 44px;
+        display: flex;
+        justify-content: flex-end;
+        /* height: 54px; */
+        
     `,
-    SettingBtn: styled.div`
-        position: absolute;
-        right: 12px;
-        top: 8px;
-        width: 34px;
-        height: 34px;
-        background-color: purple;
+    SettingBtn: styled.button`
+        all: unset;
+        display: flex;
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        margin: 8px 12px 0 0;
+        box-sizing: border-box;
+        color: gray;
+
+        &:hover {
+            background-color: lightgray;
+            filter: brightness(1.1);
+        }
+        &:active {
+            transform: scale(1.05);
+        }
+
+        & svg {
+            width: 24px;
+            height: 24px;
+        }
     `,
 
     /** UserProfileComponent.tsx */
@@ -94,28 +114,30 @@ const S = {
             margin-bottom: 30px;
             font-size: 19px;
 
-            & > a {
-                position: relative;
-                color: black;
-                text-decoration: none;
+            &:hover {
+                cursor: pointer;
+            }
 
-                /* 선택된 메뉴 */
-                &.selected {
-                    cursor: default;
-                };
+            /* li가 클릭이 되었다면 */
+            &[data-selectedMenu="true"] {
+                cursor: default;
 
-                /* 메뉴에 마우스 올렸을 때, 선택됐을 때 밑줄 표시 */
-                &:hover::before, &.selected::before {
-                    content: "";
-                    position: absolute;
-                    width: 100%;
-                    height: 2px;
-                    bottom: -7px;
-                    background-color: black;
-                    border-radius: 20px;
-                };
+                & > span {
+                    position: relative;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: 2px;
+                        bottom: -7px;
+                        left: 0;
+                        background-color: black;
+                        border-radius: 20px;
+                    }
+                }
 
-            };
+            }
+
         };
     `,
 

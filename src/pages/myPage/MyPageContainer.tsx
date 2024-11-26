@@ -6,10 +6,10 @@ import ContentAreaContainer from './contentArea/ContentAreaContainer';
 const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
     
     return (
-        <div>
+        <>
             <LeftAreaContainer />
             <ContentAreaContainer />
-        </div>
+        </>
     );
 };
 
