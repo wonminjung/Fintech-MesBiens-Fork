@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import "./LoginPage.css";
+import "./LoginPage.css";
+import S from './LoginStyle';
+import Elements_source from "../../global/Elements_source";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -12,13 +14,13 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <div className="container_top">
+    <S.LoginContainer>
+      <S.LoginContainer_top>
         <div className="top">
           <h1>Welcome Back!</h1>
         </div>
-      </div>
-      <div className="container_bottom">
+      </S.LoginContainer_top>
+      <S.LoginContainer_bottom>
         <div className="bottom">
           <h2 className="bottom_cont">로그인</h2>
           <p className="bottom_cont">
@@ -27,14 +29,14 @@ const LoginPage: React.FC = () => {
             회원 ID와 비밀번호를 입력하세요.
           </p>
           <form onSubmit={handleLogin}>
-            <input
-              type="text"
-              id="username"
-              placeholder="회원 ID (fintech123)"
-              required
+            <Elements_source.InputField
+                type="text"
+                id="username"
+                placeholder="회원 ID (fintech123)"
+                required
             />
-
-            <input
+            <br/>
+            <Elements_source.InputField
               type="password"
               id="password"
               placeholder="비밀번호 (123456)"
@@ -46,9 +48,7 @@ const LoginPage: React.FC = () => {
               <label htmlFor="remember">ID 기억하기</label>
             </div>
 
-            <button type="submit" className="login-btn">
-              Login
-            </button>
+            <Elements_source.DefaultButton width="80%">Login</Elements_source.DefaultButton>
 
             <div className="divider">
               <span>또는</span>
@@ -80,8 +80,8 @@ const LoginPage: React.FC = () => {
             </div>
           </form>
         </div>
-      </div>
-    </div>
+      </S.LoginContainer_bottom>
+    </S.LoginContainer>
   );
 };
 

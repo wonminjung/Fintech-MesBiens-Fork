@@ -5,6 +5,7 @@ import LoginPage from "../pages/login/LoginPage";
 import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
+import Elements from "../global/Elements";
 
 
 const routes: RouteObject[] = [
@@ -17,28 +18,31 @@ const routes: RouteObject[] = [
                 element: <MainPage />
             },
             {
-                path: "/login",
-                element: <LoginPage />
-            },
-            {
-                path: "/signup",
-                element: <SignupPage />
-            },
-            {
-                path: "/findId",
-                element: <FindIDPage />
-            },
-            {
                 path: "/myPage",
                 element: <MyPageContainer />
             },
         ]
     },
-
+    {
+        path: "/login",
+        element: <LoginPage />
+    },
+    {
+        path: "/signup",
+        element: <SignupPage />
+    },
+    {
+        path: "/findId",
+        element: <FindIDPage />
+    },
     // 나머지 경로
     {
         path: "*",
         // element: <NotFoundContainer />
+    },
+    {
+        path: "/elements",
+        element: <Elements />
     }
 ];
 
