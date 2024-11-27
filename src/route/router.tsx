@@ -5,7 +5,7 @@ import LoginPage from "../pages/login/LoginPage";
 import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
-import Elements from "../global/Elements";
+import Elements from "../components/Elements";
 
 
 const routes: RouteObject[] = [
