@@ -4,8 +4,8 @@ import styled from "styled-components";
 const S = {
     /** ContentAreaContainer.tsx */
     ContentAreaContainer: styled.div`
-        width: 75%;
-        margin: 14px 6px 14px 20px;
+        width: 85%;
+        margin: 18px 12px 18px 38px;
     `,
     SelectedMenuContentContainer: styled.div`
         padding-top: 18px;

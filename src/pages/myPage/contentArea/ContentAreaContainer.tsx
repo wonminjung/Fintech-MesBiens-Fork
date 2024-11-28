@@ -1,8 +1,15 @@
 import React from 'react';
 import S from './style';
 import AccountListContainer from './account/AccountListContainer';
+import { MenuList } from '../types';
 
-const ContentAreaContainer: React.FunctionComponent = (): JSX.Element => {
+type Props = {
+    menuList: MenuList[];
+};
+
+const ContentAreaContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Element => {
+    // const { list } = ;
+
     return (
         <S.ContentAreaContainer>
             <S.SelectedMenuContentContainer>

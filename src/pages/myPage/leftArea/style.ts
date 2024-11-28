@@ -99,6 +99,7 @@ const S = {
     LeftMenuContainer: styled.div`
         height: 65%;
         padding: 30px 39px;
+        /* padding: 3em; */
     `,
     // 왼쪽 메뉴
     LeftMenuWrapper: styled.ul`

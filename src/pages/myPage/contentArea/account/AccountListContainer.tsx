@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import S from './style';
 import AccountCardListComponent from './AccountCardListComponent';
 
-const AccountListContainer = () => {
+const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
 
     const [ isAccount, setIsAccount ] = useState(false);
 
