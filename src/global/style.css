@@ -41,3 +41,13 @@ body {
     background: var(--bg-color);
 }
 
+/* SNS Buttons */
+#NaverLogin {
+    background-image: url('../../public/images/SNSLogins/naver_sns_circle.png');
+}
+#KakaoLogin {
+    background-image: url('../../public/images/SNSLogins/kakao_sns_circle.png');
+}
+#GoogleLogin {
+    background-image: url('../../public/images/SNSLogins/google_sns_circle.png');
+}

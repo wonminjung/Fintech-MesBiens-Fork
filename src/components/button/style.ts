@@ -11,6 +11,7 @@ const Button = styled.button<{width?: string, height?: string}>`
     font-size: 1em;
     width: ${(props) => props.width || "5em"};
     height: ${(props) => props.height || "3em"};
+    transition: background 0.5s;
     &:hover {
         background-color: var(--button-hover-color);
     }
