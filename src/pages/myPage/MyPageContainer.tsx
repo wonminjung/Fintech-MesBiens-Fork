@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import LeftAreaContainer from './leftArea/LeftAreaContainer';
 import ContentAreaContainer from './contentArea/ContentAreaContainer';
 import { ToLeftMenuComponentTypes, MenuList } from './types';
+import S from './style';
 
 const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
 
-    /** LeftMenuComponent 로 보낼 Props */
-    const menuList: MenuList[] = [
+    /** LeftMenuComponent 로 전달할 Props */
+    let menuList: MenuList[] = [];
+    menuList = [
         {
             list: "계좌 관리",
-            component: <></>
+            component: <ContentAreaContainer menuList={menuList} />
         },
         {
             list: "2차 패스워드 설정",
@@ -30,16 +32,15 @@ const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
         menuList: menuList,
         selectedMenu: selectedMenu,
         handleClickMenu: handleClickMenu
-    }
+    };
 
 
     return (
         <>
+            {/* 좌측 사이드 */}
             <LeftAreaContainer toLeftMenuComponent={toLeftMenuComponent} />
-            {menuList.map((menu, i) => {
-
-            })}
-            <ContentAreaContainer menuList={menuList} />
+            {/* 메인 컨텐츠 */}
+            <ContentAreaContainer menuList={menuList} selectedMenu={selectedMenu}/>
         </>
     );
 };
