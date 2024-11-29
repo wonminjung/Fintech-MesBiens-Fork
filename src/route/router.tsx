@@ -5,45 +5,48 @@ import LoginPage from "../pages/login/LoginPage";
 import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
-import Elements from "../components/Elements";
-
+import IntroPage from "../pages/main/IntroPage";
 
 const routes: RouteObject[] = [
-    {
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
         path: "/",
-        element: <Layout />,
-        children: [
-            {
-                path: "/",
-                element: <MainPage />
-            },
-            {
-                path: "/myPage",
-                element: <MyPageContainer />
-            },
-        ]
-    },
-    {
-        path: "/login",
-        element: <LoginPage />
-    },
-    {
-        path: "/signup",
-        element: <SignupPage />
-    },
-    {
-        path: "/findId",
-        element: <FindIDPage />
-    },
-    // 나머지 경로
-    {
-        path: "*",
-        // element: <NotFoundContainer />
-    },
-    {
-        path: "/elements",
-        element: <Elements />
-    }
+        element: <MainPage />,
+      },
+      {
+        path: "/myPage",
+        element: <MyPageContainer />,
+      },
+      {
+        path: "/main",
+        element: <MainPage />,
+      },
+      {
+        path: "/intro",
+        element: <IntroPage />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
+  },
+  {
+    path: "/findId",
+    element: <FindIDPage />,
+  },
+  // 나머지 경로
+  {
+    path: "*",
+    // element: <NotFoundContainer />
+  },
 ];
 
 const router = createBrowserRouter(routes);

@@ -4,13 +4,12 @@ import S from "./style";
 const Header: React.FunctionComponent = (): JSX.Element => {
   return (
     <S.HeaderContainer>
-      <S.HeaderWelcome>###님 환영합니다.</S.HeaderWelcome>
-
+      <S.HeaderWelcome>###님 환영합니다.</S.HeaderWelcome>{" "}
+      {/* 값 입력 수정 필요 */}
       <S.SearchBarContainer>
         <S.SearchInput type="text" placeholder="Search" />
         <S.SearchBtn type="button">검색</S.SearchBtn>
       </S.SearchBarContainer>
-
       <S.LoginSignupContainer>
         <S.LoginSignupBtn href="/login" type="button">
           로그인

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import L from "../login/LoginStyle";
+import DefaultInputField from "../../components/inputfield/InputField";
+import DefaultButton from "../../components/button/DefaultButton";
 // import "./FindIDPage.css";
 
 const FindIDPage: React.FC = () => {
@@ -33,159 +36,161 @@ const FindIDPage: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <div className="container_top">
-        <div className="top">
+    <L.Body>
+      <L.MainContainer>
+        <L.Container_top>
           <h1>ID / 비밀번호 찾기</h1>
-        </div>
-      </div>
-      <div className="tab">
-        <button
-          className={`tablinks ${activeTab === "findID" ? "active" : ""}`}
-          onClick={() => handleTabClick("findID")}
-        >
-          아이디 찾기
-        </button>
-        <button
-          className={`tablinks ${activeTab === "findPassword" ? "active" : ""}`}
-          onClick={() => handleTabClick("findPassword")}
-        >
-          비밀번호 찾기
-        </button>
-      </div>
-      <div className="container_bottom">
-        {activeTab === "findID" && (
-          <div className="tab-content active" id="findID">
-            <p className="bottom_cont">
-              <strong>등록된 이메일로 ID 찾기</strong>
-              <br />
-              <br />
-              등록된 <strong>회원 이름과 이메일 주소</strong> 를 입력해주세요.
-            </p>
-            <form onSubmit={handleFindIDSubmit}>
-              <input
-                type="text"
-                id="name"
-                placeholder="회원 이름 (홍길동)"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-              <input
-                type="email"
-                id="email"
-                placeholder="회원 이메일 (fintech123@gmail.com)"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="confirm-btn">
-                인증번호 받기
-              </button>
-              <div className="divider"></div>
-              <input
-                type="text"
-                id="confirm-id"
-                placeholder="인증번호 입력"
-                value={confirmID}
-                onChange={(e) => setConfirmID(e.target.value)}
-                required
-              />
-              <button type="submit" className="confirm-btn">
-                확인
-              </button>
-            </form>
-            <div className="divider"></div>
-            <div className="showid">회원님의 ID는 000입니다.</div>
-            <div className="sign-up">
-              <p>
-                <a href="/login">로그인</a> 하러가기
-              </p>
-              <div className="intro_page">
-                <p>
+        </L.Container_top>
+        <L.Container_tab>
+          <button
+            className={`tablinks ${activeTab === "findID" ? "active" : ""}`}
+            onClick={() => handleTabClick("findID")}
+            style={{ flex: 0.5, padding: "15px 0", transition: "0.5s" }}
+          >
+            아이디 찾기
+          </button>
+          <button
+            className={`tablinks ${
+              activeTab === "findPassword" ? "active" : ""
+            }`}
+            onClick={() => handleTabClick("findPassword")}
+            style={{ flex: 0.5, padding: "15px 0", transition: "0.5s" }}
+          >
+            비밀번호 찾기
+          </button>
+        </L.Container_tab>
+        <L.Container_bottom>
+          {activeTab === "findID" && (
+            <div className="tab-content active" id="findID">
+              <L.P_tag>
+                <strong>등록된 이메일로 ID 찾기</strong>
+                <br />
+                <br />
+                등록된 <strong>회원 이름과 이메일 주소</strong> 를 입력해주세요.
+              </L.P_tag>
+              <form onSubmit={handleFindIDSubmit}>
+                <DefaultInputField
+                  type="text"
+                  id="name"
+                  placeholder="회원 이름 (홍길동)"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+                <DefaultInputField
+                  type="email"
+                  id="email"
+                  placeholder="회원 이메일 (fintech123@gmail.com)"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <DefaultButton type="submit" width="100%" height="2.5em">
+                  인증번호 받기
+                </DefaultButton>
+                <L.Divider />
+                <DefaultInputField
+                  type="text"
+                  id="confirm-id"
+                  placeholder="인증번호 입력"
+                  value={confirmID}
+                  onChange={(e) => setConfirmID(e.target.value)}
+                  required
+                />
+                <DefaultButton type="submit" width="100%" height="2.5em">
+                  확인
+                </DefaultButton>
+              </form>
+              <L.Divider />
+              <L.P_tag>회원님의 ID는 000입니다.</L.P_tag>{" "}
+              {/* 값이 들어 올 수 있도록 수정 필요 */}
+              <L.SignUp>
+                <L.P_tag>
+                  <a href="/login">로그인</a> 하러가기
+                </L.P_tag>
+              </L.SignUp>
+              <L.IntroPage>
+                <L.P_tag>
+                  <a href="/intro">홈으로</a> 나가기
+                </L.P_tag>
+              </L.IntroPage>
+            </div>
+          )}
+          {activeTab === "findPassword" && (
+            <div className="tab-content active" id="findPassword">
+              <L.P_tag>
+                <strong>등록된 이메일로 비밀번호 찾기</strong>
+                <br />
+                <br />
+                등록된 <strong>회원 이메일</strong> 주소를 입력해주세요.
+              </L.P_tag>
+              <form onSubmit={handleFindPasswordSubmit}>
+                <DefaultInputField
+                  type="text"
+                  id="nameforpassword"
+                  placeholder="회원 이름 (홍길동)"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+                <DefaultInputField
+                  type="text"
+                  id="idforpassword"
+                  placeholder="회원 ID (fintech123)"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+                <DefaultInputField
+                  type="email"
+                  id="emailforpassword"
+                  placeholder="회원 이메일 (fintech123@gmail.com)"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <DefaultButton type="submit" width="100%" height="2.5em">
+                  비밀번호 찾기
+                </DefaultButton>
+                <L.Divider />
+                <DefaultInputField
+                  type="password"
+                  id="passwordreset"
+                  placeholder="비밀번호 입력"
+                  value={passwordReset}
+                  onChange={(e) => setPasswordReset(e.target.value)}
+                  required
+                />
+                <DefaultInputField
+                  type="password"
+                  id="passwordcheck"
+                  placeholder="비밀번호 확인"
+                  value={passwordCheck}
+                  onChange={(e) => setPasswordCheck(e.target.value)}
+                  required
+                />
+                <DefaultButton type="submit" width="100%" height="2.5em">
+                  비밀번호 재설정
+                </DefaultButton>
+              </form>
+              <L.SignUp>
+                <L.P_tag>
+                  <a href="/login">로그인</a> 하러가기
+                </L.P_tag>
+              </L.SignUp>
+              <L.IntroPage>
+                <L.P_tag>
                   <a href="/intro" className="intro_page2">
                     홈으로
                   </a>{" "}
                   나가기
-                </p>
-              </div>
+                </L.P_tag>
+              </L.IntroPage>
             </div>
-          </div>
-        )}
-        {activeTab === "findPassword" && (
-          <div className="tab-content active" id="findPassword">
-            <p className="bottom_cont">
-              <strong>등록된 이메일로 비밀번호 찾기</strong>
-              <br />
-              <br />
-              등록된 <strong>회원 이메일</strong> 주소를 입력해주세요.
-            </p>
-            <form onSubmit={handleFindPasswordSubmit}>
-              <input
-                type="text"
-                id="nameforpassword"
-                placeholder="회원 이름 (홍길동)"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                id="idforpassword"
-                placeholder="회원 ID (fintech123)"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-              <input
-                type="email"
-                id="emailforpassword"
-                placeholder="회원 이메일 (fintech123@gmail.com)"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="confirm-btn">
-                비밀번호 찾기
-              </button>
-              <div className="divider"></div>
-              <input
-                type="password"
-                id="passwordreset"
-                placeholder="비밀번호 입력"
-                value={passwordReset}
-                onChange={(e) => setPasswordReset(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                id="passwordcheck"
-                placeholder="비밀번호 확인"
-                value={passwordCheck}
-                onChange={(e) => setPasswordCheck(e.target.value)}
-                required
-              />
-              <button type="submit" className="confirm-btn">
-                비밀번호 재설정
-              </button>
-            </form>
-            <div className="sign-up">
-              <p>
-                <a href="/login">로그인</a> 하러가기
-              </p>
-              <div className="intro_page">
-                <p>
-                  <a href="/intro" className="intro_page2">
-                    홈으로
-                  </a>{" "}
-                  나가기
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+          )}
+        </L.Container_bottom>
+      </L.MainContainer>
+    </L.Body>
   );
 };
 
