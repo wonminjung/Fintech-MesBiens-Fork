@@ -1,5 +1,6 @@
 import React from "react";
 import S from "./style";
+import { Button } from "../../../components/button/style";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
   return (
