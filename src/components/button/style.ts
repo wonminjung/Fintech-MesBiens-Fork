@@ -10,7 +10,7 @@ export const Button = styled.button<{ width?: string; height?: string }>`
   cursor: pointer;
   font-size: 1em;
   width: ${(props) => props.width || "5em"};
-  height: ${(props) => props.height || "3em"};
+  height: ${(props) => props.height || "2em"};
   transition: background-color 0.5s;
   &:hover {
     background-color: var(--button-hover-color);

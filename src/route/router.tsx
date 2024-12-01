@@ -6,6 +6,7 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPage";
+import MyPortfolio from "../pages/myportfolio/MyPortfolioPage";
 
 const routes: RouteObject[] = [
   {
@@ -28,6 +29,10 @@ const routes: RouteObject[] = [
         path: "/intro",
         element: <IntroPage />,
       },
+      {
+        path: "/myportfolio",
+        element: <MyPortfolio />,
+      },
     ],
   },
   {
@@ -45,7 +50,7 @@ const routes: RouteObject[] = [
   // 나머지 경로
   {
     path: "*",
-    // element: <NotFoundContainer />
+    // element: <NotFoundContainer />,
   },
 ];
 
