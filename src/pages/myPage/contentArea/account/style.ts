@@ -2,6 +2,39 @@ import "../../../../global/style.css";
 import styled from "styled-components";
 
 const S = {
+    /** AccountContainer.tsx */
+    SelectedMenuHeaderContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    `,
+    // 선택 메뉴 제목
+    MenuTitle: styled.div`
+        font-size: 32px;
+        font-weight: bold;
+    `,
+    // 검색 및 정렬
+    SearchAndSortWrapper: styled.div`
+        display: flex;
+        justify-content: center;
+        width: 40%;
+        height: 70%;
+    `,
+    AccountSearch: styled.div`
+        display: flex;
+        width: 60%;
+        align-items: center;
+    `,
+    AccountSort: styled.div`
+        display: flex;
+        width: 40%;
+        align-items: center;
+        justify-content: center;
+        background-color: lightgray;
+        width: 100px;
+        margin-left: 12px;
+        font-size: 14px;
+    `,
+
     /** AccountListContainer.tsx */
     AccountListContainer: styled.div`
         height: 2000px;
@@ -29,8 +62,8 @@ const S = {
         width: 84px;
         height: 84px;
         border-radius: 50%;
-        background-color: lightgreen;
-        font-size: 60px;
+        background-color: lightgray;
+        font-size: 42px;
         align-items: center;
         justify-content: center;
         text-align: center;

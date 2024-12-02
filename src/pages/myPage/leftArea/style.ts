@@ -109,6 +109,7 @@ const S = {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        user-select: none;
 
         & > li {
             height: calc(100% / 5 - 48px);

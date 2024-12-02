@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import S from './style';
 import AccountCardListComponent from './AccountCardListComponent';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
 
@@ -16,7 +18,9 @@ const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
                     <AccountCardListComponent />
                     :
                     <S.EmptyAccountWrapper>
-                        <S.AddAccountBtn>+</S.AddAccountBtn>
+                        <S.AddAccountBtn>
+                            <FontAwesomeIcon icon={faPlus} />
+                        </S.AddAccountBtn>
                         <S.EmptyAccountDescription>
                             등록된 계좌가 없습니다!
                         </S.EmptyAccountDescription>

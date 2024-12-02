@@ -7,14 +7,14 @@ type Props = {
 };
 
 const LeftMenuComponent: React.FunctionComponent<Props> = ({ toLeftMenuComponent }): JSX.Element => {
-    const { menuList, selectedMenu, handleClickMenu } = toLeftMenuComponent;
+    const { menuList, selectedMenuIndex, handleClickMenu } = toLeftMenuComponent;
 
     return (
         <S.LeftMenuContainer>
             <S.LeftMenuWrapper>
                 {
                     menuList.map((menu: MenuList, i: number): JSX.Element => (
-                        <li key={i} onClick={handleClickMenu} data-selectedMenu={selectedMenu === menu.list}>
+                        <li key={i} onClick={() => handleClickMenu(i)} data-selectedMenu={selectedMenuIndex === i}>
                             <span>{menu.list}</span>
                         </li>
                     ))

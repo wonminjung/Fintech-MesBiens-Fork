@@ -1,12 +1,13 @@
 /** MyPageContainer.tsx */
 export type MenuList = {
     list: string;
-    component: JSX.Element;
+    isSearchable: boolean;
+    component: (props: any) => JSX.Element;
 }
 
-// 컴포넌트 당 보낼 프롭스
+// 컴포넌트에 전달할 props 타입
 export type ToLeftMenuComponentTypes = {
     menuList: MenuList[];
-    selectedMenu: string | null;
-    handleClickMenu: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void
+    selectedMenuIndex: number;
+    handleClickMenu: (index: number) => void
 }
