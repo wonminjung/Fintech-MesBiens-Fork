@@ -3,9 +3,14 @@ import AccountListContainer from './AccountListContainer';
 import S from './style';
 import { MenuList } from '../../types';
 
-type Props = MenuList;
+type Props = {
+    menuList: MenuList;
+    selectedMenuIndex: number;
+};
 
-const AccountContainer: React.FunctionComponent<Props> = ({ list, isSearchable }): JSX.Element => {
+const AccountContainer: React.FunctionComponent<Props> = ({ menuList, selectedMenuIndex }): JSX.Element => {
+    const { list, isSearchable } = menuList;
+    
     return (
         <>
             <S.SelectedMenuHeaderContainer>

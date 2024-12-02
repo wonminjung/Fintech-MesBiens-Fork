@@ -125,14 +125,20 @@ const S = {
     `,
     BaniInfo: styled.div`
         margin-left: 12px;
+        user-select: none;
         & h4 {
             margin: 0;
             font-size: 15px;
         }
     `,
-    AccountNumberCopyBtn: styled.div`
+    AccountNumberCopyBtn: styled.button`
+        all: unset;
         width: 22px;
         height: 22px;
+
+        &:active {
+            transform: scale(1.05);
+        }
 
         & img {
             width: 100%;
@@ -158,8 +164,46 @@ const S = {
         height: 72px;
         justify-content: flex-end;
     `,
-    // 잔액 숨기기 버튼 (작성 예정)
-    BalanceHideBtn: styled.input``,
+    // 잔액 숨기기 버튼
+    BalanceHideBtn: styled.div`
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            position: relative;
+            height: 40px;
+            width: 70px;
+            background-color: white;
+            border: 2px solid #eee;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin: 10px;
+
+            /* on/off에 따라 움직일 버튼 */
+            &:after {
+                content: "";
+                display: block;
+                width: 40px;
+                height: 40px;
+                background-color: white;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 0 1px #ddd;
+                transition: all 0.3s ease-in-out;
+                position: absolute;
+                right: 43%;
+                border-radius: 20px;
+            }
+        }
+
+        input[type="checkbox"]:checked + label {
+            background-color: #00e169;
+            &:after {
+                right: 0;
+            }
+        }
+    `,
     Balance: styled.div`
         display: flex;
         width: 40%;
@@ -167,8 +211,13 @@ const S = {
         border-radius: 20px;
         align-items: center;
         font-size: 22px;
-        & span {
+
+        & > span {
             padding-left: 18px;
+
+            &.balance-hidden {
+                display: none;
+            }
         }
     `,
     RemittanceBtn: styled.button`
@@ -180,6 +229,32 @@ const S = {
         &:active {
             background-color: green;
         }
+    `,
+    CopyMessage: styled.div`
+        position: absolute;
+        /* top: 10px;
+        right: 10px; */
+        /* bottom: 10%; */
+        justify-content: center;
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        /* animation: fadeOut 2s forwards; */
+/* 
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+            }
+        } */
     `,
 };
 

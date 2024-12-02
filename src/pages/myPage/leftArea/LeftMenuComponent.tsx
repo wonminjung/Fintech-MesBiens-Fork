@@ -14,7 +14,7 @@ const LeftMenuComponent: React.FunctionComponent<Props> = ({ toLeftMenuComponent
             <S.LeftMenuWrapper>
                 {
                     menuList.map((menu: MenuList, i: number): JSX.Element => (
-                        <li key={i} onClick={() => handleClickMenu(i)} data-selectedmenu={selectedMenuIndex === i}>
+                        <li key={i} onClick={(): void => handleClickMenu(i)} data-selectedmenu={selectedMenuIndex === i}>
                             <span>{menu.list}</span>
                         </li>
                     ))
