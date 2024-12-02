@@ -1,7 +1,7 @@
 import React from "react";
 import S from "./style";
-import { Button } from "../../../components/button/style";
 import AccountListContainer from "./account/AccountListContainer";
+import PlainButton from "../../../components/button/PlainButton";
 
 const ContentAreaContainer: React.FunctionComponent = (): JSX.Element => {
   return (
@@ -13,7 +13,7 @@ const ContentAreaContainer: React.FunctionComponent = (): JSX.Element => {
           <S.SearchAndSortWrapper>
             {/* 검색창 */}
             <S.AccountSearch />
-            <Button>정렬 순서</Button>
+            <PlainButton>정렬 순서</PlainButton>
           </S.SearchAndSortWrapper>
         </S.SelectedMenuHeaderContainer>
 

@@ -16,8 +16,8 @@
   --text-color-dark: var(--first-color);
   --text-color-light: var(--second-color);
   --text-color-grey: var(--grey);
-  --button-color: var(--second-color);
-  --button-hover-color: var(--first-color);
+  --button-color: var(--first-color);
+  --button-hover-color: var(--second-color);
   --border-color: var(--grey);
   --gradient: linear-gradient(to top, var(--third-color), var(--first-color));
 
@@ -39,7 +39,7 @@
   --container-bottom-border-radius: 0px 0px 20px 20px;
   --sidebar-border-raduis: 0px 20px 20px 0px;
   --button-border-radius: 10px;
-  --input-border-radius: 10px;
+  --input-border-radius: 5px;
   --sns-border-radius: 50px;
 }
 
@@ -60,3 +60,7 @@ body {
 #GoogleLogin {
   background-image: url("../../public/images/SNSLogins/google_sns_circle.png");
 }
+/* Search Icon
+#SearchIcon {
+  background-image: url("../../public/images/SearchIcon.png");
+} */

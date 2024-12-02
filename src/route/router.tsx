@@ -6,7 +6,12 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPage";
-import MyPortfolio from "../pages/myportfolio/MyPortfolioPage";
+import Portfolio from "../pages/myportfolio/Portfolio";
+import News from "../pages/myportfolio/News";
+import Recommend from "../pages/myportfolio/Recommend";
+import Transaction from "../pages/myportfolio/Transaction";
+import Notice from "../pages/myportfolio/Notice";
+import Notification from "../pages/myportfolio/Notification";
 
 const routes: RouteObject[] = [
   {
@@ -31,7 +36,31 @@ const routes: RouteObject[] = [
       },
       {
         path: "/myportfolio",
-        element: <MyPortfolio />,
+        element: <Portfolio />,
+      },
+      {
+        path: "/P_portfolio",
+        element: <Portfolio />,
+      },
+      {
+        path: "/P_news",
+        element: <News />,
+      },
+      {
+        path: "/P_recommend",
+        element: <Recommend />,
+      },
+      {
+        path: "P_transaction",
+        element: <Transaction />,
+      },
+      {
+        path: "P_notice",
+        element: <Notice />,
+      },
+      {
+        path: "P_notification",
+        element: <Notification />,
       },
     ],
   },

@@ -6,11 +6,11 @@ const S = {
     flex-direction: column;
     width: 15%;
     min-width: 250px;
-    background: var(--gradient);
+    background: var(--first-color);
     color: #fff;
     padding: 20px 0 20px 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    /* border-top-right-radius: 20px; */
+    /* border-bottom-right-radius: 20px; */
 
     /* 24.11.25 추가. 웹 페이지 하단에 뜨던 부분 없애줌 */
     height: 100vh;

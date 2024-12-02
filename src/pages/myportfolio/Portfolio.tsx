@@ -1,25 +1,12 @@
 import React from "react";
 import P from "./style";
+import MenuBar from "./MenuBar";
+import VerticalDivider from "../../components/divider/VerticalDivider";
 
-const PortfolioArea: React.FC = () => {
+const Portfolio: React.FC = () => {
   return (
     <P.MainContainer>
-      <P.MenuBar>
-        <ul>
-          <li>
-            <P.MenuButton href="/P_portfolio">포트폴리오</P.MenuButton>
-          </li>
-          <li>
-            <P.MenuButton href="/P_news">뉴스</P.MenuButton>
-          </li>
-          <li>
-            <P.MenuButton href="/P_recommend">주식추천</P.MenuButton>
-          </li>
-          <li>
-            <P.MenuButton href="/P_transaction">주식 거래</P.MenuButton>
-          </li>
-        </ul>
-      </P.MenuBar>
+      <MenuBar />
       <P.BottomContainer>
         <P.PortfolioItem>
           <h3>나의 보유 주식 포트폴리오</h3>
@@ -29,6 +16,7 @@ const PortfolioArea: React.FC = () => {
             </div>
           </P.PortfolioContent>
         </P.PortfolioItem>
+        <VerticalDivider />
         <P.PortfolioItem>
           <P.H3>보유 주식 리스트</P.H3>
           <P.StockList>
@@ -51,4 +39,4 @@ const PortfolioArea: React.FC = () => {
   );
 };
 
-export default PortfolioArea;
+export default Portfolio;

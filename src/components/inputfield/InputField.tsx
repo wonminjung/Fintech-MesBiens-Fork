@@ -1,5 +1,5 @@
 import React from "react";
-import InputField from "./style";
+import { InputField, InputFieldBorder } from "./style";
 
 interface InputProps {
   children?: React.ReactNode;

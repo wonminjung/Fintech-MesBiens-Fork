@@ -17,7 +17,7 @@ const LoginPage: React.FC = () => {
     <L.Body>
       <L.MainContainer>
         <L.Container_top>
-          <h1 style={{ fontSize: "3em" }}>Login</h1>
+          <h1 style={{ fontSize: "3em" }}>로그인</h1>
         </L.Container_top>
         <L.Container_bottom>
           <L.P_tag>회원 ID와 비밀번호를 입력하세요.</L.P_tag>

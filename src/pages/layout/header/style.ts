@@ -3,7 +3,7 @@ import styled from "styled-components";
 const S = {
   HeaderContainer: styled.div`
     /* border: 2px solid black; */
-    border-radius: 20px;
+    border-radius: 10px 0 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -14,7 +14,7 @@ const S = {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   `,
   HeaderWelcome: styled.h2`
-    border-radius: 10px;
+    /* border-radius: 10px; */
     flex: 0.5;
     min-width: 300px;
 
@@ -48,7 +48,7 @@ const S = {
     }
   `,
   SearchBtn: styled.button`
-    width: 70px;
+    /* width: 70px;
     height: 25px;
     margin-right: 80px;
     border-radius: 10px;
@@ -64,7 +64,7 @@ const S = {
 
     @media (max-width: 600px) {
       width: 100%;
-    }
+    } */
   `,
   LoginSignupContainer: styled.div`
     display: flex;

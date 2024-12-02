@@ -18,7 +18,7 @@ const L = {
     text-align: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: var(--container-top-border-radius);
-    background: var(--gradient);
+    background: var(--first-color);
     align-items: center;
     color: var(--white);
   `,

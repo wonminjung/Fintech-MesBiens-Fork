@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import PortfolioArea from "./PortfolioArea";
 
 const P = {
   MainContainer: styled.div`
@@ -14,8 +13,7 @@ const P = {
     display: flex;
     justify-content: space-around;
     margin-bottom: 10px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 10px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     & ul {
@@ -34,7 +32,6 @@ const P = {
     font-weight: bold; /* 글자 굵게 */
     padding: 10px 20px;
     /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-    transition: all 0.3s ease; /* 부드러운 전환 효과 */
     box-sizing: border-box; /* 패딩과 테두리를 요소의 크기 내에 포함 */
     overflow: visible; /* 박스가 짤리지 않도록 설정 */
     margin: 5px; /* 메뉴 항목 사이의 간격을 추가하여 짤림 방지 */
@@ -44,15 +41,15 @@ const P = {
     &::after {
       content: "";
       position: absolute;
-      left: 0;
-      bottom: -1px;
-      width: 0;
-      height: 2px;
+      right: 10px;
+      bottom: 0;
+      width: 2px;
+      height: 0;
       background-color: black;
-      transition: width 0.3s ease-in;
+      transition: height 0.5s ease-in-out;
     }
     &:hover::after {
-      width: 100%;
+      height: 100%;
     }
   `,
   BottomContainer: styled.div`
@@ -63,10 +60,10 @@ const P = {
   PortfolioItem: styled.div`
     width: 45%;
     /* border: 1px solid #ccc; */
-    border-radius: 8px;
+    /* border-radius: 8px; */
     padding: 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: var(--forth-color);
+    /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); */
+    background-color: var(--container-color);
   `,
   PortfolioContent: styled.div`
     display: flex;

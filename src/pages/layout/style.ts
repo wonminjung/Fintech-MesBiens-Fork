@@ -9,7 +9,7 @@ const S = {
   MainContentContainer: styled.main`
     flex: 1;
     margin-top: 20px;
-    padding: 0 20px;
+    padding-left: 20px;
     height: 97vh;
   `,
 
@@ -18,7 +18,7 @@ const S = {
     display: flex;
     height: calc(100vh - 130px);
     /* border: 2px solid black; */
-    border-radius: 20px;
+    border-radius: 10px 0 0 10px;
     background: var(--container-color);
     box-sizing: border-box;
     box-shadow: 0 20px rgba(0, 0, 0, 0.1);

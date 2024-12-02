@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "./style";
+import { DButton } from "./style";
 
 interface ButtonProps {
   children?: React.ReactNode;
@@ -8,9 +8,9 @@ interface ButtonProps {
 
 const DefaultButton: React.FC<ButtonProps> = ({ children, ...rest }) => {
   return (
-    <Button type="submit" {...rest}>
+    <DButton type="submit" {...rest}>
       {children}
-    </Button>
+    </DButton>
   );
 };
 

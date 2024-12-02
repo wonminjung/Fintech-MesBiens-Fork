@@ -1,6 +1,6 @@
 import React from "react";
 import C from "./style";
-import { Button } from "../../../components/button/style";
+import PlainButton from "../../../components/button/PlainButton";
 
 const Calendar: React.FC = () => {
   return (
@@ -8,13 +8,13 @@ const Calendar: React.FC = () => {
       <h2>지출 캘린더</h2>
       <hr style={{ borderStyle: "solid" }} />
       <C.Month>
-        <Button width="45px" height="30px" style={{ margin: "5px" }}>
+        <PlainButton width="45px" height="30px" style={{ margin: "5px" }}>
           ◀
-        </Button>
+        </PlainButton>
         <h2 id="monthYear">October 2024</h2> {/* 변수 지정하기 */}
-        <Button width="45px" height="30px" style={{ margin: "5px" }}>
+        <PlainButton width="45px" height="30px" style={{ margin: "5px" }}>
           ▶
-        </Button>
+        </PlainButton>
       </C.Month>
       <C.Days>
         <C.Day>일</C.Day>
