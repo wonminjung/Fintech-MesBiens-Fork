@@ -34,6 +34,7 @@ const Header: React.FC<HeaderProps> = ({ userName }): JSX.Element => {
         />
         {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
       </PlainButton>
+      <VerticalDivider />
       <S.LoginSignupContainer>
         <Link to="/login">
           <PlainButton>로그인</PlainButton>

@@ -22,6 +22,9 @@ const S = {
       width: 100%;
     }
   `,
+  SearchContainer: styled.div`
+    text-align: right;
+  `,
   SearchBarContainer: styled.div`
     display: flex;
     align-items: center;

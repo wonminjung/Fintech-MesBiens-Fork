@@ -54,13 +54,14 @@ const P = {
   `,
   BottomContainer: styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 20px;
+    height: 100%;
   `,
   PortfolioItem: styled.div`
     width: 45%;
-    /* border: 1px solid #ccc; */
-    /* border-radius: 8px; */
+    border: 1px solid #ccc;
+    border-radius: 5px;
     padding: 20px;
     /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); */
     background-color: var(--container-color);

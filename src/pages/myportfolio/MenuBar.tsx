@@ -27,14 +27,13 @@ const MenuBar: React.FC = () => {
         <li>
           <P.MenuButton href="/P_notice">자유 게시판</P.MenuButton>
         </li>
+        <PlainButton onClick={Notification}>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/NotificationIcon.png`}
+            alt="Notification"
+          />
+        </PlainButton>
       </ul>
-      <PlainButton onClick={Notification}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/NotificationIcon.png`}
-          alt="Notification"
-        />
-        {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
-      </PlainButton>
     </P.MenuBar>
   );
 };
