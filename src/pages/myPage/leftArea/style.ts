@@ -121,7 +121,7 @@ const S = {
             }
 
             /* li가 클릭이 되었다면 */
-            &[data-selectedMenu="true"] {
+            &[data-selectedmenu="true"] {
                 cursor: default;
 
                 & > span {

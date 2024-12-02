@@ -8,11 +8,10 @@ type Props = {
 };
 
 const ContentAreaContainer: React.FunctionComponent<Props> = ({ menuList, selectedMenuIndex }): JSX.Element => {
-
     return (
         <S.ContentAreaContainer>
             <S.SelectedMenuContentContainer>
-                {menuList.map((menu) => menu.component(menuList[selectedMenuIndex]))}
+                {menuList[selectedMenuIndex].component(menuList[selectedMenuIndex])}
             </S.SelectedMenuContentContainer>
         </S.ContentAreaContainer>
     );
