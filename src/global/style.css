@@ -1,42 +1,66 @@
 /* 색상 */
 :root {
-    --first-color: #243642;
-    --second-color: #387478;
-    --third-color: #629584;
-    --forth-color: #E2F1E7;
-    --white: #FFF;
-    --black: #000;
-    --grey: #666;
+  --first-color: #243642;
+  --second-color: #387478;
+  --third-color: #629584;
+  --forth-color: #e2f1e7;
+  --white: #fff;
+  --black: #000;
+  --grey: #666;
 
+  --bg-color: var(--forth-color);
+  --bg-hover-color: var(--forth-color);
+  --container-color: var(--white);
+  --text-color-white: var(--white);
+  --text-color-black: var(--black);
+  --text-color-dark: var(--first-color);
+  --text-color-light: var(--second-color);
+  --text-color-grey: var(--grey);
+  --button-color: var(--first-color);
+  --button-hover-color: var(--second-color);
+  --border-color: var(--grey);
+  --gradient: linear-gradient(to top, var(--third-color), var(--first-color));
 
-    --bg-color: var(--forth-color);
-    --bg-hover-color: var(--forth-color);
-    --container-color: var(--white);
-    --text-color-white: var(--white);
-    --text-color-black: var(--black);
-    --text-color-dark: var(--first-color);
-    --text-color-light: var(--second-color);
-    --text-color-grey: var(--grey);
-    --button-color: var(--second-color);
-    --button-hover-color: var(--first-color);
-    --border-color: var(--grey);
-    --gradient: linear-gradient(to top, var(--third-color), var(--first-color));
+  --scrollbar-color: lightgrey;
+  --scrollbaractive-color: darkgrey;
+}
+
+/* 텍스트 크기 */
+:root {
+  --Title: 50px;
+  --Subtitle: 35px;
+  --text: 20px;
 }
 
 /* 테두리 모서리 */
 :root {
-    --container-border-radius: 20px;
-    --container-top-border-radius: 20px 20px 0px 0px;
-    --container-bottom-border-radius: 0px 0px 20px 20px;
-    --sidebar-border-raduis: 0px 20px 20px 0px;
-    --button-border-radius: 10px;
-    --input-border-radius: 10px;
-    --sns-border-radius: 50px;
+  --container-border-radius: 20px;
+  --container-top-border-radius: 20px 20px 0px 0px;
+  --container-bottom-border-radius: 0px 0px 20px 20px;
+  --sidebar-border-raduis: 0px 20px 20px 0px;
+  --button-border-radius: 10px;
+  --input-border-radius: 5px;
+  --sns-border-radius: 50px;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0px;
-    padding: 0px;
-    background: var(--bg-color);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-color);
 }
+
+/* SNS Buttons */
+#NaverLogin {
+  background-image: url("../../public/images/SNSLogins/naver_sns_circle.png");
+}
+#KakaoLogin {
+  background-image: url("../../public/images/SNSLogins/kakao_sns_circle.png");
+}
+#GoogleLogin {
+  background-image: url("../../public/images/SNSLogins/google_sns_circle.png");
+}
+/* Search Icon
+#SearchIcon {
+  background-image: url("../../public/images/SearchIcon.png");
+} */

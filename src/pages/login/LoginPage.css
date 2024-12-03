@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 130vh;
+  /*margin-top: 5%;*/
   background-color: var(--bg-color);
 }
 
@@ -36,7 +36,6 @@ body {
     background-color: var(--bg-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: var(--container-bottom-border-radius);
-
     .bottom {
       background: white;
       display: flex;

@@ -12,36 +12,24 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
       <S.SideMenuListContainer>
         <ul>
           <li>
-            <a href="/main">
-              지출 캘린더
-            </a>
+            <a href="/main">지출 캘린더</a>
           </li>
           <li>
-            <a href="recent_transactions.html">
-              최근 거래 내역
-            </a>
+            <a href="recent_transactions.html">최근 거래 내역</a>
           </li>
           <li>
-            <a href="assets.html">
-              자산 현황
-            </a>
+            <a href="assets.html">자산 현황</a>
           </li>
           <li>
-            <a href="transaction.html">
-              송금
-            </a>
+            <a href="transaction.html">송금</a>
           </li>
           <li>
-            <a href="portfolio_page.html">
-              나의 포트폴리오
-            </a>
+            <a href="/myportfolio">나의 포트폴리오</a>
           </li>
         </ul>
       </S.SideMenuListContainer>
 
-      <S.Ppl src="https://www.musinsa.com/main/">
-        무신사
-      </S.Ppl>
+      <S.Ppl src="https://www.musinsa.com/main/">무신사</S.Ppl>
     </S.SideBarContainer>
   );
 };
