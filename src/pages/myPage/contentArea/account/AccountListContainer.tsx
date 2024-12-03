@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import S from './style';
 import AccountCardListComponent from './AccountCardListComponent';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const AccountListContainer = () => {
+const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
 
+    const accountList = new Array(3).fill(1);
     const [ isAccount, setIsAccount ] = useState(false);
 
     return (
@@ -13,10 +16,12 @@ const AccountListContainer = () => {
                 {/* AccountCardList map 으로 반복 예정 */}
                 {
                     isAccount ?
-                    <AccountCardListComponent />
+                    <AccountCardListComponent index={0}/>
                     :
                     <S.EmptyAccountWrapper>
-                        <S.AddAccountBtn>+</S.AddAccountBtn>
+                        <S.AddAccountBtn>
+                            <FontAwesomeIcon icon={faPlus} />
+                        </S.AddAccountBtn>
                         <S.EmptyAccountDescription>
                             등록된 계좌가 없습니다!
                         </S.EmptyAccountDescription>
@@ -28,15 +33,11 @@ const AccountListContainer = () => {
             </S.AccountCardListWrapper>
 
             {/* 계좌 있을 때, 임시용 */}
-            <S.AccountCardListWrapper>
-                <AccountCardListComponent />
-            </S.AccountCardListWrapper>
-            <S.AccountCardListWrapper>
-                <AccountCardListComponent />
-            </S.AccountCardListWrapper>
-            <S.AccountCardListWrapper>
-                <AccountCardListComponent />
-            </S.AccountCardListWrapper>
+            {accountList.map((_, index: number): JSX.Element => (
+                <S.AccountCardListWrapper key={index}>
+                    <AccountCardListComponent index={index}/>
+                </S.AccountCardListWrapper>
+            ))}
         </S.AccountListContainer>
     );
 };

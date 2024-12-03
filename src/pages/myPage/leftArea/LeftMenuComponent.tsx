@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import S from './style';
+import { MenuList, ToLeftMenuComponentTypes } from '../types';
 
-const LeftMenuComponent = () => {
-    const menuList: string[] = [ "계좌 관리", "2차 패스워드 설정", "회원정보 수정", "회원탈퇴" ]; 
-    const [ selectedMenu, setSelectedMenu ] = useState<string|null>(menuList[0]);
+type Props = {
+    toLeftMenuComponent: ToLeftMenuComponentTypes;
+};
 
-    const handleClickMenu = (e: React.MouseEvent<HTMLLIElement>): void => setSelectedMenu(e.currentTarget.textContent);
+const LeftMenuComponent: React.FunctionComponent<Props> = ({ toLeftMenuComponent }): JSX.Element => {
+    const { menuList, selectedMenuIndex, handleClickMenu } = toLeftMenuComponent;
 
     return (
         <S.LeftMenuContainer>
             <S.LeftMenuWrapper>
                 {
-                    menuList.map((menu, i) => (
-                        <li key={i} onClick={handleClickMenu} data-selectedMenu={selectedMenu === menu}>
-                            <span>{menu}</span>
+                    menuList.map((menu: MenuList, i: number): JSX.Element => (
+                        <li key={i} onClick={(): void => handleClickMenu(i)} data-selectedmenu={selectedMenuIndex === i}>
+                            <span>{menu.list}</span>
                         </li>
                     ))
                 }
