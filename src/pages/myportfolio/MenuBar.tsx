@@ -7,21 +7,20 @@ import Transaction from "./Transaction";
 const MenuBar: React.FC = () => {
   const navigate = useNavigate();
   const Portfolio = () => {
-    navigate("/P_portfolio")
-  }
+    navigate("/P_portfolio");
+  };
   const News = () => {
-    navigate("/P_news")
-  }
+    navigate("/P_news");
+  };
   const Recommend = () => {
-    navigate("/P_recommend")
-  }
+    navigate("/P_recommend");
+  };
   const Notice = () => {
-    navigate("/P_notice")
-  }
+    navigate("/P_notice");
+  };
   const Notification = () => {
     navigate("/P_notification");
   };
-
 
   return (
     <P.MenuBar>

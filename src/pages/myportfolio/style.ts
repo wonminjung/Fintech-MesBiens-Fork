@@ -8,7 +8,6 @@ const P = {
     border-radius: var(--container-border-radius);
     width: 100%;
     min-width: 1200px;
-    
   `,
   MenuBar: styled.nav`
     background-color: white; /* 배경색을 흰색으로 변경 */
