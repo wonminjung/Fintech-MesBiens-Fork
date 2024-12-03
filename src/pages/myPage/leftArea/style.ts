@@ -99,6 +99,7 @@ const S = {
     LeftMenuContainer: styled.div`
         height: 65%;
         padding: 30px 39px;
+        /* padding: 3em; */
     `,
     // 왼쪽 메뉴
     LeftMenuWrapper: styled.ul`
@@ -108,6 +109,7 @@ const S = {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        user-select: none;
 
         & > li {
             height: calc(100% / 5 - 48px);
@@ -119,7 +121,7 @@ const S = {
             }
 
             /* li가 클릭이 되었다면 */
-            &[data-selectedMenu="true"] {
+            &[data-selectedmenu="true"] {
                 cursor: default;
 
                 & > span {

@@ -4,8 +4,14 @@ import UserProfileComponent from './UserProfileComponent';
 import LeftMenuComponent from './LeftMenuComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { ToLeftMenuComponentTypes } from '../types';
 
-const LeftAreaContainer: React.FunctionComponent = (): JSX.Element => {
+type Props = {
+    toLeftMenuComponent: ToLeftMenuComponentTypes;
+};
+
+const LeftAreaContainer: React.FunctionComponent<Props> = ({ toLeftMenuComponent }): JSX.Element => {
+
     return (
         <S.LeftAreaContainer>
             <S.HeaderSection>
@@ -20,7 +26,7 @@ const LeftAreaContainer: React.FunctionComponent = (): JSX.Element => {
             </S.HeaderSection>
 
             {/* 좌측 서브 메뉴 */}
-            <LeftMenuComponent />
+            <LeftMenuComponent toLeftMenuComponent={toLeftMenuComponent}/>
         </S.LeftAreaContainer>
     );
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
+import VerticalDivider from "../../components/divider/VerticalDivider";
 // import "./FindIDPage.css";
 
 const FindIDPage: React.FC = () => {
@@ -66,7 +67,7 @@ const FindIDPage: React.FC = () => {
                 <strong>등록된 이메일로 ID 찾기</strong>
                 <br />
                 <br />
-                등록된 <strong>회원 이름과 이메일 주소</strong> 를 입력해주세요.
+                회원님의 <strong>이름</strong>과 <strong>이메일 주소</strong>를 입력해주세요.
               </L.P_tag>
               <form onSubmit={handleFindIDSubmit}>
                 <DefaultInputField
@@ -102,18 +103,8 @@ const FindIDPage: React.FC = () => {
                 </DefaultButton>
               </form>
               <L.Divider />
-              <L.P_tag>회원님의 ID는 000입니다.</L.P_tag>{" "}
+              <L.P_tag style={{textAlign: "center", margin:"0"}}>회원님의 ID는 000입니다.</L.P_tag>{" "}
               {/* 값이 들어 올 수 있도록 수정 필요 */}
-              <L.SignUp>
-                <L.P_tag>
-                  <a href="/login">로그인</a> 하러가기
-                </L.P_tag>
-              </L.SignUp>
-              <L.IntroPage>
-                <L.P_tag>
-                  <a href="/intro">홈으로</a> 나가기
-                </L.P_tag>
-              </L.IntroPage>
             </div>
           )}
           {activeTab === "findPassword" && (
@@ -122,25 +113,9 @@ const FindIDPage: React.FC = () => {
                 <strong>등록된 이메일로 비밀번호 찾기</strong>
                 <br />
                 <br />
-                등록된 <strong>회원 이메일</strong> 주소를 입력해주세요.
+                회원님의 <strong>이메일 주소</strong>를 입력해주세요.
               </L.P_tag>
               <form onSubmit={handleFindPasswordSubmit}>
-                <DefaultInputField
-                  type="text"
-                  id="nameforpassword"
-                  placeholder="회원 이름 (홍길동)"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-                <DefaultInputField
-                  type="text"
-                  id="idforpassword"
-                  placeholder="회원 ID (fintech123)"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
                 <DefaultInputField
                   type="email"
                   id="emailforpassword"
@@ -173,22 +148,18 @@ const FindIDPage: React.FC = () => {
                   비밀번호 재설정
                 </DefaultButton>
               </form>
-              <L.SignUp>
-                <L.P_tag>
-                  <a href="/login">로그인</a> 하러가기
-                </L.P_tag>
-              </L.SignUp>
-              <L.IntroPage>
-                <L.P_tag>
-                  <a href="/intro" className="intro_page2">
-                    홈으로
-                  </a>{" "}
-                  나가기
-                </L.P_tag>
-              </L.IntroPage>
             </div>
           )}
         </L.Container_bottom>
+        <L.SignUp>
+          <L.P_tag>
+            <a href="/login">로그인</a>
+          </L.P_tag>
+          <VerticalDivider height={"20px"} style={{marginLeft:"20px"}}/>
+          <L.P_tag style={{margin: "20px"}}>
+            <a href="/intro">홈으로</a> 나가기
+          </L.P_tag>
+        </L.SignUp>
       </L.MainContainer>
     </L.Body>
   );

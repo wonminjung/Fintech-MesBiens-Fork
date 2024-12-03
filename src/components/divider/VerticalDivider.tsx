@@ -4,12 +4,13 @@ interface DividerProps {
   margin?: string;
   height?: string;
   width?: string;
+  backgroundColor?: string;
 }
 
 const VerticalDivider = styled.div<DividerProps>`
   height: ${(props) => props.height || ""};
   width: ${(props) => props.width || "1px"};
-  background-color: #ccc;
+  background-color: ${(props) => props.backgroundColor || "#ccc"};
   margin: ${(props) => props.margin || "0"};
 `;
 

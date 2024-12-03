@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
+import VerticalDivider from "../../components/divider/VerticalDivider";
 
 const SignupPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -79,17 +80,16 @@ const SignupPage: React.FC = () => {
             <L.SNSButton id={"KakaoLogin"} />
             <L.SNSButton id={"GoogleLogin"} />
           </L.SNSLogin>
-          <L.SignUp>
-            <L.P_tag>
-              이미 회원이신가요? <a href="/login">로그인</a>하러가기
-            </L.P_tag>
-          </L.SignUp>
-          <L.IntroPage>
-            <L.P_tag>
-              <a href="/intro">홈으로</a> 나가기
-            </L.P_tag>
-          </L.IntroPage>
         </L.Container_bottom>
+        <L.SignUp>
+          <L.P_tag>
+            <a href="/login">로그인 </a>
+          </L.P_tag>
+          <VerticalDivider height={"20px"} style={{marginLeft:"20px"}}/>
+          <L.P_tag style={{margin: "20px"}}>
+            <a href="/intro">홈으로</a> 나가기
+          </L.P_tag>
+        </L.SignUp>
       </L.MainContainer>
     </L.Body>
   );

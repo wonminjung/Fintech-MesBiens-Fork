@@ -30,7 +30,7 @@ const L = {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px 55px 10px 55px;
+    padding: 10px 55px 20px 55px;
   `,
   RememberMe: styled.div`
     display: flex;
@@ -80,10 +80,9 @@ const L = {
   `,
   SignUp: styled.div`
     display: flex;
-    flex-direction: column; /* 세로 방향으로 나열 */
-    justify-content: space-between;
-    text-align: left;
-    width: 80%;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
     & a {
       text-align: right;
       text-decoration: none;
@@ -96,7 +95,7 @@ const L = {
   IntroPage: styled.div`
     display: flex;
     justify-content: right;
-    width: 90%;
+    width: 100%;
     & a {
       text-decoration: none;
       color: var(--text-color-dark);
@@ -158,7 +157,7 @@ const L = {
       cursor: pointer;
       font-size: 16px;
       &:hover {
-        background-color: var(--bg-hover-color);
+        background-color: lightgrey;
       }
     }
     & button.active {

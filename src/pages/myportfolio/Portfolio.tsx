@@ -10,11 +10,11 @@ const Portfolio: React.FC = () => {
       <P.BottomContainer>
         <P.PortfolioItem>
           <h3>나의 보유 주식 포트폴리오</h3>
-          <P.PortfolioContent>
-            <div style={{ display: "flex" }}>
+          {/*<P.PortfolioContent>*/}
+            {/*<div style={{ display: "flex" }}>*/}
               <P.PortfolioChart id="portfolioChart" />
-            </div>
-          </P.PortfolioContent>
+            {/*</div>*/}
+          {/*</P.PortfolioContent>*/}
         </P.PortfolioItem>
         <VerticalDivider />
         <P.PortfolioItem>

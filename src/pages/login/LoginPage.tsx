@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import L from "./LoginStyle";
 import DefaultButton from "../../components/button/DefaultButton";
 import DefaultInputField from "../../components/inputfield/InputField";
+import VerticalDivider from "../../components/divider/VerticalDivider";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -48,21 +49,16 @@ const LoginPage: React.FC = () => {
             <L.SNSButton id={"KakaoLogin"} />
             <L.SNSButton id={"GoogleLogin"} />
           </L.SNSLogin>
-          <L.SignUp>
-            <L.P_tag>
-              첫 방문이신가요? <a href="/signup">회원가입</a>
-              하러가기
-            </L.P_tag>
-            <L.P_tag>
-              <a href="/findID">아이디/비밀번호</a> 찾기
-            </L.P_tag>
-          </L.SignUp>
-          <L.IntroPage>
-            <L.P_tag>
-              <a href="/intro">홈으로</a> 나가기
-            </L.P_tag>
-          </L.IntroPage>
         </L.Container_bottom>
+        <L.SignUp>
+          <L.P_tag><a href="/signup">회원가입</a></L.P_tag>
+          <VerticalDivider height={"20px"} margin={"20px"}/>
+          <L.P_tag><a href="/findID">아이디/비밀번호 찾기</a></L.P_tag>
+          <VerticalDivider height={"20px"} style={{marginLeft:"20px"}}/>
+          <L.P_tag style={{margin: "20px"}}>
+            <a href="/intro">홈으로</a> 나가기
+          </L.P_tag>
+        </L.SignUp>
       </L.MainContainer>
     </L.Body>
   );

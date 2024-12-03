@@ -22,7 +22,9 @@ const Header: React.FC<HeaderProps> = ({ userName }): JSX.Element => {
     <S.HeaderContainer>
       <S.HeaderWelcome>{userName}님 환영합니다.</S.HeaderWelcome>{" "}
       {/* 값 입력 수정 필요 */}
-      {SearchVisible && (
+        <S.SearchContainer>
+
+        {SearchVisible && (
         <S.SearchBarContainer>
           <S.SearchInput type="text" placeholder="Search" />
         </S.SearchBarContainer>
@@ -44,6 +46,7 @@ const Header: React.FC<HeaderProps> = ({ userName }): JSX.Element => {
           <PlainButton>회원가입</PlainButton>
         </Link>
       </S.LoginSignupContainer>
+          </S.SearchContainer>
     </S.HeaderContainer>
   );
 };

@@ -2,30 +2,44 @@ import React from "react";
 import P from "./style";
 import { useNavigate } from "react-router-dom";
 import PlainButton from "../../components/button/PlainButton";
+import Transaction from "./Transaction";
 
 const MenuBar: React.FC = () => {
   const navigate = useNavigate();
+  const Portfolio = () => {
+    navigate("/P_portfolio")
+  }
+  const News = () => {
+    navigate("/P_news")
+  }
+  const Recommend = () => {
+    navigate("/P_recommend")
+  }
+  const Notice = () => {
+    navigate("/P_notice")
+  }
   const Notification = () => {
     navigate("/P_notification");
   };
+
 
   return (
     <P.MenuBar>
       <ul>
         <li>
-          <P.MenuButton href="/P_portfolio">포트폴리오</P.MenuButton>
+          <P.MenuButton onClick={Portfolio}>포트폴리오</P.MenuButton>
         </li>
         <li>
-          <P.MenuButton href="/P_news">뉴스</P.MenuButton>
+          <P.MenuButton onClick={News}>뉴스</P.MenuButton>
         </li>
         <li>
-          <P.MenuButton href="/P_recommend">주식 추천</P.MenuButton>
+          <P.MenuButton onClick={Recommend}>주식 추천</P.MenuButton>
         </li>
         <li>
-          <P.MenuButton href="/P_transaction">주식 거래</P.MenuButton>
+          <P.MenuButton onClick={Transaction}>주식 거래</P.MenuButton>
         </li>
         <li>
-          <P.MenuButton href="/P_notice">자유 게시판</P.MenuButton>
+          <P.MenuButton onClick={Notice}>자유 게시판</P.MenuButton>
         </li>
         <PlainButton onClick={Notification}>
           <img

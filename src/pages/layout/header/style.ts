@@ -15,21 +15,19 @@ const S = {
   `,
   HeaderWelcome: styled.h2`
     /* border-radius: 10px; */
-    flex: 0.5;
-    min-width: 300px;
+    //min-width: 300px;
 
     @media (max-width: 600px) {
       width: 100%;
     }
   `,
   SearchContainer: styled.div`
-    text-align: right;
+    display: flex;
+    align-content: flex-end;
   `,
   SearchBarContainer: styled.div`
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    width: 120%;
 
     @media (max-width: 600px) {
       flex-direction: column;
@@ -41,8 +39,9 @@ const S = {
     border-radius: 10px;
     padding: 0 10px;
     font-size: 15px;
-    border: 2px solid var(--second-color);
-    width: 40%;
+    //border: 2px solid var(--second-color);
+    border: none;
+    //width: 40%;
     height: 2em;
 
     @media (max-width: 600px) {

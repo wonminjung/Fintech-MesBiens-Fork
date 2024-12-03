@@ -9,7 +9,7 @@ export const M = {
   `,
   LeftAreaContainer: styled.div`
     display: inline-block;
-    height: 85%;
+    height: 100%;
     width: 70%;
     padding: 0 20px;
   `,
