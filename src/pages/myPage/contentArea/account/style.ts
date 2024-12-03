@@ -17,22 +17,51 @@ const S = {
     display: flex;
     justify-content: center;
     width: 40%;
-    height: 70%;
+    /* height: 70%; */
   `,
   AccountSearch: styled.div`
     display: flex;
     width: 60%;
     align-items: center;
+    flex: 0.7;
   `,
   AccountSort: styled.div`
     display: flex;
-    width: 40%;
+    height: 48px;
     align-items: center;
     justify-content: center;
     background-color: lightgray;
-    width: 100px;
     margin-left: 12px;
     font-size: 14px;
+    border-radius: 20px;
+    flex: 0.3;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+      filter: brightness(0.85);
+    }
+  `,
+  AccountSortDropdown: styled.div`
+    display: none;
+    position: absolute;
+    right: 0%;
+    background-color: white;
+    border: 1px solid lightgray;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateX(-50%);
+
+    &[data-activedropdown="true"] {
+      display: block;
+    }
+  `,
+  AccountSortDropdownItem: styled.div`
+    padding: 8px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
   `,
   /** AccountListContainer.tsx */
   AccountListContainer: styled.div`
@@ -50,14 +79,16 @@ const S = {
     justify-content: center;
   `,
   // 계좌 없을 때
-  EmptyAccountWrapper: styled.div`
+  EmptyAccountWrapper: styled.button`
+    all: unset;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   `,
   // 계좌 추가 버튼
-  AddAccountBtn: styled.div`
+  AddAccountBtn: styled.button`
+    all: unset;
     display: flex;
     width: 84px;
     height: 84px;
@@ -70,6 +101,10 @@ const S = {
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
+    
+    &:active {
+      transform: scale(1.15);
+    }
     &:hover {
       background-color: var(--button-hover-color);
     }
