@@ -21,7 +21,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <MainPage />,
+        element: <IntroPage />,
       },
       {
         path: "/myPage",

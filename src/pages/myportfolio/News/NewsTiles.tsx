@@ -20,7 +20,31 @@ const NewsTiles: React.FC = () => {
         <p>메뉴 3</p>
       </N.Tile>
       <N.Tile>
-        <p>메뉴 3</p>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
+      </N.Tile>
+      <N.Tile>
+        <p>메뉴 4</p>
       </N.Tile>
     </N.TilesContainer>
   );
