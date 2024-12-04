@@ -2,6 +2,8 @@ import AccountListContainer from './AccountListContainer';
 import S from './style';
 import { MenuList } from '../../types';
 import { useCallback, useRef, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     menuList: MenuList;
@@ -32,15 +34,20 @@ const AccountContainer: React.FunctionComponent<Props> = ({ menuList, selectedMe
                             <S.SearchAndSortWrapper>
                                 {/* 검색창 */}
                                 <S.AccountSearch />
-                                <S.AccountSort onClick={toggleIsClickSort} ref={sortBtnRef}>정렬 순서</S.AccountSort>
-                                {isClickSort && (
-                                    <S.AccountSortDropdown data-activedropdown={String(isClickSort)}>
-                                        <S.AccountSortDropdownItem>금액 많은 순</S.AccountSortDropdownItem>
-                                        <S.AccountSortDropdownItem>금액 적은 순</S.AccountSortDropdownItem>
-                                        <S.AccountSortDropdownItem>최근 등록 순</S.AccountSortDropdownItem>
-                                        <S.AccountSortDropdownItem>오래 등록 순</S.AccountSortDropdownItem>
-                                    </S.AccountSortDropdown>)
-                                }
+                                <S.DropdownContainer>
+                                    <S.AccountSort onClick={toggleIsClickSort} ref={sortBtnRef}>
+                                        <span>정렬 순서</span>
+                                        <FontAwesomeIcon icon={faAngleDown} />
+                                    </S.AccountSort>
+                                    {isClickSort && (
+                                        <S.Dropdown data-activedropdown={String(isClickSort)}>
+                                            <S.DropdownItem>금액 많은 순</S.DropdownItem>
+                                            <S.DropdownItem>금액 적은 순</S.DropdownItem>
+                                            <S.DropdownItem>최근 등록 순</S.DropdownItem>
+                                            <S.DropdownItem>오래 등록 순</S.DropdownItem>
+                                        </S.Dropdown>
+                                    )}
+                                </S.DropdownContainer>
                             </S.SearchAndSortWrapper>
                         ) 
                         :

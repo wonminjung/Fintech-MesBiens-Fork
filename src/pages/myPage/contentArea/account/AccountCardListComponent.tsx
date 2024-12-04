@@ -1,5 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import S from './style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     index: number;
@@ -59,7 +61,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JS
                 </S.BankInfoContainer>
 
                 <S.CardlistMenuBtn>
-                    <img src={`${process.env.PUBLIC_URL}/images/myPage/account/hamburger.svg`} alt="메뉴 버튼" />
+                    <FontAwesomeIcon icon={faEllipsis} />
                 </S.CardlistMenuBtn>
             </S.FilledAccountHeader>
 

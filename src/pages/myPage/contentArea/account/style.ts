@@ -25,38 +25,47 @@ const S = {
     align-items: center;
     flex: 0.7;
   `,
+  DropdownContainer: styled.div`
+    position: relative;
+    flex: 0.5;
+    z-index: 100;
+  `,
   AccountSort: styled.div`
     display: flex;
-    height: 48px;
+    height: 52px;
     align-items: center;
     justify-content: center;
     background-color: lightgray;
     margin-left: 12px;
     font-size: 14px;
     border-radius: 20px;
-    flex: 0.3;
     cursor: pointer;
     user-select: none;
+
     &:hover {
       filter: brightness(0.85);
     }
   `,
-  AccountSortDropdown: styled.div`
+  Dropdown: styled.ul`
     display: none;
     position: absolute;
-    right: 0%;
-    background-color: white;
-    border: 1px solid lightgray;
-    z-index: 100;
+    list-style: none;
+    padding: 0;
+    margin: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transform: translateX(-50%);
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    background-color: white;
+    right: 0;
+    width: 150px;
+    margin-top: 8px;
 
     &[data-activedropdown="true"] {
       display: block;
     }
   `,
-  AccountSortDropdownItem: styled.div`
-    padding: 8px 16px;
+  DropdownItem: styled.li`
+    padding: 12px;
     cursor: pointer;
 
     &:hover {
@@ -193,6 +202,7 @@ const S = {
     width: 48px;
     height: 48px;
     background-color: lightyellow;
+    font-size: 22px;
 
     &:active {
       background-color: yellow;
