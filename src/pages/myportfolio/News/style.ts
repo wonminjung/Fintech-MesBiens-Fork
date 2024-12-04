@@ -5,7 +5,7 @@ const N = {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px;
   `,
   Tile: styled.div`
@@ -19,6 +19,7 @@ const N = {
     height: 150px; /* 박스의 고정 높이 */
     width: 18em;
     margin-bottom: 20px;
+    margin-right: 20px;
     /* flex-direction: column; */
     justify-content: space-between; /* 제목과 링크를 위아래로 배치 */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* 호버 시 전환 효과 */

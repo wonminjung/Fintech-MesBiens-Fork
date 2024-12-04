@@ -8,11 +8,12 @@ import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPage";
 import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
 import News from "../pages/myportfolio/News/News";
-import Recommend from "../pages/myportfolio/Recommend";
+import Recommend from "../pages/myportfolio/Recommend/Recommend";
 import Transaction from "../pages/myportfolio/Transaction";
 import Notice from "../pages/myportfolio/Notice";
 import Notification from "../pages/myportfolio/Notification";
 import Tile1 from "../pages/myportfolio/News/Tile1";
+import StockTest from "../pages/myportfolio/Recommend/StockTest";
 
 const routes: RouteObject[] = [
   {
@@ -66,6 +67,10 @@ const routes: RouteObject[] = [
       {
         path: "N_tile1",
         element: <Tile1 />,
+      },
+      {
+        path: "stocktest",
+        element: <StockTest />,
       },
     ],
   },
