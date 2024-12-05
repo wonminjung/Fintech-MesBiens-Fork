@@ -2,26 +2,28 @@ import React from "react";
 import P from "./style";
 import { useNavigate } from "react-router-dom";
 import PlainButton from "../../components/button/PlainButton";
-import Transaction from "./Transaction";
+import Transaction from "./Trading/Trading";
 
 const MenuBar: React.FC = () => {
   const navigate = useNavigate();
   const Portfolio = () => {
-    navigate("/P_portfolio")
-  }
+    navigate("/P_portfolio");
+  };
   const News = () => {
-    navigate("/P_news")
-  }
+    navigate("/P_news");
+  };
   const Recommend = () => {
-    navigate("/P_recommend")
-  }
+    navigate("/P_recommend");
+  };
+  const Transaction = () => {
+    navigate("/P_transaction");
+  };
   const Notice = () => {
-    navigate("/P_notice")
-  }
+    navigate("/P_notice");
+  };
   const Notification = () => {
     navigate("/P_notification");
   };
-
 
   return (
     <P.MenuBar>

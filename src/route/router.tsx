@@ -6,12 +6,15 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPage";
-import Portfolio from "../pages/myportfolio/Portfolio";
-import News from "../pages/myportfolio/News";
-import Recommend from "../pages/myportfolio/Recommend";
-import Transaction from "../pages/myportfolio/Transaction";
+import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
+import News from "../pages/myportfolio/News/News";
+import Recommend from "../pages/myportfolio/Recommend/Recommend";
+import Trading from "../pages/myportfolio/Trading/Trading";
 import Notice from "../pages/myportfolio/Notice";
 import Notification from "../pages/myportfolio/Notification";
+import Tile1 from "../pages/myportfolio/News/Tile1";
+import StockTest from "../pages/myportfolio/Recommend/StockTest";
+import Transaction from "../pages/transaction/Transaction";
 
 const routes: RouteObject[] = [
   {
@@ -20,7 +23,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <MainPage />,
+        element: <IntroPage />,
       },
       {
         path: "/myPage",
@@ -33,6 +36,10 @@ const routes: RouteObject[] = [
       {
         path: "/intro",
         element: <IntroPage />,
+      },
+      {
+        path: "/transaction",
+        element: <Transaction />,
       },
       {
         path: "/myportfolio",
@@ -52,7 +59,7 @@ const routes: RouteObject[] = [
       },
       {
         path: "P_transaction",
-        element: <Transaction />,
+        element: <Trading />,
       },
       {
         path: "P_notice",
@@ -61,6 +68,14 @@ const routes: RouteObject[] = [
       {
         path: "P_notification",
         element: <Notification />,
+      },
+      {
+        path: "N_tile1",
+        element: <Tile1 />,
+      },
+      {
+        path: "stocktest",
+        element: <StockTest />,
       },
     ],
   },

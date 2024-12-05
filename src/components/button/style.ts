@@ -27,10 +27,10 @@ export const PButton = styled.button<{ width?: string; height?: string }>`
   /* border-radius: var(--button-border-radius); */
   cursor: pointer;
   font-size: 15px;
-  width: ${(props) => props.width || "5em"};
+  width: ${(props) => props.width || "6em"};
   height: ${(props) => props.height || "2em"};
   transition: var(--text-color-white) 0.5s ease-in-out;
-  margin-left: 10px;
+  margin: 0 10px;
   &:hover {
     /* background-color: var(--button-hover-color); */
     /* text-decoration: underline; */

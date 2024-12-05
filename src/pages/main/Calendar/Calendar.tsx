@@ -28,6 +28,7 @@ const Calendar: React.FC = () => {
       </C.Days>
       <C.DateGrid id="dateGrid"></C.DateGrid>
       <hr style={{ borderStyle: "dashed" }} />
+      <div id="transactionDetails"></div>
     </C.Calendar>
   );
 };
