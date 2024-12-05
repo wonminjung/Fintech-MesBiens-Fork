@@ -4,11 +4,9 @@ const P = {
   MainContainer: styled.div`
     display: inline-block;
     flex-grow: 1;
-    overflow: hidden;
+    overflow: auto;
     border-radius: var(--container-border-radius);
-    width: 100%;
     min-width: 1200px;
-    
   `,
   MenuBar: styled.nav`
     background-color: white; /* 배경색을 흰색으로 변경 */
@@ -16,9 +14,12 @@ const P = {
     display: flex;
     flex-grow: 1;
     overflow: hidden;
+    /* position: fixed; */
+    /* width: 85%; */
     justify-content: space-around;
     margin-bottom: 10px;
     border-top-left-radius: 10px;
+    z-index: 1000; // 다른 요소보다 위에 표시되도록 설정
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
     & ul {
@@ -67,7 +68,7 @@ const P = {
     padding: 20px;
     //height: 90%;
     flex-grow: 1;
-    overflow: hidden;
+    overflow: auto;
   `,
   PortfolioItem: styled.div`
     width: 45%;

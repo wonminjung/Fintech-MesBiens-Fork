@@ -22,31 +22,38 @@ const Header: React.FC<HeaderProps> = ({ userName }): JSX.Element => {
     <S.HeaderContainer>
       <S.HeaderWelcome>{userName}님 환영합니다.</S.HeaderWelcome>{" "}
       {/* 값 입력 수정 필요 */}
-        <S.SearchContainer>
-
+      <S.SearchContainer>
         {SearchVisible && (
-        <S.SearchBarContainer>
-          <S.SearchInput type="text" placeholder="Search" />
-        </S.SearchBarContainer>
-      )}
-      <PlainButton onClick={toggleSearchBar}>
-        <img
-          src={`${process.env.PUBLIC_URL}/images/SearchIcon.png`}
-          alt="Search"
-        />
-        {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
-      </PlainButton>
-      <VerticalDivider />
-      <S.LoginSignupContainer>
-        <Link to="/login">
-          <PlainButton>로그인</PlainButton>
-        </Link>
-        <VerticalDivider />
-        <Link to="/signup">
-          <PlainButton>회원가입</PlainButton>
-        </Link>
-      </S.LoginSignupContainer>
-          </S.SearchContainer>
+          <S.SearchBarContainer>
+            <S.SearchInput type="text" placeholder="Search.." />
+          </S.SearchBarContainer>
+        )}
+        <PlainButton onClick={toggleSearchBar}>
+          <img
+            src={`${process.env.PUBLIC_URL}/images/SearchIcon.png`}
+            alt="Search"
+          />
+          {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
+        </PlainButton>
+        <S.LoginSignupContainer>
+          <VerticalDivider />
+          <Link to="/myPage">
+            <PlainButton>MYPAGE</PlainButton>
+          </Link>
+          <VerticalDivider />
+          <Link to="/">
+            <PlainButton>HOME</PlainButton>
+          </Link>
+          {/* <VerticalDivider />
+          <Link to="/login">
+            <PlainButton>로그인</PlainButton>
+          </Link>
+          <VerticalDivider />
+          <Link to="/signup">
+            <PlainButton>회원가입</PlainButton>
+          </Link> */}
+        </S.LoginSignupContainer>
+      </S.SearchContainer>
     </S.HeaderContainer>
   );
 };
