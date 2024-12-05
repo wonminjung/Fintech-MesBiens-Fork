@@ -21,7 +21,7 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
             <a href="assets.html">자산 현황</a>
           </li>
           <li>
-            <a href="transaction.html">송금</a>
+            <a href="/transaction">송금</a>
           </li>
           <li>
             <a href="/myportfolio">나의 포트폴리오</a>

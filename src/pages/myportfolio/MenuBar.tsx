@@ -2,7 +2,7 @@ import React from "react";
 import P from "./style";
 import { useNavigate } from "react-router-dom";
 import PlainButton from "../../components/button/PlainButton";
-import Transaction from "./Transaction";
+import Transaction from "./Trading/Trading";
 
 const MenuBar: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +14,9 @@ const MenuBar: React.FC = () => {
   };
   const Recommend = () => {
     navigate("/P_recommend");
+  };
+  const Transaction = () => {
+    navigate("/P_transaction");
   };
   const Notice = () => {
     navigate("/P_notice");
