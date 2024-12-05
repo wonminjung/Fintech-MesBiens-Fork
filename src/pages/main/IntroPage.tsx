@@ -90,12 +90,15 @@ const IntroPage: React.FC = () => {
               placeholder="비밀번호 (123456)"
               required
             />
-            <I.RememberMe>
-              <input type="checkbox" id="remember" />
-              <label htmlFor="remember">ID 기억하기</label>
-            </I.RememberMe>
+            <I.RememberMe type="checkbox" />
+            <label htmlFor="remember">ID 기억하기</label>
             <DefaultButton width="100%">Login</DefaultButton>
           </form>
+          <I.SignUp>
+            <I.P_tag style={{ textAlign: "right" }}>
+              <a href="/signup">회원가입</a>
+            </I.P_tag>
+          </I.SignUp>
         </I.Container_bottom>
       </M.LoginContainer>
     </M.MainContainer>

@@ -35,10 +35,8 @@ const LoginPage: React.FC = () => {
               placeholder="비밀번호 (123456)"
               required
             />
-            <L.RememberMe>
-              <input type="checkbox" id="remember" />
-              <label htmlFor="remember">ID 기억하기</label>
-            </L.RememberMe>
+            <L.RememberMe type="checkbox" />
+            <label htmlFor="remember">ID 기억하기</label>
             <DefaultButton width="100%">Login</DefaultButton>
           </form>
           <L.Divider>
@@ -51,11 +49,15 @@ const LoginPage: React.FC = () => {
           </L.SNSLogin>
         </L.Container_bottom>
         <L.SignUp>
-          <L.P_tag><a href="/signup">회원가입</a></L.P_tag>
-          <VerticalDivider height={"20px"} margin={"20px"}/>
-          <L.P_tag><a href="/findID">아이디/비밀번호 찾기</a></L.P_tag>
-          <VerticalDivider height={"20px"} style={{marginLeft:"20px"}}/>
-          <L.P_tag style={{margin: "20px"}}>
+          <L.P_tag>
+            <a href="/signup">회원가입</a>
+          </L.P_tag>
+          <VerticalDivider height={"20px"} margin={"20px"} />
+          <L.P_tag>
+            <a href="/findID">아이디/비밀번호 찾기</a>
+          </L.P_tag>
+          <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
+          <L.P_tag style={{ margin: "20px" }}>
             <a href="/intro">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>
