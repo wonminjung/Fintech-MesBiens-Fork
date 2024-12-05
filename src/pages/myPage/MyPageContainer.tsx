@@ -5,7 +5,7 @@ import { ToLeftMenuComponentTypes, MenuList } from './types';
 import AccountContainer from './contentArea/account/AccountContainer';
 import MemInfoModiContainer from './contentArea/memInfoModi/MemInfoModiContainer';
 import MemWithdrawallContainer from './contentArea/memWithdrawall/MemWithdrawallContainer';
-import SecondPassword from './contentArea/secondPassword/SecondPassword';
+import SecurityContainer from './contentArea/Security/SecurityContainer';
 
 const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
     const menuList: MenuList[] = [
@@ -17,7 +17,7 @@ const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
         {
             list: "보안 설정",
             isSort: false,
-            component: (props: any) => <SecondPassword {...props}/>
+            component: (props: any) => <SecurityContainer {...props}/>
         },
         {
             list: "정보 수정",

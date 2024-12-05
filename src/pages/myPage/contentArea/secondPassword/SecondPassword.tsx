@@ -1,18 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import S from './style';
-import { MenuList } from '../../types';
 
 type Props = {
-  menuList: MenuList;
 }
 
-const SecondPassword: React.FunctionComponent<Props> = ({ menuList }) => {
-  const { list } = menuList;
+const SecondPassword: React.FunctionComponent<Props> = () => {
 
   return (
     <S.SelectedMenuHeaderContainer>
-        <S.MenuTitle>{list}</S.MenuTitle>
-        
+        <S.MenuTitle></S.MenuTitle>
     </S.SelectedMenuHeaderContainer>
   );
 };

@@ -45,7 +45,16 @@ const S = {
     }
   `,
   AccountSortIcon: styled(FontAwesomeIcon)`
-    margin-left: 4%;
+
+    &[data-spinsorticon="true"] {
+      transform: rotate(180deg);
+      transition: transform 0.3s;
+    }
+
+    &[data-spinsorticon="false"] {
+      transform: rotate(360deg);
+      transition: transform 0.3s;
+    }
   `,
   Dropdown: styled.ul`
     display: none;

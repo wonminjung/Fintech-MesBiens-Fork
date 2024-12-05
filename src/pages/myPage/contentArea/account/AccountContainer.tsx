@@ -33,7 +33,7 @@ const AccountContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Ele
                                 <S.DropdownContainer>
                                     <S.AccountSort onClick={toggleIsClickSort} ref={sortBtnRef}>
                                         <span>정렬 순서</span>
-                                        <S.AccountSortIcon icon={faAngleDown} />
+                                        <S.AccountSortIcon icon={faAngleDown} data-spinsorticon={isClickSort}/>
                                     </S.AccountSort>
                                     {isClickSort && (
                                         <S.Dropdown data-activedropdown={String(isClickSort)}>
@@ -45,7 +45,7 @@ const AccountContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Ele
                                     )}
                                 </S.DropdownContainer>
                             </S.SearchAndSortWrapper>
-                        ) 
+                        )
                         :
                         (
                             <></>
