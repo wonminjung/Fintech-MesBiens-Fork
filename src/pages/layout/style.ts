@@ -16,8 +16,7 @@ const S = {
   // Outlet 감싸는 컨테이너
   OutletContainer: styled.div`
     display: flex;
-    height: calc(100vh - 130px);
-    /* border: 2px solid black; */
+    height: 84vh;
     border-radius: 10px 0 0 10px;
     background: var(--container-color);
     box-sizing: border-box;

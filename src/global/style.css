@@ -43,8 +43,15 @@
   --sns-border-radius: 50px;
 }
 
+@font-face {
+  font-family: 'Pretendard';
+  src: url("../../public/font/Pretendard-Regular.woff") format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard", Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   background: var(--bg-color);

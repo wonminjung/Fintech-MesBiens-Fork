@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../../global/style.css";
 import styled from "styled-components";
 
@@ -9,34 +10,31 @@ const S = {
   `,
   // 선택 메뉴 제목
   MenuTitle: styled.div`
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
   `,
   // 검색 및 정렬
   SearchAndSortWrapper: styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     width: 40%;
-    /* height: 70%; */
   `,
   AccountSearch: styled.div`
     display: flex;
     width: 60%;
     align-items: center;
-    flex: 0.7;
   `,
   DropdownContainer: styled.div`
     position: relative;
-    flex: 0.5;
+    width: 7vw;
     z-index: 100;
   `,
   AccountSort: styled.div`
     display: flex;
     height: 52px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     background-color: lightgray;
-    margin-left: 12px;
     font-size: 14px;
     border-radius: 20px;
     cursor: pointer;
@@ -45,6 +43,9 @@ const S = {
     &:hover {
       filter: brightness(0.85);
     }
+  `,
+  AccountSortIcon: styled(FontAwesomeIcon)`
+    margin-left: 4%;
   `,
   Dropdown: styled.ul`
     display: none;
@@ -57,7 +58,7 @@ const S = {
     border-radius: 4px;
     background-color: white;
     right: 0;
-    width: 150px;
+    width: 10vw;
     margin-top: 8px;
 
     &[data-activedropdown="true"] {
@@ -201,11 +202,17 @@ const S = {
   CardlistMenuBtn: styled.button`
     width: 48px;
     height: 48px;
-    background-color: lightyellow;
+    border: none;
+    border-radius: 50%;
+    background-color: inherit;
     font-size: 22px;
+    color: lightgray;
+    filter: brightness(0.7);
 
     &:active {
-      background-color: yellow;
+      background-color: black;
+      color: white;
+      filter: brightness(1);
     }
   `,
   // 카드리스트 하단

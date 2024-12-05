@@ -1,11 +1,19 @@
 import * as React from 'react';
+import S from './style';
+import { MenuList } from '../../types';
 
+type Props = {
+  menuList: MenuList;
+}
 
-const MemWithdrawallContainer: React.FunctionComponent = (props) => {
+const MemWithdrawallContainer: React.FunctionComponent<Props> = ({ menuList }) => {
+  const { list } = menuList;
+
   return (
-    <div>
-        회원탈퇴
-    </div>
+    <S.SelectedMenuHeaderContainer>
+        <S.MenuTitle>{list}</S.MenuTitle>
+        
+    </S.SelectedMenuHeaderContainer>
   );
 };
 

@@ -8,9 +8,8 @@ type Props = {
 };
 
 const ContentAreaContainer: React.FunctionComponent<Props> = ({ menuList, selectedMenuIndex }): JSX.Element => {
-  const tansferValue: { menuList: MenuList; selectedMenuIndex: number } = {
-    menuList: menuList[selectedMenuIndex],
-    selectedMenuIndex,
+  const tansferValue: { menuList: MenuList; } = {
+    menuList: menuList[selectedMenuIndex]
   };
 
   return (
