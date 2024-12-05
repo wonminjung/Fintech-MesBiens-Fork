@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../../global/style.css";
 import styled from "styled-components";
 
@@ -9,30 +10,77 @@ const S = {
   `,
   // 선택 메뉴 제목
   MenuTitle: styled.div`
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
   `,
   // 검색 및 정렬
   SearchAndSortWrapper: styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     width: 40%;
-    height: 70%;
   `,
   AccountSearch: styled.div`
     display: flex;
     width: 60%;
     align-items: center;
   `,
+  DropdownContainer: styled.div`
+    position: relative;
+    width: 7vw;
+    z-index: 100;
+  `,
   AccountSort: styled.div`
     display: flex;
-    width: 40%;
+    height: 52px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     background-color: lightgray;
-    width: 100px;
-    margin-left: 12px;
     font-size: 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      filter: brightness(0.85);
+    }
+  `,
+  AccountSortIcon: styled(FontAwesomeIcon)`
+
+    &[data-spinsorticon="true"] {
+      transform: rotate(180deg);
+      transition: transform 0.3s;
+    }
+
+    &[data-spinsorticon="false"] {
+      transform: rotate(360deg);
+      transition: transform 0.3s;
+    }
+  `,
+  Dropdown: styled.ul`
+    display: none;
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    background-color: white;
+    right: 0;
+    width: 10vw;
+    margin-top: 8px;
+
+    &[data-activedropdown="true"] {
+      display: block;
+    }
+  `,
+  DropdownItem: styled.li`
+    padding: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
   `,
   /** AccountListContainer.tsx */
   AccountListContainer: styled.div`
@@ -50,14 +98,16 @@ const S = {
     justify-content: center;
   `,
   // 계좌 없을 때
-  EmptyAccountWrapper: styled.div`
+  EmptyAccountWrapper: styled.button`
+    all: unset;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   `,
   // 계좌 추가 버튼
-  AddAccountBtn: styled.div`
+  AddAccountBtn: styled.button`
+    all: unset;
     display: flex;
     width: 84px;
     height: 84px;
@@ -70,6 +120,10 @@ const S = {
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
+    
+    &:active {
+      transform: scale(1.15);
+    }
     &:hover {
       background-color: var(--button-hover-color);
     }
@@ -157,10 +211,17 @@ const S = {
   CardlistMenuBtn: styled.button`
     width: 48px;
     height: 48px;
-    background-color: lightyellow;
+    border: none;
+    border-radius: 50%;
+    background-color: inherit;
+    font-size: 22px;
+    color: lightgray;
+    filter: brightness(0.7);
 
     &:active {
-      background-color: yellow;
+      background-color: black;
+      color: white;
+      filter: brightness(1);
     }
   `,
   // 카드리스트 하단

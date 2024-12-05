@@ -7,6 +7,7 @@
   --white: #fff;
   --black: #000;
   --grey: #666;
+  --lightGrey: lightgrey;
 
   --bg-color: var(--forth-color);
   --bg-hover-color: var(--forth-color);
@@ -21,8 +22,9 @@
   --border-color: var(--grey);
   --gradient: linear-gradient(to top, var(--third-color), var(--first-color));
 
-  --scrollbar-color: lightgrey;
+  --scrollbar-color: var(--lightGrey);
   --scrollbaractive-color: darkgrey;
+  --divider-color: var(--lightGrey);
 }
 
 /* 텍스트 크기 */
@@ -43,8 +45,15 @@
   --sns-border-radius: 50px;
 }
 
+@font-face {
+  font-family: 'Pretendard';
+  src: url("../../public/font/Pretendard-Regular.woff") format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard", Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   background: var(--bg-color);

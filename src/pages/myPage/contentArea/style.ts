@@ -12,6 +12,7 @@ const S = {
     padding-right: 14px;
     height: calc(100% - 18px);
     overflow-y: scroll;
+    overflow-x: hidden;
 
     /* 스크롤바 */
     &::-webkit-scrollbar {
