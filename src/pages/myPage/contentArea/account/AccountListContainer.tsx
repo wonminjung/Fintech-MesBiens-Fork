@@ -13,9 +13,15 @@ const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
       {/* 계좌 없을 때 */}
       <S.AccountCardListWrapper>
         {/* AccountCardList map 으로 반복 예정 */}
-        {isAccount ? (
-          <AccountCardListComponent index={0} />
-        ) : (
+        {isAccount ? 
+          (accountList.map(
+            (_, index: number): JSX.Element => (
+              <S.AccountCardListWrapper key={index}>
+                <AccountCardListComponent index={index} />
+              </S.AccountCardListWrapper>
+            )
+          ))
+         : (
           <S.EmptyAccountWrapper>
             <S.AddAccountBtn>
               <FontAwesomeIcon icon={faPlus} />

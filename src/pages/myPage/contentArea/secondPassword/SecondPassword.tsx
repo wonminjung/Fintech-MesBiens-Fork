@@ -1,10 +1,15 @@
-import * as React from 'react';
+import React from 'react';
+import S from './style';
 
-const SecondPassword: React.FunctionComponent = (props) => {
+type Props = {
+}
+
+const SecondPassword: React.FunctionComponent<Props> = () => {
+
   return (
-    <div>
-        2차 패스워드 설정
-    </div>
+    <S.SelectedMenuHeaderContainer>
+        <S.MenuTitle></S.MenuTitle>
+    </S.SelectedMenuHeaderContainer>
   );
 };
 

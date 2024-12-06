@@ -1,11 +1,21 @@
 import * as React from 'react';
+import S from './style';
+import { MenuList } from '../../types';
+import MemInfoModiComponent from './MemInfoModiComponent';
 
-const MemInfoModiContainer: React.FunctionComponent = () => {
+type Props = {
+  menuList: MenuList;
+};
+
+const MemInfoModiContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Element => {
+  const { list } = menuList;
 
   return (
-    <div>
-        회원정보 수정 페이지
-    </div>
+    <S.SelectedMenuHeaderContainer>
+        <S.MenuTitle>{list}</S.MenuTitle>
+        
+        <MemInfoModiComponent />
+    </S.SelectedMenuHeaderContainer>
   );
 };
 

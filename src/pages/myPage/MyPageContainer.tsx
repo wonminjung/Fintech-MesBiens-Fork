@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import LeftAreaContainer from './leftArea/LeftAreaContainer';
 import ContentAreaContainer from './contentArea/ContentAreaContainer';
 import { ToLeftMenuComponentTypes, MenuList } from './types';
 import AccountContainer from './contentArea/account/AccountContainer';
 import MemInfoModiContainer from './contentArea/memInfoModi/MemInfoModiContainer';
 import MemWithdrawallContainer from './contentArea/memWithdrawall/MemWithdrawallContainer';
-import SecondPassword from './contentArea/secondPassword/SecondPassword';
+import SecurityContainer from './contentArea/Security/SecurityContainer';
 
 const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
     const menuList: MenuList[] = [
         {
             list: "계좌 관리",
-            isSearchable: true,
+            isSort: true,
             component: (props: any) => <AccountContainer {...props}/>
         },
         {
-            list: "2차 패스워드 설정",
-            isSearchable: false,
-            component: (props: any) => <SecondPassword {...props}/>
+            list: "보안 설정",
+            isSort: false,
+            component: (props: any) => <SecurityContainer {...props}/>
         },
         {
-            list: "회원정보 수정",
-            isSearchable: false,
+            list: "정보 수정",
+            isSort: false,
             component: (props: any) => <MemInfoModiContainer {...props}/>
         },
         {
-            list: "회원탈퇴",
-            isSearchable: false,
+            list: "회원 탈퇴",
+            isSort: false,
             component: (props: any) => <MemWithdrawallContainer {...props}/>
         }
     ];
     const [ selectedMenuIndex, setSelectedMenuIndex ] = useState<number>(0);
-    const handleClickMenu = (index: number): void => {
+    const handleClickMenu = useCallback((index: number): void => {
         setSelectedMenuIndex(() => index);
-    };
+    }, []);
 
     /** LeftMenuComponent 로 전달할 Props */
     const toLeftMenuComponent: ToLeftMenuComponentTypes = {

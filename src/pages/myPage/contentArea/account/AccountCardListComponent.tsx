@@ -1,5 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import S from './style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
     index: number;
@@ -54,10 +56,12 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JS
                     <S.AccountNumberCopyBtn onClick={handleCopy}>
                         <img src={`${process.env.PUBLIC_URL}/images/myPage/account/copy-icon.svg`} alt="복사 버튼" />
                     </S.AccountNumberCopyBtn>
+                    
+                    {copy && <S.CopyMessage>복사가 완료되었습니다.</S.CopyMessage>}
                 </S.BankInfoContainer>
 
                 <S.CardlistMenuBtn>
-                    <img src={`${process.env.PUBLIC_URL}/images/myPage/account/hamburger.svg`} alt="메뉴 버튼" />
+                    <FontAwesomeIcon icon={faEllipsis} />
                 </S.CardlistMenuBtn>
             </S.FilledAccountHeader>
 
@@ -72,8 +76,6 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JS
                 </S.Balance>
                 <S.RemittanceBtn>송금</S.RemittanceBtn>
             </S.FilledFooter>
-
-            {copy && <S.CopyMessage>복사가 완료되었습니다.</S.CopyMessage>}
         </S.FilledAccountWrapper>
     );
 };

@@ -9,11 +9,13 @@ const S = {
         box-shadow: 5px 1px 8px 0 rgba(0, 0, 0, 0.08);
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
     `,
     HeaderSection: styled.div`
         display: flex;
         flex-direction: column;
-        width: 100%;     
+        width: 100%;
     `,
     // 설정 버튼
     SettingBtnContainer: styled.div`
@@ -21,8 +23,6 @@ const S = {
         position: relative;
         display: flex;
         justify-content: flex-end;
-        /* height: 54px; */
-        
     `,
     SettingBtn: styled.button`
         all: unset;
