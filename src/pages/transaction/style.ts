@@ -5,6 +5,7 @@ export const T = {
   MainContainer: styled.div`
     display: flex;
     flex-direction: row;
+    overflow: auto;
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
@@ -69,6 +70,7 @@ export const T = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
     width: 25em;
     height: 93%;
     padding: 20px;
@@ -81,6 +83,7 @@ export const T = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
     width: 25em;
     height: 93%;
     padding: 20px;
