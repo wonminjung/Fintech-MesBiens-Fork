@@ -22,7 +22,12 @@ export const T = {
     margin: 0;
     color: grey;
   `,
-  Input: styled.input.attrs({ type: "number" })`
+  P: styled.p`
+    font-size: 15px;
+    margin: 0;
+    color: grey;
+  `,
+  NumInput: styled.input.attrs({ type: "number" })`
     width: 80%;
     height: 30px;
     padding: 10px;
@@ -48,6 +53,13 @@ export const T = {
       }
     } */
   `,
+  TextInput: styled.input.attrs({ type: "text" })`
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+  `,
   Select: styled.select`
     width: 80%;
     padding: 10px;
@@ -63,6 +75,19 @@ export const T = {
     width: 80%;
     height: 35px;
     margin-bottom: 20px;
+  `,
+  PlainButton: styled.button`
+    margin: 0;
+    font-size: 15px;
+    border: none;
+    color: grey;
+    background-color: white;
+  `,
+  TransactionInfo: styled.div`
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    padding: 3px 0;
   `,
 
   /* 첫번째 화면 */
@@ -100,5 +125,53 @@ export const T = {
     width: 100%;
     text-align: center;
     margin: 20px 0;
+  `,
+
+  ThirdPage: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    width: 25em;
+    height: 92%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+  `,
+  MemoBtn: styled.button`
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: lightgray;
+    color: black;
+  `,
+
+  Modal: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 200px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+  `,
+  Overlay: styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
   `,
 };

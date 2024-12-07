@@ -2,13 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { T } from "./style";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 import HorizontalDivider from "../../components/divider/HorizontalDivider";
-import DefaultButton from "../../components/button/DefaultButton";
 
 const Transaction: React.FC = () => {
   const [showBankDetails, setShowBankDetails] = useState(false);
+  const [showLastInfo, setShowLastInfo] = useState(false);
   const [selectedBank, setSelectedBank] = useState("");
+  const [mySelectedBank, setMySelectedBank] = useState("");
   const [계좌번호, set계좌번호] = useState("");
   const [입력금액, set입력금액] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"receiver" | "memo" | null>(null);
+  const [receiver, setReceiver] = useState("홍길동");
+  const [memoCont, setMemoCont] = useState("메모 남기기");
 
   const accountNumberRef = useRef<HTMLInputElement>(null);
   const amountRef = useRef<HTMLInputElement>(null);
@@ -23,6 +28,14 @@ const Transaction: React.FC = () => {
   const handleInputClick = () => {
     setShowBankDetails(true);
   };
+  const handleInputClick2 = () => {
+    setShowLastInfo(true);
+  };
+
+  const handleButtonClick = () => {
+    handle금액();
+    handleInputClick2();
+  };
 
   const handleBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedBank = event.target.value;
@@ -30,8 +43,9 @@ const Transaction: React.FC = () => {
     setSelectedBank(selectedBank);
   };
   const handleMyBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const myselectedBank = event.target.value;
-    console.log(myselectedBank);
+    const mySelectedBank = event.target.value;
+    console.log(mySelectedBank);
+    setMySelectedBank(mySelectedBank);
     if (amountRef.current) {
       amountRef.current.focus();
     }
@@ -41,6 +55,27 @@ const Transaction: React.FC = () => {
     const 계좌번호 = event.target.value;
     console.log(계좌번호);
     set계좌번호(계좌번호);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (modalType === "receiver") {
+      setReceiver(event.target.value);
+    } else if (modalType === "memo") {
+      setMemoCont(event.target.value);
+      console.log(memoCont);
+    }
+  };
+
+  const handleReceiver = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const receiver = event.target.value;
+    setReceiver(receiver);
   };
 
   useEffect(() => {
@@ -53,7 +88,7 @@ const Transaction: React.FC = () => {
     <T.MainContainer>
       <T.FirstPage>
         <T.H1>어디로 돈을 보낼까요?</T.H1>
-        <T.Input
+        <T.NumInput
           placeholder={"계좌번호 입력"}
           onChange={handle계좌번호}
           ref={accountNumberRef}
@@ -115,23 +150,74 @@ const Transaction: React.FC = () => {
                 <option value="" disabled selected>
                   내 계좌
                 </option>
-                <option value="mybank1">국민은행</option>
-                <option value="mybank1">신한은행</option>
-                <option value="mybank1">우리은행</option>
-                <option value="mybank1">하나은행</option>
-                <option value="mybank1">농협은행</option>
+                <option value="내 국민은행">국민은행</option>
+                <option value="내 신한은행">신한은행</option>
+                <option value="내 우리은행">우리은행</option>
+                <option value="내 하나은행">하나은행</option>
+                <option value="내 농협은행">농협은행</option>
               </T.Select>
               <p>계좌에서</p>
             </T.MyBank>
             <T.H1>{selectedBank} 계좌로</T.H1>
             <T.H5>계좌번호 {계좌번호}</T.H5>
-            <T.Input
+            <T.NumInput
               placeholder={"얼마나 보낼까요?"}
               ref={amountRef}
               onChange={금액}
             />
-            <T.Button onClick={handle금액}>확인</T.Button>
+            <T.Button onClick={handleButtonClick}>확인</T.Button>
+            {showLastInfo && (
+              <>
+                <HorizontalDivider width="90%" />
+                <T.H1>{selectedBank} 계좌로</T.H1>
+                <T.H5>계좌번호 {계좌번호}</T.H5>
+                <h2 style={{ marginBottom: "20%" }}>{입력금액}을 보낼까요?</h2>
+                <T.TransactionInfo>
+                  <T.P>받는 분에게 표시</T.P>
+                  <T.P onClick={handleOpenModal} style={{ cursor: "pointer" }}>
+                    {receiver}
+                  </T.P>
+                </T.TransactionInfo>
+                <T.TransactionInfo>
+                  <T.P>출금 계좌</T.P>
+                  <T.P>{mySelectedBank}</T.P>
+                </T.TransactionInfo>
+                <T.TransactionInfo>
+                  <T.P>입금 계좌</T.P>
+                  <T.P>
+                    {selectedBank} {계좌번호}
+                  </T.P>
+                </T.TransactionInfo>
+                <T.Button style={{ marginTop: "30px" }}>보내기</T.Button>
+              </>
+            )}
           </T.SecondPage>
+        </>
+      )}
+
+      {isModalOpen && (
+        <>
+          <T.Overlay onClick={handleCloseModal} />
+          <T.Modal>
+            <T.TextInput placeholder={receiver} onChange={handleReceiver} />
+            <T.Button onClick={handleCloseModal}>입력</T.Button>
+          </T.Modal>
+        </>
+      )}
+
+      <T.ThirdPage>
+        <T.H1>{selectedBank} 계좌로</T.H1>
+        <h2 style={{ marginBottom: "20%" }}>{입력금액}을 보냈어요!</h2>
+        <T.MemoBtn onClick={handleOpenModal}>메모 남기기</T.MemoBtn>
+      </T.ThirdPage>
+
+      {isModalOpen && (
+        <>
+          <T.Overlay onClick={handleCloseModal} />
+          <T.Modal>
+            <T.TextInput placeholder={memoCont} />
+            <T.Button onClick={handleInputChange}>입력</T.Button>
+          </T.Modal>
         </>
       )}
     </T.MainContainer>
