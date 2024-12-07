@@ -122,7 +122,6 @@ const Transaction: React.FC = () => {
                 <option value="mybank1">농협은행</option>
               </T.Select>
               <p>계좌에서</p>
-              {/* <h5>잔액 000000 원</h5> */}
             </T.MyBank>
             <T.H1>{selectedBank} 계좌로</T.H1>
             <T.H5>계좌번호 {계좌번호}</T.H5>

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import DefaultButton from "../../components/button/DefaultButton";
 
 export const T = {
@@ -72,7 +72,7 @@ export const T = {
     align-items: center;
     overflow: auto;
     width: 25em;
-    height: 93%;
+    height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -85,7 +85,7 @@ export const T = {
     align-items: center;
     overflow: auto;
     width: 25em;
-    height: 93%;
+    height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
