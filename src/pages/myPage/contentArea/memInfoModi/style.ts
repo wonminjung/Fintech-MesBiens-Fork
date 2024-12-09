@@ -33,7 +33,6 @@ const S = {
     `,
     FieldTable: styled.table`
         width: 80%;
-        /* border: 1px solid var(--grey); */
         border: none;
         border-collapse: collapse;
     `,

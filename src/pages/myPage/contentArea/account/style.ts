@@ -187,7 +187,7 @@ const S = {
       border-radius: 50%;
     }
   `,
-  BaniInfo: styled.div`
+  BankInfo: styled.div`
     margin-left: 12px;
     user-select: none;
     & h4 {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import S from './style';
 import FormFiledComponent from './FormFiledComponent';
 import { Info } from './types';
@@ -38,6 +38,8 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
         }
     ];
 
+    const [ parentEdited, setParentEdited ] = useState<boolean>(false);
+
     return (
         <S.FormField method="post">
             <S.FieldWrapper>
@@ -45,15 +47,18 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
 
                 <S.FieldTable>
                     <tbody>
-                        {
-                            tempMemInfo.map((info: Info, i: number): JSX.Element => (
-                                <FormFiledComponent key={i} info={info} index={i} />
-                            ))
-                        }
+                        {tempMemInfo.map((info: Info, i: number): JSX.Element => (
+                            <FormFiledComponent key={i} info={info} index={i} setParentEdited={setParentEdited} />
+                        ))}
                     </tbody>
                 </S.FieldTable>
                 <S.EditBtnContainer>
-                    <S.EditBtn>수정 완료</S.EditBtn>
+                    {parentEdited ? 
+                        (<S.EditBtn>수정 완료</S.EditBtn>)
+                        :
+                        (<>회원탈퇴</>)
+                    }
+                    
                 </S.EditBtnContainer>
             </S.FieldWrapper>
         </S.FormField>

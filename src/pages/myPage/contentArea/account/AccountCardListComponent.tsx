@@ -52,10 +52,10 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JS
                         <S.BankLogo>
                             <img src={`${process.env.PUBLIC_URL}/images/myPage/account/bank-img.jpg`} alt="은행 로고" />
                         </S.BankLogo>
-                        <S.BaniInfo>
+                        <S.BankInfo>
                             <h4>KB국민은행</h4>
                             <h4>123456789-12-123456</h4>
-                        </S.BaniInfo>
+                        </S.BankInfo>
                     </S.BankInfoWrapper>
                     
                     <S.AccountNumberCopyBtn onClick={handleCopy}>
