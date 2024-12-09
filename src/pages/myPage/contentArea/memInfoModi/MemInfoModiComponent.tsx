@@ -45,9 +45,11 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
 
                 <S.FieldTable>
                     <tbody>
-                        {tempMemInfo.map((info: Info, i: number): JSX.Element => (
-                            <FormFiledComponent key={i} info={info} index={i} />
-                        ))}
+                        {
+                            tempMemInfo.map((info: Info, i: number): JSX.Element => (
+                                <FormFiledComponent key={i} info={info} index={i} />
+                            ))
+                        }
                     </tbody>
                 </S.FieldTable>
                 <S.EditBtnContainer>

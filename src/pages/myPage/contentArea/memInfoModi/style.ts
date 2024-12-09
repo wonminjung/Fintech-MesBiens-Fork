@@ -46,6 +46,9 @@ const S = {
     EditBtn: styled(DefaultButton)`
         font-size: 16px;
         border-radius: 8px;
+        width: 12%;
+        height: 42px;
+        font-size: 14px;
     `,
 
     /* FormFiledComponent.tsx */
@@ -54,17 +57,18 @@ const S = {
         border-bottom: 1px solid var(--divider-color);
 
         & > td, th {
-            font-size: 14px;
             padding: 16px 32px;
             height: 40px;
         }
 
         & > th {
+            font-size: 15px;
             text-align: left;
             width: 20%;
         }
 
         & > td {
+            font-size: 14px;
             display: flex;
             justify-content: space-between;
             line-height: 40px;
@@ -81,12 +85,12 @@ const S = {
         background: inherit;
         border: none;
         border-radius: 4px;
-        color: red;
         cursor: pointer;
+        color: #475067;
 
-        &[data-editsuccess="true"] {
-            color: blue;
-        }
+        /* &[data-editsuccess="true"] {
+            color: #475067;
+        } */
     `,
     
 };

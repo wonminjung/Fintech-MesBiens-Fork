@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../../global/style.css";
 import styled from "styled-components";
+import DefaultButton from "../../../../components/button/DefaultButton";
 
 const S = {
   /** AccountContainer.tsx */
@@ -45,6 +46,7 @@ const S = {
     }
   `,
   AccountSortIcon: styled(FontAwesomeIcon)`
+    transform-origin: center center;
 
     &[data-spinsorticon="true"] {
       transform: rotate(180deg);
@@ -55,6 +57,7 @@ const S = {
       transform: rotate(360deg);
       transition: transform 0.3s;
     }
+
   `,
   Dropdown: styled.ul`
     display: none;
@@ -63,7 +66,7 @@ const S = {
     padding: 0;
     margin: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid lightgray;
+    border: 1px solid var(--lightGrey);
     border-radius: 4px;
     background-color: white;
     right: 0;
@@ -167,6 +170,7 @@ const S = {
     padding: 0 12px;
     box-sizing: border-box;
     border-radius: 10px;
+    position: relative;
   `,
   BankInfoWrapper: styled.div`
     width: 100%;
@@ -189,6 +193,8 @@ const S = {
     & h4 {
       margin: 0;
       font-size: 15px;
+      color: white;
+      filter: brightness(0.93);
     }
   `,
   AccountNumberCopyBtn: styled.button`
@@ -208,31 +214,56 @@ const S = {
       cursor: pointer;
     }
   `,
+  CardListMenuContainer: styled.div`
+    position: relative;
+  `,
   CardlistMenuBtn: styled.button`
     width: 48px;
     height: 48px;
     border: none;
     border-radius: 50%;
     background-color: inherit;
-    font-size: 22px;
-    color: lightgray;
-    filter: brightness(0.7);
+    font-size: 20px;
+    color: grey;
+    cursor: pointer;
 
     &:active {
-      background-color: black;
+      background-color: var(--lightGrey);
       color: white;
-      filter: brightness(1);
+    }
+  `,
+  CardlistDropdown: styled.ul`
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    right: 0;
+    top: 80%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border: 1px solid var(--lightGrey);
+    border-radius: 4px;
+    list-style: none;
+  `,
+  CardlistDropDownItems: styled.li`
+    padding: 12px;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #f0f0f0;
     }
   `,
   // 카드리스트 하단
   FilledFooter: styled.div`
     display: flex;
     width: 100%;
-    height: 72px;
+    height: 56px;
     justify-content: flex-end;
   `,
   // 잔액 숨기기 버튼
   BalanceHideBtn: styled.div`
+    display: flex;
+    align-items: end;
     input[type="checkbox"] {
       display: none;
     }
@@ -240,26 +271,26 @@ const S = {
     label {
       display: block;
       position: relative;
-      height: 40px;
-      width: 70px;
+      height: 65%;
+      width: 72px;
       background-color: white;
       border: 2px solid #eee;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
-      margin: 10px;
+      margin: 0 10px;
 
       /* on/off에 따라 움직일 버튼 */
       &:after {
         content: "";
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 34px;
         background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 0 1px #ddd;
+        border: 1px solid #ddd;
         transition: all 0.3s ease-in-out;
         position: absolute;
-        right: 43%;
+        right: 50%;
         border-radius: 20px;
       }
     }
@@ -268,16 +299,17 @@ const S = {
       background-color: #00e169;
       &:after {
         right: 0;
+        transform: translateX(7%);
       }
     }
   `,
   Balance: styled.div`
     display: flex;
-    width: 40%;
+    width: 30%;
     background-color: white;
     border-radius: 20px;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
 
     & > span {
       padding-left: 18px;
@@ -287,42 +319,35 @@ const S = {
       }
     }
   `,
-  RemittanceBtn: styled.button`
+  RemittanceBtn: styled(DefaultButton)`
     width: 15%;
+    height: 100%;
     border-radius: 20px;
     margin-left: 8px;
     border: none;
     font-size: 16px;
+    cursor: pointer;
+
     &:active {
       background-color: green;
     }
   `,
   CopyMessage: styled.div`
     position: absolute;
-    /* top: 10px;
-        right: 10px; */
-    /* bottom: 10%; */
-    justify-content: center;
+    display: inline-block;
+    width: 50%;
+    left: 70%;
+    top: 100%;
+    text-align: center;
     background-color: #4caf50;
     color: white;
+    margin-top: 8px;
     padding: 8px 16px;
     border-radius: 4px;
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    /* animation: fadeOut 2s forwards; */
-    /* 
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                opacity: 0;
-            }
-        } */
   `,
+
 };
 
 export default S;

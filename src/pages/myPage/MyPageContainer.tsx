@@ -24,11 +24,11 @@ const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
             isSort: false,
             component: (props: any) => <MemInfoModiContainer {...props}/>
         },
-        {
-            list: "회원 탈퇴",
-            isSort: false,
-            component: (props: any) => <MemWithdrawallContainer {...props}/>
-        }
+        // {
+        //     list: "회원 탈퇴",
+        //     isSort: false,
+        //     component: (props: any) => <MemWithdrawallContainer {...props}/>
+        // }
     ];
     const [ selectedMenuIndex, setSelectedMenuIndex ] = useState<number>(0);
     const handleClickMenu = useCallback((index: number): void => {

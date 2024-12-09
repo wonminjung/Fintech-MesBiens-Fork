@@ -14,8 +14,9 @@ const AccountContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Ele
     const [ isClickSort, setIsClickSort ] = useState<boolean>(false);
     const sortBtnRef = useRef<HTMLDivElement>(null);
     const toggleIsClickSort = useCallback(() => {
-        setIsClickSort((prevIsClickSort) => !prevIsClickSort);
+        setIsClickSort((prevState) => !prevState);
     }, []);
+    // 수정할 예정.. 다른 곳 클릭해도 드롭다운 메뉴가 닫히도록 구현할 예정
     const handleDropdown = useCallback((e: React.MouseEvent): void => {
         if(sortBtnRef.current && !sortBtnRef.current.contains(e.target as Node)) {
             setIsClickSort(false);
@@ -36,11 +37,11 @@ const AccountContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Ele
                                         <S.AccountSortIcon icon={faAngleDown} data-spinsorticon={isClickSort}/>
                                     </S.AccountSort>
                                     {isClickSort && (
-                                        <S.Dropdown data-activedropdown={String(isClickSort)}>
+                                        <S.Dropdown data-activedropdown={isClickSort}>
                                             <S.DropdownItem>금액 많은 순</S.DropdownItem>
                                             <S.DropdownItem>금액 적은 순</S.DropdownItem>
-                                            <S.DropdownItem>최근 등록 순</S.DropdownItem>
-                                            <S.DropdownItem>오래 등록 순</S.DropdownItem>
+                                            <S.DropdownItem>최신 등록 순</S.DropdownItem>
+                                            <S.DropdownItem>오래된 순</S.DropdownItem>
                                         </S.Dropdown>
                                     )}
                                 </S.DropdownContainer>

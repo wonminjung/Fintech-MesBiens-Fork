@@ -9,17 +9,20 @@ type Props = {
 
 const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index }): JSX.Element => {
     const { fieldName, value } = info;
+    const valueByType = typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value;
+
+    // 수정 상태
     const [ isEdited, setIsEdited ] = useState<boolean>(false);
-    
-    const handleEdited = useCallback((e:React.MouseEvent<HTMLButtonElement>): void => {
+    const handleEdited = useCallback((): void => {
         setIsEdited((prevState) => !prevState);
     }, []);
 
-    const onChange = () => {};
+    // 수정 입력필드 상태
+    const [ inputValue, setInputValue ] = useState<string>(valueByType);
+    const inputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
+        setInputValue(() => e.target.value);
+    }, []);
 
-    const handleValue = typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value
-
-    
     return (
         <S.FieldTr>
             <th>{fieldName}</th>
@@ -27,12 +30,11 @@ const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index }): JS
                 {
                     isEdited ? 
                     (
-                        <S.FieldEditValue type="text" value={handleValue} onChange={onChange}/>
-
+                        <S.FieldEditValue type="text" value={inputValue} onChange={inputOnChange} />
                     )
                     :
                     (
-                        <S.FieldExistValue>{typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value}</S.FieldExistValue>
+                        <S.FieldExistValue>{valueByType}</S.FieldExistValue>
                     )
                 }
                 <S.FieldEditButton type="button" onClick={handleEdited} data-editsuccess={isEdited}>
