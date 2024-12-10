@@ -1,7 +1,7 @@
 import "../../global/style.css";
 import styled from "styled-components";
 
-export const InputField = styled.input`
+export const InputField = styled.input.attrs({ type: "text" })`
   width: 100%;
   height: 55px;
   padding: 5px;
