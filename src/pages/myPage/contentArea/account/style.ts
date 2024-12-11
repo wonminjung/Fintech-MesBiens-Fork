@@ -28,7 +28,6 @@ const S = {
   DropdownContainer: styled.div`
     position: relative;
     width: 7vw;
-    z-index: 100;
   `,
   AccountSort: styled.div`
     display: flex;

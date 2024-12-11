@@ -15,13 +15,13 @@ const S = {
         height: 100%;
         background-color: black;
         filter: opacity(0.33);
-        z-index: 10000;
+        z-index: 100;
     `,
     ModalWindow: styled.div`
         width: 30%;
         height: 70%;
         background-color: white;
-        z-index: 10001;
+        z-index: 101;
     `,
 };
 
