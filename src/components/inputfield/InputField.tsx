@@ -1,10 +1,10 @@
 import React from "react";
 import { InputField, InputFieldBorder } from "./style";
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
   [key: string]: any;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // 입력필드에 값이 들어왔을 때
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const DefaultInputField: React.FC<InputProps> = ({
@@ -12,7 +12,11 @@ const DefaultInputField: React.FC<InputProps> = ({
   onChange,
   ...rest
 }) => {
-  return <InputField {...rest}>{children}</InputField>;
+  return (
+    <InputField onChange={onChange} {...rest}>
+      {children}
+    </InputField>
+  );
 };
 
 export default DefaultInputField;

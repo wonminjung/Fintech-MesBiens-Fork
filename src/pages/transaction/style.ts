@@ -1,9 +1,11 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+import DefaultButton from "../../components/button/DefaultButton";
 
 export const T = {
   MainContainer: styled.div`
     display: flex;
     flex-direction: row;
+    overflow: auto;
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
@@ -11,13 +13,31 @@ export const T = {
   H1: styled.h1`
     font-size: 20px;
     text-align: left;
+    margin: 0;
+    margin-top: 20px;
   `,
-  Input: styled.input.attrs({ type: "number" })`
+  H5: styled.h5`
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+    color: grey;
+  `,
+  P: styled.p`
+    font-size: 15px;
+    margin: 0;
+    color: grey;
+  `,
+  NumInput: styled.input.attrs({ type: "number" })`
     width: 80%;
+    height: 30px;
     padding: 10px;
     margin: 20px 0;
-    border: 1px solid #e0e0e0;
+    /* border: 1px solid #e0e0e0; */
+    border: none;
     border-radius: 4px;
+    /* ::placeholder {
+      font-size: 400px;
+    } */
     ::-webkit-outer-spin-button,
     ::-webkit-inner-spin-bu6yhbton {
       -webkit-appearance: none; /* Chrome, Safari, Edge에서 화살표 제거 */
@@ -33,6 +53,13 @@ export const T = {
       }
     } */
   `,
+  TextInput: styled.input.attrs({ type: "text" })`
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+  `,
   Select: styled.select`
     width: 80%;
     padding: 10px;
@@ -43,14 +70,34 @@ export const T = {
     /* transform: translateY(-20px); */
     transition: opacity 0.5s ease, trasform 0.5s ease;
   `,
+  Button: styled(DefaultButton)`
+    font-size: 15px;
+    width: 80%;
+    height: 35px;
+    margin-bottom: 20px;
+  `,
+  PlainButton: styled.button`
+    margin: 0;
+    font-size: 15px;
+    border: none;
+    color: grey;
+    background-color: white;
+  `,
+  TransactionInfo: styled.div`
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    padding: 3px 0;
+  `,
 
   /* 첫번째 화면 */
   FirstPage: styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
     width: 25em;
-    height: 93%;
+    height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -61,7 +108,9 @@ export const T = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
     width: 25em;
+    height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -76,5 +125,53 @@ export const T = {
     width: 100%;
     text-align: center;
     margin: 20px 0;
+  `,
+
+  ThirdPage: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    width: 25em;
+    height: 92%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #ffffff;
+  `,
+  MemoBtn: styled.button`
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: lightgray;
+    color: black;
+  `,
+
+  Modal: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 200px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+  `,
+  Overlay: styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
   `,
 };

@@ -28,8 +28,6 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
           </li>
         </ul>
       </S.SideMenuListContainer>
-
-      <S.Ppl src="https://www.musinsa.com/main/">무신사</S.Ppl>
     </S.SideBarContainer>
   );
 };
