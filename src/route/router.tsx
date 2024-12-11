@@ -15,6 +15,8 @@ import Notification from "../pages/myportfolio/Notification";
 import Tile1 from "../pages/myportfolio/News/Tile1";
 import StockTest from "../pages/myportfolio/Recommend/StockTest";
 import Transaction from "../pages/transaction/Transaction";
+import Recent from "../pages/Recent/Recent";
+import Assets from "../pages/Assets/Assets";
 
 const routes: RouteObject[] = [
   {
@@ -76,6 +78,14 @@ const routes: RouteObject[] = [
       {
         path: "stocktest",
         element: <StockTest />,
+      },
+      {
+        path: "recent",
+        element: <Recent />,
+      },
+      {
+        path: "assets",
+        element: <Assets />,
       },
     ],
   },
