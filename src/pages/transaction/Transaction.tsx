@@ -171,7 +171,7 @@ const Transaction: React.FC = () => {
                 <T.TransactionInfo>
                   <T.P>받는 분에게 표시</T.P>
                   <T.P onClick={handleOpenModal} style={{ cursor: "pointer" }}>
-                    {receiver}
+                    {receiver} &gt;
                   </T.P>
                 </T.TransactionInfo>
                 <T.TransactionInfo>

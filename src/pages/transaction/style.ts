@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import DefaultButton from "../../components/button/DefaultButton";
+import { InputField } from "../../components/inputfield/style";
 
 export const T = {
   MainContainer: styled.div`
@@ -53,13 +54,7 @@ export const T = {
       }
     } */
   `,
-  TextInput: styled.input.attrs({ type: "text" })`
-    width: 70%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 4px;
-  `,
+  TextInput: styled(InputField)``,
   Select: styled.select`
     width: 80%;
     padding: 10px;
@@ -96,7 +91,7 @@ export const T = {
     flex-direction: column;
     align-items: center;
     overflow: auto;
-    width: 25em;
+    width: 23em;
     height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -109,7 +104,7 @@ export const T = {
     flex-direction: column;
     align-items: center;
     overflow: auto;
-    width: 25em;
+    width: 23em;
     height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -133,7 +128,7 @@ export const T = {
     align-items: center;
     justify-content: center;
     overflow: auto;
-    width: 25em;
+    width: 23em;
     height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
