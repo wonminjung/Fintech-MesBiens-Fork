@@ -15,10 +15,10 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
             <a href="/main">지출 캘린더</a>
           </li>
           <li>
-            <a href="recent_transactions.html">최근 거래 내역</a>
+            <a href="/recent">최근 거래 내역</a>
           </li>
           <li>
-            <a href="assets.html">자산 현황</a>
+            <a href="/assets">자산 현황</a>
           </li>
           <li>
             <a href="/transaction">송금</a>
