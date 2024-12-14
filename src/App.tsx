@@ -1,11 +1,14 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import router from "./route/router";
+import { AuthProvider } from "./lib/AuthContext";
 
 const App: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 };

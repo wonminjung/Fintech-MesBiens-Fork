@@ -6,7 +6,7 @@ import DefaultButton from "../../components/button/DefaultButton";
 import { useNavigate } from "react-router-dom";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 
-const IntroPage: React.FC = () => {
+const IntroPage_afterLogin: React.FC = () => {
   const [userID, setUserID] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<string>("");
@@ -83,7 +83,7 @@ const IntroPage: React.FC = () => {
         </ul>
       </M.LeftAreaContainer>
       <VerticalDivider margin="40px 0" />
-      <M.LoginContainer>
+      {/* <M.LoginContainer>
         <I.Container_top>
           <h1
             style={{
@@ -125,8 +125,11 @@ const IntroPage: React.FC = () => {
             </I.P_tag>
           </I.SignUp>
         </I.Container_bottom>
-      </M.LoginContainer>
+      </M.LoginContainer> */}
+      <div>
+        <h3>저장된 ID: {userID}</h3> {/* 저장된 userID 출력 */}
+      </div>
     </M.MainContainer>
   );
 };
-export default IntroPage;
+export default IntroPage_afterLogin;

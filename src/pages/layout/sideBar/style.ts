@@ -16,12 +16,15 @@ const S = {
     height: 100vh;
     box-sizing: border-box;
   `,
-  SideBarTitle: styled.h2`
+  SideBarTitle: styled.a`
     text-align: center;
     font-size: 24px;
     margin-right: 7%;
     padding: 4px;
     border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
 
     & > p {
       margin: 0;

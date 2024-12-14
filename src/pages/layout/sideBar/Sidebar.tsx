@@ -4,9 +4,9 @@ import S from "./style";
 const Sidebar: React.FunctionComponent = (): JSX.Element => {
   return (
     <S.SideBarContainer>
-      <S.SideBarTitle>
-        <p>금융 종함</p>
-        <p>웹서비스 프로그램</p>
+      <S.SideBarTitle href="/afterLogin">
+        <p>MesBiens</p>
+        <p>메비앙</p>
       </S.SideBarTitle>
 
       <S.SideMenuListContainer>

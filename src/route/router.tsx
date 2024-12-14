@@ -5,7 +5,7 @@ import LoginPage from "../pages/login/LoginPage";
 import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
-import IntroPage from "../pages/main/IntroPage";
+import IntroPage from "../pages/main/IntroPage_afterLogin";
 import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
 import News from "../pages/myportfolio/News/News";
 import Recommend from "../pages/myportfolio/Recommend/Recommend";
@@ -17,6 +17,8 @@ import StockTest from "../pages/myportfolio/Recommend/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
 import Assets from "../pages/Assets/Assets";
+import IntroPage_beforeLogin from "../pages/main/IntroPage_beforeLogin";
+import IntroPage_afterLogin from "../pages/main/IntroPage_afterLogin";
 
 const routes: RouteObject[] = [
   {
@@ -25,7 +27,11 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <IntroPage />,
+        element: <IntroPage_beforeLogin />,
+      },
+      {
+        path: "/afterLogin",
+        element: <IntroPage_afterLogin />,
       },
       {
         path: "/myPage",
