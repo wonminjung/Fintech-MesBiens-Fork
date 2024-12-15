@@ -10,7 +10,7 @@ import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
 import News from "../pages/myportfolio/News/News";
 import Recommend from "../pages/myportfolio/Recommend/Recommend";
 import Trading from "../pages/myportfolio/Trading/Trading";
-import Notice from "../pages/myportfolio/Notice";
+import Board from "../pages/myportfolio/board/Board";
 import Notification from "../pages/myportfolio/Notification";
 import Tile1 from "../pages/myportfolio/News/Tile1";
 import StockTest from "../pages/myportfolio/Recommend/StockTest";
@@ -70,8 +70,8 @@ const routes: RouteObject[] = [
         element: <Trading />,
       },
       {
-        path: "P_notice",
-        element: <Notice />,
+        path: "P_board",
+        element: <Board />,
       },
       {
         path: "P_notification",

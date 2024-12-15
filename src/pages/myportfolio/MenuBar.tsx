@@ -19,7 +19,7 @@ const MenuBar: React.FC = () => {
     navigate("/P_transaction");
   };
   const Notice = () => {
-    navigate("/P_notice");
+    navigate("/P_board");
   };
   const Notification = () => {
     navigate("/P_notification");

@@ -29,7 +29,7 @@
 
 .calendar-cell.selected {
   /* background-color: #007bff; */
-  background: var(--first-color);
+  background: var(--third-color);
   color: white;
   font-weight: bold;
 }

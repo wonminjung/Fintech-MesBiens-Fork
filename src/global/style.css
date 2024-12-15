@@ -45,9 +45,14 @@
   --sns-border-radius: 50px;
 }
 
+/* 패딩 */
+:root {
+  --default-padding: 20px;
+}
+
 @font-face {
-  font-family: 'Pretendard';
-  src: url("../../public/font/Pretendard-Regular.woff") format('woff');
+  font-family: "Pretendard";
+  src: url("../../public/font/Pretendard-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }

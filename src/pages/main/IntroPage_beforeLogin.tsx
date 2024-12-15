@@ -18,34 +18,8 @@ const IntroPage_beforeLogin: React.FC = () => {
     userPassword: "",
   });
 
-  /* 아이디 기억하기 */
-  const [isRemember, setIsRemember] = useState<boolean>(false);
-  const [cookies, setCookie, removeCookie] = useCookies<string>([
-    "rememberUserID",
-  ]);
-
-  useEffect(() => {
-    if (cookies.rememberUserID !== undefined) {
-      setLoginForm((prevState) => ({
-        ...prevState,
-        userID: cookies.rememberUserID,
-      }));
-      setIsRemember(true);
-    }
-  }, [cookies.rememberUserID]);
-
-  const hanldeOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // 체크박스 상태 업데이트
-    setIsRemember(e.target.checked);
-    if (e.target.checked) {
-      // 쿠키에 userID 값 저장, 유효기간 2000초
-      setCookie("rememberUserID", loginForm.userID, { maxAge: 2000 });
-    } else {
-      // 체크 안 되어 있으면 쿠키 삭제
-      removeCookie("rememberUserID");
-    }
-  };
-
+  // const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
+  const [cookies, setCookie] = useCookies<string>(["userID"]);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
 
@@ -67,6 +41,9 @@ const IntroPage_beforeLogin: React.FC = () => {
       console.log("비밀번호 : " + userPassword);
       alert("로그인 성공");
 
+      // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
+      setCookie("userID", userID, { maxAge: 2000 });
+
       // userID를 Context에 저장
       setUserID(userID);
 
@@ -75,6 +52,7 @@ const IntroPage_beforeLogin: React.FC = () => {
       setErrors("");
 
       navigate("/main");
+      window.location.reload();
     }
   };
 
@@ -159,11 +137,7 @@ const IntroPage_beforeLogin: React.FC = () => {
                 setLoginForm({ ...loginForm, userPassword: e.target.value })
               }
             />
-            <I.RememberMe
-              type="checkbox"
-              onChange={hanldeOnChange}
-              checked={isRemember}
-            />
+            <I.RememberMe type="checkbox" />
             <label htmlFor="remember">ID 기억하기</label>
             {errors && <div style={{ color: "red" }}>{errors}</div>}
             <DefaultButton width="100%">Login</DefaultButton>

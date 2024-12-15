@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DefaultButton from "../../../components/button/DefaultButton";
+import PlainButton from "../../../components/button/PlainButton";
 
 const S = {
   HeaderContainer: styled.div`
@@ -90,6 +92,9 @@ const S = {
       background: var(--button-hover-color);
       cursor: pointer;
     }
+  `,
+  Logout_btn: styled(PlainButton)`
+    font-size: 10px;
   `,
 };
 
