@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const R = {
@@ -6,6 +7,9 @@ export const R = {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+  `,
+  Link: styled(Link)`
+    text-decoration: none;
   `,
 };
 

@@ -1,16 +1,24 @@
 import styled from "styled-components";
 import DefaultButton from "../../../components/button/DefaultButton";
+import DefaultInputField from "../../../components/inputfield/InputField";
+import PlainButton from "../../../components/button/PlainButton";
 
 export const BC = {
-  BoardContent: styled.div`
+  Board: styled.div`
+    display: flex;
+    width: 100%;
+    height: 85%;
+  `,
+
+  /* Board */
+  BoardContainer: styled.div`
     display: flex;
     flex-direction: column;
     width: 70%;
     height: 100%;
     padding: var(--default-padding);
     border-radius: var(--container-border-radius);
-    box-sizing: border-box;
-    /* 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
+    box-sizing: border-box; // 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
   `,
   HeaderContainer: styled.div`
     display: flex;
@@ -18,9 +26,7 @@ export const BC = {
     justify-content: space-between;
   `,
   Button: styled(DefaultButton)`
-    width: 55px;
-    height: 30px;
-    font-size: 15px;
+    /* height: 30px; */
   `,
   BoardTable: styled.table`
     width: 100%;
@@ -57,6 +63,85 @@ export const BC = {
     max-width: 100px;
     &:hover {
       cursor: pointer;
+    }
+  `,
+
+  /* Pagination */
+  PaginationWrapper: styled.div`
+    margin-top: auto;
+    text-align: center;
+    padding-top: 15px;
+  `,
+  Pagination: styled.div`
+    text-align: center;
+    padding-bottom: 1em;
+    & a {
+      margin: 0 5px;
+      text-decoration: none;
+      color: var(--button-color);
+      &:hover {
+        color: var(--button-hover-color);
+      }
+    }
+  `,
+
+  /* Chat */
+  ChatArea: styled.div`
+    position: relative;
+    width: 35%;
+    height: 100%;
+    padding: var(--default-padding);
+    overflow-y: auto; // 채팅이 많아지면 스크롤바 생성
+    border-radius: var(--container-border-radius);
+    box-sizing: border-box; // 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
+  `,
+  ChatMessage: styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 2em;
+  `,
+  ChatAnonymous: styled.p`
+    font-weight: bold;
+    color: var(--button-color);
+    margin-right: 10px;
+    flex-shrink: 0; // 사용자 이름이 잘리는 것을 방지
+    width: 90px; // 정렬을 위한 고정 너비
+    text-align: left;
+  `,
+  ChatAnoymousMessage: styled.p`
+    color: var(--text-color-grey);
+    background: var(--container-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    max-width: 70%;
+    word-wrap: break-word; // 긴 단어 줄바꿈
+  `,
+  ChatWrapper: styled.div`
+    position: absolute;
+    bottom: 10px;
+    left: 0%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  `,
+  /* 채팅 입력창과 전송 버튼 */
+  Chat: styled.div`
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+  `,
+  ChatInput: styled(DefaultInputField)`
+    flex: 1;
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+    /* border-radius: 4px; */
+  `,
+  ChatBtn: styled(PlainButton)`
+    margin-left: 5px;
+    &:hover {
+      background-color: var(--button-hover-color);
+      color: white;
     }
   `,
 };

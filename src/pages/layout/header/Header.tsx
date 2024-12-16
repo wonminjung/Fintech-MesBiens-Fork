@@ -55,13 +55,13 @@ const Header: React.FC = () => {
         </PlainButton>
         <S.LoginSignupContainer>
           <VerticalDivider />
-          <Link to="/myPage">
+          <S.Link to="/myPage">
             <PlainButton>MYPAGE</PlainButton>
-          </Link>
+          </S.Link>
           <VerticalDivider />
-          <Link to="/">
+          <S.Link to="/">
             <PlainButton>HOME</PlainButton>
-          </Link>
+          </S.Link>
           {/* <VerticalDivider />
           <Link to="/login">
             <PlainButton>로그인</PlainButton>
