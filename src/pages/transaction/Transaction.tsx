@@ -95,6 +95,25 @@ const Transaction: React.FC = () => {
           ref={accountNumberRef}
         />
         <T.Button onClick={handleInputClick}>입력</T.Button>
+        {showBankDetails && <T.H1>어떤 계좌로 보낼까요?</T.H1>}
+        {showBankDetails && (
+          <>
+            <T.Select id="BankSelect" onChange={handleBankSelect}>
+              <option value="" disabled selected>
+                은행 선택
+              </option>
+              <option value="국민은행">국민은행</option>
+              <option value="신한은행">신한은행</option>
+              <option value="우리은행">우리은행</option>
+              <option value="하나은행">하나은행</option>
+              <option value="농협은행">농협은행</option>
+            </T.Select>
+            <T.Divider>
+              <span>또는</span>
+            </T.Divider>
+          </>
+        )}
+
         <T.Select id="MyAccounts" onChange={handleBankSelect}>
           <option value="" disabled selected>
             내 계좌
@@ -117,19 +136,6 @@ const Transaction: React.FC = () => {
           <option value="R농협은행">농협은행</option>
         </T.Select>
         <HorizontalDivider width="90%" />
-        {showBankDetails && <T.H1>어떤 계좌로 보낼까요?</T.H1>}
-        {showBankDetails && (
-          <T.Select id="BankSelect" onChange={handleBankSelect}>
-            <option value="" disabled selected>
-              은행 선택
-            </option>
-            <option value="국민은행">국민은행</option>
-            <option value="신한은행">신한은행</option>
-            <option value="우리은행">우리은행</option>
-            <option value="하나은행">하나은행</option>
-            <option value="농협은행">농협은행</option>
-          </T.Select>
-        )}
       </T.FirstPage>
 
       <VerticalDivider />

@@ -3,7 +3,7 @@ import DefaultButton from "../../../components/button/DefaultButton";
 import PlainButton from "../../../components/button/PlainButton";
 import { Link } from "react-router-dom";
 
-const S = {
+export const S = {
   HeaderContainer: styled.div`
     /* border: 2px solid black; */
     border-radius: 10px 0 0 10px;
@@ -22,9 +22,23 @@ const S = {
     display: flex;
     font-size: 20px;
     font-weight: bold;
+    align-items: center;
 
     @media (max-width: 600px) {
       width: 100%;
+    }
+  `,
+  powerimg: styled.img`
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 50px;
+    transition: 0.25s ease-in-out;
+    &:hover {
+      background: var(--second-color);
     }
   `,
   SearchContainer: styled.div`
@@ -49,62 +63,99 @@ const S = {
     border: none;
     //width: 40%;
     height: 2em;
-
+    /* opacity: 0; */
+    transform: translateX(-30px);
+    transition: transform 0.5s ease-in-out;
     @media (max-width: 600px) {
       width: 100%;
       margin-bottom: 2em;
     }
-  `,
-  SearchBtn: styled.button`
-    /* width: 70px;
-    height: 25px;
-    margin-right: 80px;
-    border-radius: 10px;
-    border: none;
-    background: var(--button-color);
-    color: white;
-    font-size: 15px;
-
     &:hover {
-      background: var(--button-hover-color);
-      cursor: pointer;
+      transform: translateX(0);
     }
-
-    @media (max-width: 600px) {
-      width: 100%;
-    } */
+  `,
+  SearchImg: styled.img`
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+    width: 20px;
   `,
   LoginSignupContainer: styled.div`
     display: flex;
-  `,
-  LoginSignupBtn: styled.a`
-    width: 70px;
-    height: 25px;
-    margin-right: 5px;
-    border: none;
-    background: var(--button-color);
-    color: white;
-    border-radius: 10px;
-    font-size: 13px;
-    padding: 2px 5px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-      background: var(--button-hover-color);
-      cursor: pointer;
-    }
-  `,
-  Logout_btn: styled(PlainButton)`
-    font-size: 10px;
   `,
   Link: styled(Link)`
     display: flex;
     text-decoration: none;
     align-items: center;
   `,
+  img: styled.img`
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+    width: 20px;
+  `,
 };
 
-export default S;
+export const A = {
+  Modal: styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 70px;
+    right: 230px;
+    opacity: (0);
+    transition: opacity 0.5 ease-in-out;
+    width: auto;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    &.open {
+      transform: translate(70px 200px);
+      opacity: (1);
+    }
+  `,
+  Overlay: styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  `,
+  NotiBox: styled.div`
+    display: block;
+    /* border: 1px solid var(--border-color); */
+    margin: 5px;
+    width: auto;
+    border-radius: var(--container-border-radius);
+    position: relative;
+    & p {
+      padding: 5px;
+      margin: 0;
+    }
+  `,
+  NotiHead: styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+  `,
+  NotiTime: styled.p`
+    position: absolute;
+    top: 3px;
+    right: 0;
+    font-size: 12px;
+  `,
+  NotiLink: styled.a`
+    text-decoration: none;
+    color: var(--black);
+    &:hover {
+      text-decoration: none;
+      color: var(--first-color);
+    }
+  `,
+};

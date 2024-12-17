@@ -10,7 +10,7 @@ import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
 import News from "../pages/myportfolio/News/News";
 import Recommend from "../pages/myportfolio/Recommend/Recommend";
 import Trading from "../pages/myportfolio/Trading/Trading";
-import Board from "../pages/myportfolio/board/Board";
+import Board from "../pages/myportfolio/Board/Board";
 import Notification from "../pages/myportfolio/Notification";
 import Tile1 from "../pages/myportfolio/News/Tile1";
 import StockTest from "../pages/myportfolio/Recommend/StockTest";
