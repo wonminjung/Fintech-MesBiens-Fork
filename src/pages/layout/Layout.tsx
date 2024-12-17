@@ -20,7 +20,7 @@ const Layout: React.FunctionComponent = (): JSX.Element => {
 
       <S.MainContentContainer>
         {/* 고정 헤더 */}
-        <Header userName="홍길동" />
+        <Header />
 
         <S.OutletContainer>
           <Outlet />

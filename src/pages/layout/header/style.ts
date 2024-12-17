@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import DefaultButton from "../../../components/button/DefaultButton";
+import PlainButton from "../../../components/button/PlainButton";
+import { Link } from "react-router-dom";
 
 const S = {
   HeaderContainer: styled.div`
@@ -13,9 +16,12 @@ const S = {
     background: var(--container-color);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   `,
-  HeaderWelcome: styled.h2`
+  HeaderWelcome: styled.div`
     /* border-radius: 10px; */
     //min-width: 300px;
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
 
     @media (max-width: 600px) {
       width: 100%;
@@ -90,6 +96,14 @@ const S = {
       background: var(--button-hover-color);
       cursor: pointer;
     }
+  `,
+  Logout_btn: styled(PlainButton)`
+    font-size: 10px;
+  `,
+  Link: styled(Link)`
+    display: flex;
+    text-decoration: none;
+    align-items: center;
   `,
 };
 

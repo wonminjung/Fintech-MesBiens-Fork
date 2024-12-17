@@ -32,9 +32,9 @@ const Recommend: React.FC = () => {
     <P.MainContainer>
       <MenuBar />
       <R.RecommendationContainer>
-        <Link to="/StockTest">
+        <R.Link to="/StockTest">
           <DefaultButton width="15em">투자 성향 테스트 하러가기</DefaultButton>
-        </Link>
+        </R.Link>
         {location.state?.submitted && (
           <>
             <h1 style={{ fontSize: "40px" }}>추천 주식</h1>
