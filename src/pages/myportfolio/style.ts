@@ -65,7 +65,7 @@ const P = {
   BottomContainer: styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: var(--default-padding);
     //height: 90%;
     flex-grow: 1;
     overflow: auto;

@@ -4,7 +4,7 @@ import S from "./style";
 import Sidebar from "./sideBar/Sidebar";
 import Header from "./header/Header";
 
-const Layout: React.FunctionComponent = (): JSX.Element => {
+const Layout: React.FunctionComponent = () => {
   return (
     <S.RootContainer>
       {/* 고정이 되는 메인 메뉴 */}
@@ -12,7 +12,7 @@ const Layout: React.FunctionComponent = (): JSX.Element => {
 
       <S.MainContentContainer>
         {/* 고정 헤더 */}
-        <Header userName="홍길동" />
+        <Header />
 
         <S.OutletContainer>
           <Outlet />

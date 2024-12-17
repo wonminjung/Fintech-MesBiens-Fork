@@ -5,37 +5,14 @@ import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
 import { useNavigate } from "react-router-dom";
 import VerticalDivider from "../../components/divider/VerticalDivider";
+import { useCookies } from "react-cookie";
 
-const IntroPage: React.FC = () => {
+const IntroPage_afterLogin: React.FC = () => {
   const [userID, setUserID] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<string>("");
   const navigate = useNavigate();
-
-  const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-
-    // 유효성 검사
-    if (userID === "" || password === "") {
-      setErrors("ID 또는 비밀번호를 입력해 주세요!");
-    } else if (userID !== "user") {
-      setErrors("ID가 일치하지 않습니다.");
-    } else if (password !== "0000") {
-      setErrors("비밀번호가 일치하지 않습니다.");
-    } else {
-      // 유효성 통과 시
-      console.log("아이디 : " + userID);
-      console.log("비밀번호 : " + password);
-      alert("로그인 성공");
-
-      // 로그인 처리 후 상태 초기화
-      setUserID("");
-      setPassword("");
-      setErrors("");
-
-      navigate("/main");
-    }
-  };
+  const [cookies] = useCookies<string>(["useID"]); // 쿠키 가져오기
 
   return (
     <M.MainContainer>
@@ -83,50 +60,9 @@ const IntroPage: React.FC = () => {
         </ul>
       </M.LeftAreaContainer>
       <VerticalDivider margin="40px 0" />
-      <M.LoginContainer>
-        <I.Container_top>
-          <h1
-            style={{
-              fontSize: "3em",
-              margin: "0 0 40px 0",
-              padding: "20px",
-            }}
-          >
-            Login
-          </h1>
-        </I.Container_top>
-        <I.Container_bottom>
-          <I.P_tag>회원 ID와 비밀번호를 입력하세요.</I.P_tag>
-          <form onSubmit={HandleLogin}>
-            <DefaultInputField
-              id="username"
-              placeholder="회원 ID (fintech123)"
-              // required
-              value={userID}
-              onChange={(e) => setUserID(e.target.value)}
-            />
-            <br />
-            <DefaultInputField
-              type="password"
-              id="password"
-              placeholder="비밀번호 (123456)"
-              // required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <I.RememberMe type="checkbox" />
-            <label htmlFor="remember">ID 기억하기</label>
-            {errors && <div style={{ color: "red" }}>{errors}</div>}
-            <DefaultButton width="100%">Login</DefaultButton>
-          </form>
-          <I.SignUp>
-            <I.P_tag style={{ textAlign: "right" }}>
-              <a href="/signup">회원가입</a>
-            </I.P_tag>
-          </I.SignUp>
-        </I.Container_bottom>
-      </M.LoginContainer>
+
+      <div>{cookies.userID ? `저장된 ID: ${cookies.userID}` : ""}</div>
     </M.MainContainer>
   );
 };
-export default IntroPage;
+export default IntroPage_afterLogin;

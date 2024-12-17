@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import DefaultButton from "../../components/button/DefaultButton";
 import { InputField } from "../../components/inputfield/style";
+import { Link } from "react-router-dom";
 
 export const T = {
   MainContainer: styled.div`
@@ -168,5 +169,11 @@ export const T = {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+  `,
+  Link: styled(Link)`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-decoration: none;
   `,
 };

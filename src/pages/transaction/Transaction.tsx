@@ -211,9 +211,9 @@ const Transaction: React.FC = () => {
           <T.H1>{selectedBank} 계좌로</T.H1>
           <h2 style={{ marginBottom: "20%" }}>{입력금액}을 보냈어요!</h2>
           {/* <T.MemoBtn onClick={handleOpenModal}>메모 남기기</T.MemoBtn> */}
-          <Link to="/main" style={{ width: "100%", textAlign: "center" }}>
+          <T.Link to="/main">
             <T.Button>확인</T.Button>
-          </Link>
+          </T.Link>
         </T.ThirdPage>
       )}
     </T.MainContainer>
