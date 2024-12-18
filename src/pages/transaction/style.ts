@@ -12,8 +12,7 @@ export const T = {
     align-items: flex-start;
     padding: 20px;
   `,
-  H1: styled.h1`
-    font-size: 20px;
+  H1: styled.h2`
     text-align: left;
     margin: 0;
     margin-top: 20px;
@@ -193,5 +192,12 @@ export const T = {
       color: #999; /* 텍스트 색상 */
       font-size: small;
     }
+  `,
+
+  /* Third Page */
+  img: styled.img`
+    width: 80px;
+    height: 80px;
+    margin-bottom: 50px;
   `,
 };

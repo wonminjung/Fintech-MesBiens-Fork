@@ -28,12 +28,11 @@ export const S = {
       width: 100%;
     }
   `,
-  powerimg: styled.img`
+  LogoutBtn: styled(PlainButton)`
+    font-size: 12px;
     cursor: pointer;
     margin-right: 15px;
     margin-left: 15px;
-    width: 20px;
-    height: 20px;
     padding: 5px;
     border-radius: 50px;
     transition: 0.25s ease-in-out;
@@ -104,7 +103,7 @@ export const A = {
     align-items: center;
     position: absolute;
     top: 70px;
-    right: 230px;
+    right: 60px;
     opacity: (0);
     transition: opacity 0.5 ease-in-out;
     width: auto;

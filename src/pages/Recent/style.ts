@@ -17,24 +17,33 @@ export const R = {
     flex-direction: column;
     gap: 10px;
   `,
-  TableHeader: styled.tr`
+  Table: styled.table`
     width: 100%;
-    font-weight: bold;
-    background-color: #e6e6e6;
-    padding: 10px;
-    border-radius: 5px;
+    border-collapse: collapse;
+    flex-grow: 0;
     text-align: center;
-    color: #444;
+  `,
+  TableHeader: styled.tr`
+    width: 2em;
+    font-weight: bold;
+    /* background-color: #e6e6e6; */
+    background: var(--third-color);
+    padding: 10px;
+    /* border-radius: 5px; */
+    text-align: center;
+    /* color: #444;  */
   `,
   TableHeaderRow: styled.td`
     padding: 10px;
     border-bottom: 1px solid #ddd;
     text-align: center;
-    border-radius: 5px;
+    /* border-radius: 5px; */
+    padding: var(--default-padding);
   `,
   TableRow: styled.td`
     padding: 10px;
     border-bottom: 1px solid #ddd;
     text-align: center;
+    padding: var(--default-padding);
   `,
 };

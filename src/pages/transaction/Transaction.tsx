@@ -214,6 +214,7 @@ const Transaction: React.FC = () => {
 
       {showConfirm && (
         <T.ThirdPage>
+          <T.img src={`${process.env.PUBLIC_URL}/images/check-circle.svg`} />
           <T.H1>{selectedBank} 계좌로</T.H1>
           <h2 style={{ marginBottom: "20%" }}>{입력금액}을 보냈어요!</h2>
           {/* <T.MemoBtn onClick={handleOpenModal}>메모 남기기</T.MemoBtn> */}
