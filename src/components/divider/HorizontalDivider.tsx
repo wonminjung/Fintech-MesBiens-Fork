@@ -9,7 +9,7 @@ interface DividerProps {
 const HorizontalDivider = styled.div<DividerProps>`
   height: ${(props) => props.height || "1px"};
   width: ${(props) => props.width || ""};
-  background-color: #ccc;
+  background-color: var(--grey);
   margin: ${(props) => props.margin || ""};
 `;
 

@@ -12,8 +12,7 @@ export const T = {
     align-items: flex-start;
     padding: 20px;
   `,
-  H1: styled.h1`
-    font-size: 20px;
+  H1: styled.h2`
     text-align: left;
     margin: 0;
     margin-top: 20px;
@@ -175,5 +174,30 @@ export const T = {
     width: 100%;
     justify-content: center;
     text-decoration: none;
+  `,
+  Divider: styled.div`
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    &:before,
+    &:after {
+      content: "";
+      flex: 1; /* 양쪽 선이 동일한 비율로 늘어남 */
+      height: 1px; /* 선의 두께 */
+      background-color: var(--grey); /* 선의 색상 */
+    }
+    & span {
+      padding: 0 10px; /* 텍스트 주변 여백 */
+      color: #999; /* 텍스트 색상 */
+      font-size: small;
+    }
+  `,
+
+  /* Third Page */
+  img: styled.img`
+    width: 80px;
+    height: 80px;
+    margin-bottom: 50px;
   `,
 };

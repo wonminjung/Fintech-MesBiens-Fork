@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import S from "./style";
+import { useNavigate } from "react-router-dom";
+import { S, A } from "./style";
 import VerticalDivider from "../../../components/divider/VerticalDivider";
 import PlainButton from "../../../components/button/PlainButton";
-import { useAuth } from "../../../lib/AuthContext";
 import { useCookies } from "react-cookie";
+import { T } from "../../transaction/style";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +13,7 @@ const Header: React.FC = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies<string>(["userID"]); // 쿠키 가져오기
   const navigate = useNavigate(); // 리다이렉션을 위한 navigate 훅 사용
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [SearchVisible, setSearchVisible] = useState(false);
   const toggleSearchBar = () => {
@@ -29,6 +30,22 @@ const Header: React.FC = () => {
     window.location.reload();
   };
 
+  const redirectToMain = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event?.preventDefault();
+    if (!cookies.userID) {
+      navigate("/");
+    } else {
+      navigate("/afterLogin");
+    }
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <S.HeaderContainer>
       <S.HeaderWelcome>
@@ -36,32 +53,29 @@ const Header: React.FC = () => {
           ? `${cookies.userID}님 환영합니다.`
           : "Welcome to MesBiens"}
         {cookies.userID && ( // 쿠키가 있을 때만 로그아웃 버튼 표시
-          <S.Logout_btn onClick={handleLogout}>로그아웃</S.Logout_btn>
+          <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         )}
       </S.HeaderWelcome>
 
       <S.SearchContainer>
-        {SearchVisible && (
-          <S.SearchBarContainer>
-            <S.SearchInput type="text" placeholder="Search.." />
-          </S.SearchBarContainer>
-        )}
-        <PlainButton onClick={toggleSearchBar}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/SearchIcon.png`}
+        {/* {SearchVisible && ( */}
+        <S.SearchBarContainer>
+          <S.SearchInput type="text" placeholder="Search.." />
+          {/* )} */}
+          <S.SearchImg
+            src={`${process.env.PUBLIC_URL}/images/search.svg`}
             alt="Search"
+            onClick={toggleSearchBar}
           />
-          {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
-        </PlainButton>
+        </S.SearchBarContainer>
+
         <S.LoginSignupContainer>
           <VerticalDivider />
           <S.Link to="/myPage">
             <PlainButton>MYPAGE</PlainButton>
           </S.Link>
           <VerticalDivider />
-          <S.Link to="/">
-            <PlainButton>HOME</PlainButton>
-          </S.Link>
+          <PlainButton onClick={redirectToMain}>HOME</PlainButton>
           {/* <VerticalDivider />
           <Link to="/login">
             <PlainButton>로그인</PlainButton>
@@ -71,6 +85,44 @@ const Header: React.FC = () => {
             <PlainButton>회원가입</PlainButton>
           </Link> */}
         </S.LoginSignupContainer>
+        <S.img
+          src={`${process.env.PUBLIC_URL}/images/bell.svg`}
+          onClick={handleOpenModal}
+        />
+        {isModalOpen && (
+          <>
+            <A.Overlay onClick={handleCloseModal} />
+            <A.Modal className={isModalOpen ? "open" : ""}>
+              {/* 알림 */}
+              <A.NotiBox>
+                <A.NotiHead>
+                  <p>
+                    <strong>입금</strong>
+                  </p>
+                  <A.NotiTime>2024-11-07 16:29:31</A.NotiTime>
+                </A.NotiHead>
+                <p>
+                  민지님이 <strong>10,000원</strong>을 입금하셨습니다
+                  <span className="balance"> 잔액 10,001원</span>
+                </p>
+              </A.NotiBox>
+              {/*댓글 알림*/}
+              <A.NotiBox>
+                <A.NotiHead>
+                  <p>
+                    <strong>댓글</strong>
+                  </p>
+                  <A.NotiTime>2024-11-07 16:29:31</A.NotiTime>
+                </A.NotiHead>
+                <p>
+                  <A.NotiLink href="./board_post.html">
+                    ***님이 댓글에 <strong>좋아요</strong>를 눌렀습니다.
+                  </A.NotiLink>
+                </p>
+              </A.NotiBox>
+            </A.Modal>
+          </>
+        )}
       </S.SearchContainer>
     </S.HeaderContainer>
   );

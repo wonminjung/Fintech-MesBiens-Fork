@@ -10,7 +10,7 @@ interface DividerProps {
 const VerticalDivider = styled.div<DividerProps>`
   height: ${(props) => props.height || ""};
   width: ${(props) => props.width || "1px"};
-  background-color: ${(props) => props.backgroundColor || "#ccc"};
+  background-color: ${(props) => props.backgroundColor || "var(--grey)"};
   margin: ${(props) => props.margin || "0"};
 `;
 
