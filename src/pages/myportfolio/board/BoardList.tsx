@@ -3,10 +3,10 @@ import { BC } from "./style";
 import { useNavigate } from "react-router-dom";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
 
-const BoardContent: React.FC = () => {
+const BoardList: React.FC = () => {
   const navigate = useNavigate();
   const handleNavigate = (e: React.MouseEvent<HTMLTableCellElement>) => {
-    navigate("/boardCont");
+    navigate("/boardContent");
   };
   const handleWrite = (e: React.MouseEvent<HTMLButtonElement>) => {
     navigate("/boardWrite");
@@ -44,7 +44,7 @@ const BoardContent: React.FC = () => {
             </BC.trcont>
             <BC.trcont>
               <BC.td>1</BC.td>
-              <BC.tdtitle onClick={handleNavigate}>
+              <BC.tdtitle>
                 홍혁철은 TB조 바지팀장입니다 실질적 팀장은 민지 이다
                 {/* <a
                 href="./board_post.html"
@@ -107,4 +107,4 @@ const BoardContent: React.FC = () => {
   );
 };
 
-export default BoardContent;
+export default BoardList;

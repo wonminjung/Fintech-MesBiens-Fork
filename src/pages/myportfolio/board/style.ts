@@ -41,7 +41,7 @@ export const BC = {
   `,
   tr: styled.tr`
     background: var(--third-color);
-    border-radius: 20px;
+    /* border-radius: 20px; */
   `,
   trcont: styled.tr`
     &:hover {
@@ -143,5 +143,133 @@ export const BC = {
       background-color: var(--button-hover-color);
       color: white;
     }
+  `,
+};
+
+export const BP = {
+  PostContainer: styled.div`
+    height: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+  `,
+  PostHeader: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 2px solid var(--grey); */
+    padding-bottom: var(--padding-small-size);
+    height: 3em;
+    border-bottom: 2px solid #e0e0e0;
+  `,
+  h2: styled.h2`
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    /* white-space: nowrap; */
+  `,
+  PostActions: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* position: relative; */
+  `,
+  pWriter: styled.p`
+    font-weight: bold;
+    color: #555;
+  `,
+  pWriterName: styled.p`
+    white-space: nowrap;
+    /* padding-left: 1em; */
+    font-size: 1em;
+  `,
+  ThreeDotContainer: styled.div`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* padding-left: 3em; */
+    /* padding-bottom: 3em; */
+    font-size: 1.5em;
+    /* position: absolute; */
+  `,
+  ActionButtons: styled.div`
+    display: flex;
+    /* flex-direction: column; */
+    margin-left: 10px;
+    position: absolute;
+    top: 270px;
+    background-color: var(--white);
+  `,
+  button: styled(DefaultButton)`
+    width: 3em;
+    height: 2em;
+    font-size: 15px;
+    margin-right: 5px;
+  `,
+  PostDate: styled.div`
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #888;
+    & span {
+      font-weight: bold;
+      color: #333;
+    }
+  `,
+  PostContent: styled.div`
+    margin-top: 20px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  `,
+  CommentsSection: styled.div`
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 2px solid #e0e0e0;
+  `,
+  h3: styled.h3`
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  `,
+  Comment: styled.div`
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    & p {
+      margin: 5px 0;
+    }
+  `,
+  CommentInfo: styled.div`
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+  `,
+  CommentActions: styled.div`
+    display: flex;
+    /* gap: 2px; */
+    justify-content: flex-end;
+  `,
+  CommentLike: styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+  `,
+  img: styled.img`
+    width: 20px;
   `,
 };

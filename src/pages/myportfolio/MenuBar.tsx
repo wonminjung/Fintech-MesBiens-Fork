@@ -1,8 +1,6 @@
 import React from "react";
 import P from "./style";
 import { useNavigate } from "react-router-dom";
-import PlainButton from "../../components/button/PlainButton";
-import Transaction from "./Trading/Trading";
 
 const MenuBar: React.FC = () => {
   const navigate = useNavigate();
@@ -20,9 +18,6 @@ const MenuBar: React.FC = () => {
   };
   const Notice = () => {
     navigate("/P_board");
-  };
-  const Notification = () => {
-    navigate("/P_notification");
   };
 
   return (
@@ -43,12 +38,6 @@ const MenuBar: React.FC = () => {
         <li>
           <P.MenuButton onClick={Notice}>자유 게시판</P.MenuButton>
         </li>
-        <PlainButton onClick={Notification}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/NotificationIcon.png`}
-            alt="Notification"
-          />
-        </PlainButton>
       </ul>
     </P.MenuBar>
   );
