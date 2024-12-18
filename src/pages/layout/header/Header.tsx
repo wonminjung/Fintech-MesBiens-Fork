@@ -72,6 +72,22 @@ const Header: React.FC = () => {
           />
         </S.SearchBarContainer>
 
+        <S.LoginSignupContainer>
+          <VerticalDivider />
+          <S.Link to="/myPage">
+            <PlainButton>MYPAGE</PlainButton>
+          </S.Link>
+          <VerticalDivider />
+          <PlainButton onClick={redirectToMain}>HOME</PlainButton>
+          {/* <VerticalDivider />
+          <Link to="/login">
+            <PlainButton>로그인</PlainButton>
+          </Link>
+          <VerticalDivider />
+          <Link to="/signup">
+            <PlainButton>회원가입</PlainButton>
+          </Link> */}
+        </S.LoginSignupContainer>
         <S.img
           src={`${process.env.PUBLIC_URL}/images/bell.svg`}
           onClick={handleOpenModal}
@@ -110,23 +126,6 @@ const Header: React.FC = () => {
             </A.Modal>
           </>
         )}
-
-        <S.LoginSignupContainer>
-          <VerticalDivider />
-          <S.Link to="/myPage">
-            <PlainButton>MYPAGE</PlainButton>
-          </S.Link>
-          <VerticalDivider />
-          <PlainButton onClick={redirectToMain}>HOME</PlainButton>
-          {/* <VerticalDivider />
-          <Link to="/login">
-            <PlainButton>로그인</PlainButton>
-          </Link>
-          <VerticalDivider />
-          <Link to="/signup">
-            <PlainButton>회원가입</PlainButton>
-          </Link> */}
-        </S.LoginSignupContainer>
       </S.SearchContainer>
     </S.HeaderContainer>
   );
