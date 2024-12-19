@@ -4,7 +4,6 @@ import { S, A } from "./style";
 import VerticalDivider from "../../../components/divider/VerticalDivider";
 import PlainButton from "../../../components/button/PlainButton";
 import { useCookies } from "react-cookie";
-import { T } from "../../transaction/style";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -70,12 +69,12 @@ const Header: React.FC = () => {
         </S.SearchBarContainer>
 
         <S.LoginSignupContainer>
-          <VerticalDivider />
+          <VerticalDivider style={{ height: "30px" }} />
           <S.Link to="/myPage">
-            <PlainButton>MYPAGE</PlainButton>
+            <S.Button>MYPAGE</S.Button>
           </S.Link>
-          <VerticalDivider />
-          <PlainButton onClick={redirectToMain}>HOME</PlainButton>
+          <VerticalDivider style={{ height: "30px" }} />
+          <S.Button onClick={redirectToMain}>HOME</S.Button>
           {/* <VerticalDivider />
           <Link to="/login">
             <PlainButton>로그인</PlainButton>

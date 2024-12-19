@@ -45,6 +45,7 @@ const Transaction: React.FC = () => {
   const handleButtonClick = () => {
     handle금액();
     handleInputClick2();
+    setShowLastInfo(true);
   };
 
   const handleBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -138,10 +139,9 @@ const Transaction: React.FC = () => {
         <HorizontalDivider width="90%" />
       </T.FirstPage>
 
-      <VerticalDivider />
       {selectedBank && (
         <>
-          <T.SecondPage>
+          <T.SecondPage className={showLastInfo ? "fade-in" : ""}>
             <T.MyBank>
               <p>내</p>
               <T.Select
