@@ -46,7 +46,7 @@ const Recent: React.FC = () => {
 
   return (
     <R.AutoTransferContainer>
-      <h2 style={{ marginLeft: "40px" }}>최근 거래내역</h2>
+      <R.h2>최근 거래내역</R.h2>
       <R.AutoTransferTable>
         <R.Table>
           <R.TableHeader>

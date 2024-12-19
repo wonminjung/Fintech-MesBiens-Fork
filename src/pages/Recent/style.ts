@@ -46,4 +46,7 @@ export const R = {
     text-align: center;
     padding: var(--default-padding);
   `,
+  h2: styled.h2`
+    margin-left: 40px;
+  `,
 };

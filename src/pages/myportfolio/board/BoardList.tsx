@@ -17,7 +17,7 @@ const BoardList: React.FC = () => {
       {/* 게시판 Area */}
       <BC.BoardContainer>
         <BC.HeaderContainer>
-          <h2 style={{ marginLeft: "40px" }}>자유게시판</h2>
+          <BC.h2>자유게시판</BC.h2>
           <BC.Button onClick={handleWrite}>글쓰기</BC.Button>
         </BC.HeaderContainer>
         <BC.BoardTable>
