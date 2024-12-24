@@ -105,14 +105,14 @@ const S = {
     LeftMenuWrapper: styled.ul`
         padding: 0;
         margin: 0;
+        height: 100%;
         list-style: none;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         user-select: none;
 
         & > li {
-            height: calc(100% / 5 - 48px);
+            height: calc(100% / 3 - 20%);
             margin-bottom: 30px;
             font-size: 19px;
 

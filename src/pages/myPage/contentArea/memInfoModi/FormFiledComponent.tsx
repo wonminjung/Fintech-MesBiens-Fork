@@ -1,25 +1,29 @@
-import React, { useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import S from './style';
 import { Info,  } from './types';
 
 type Props = {
     info: Info;
     index: number;
+    setParentEdited: Dispatch<SetStateAction<boolean>>;
 };
 
-const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index }): JSX.Element => {
+const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index, setParentEdited }): JSX.Element => {
     const { fieldName, value } = info;
-    const [ isEdited, setIsEdited ] = useState<boolean>(false);
+    const valueByType = typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value;
     
-    const handleEdited = useCallback((e:React.MouseEvent<HTMLButtonElement>): void => {
+    // 수정 상태
+    const [ isEdited, setIsEdited ] = useState<boolean>(false);
+    const handleEdited = useCallback((): void => {
         setIsEdited((prevState) => !prevState);
     }, []);
 
-    const onChange = () => {};
+    // 수정 입력필드 상태
+    const [ inputValue, setInputValue ] = useState<string>(valueByType);
+    const inputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
+        setInputValue(() => e.target.value);
+    }, []);
 
-    const handleValue = typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value
-
-    
     return (
         <S.FieldTr>
             <th>{fieldName}</th>
@@ -27,12 +31,11 @@ const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index }): JS
                 {
                     isEdited ? 
                     (
-                        <S.FieldEditValue type="text" value={handleValue} onChange={onChange}/>
-
+                        <S.FieldEditValue type="text" value={inputValue} onChange={inputOnChange} />
                     )
                     :
                     (
-                        <S.FieldExistValue>{typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value}</S.FieldExistValue>
+                        <S.FieldExistValue>{valueByType}</S.FieldExistValue>
                     )
                 }
                 <S.FieldEditButton type="button" onClick={handleEdited} data-editsuccess={isEdited}>

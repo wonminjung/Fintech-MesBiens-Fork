@@ -8,18 +8,19 @@ type Props = {
 }
 
 const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JSX.Element => {
+    // 잔액 숨기기 상태
     const [ displayBtn, setDisplayBtn ] = useState<boolean>(false);
-    const handleDisplay = (): void => setDisplayBtn((prevDisplayBtn: boolean): boolean => !prevDisplayBtn);
+    const handleDisplay = useCallback((): void => setDisplayBtn((prevState: boolean): boolean => !prevState), []);
     
     const accountNumber = "123456789-12-123456";
 
+    // 복사 버튼 상태
     const [ copy, setCopy ] = useState<boolean>(false);
     const lastClickTime = useRef<number | null>(null);
     const handleCopy = useCallback(async (): Promise<void> => {
         const now = Date.now();
 
         if (lastClickTime.current && now - lastClickTime.current < 2000) {
-            console.log("Throttle active. Copy not allowed.");
             return; // 스로틀 활성화 중에는 복사 방지
         }
     
@@ -38,6 +39,10 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JS
         }
     }, []);
 
+    // 카드리스트 메뉴 상태
+    const [ isCardClicked, setIsCardClicked ] = useState<boolean>(false);
+    const handleIsCardClicked = useCallback((): void => setIsCardClicked((prevState: boolean): boolean => !prevState), []);
+
     return (
         <S.FilledAccountWrapper>
             {/* 카드리스트 상단 */}
@@ -47,22 +52,29 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index }): JS
                         <S.BankLogo>
                             <img src={`${process.env.PUBLIC_URL}/images/myPage/account/bank-img.jpg`} alt="은행 로고" />
                         </S.BankLogo>
-                        <S.BaniInfo>
+                        <S.BankInfo>
                             <h4>KB국민은행</h4>
                             <h4>123456789-12-123456</h4>
-                        </S.BaniInfo>
+                        </S.BankInfo>
                     </S.BankInfoWrapper>
                     
                     <S.AccountNumberCopyBtn onClick={handleCopy}>
                         <img src={`${process.env.PUBLIC_URL}/images/myPage/account/copy-icon.svg`} alt="복사 버튼" />
                     </S.AccountNumberCopyBtn>
-                    
                     {copy && <S.CopyMessage>복사가 완료되었습니다.</S.CopyMessage>}
                 </S.BankInfoContainer>
 
-                <S.CardlistMenuBtn>
-                    <FontAwesomeIcon icon={faEllipsis} />
-                </S.CardlistMenuBtn>
+                <S.CardListMenuContainer>
+                    <S.CardlistMenuBtn onClick={handleIsCardClicked}>
+                        <FontAwesomeIcon icon={faEllipsis} />
+                    </S.CardlistMenuBtn>
+                    {isCardClicked && (
+                        <S.CardlistDropdown>
+                            <S.CardlistDropDownItems>계좌 정보 수정</S.CardlistDropDownItems>
+                            <S.CardlistDropDownItems>계좌 삭제</S.CardlistDropDownItems>
+                        </S.CardlistDropdown>
+                    )}
+                </S.CardListMenuContainer>
             </S.FilledAccountHeader>
 
             {/* 카드리스트 하단 */}

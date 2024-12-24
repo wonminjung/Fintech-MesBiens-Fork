@@ -9,16 +9,16 @@ import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
 import News from "../pages/myportfolio/News/News";
 import Recommend from "../pages/myportfolio/Recommend/Recommend";
 import Trading from "../pages/myportfolio/Trading/Trading";
-import { Board, BoardContent } from "../pages/myportfolio/Board/Board";
+import { Board, BoardContent } from "../pages/myportfolio/board/Board";
 import Notification from "../pages/myportfolio/Notification";
 import Tile1 from "../pages/myportfolio/News/Tile1";
 import StockTest from "../pages/myportfolio/Recommend/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
-import Assets from "../pages/Assets/Assets";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import IntroPageAfterLogin from "../pages/main/IntroPageAfterLogin";
 import MainPage from "../pages/main/MainPage";
+import AssetsContainer from "../pages/Assets/AssetsContainer";
 
 const routes: RouteObject[] = [
   {
@@ -91,7 +91,7 @@ const routes: RouteObject[] = [
       },
       {
         path: "assets",
-        element: <Assets />,
+        element: <AssetsContainer />,
       },
       // {
       //   path: "boardWrite",
