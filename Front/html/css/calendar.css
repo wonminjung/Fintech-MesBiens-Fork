@@ -1,0 +1,65 @@
+.month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.month button {
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: none;
+  background: var(--button-color);
+  color: var(--white);
+  border-radius: var(--button-border-radius);
+  cursor: pointer;
+}
+
+.month button:hover {
+  background: var(--button-hover-color);
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 2px solid var(--light-grey);
+  padding: 2px;
+}
+
+.day {
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 2px;
+}
+
+.date {
+  /*border: 1px solid var(--light-grey);*/
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+  margin: 2px;
+  font-size: 15px;
+  &:hover {
+    background-color: var(--bg-color);
+    font-weight: bolder;
+  }
+}
+
+.transaction {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.details {
+  margin-top: 20px;
+  background: var(--bg-color);
+  padding: 10px;
+  border-radius: var(--button-border-radius);
+}
