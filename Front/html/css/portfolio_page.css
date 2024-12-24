@@ -1,0 +1,90 @@
+@import url('intro_page.css');
+@import url('news_page.css');
+
+.portfolio-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.portfolio-item {
+    width: 45%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-item h3 {
+    text-align: center;
+    font-size: 25px;
+   
+}
+.portfolio-content {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 20px; /* 차트와 요약 정보 간격 */
+}
+
+.portfolio-chart {
+    flex: 1; /* 차트와 요약 정보의 너비 조정 */
+}
+#portfolioChart{
+    width: 100%;
+    height: auto;
+}
+
+.circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    color: #666;
+}
+
+.portfolio-summary {
+    flex: 1;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.stock-list-table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; /* 기존 .stock-list의 margin-top 유지 */
+    background-color: #f9f9f9; /* 기존 배경색 유지 */
+}
+
+.stock-list-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stock-list-table th, .stock-list-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.stock-list-table thead th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: bold;
+}
+
+.stock-list-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.stock-list-table tbody tr:last-child td {
+    border-bottom: none;
+}
