@@ -16,9 +16,9 @@ import Tile1 from "../pages/myportfolio/News/Tile1";
 import StockTest from "../pages/myportfolio/Recommend/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
-import Assets from "../pages/Assets/Assets";
 import IntroPage_beforeLogin from "../pages/main/IntroPage_beforeLogin";
 import IntroPage_afterLogin from "../pages/main/IntroPage_afterLogin";
+import AssetsContainer from "../pages/Assets/AssetsContainer";
 
 const routes: RouteObject[] = [
   {
@@ -91,7 +91,7 @@ const routes: RouteObject[] = [
       },
       {
         path: "assets",
-        element: <Assets />,
+        element: <AssetsContainer />,
       },
       // {
       //   path: "boardWrite",

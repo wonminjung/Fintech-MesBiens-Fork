@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import S from './style';
 
 type Props = React.PropsWithChildren<{
-    [key: string]: any;
+    onClick: () => void,
+    [key: string]: unknown;
 }>;
 
 const CommonModal: React.FunctionComponent<Props> = ({ children, onClick, ...rest }): JSX.Element => {
-
-    
 
     return (
         <S.ModalContainer>

@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import S from './style';
 import FormFiledComponent from './FormFiledComponent';
 import { Info } from './types';
-import DefaultButton from '../../../../components/button/DefaultButton';
-
-
 
 const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
     const tempMemInfo = [
@@ -58,7 +55,6 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
                         :
                         (<>회원탈퇴</>)
                     }
-                    
                 </S.EditBtnContainer>
             </S.FieldWrapper>
         </S.FormField>

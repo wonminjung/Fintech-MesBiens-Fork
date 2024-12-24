@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../../../global/style.css";
+import "../../../global/style.css";
 import styled from "styled-components";
-import DefaultButton from "../../../../components/button/DefaultButton";
+import DefaultButton from "../../../components/button/DefaultButton";
 
 const S = {
+  AccountContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
   /** AccountContainer.tsx */
-  SelectedMenuHeaderContainer: styled.div`
+  MenuHeaderContainer: styled.div`
     display: flex;
     justify-content: space-between;
   `,
