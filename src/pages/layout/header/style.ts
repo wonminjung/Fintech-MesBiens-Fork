@@ -47,6 +47,8 @@ export const S = {
   SearchBarContainer: styled.div`
     display: flex;
     justify-content: flex-end;
+    border-bottom: 2px solid var(--second-color);
+    margin-right: 20px;
 
     @media (max-width: 600px) {
       flex-direction: column;
@@ -54,44 +56,52 @@ export const S = {
     }
   `,
   SearchInput: styled.input`
-    margin-right: 5px;
+    /* margin-right: 5px; */
     border-radius: 10px;
     padding: 0 10px;
     font-size: 15px;
-    //border: 2px solid var(--second-color);
     border: none;
     //width: 40%;
     height: 2em;
     /* opacity: 0; */
-    transform: translateX(-30px);
-    transition: transform 0.5s ease-in-out;
+    /* transform: translateX(-30px); */
+    /* transition: transform 0.5s ease-in-out; */
     @media (max-width: 600px) {
       width: 100%;
       margin-bottom: 2em;
     }
-    &:hover {
-      transform: translateX(0);
+    &:focus {
+      /* transform: translateX(0); */
+      /* opacity: 1; */
     }
   `,
   SearchImg: styled.img`
     cursor: pointer;
-    margin-right: 15px;
-    margin-left: 15px;
+    margin-left: 5px;
     width: 20px;
+    &:focus SearchInput {
+      opacity: 1;
+    }
   `,
   LoginSignupContainer: styled.div`
     display: flex;
   `,
   Link: styled(Link)`
     display: flex;
-    text-decoration: none;
     align-items: center;
+    text-decoration: none;
   `,
   img: styled.img`
     cursor: pointer;
     margin-right: 15px;
     margin-left: 15px;
     width: 20px;
+  `,
+  Button: styled(PlainButton)`
+    border-radius: 0;
+    &:hover {
+      border-bottom: 2px solid var(--second-color);
+    }
   `,
 };
 

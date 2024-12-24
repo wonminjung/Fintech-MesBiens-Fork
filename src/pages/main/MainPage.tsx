@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import ScheduleMaganer from "./Calendar/ScheduleManager";
+import React from "react";
+import ScheduleManager from "./Calendar/ScheduleManager";
 
 const MainPage: React.FC = () => {
-  return <ScheduleMaganer />;
+  return <ScheduleManager />;
 };
 
 export default MainPage;

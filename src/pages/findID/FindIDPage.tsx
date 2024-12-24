@@ -67,7 +67,8 @@ const FindIDPage: React.FC = () => {
                 <strong>등록된 이메일로 ID 찾기</strong>
                 <br />
                 <br />
-                회원님의 <strong>이름</strong>과 <strong>이메일 주소</strong>를 입력해주세요.
+                회원님의 <strong>이름</strong>과 <strong>이메일 주소</strong>를
+                입력해주세요.
               </L.P_tag>
               <form onSubmit={handleFindIDSubmit}>
                 <DefaultInputField
@@ -103,7 +104,9 @@ const FindIDPage: React.FC = () => {
                 </DefaultButton>
               </form>
               <L.Divider />
-              <L.P_tag style={{textAlign: "center", margin:"0"}}>회원님의 ID는 000입니다.</L.P_tag>{" "}
+              <L.P_tag style={{ textAlign: "center", margin: "0" }}>
+                회원님의 ID는 000입니다.
+              </L.P_tag>{" "}
               {/* 값이 들어 올 수 있도록 수정 필요 */}
             </div>
           )}
@@ -155,8 +158,8 @@ const FindIDPage: React.FC = () => {
           <L.P_tag>
             <a href="/login">로그인</a>
           </L.P_tag>
-          <VerticalDivider height={"20px"} style={{marginLeft:"20px"}}/>
-          <L.P_tag style={{margin: "20px"}}>
+          <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
+          <L.P_tag style={{ margin: "20px" }}>
             <a href="/intro">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>

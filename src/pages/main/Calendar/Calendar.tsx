@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { records } from "../../Recent/data";
 import {
   format,
   addMonths,
@@ -56,6 +57,17 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
     return <div className="calendar-days-row">{days}</div>;
   };
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "입금":
+        return "green"; // 입금은 초록색
+      case "출금":
+        return "red"; // 출금은 빨간색
+      default:
+        return "black"; // 기본 색상
+    }
+  };
+
   const renderCells = () => {
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(monthStart);
@@ -71,6 +83,15 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, "d");
         const cloneDay = day;
+
+        // 해당 날짜의 거래 내역을 필터링
+        const recordsForDay = records.filter(
+          (record) => record.date === format(day, "yyyy-MM-dd")
+        );
+
+        // 거래 내역 개수 확인
+        const hasThreeOrMoreRecords = recordsForDay.length >= 3;
+
         days.push(
           <C.CalendarDayCellButton
             className={`calendar-cell ${
@@ -87,6 +108,33 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             }}
           >
             <span>{formattedDate}</span>
+            {!hasThreeOrMoreRecords && recordsForDay.length > 0 && (
+              <div style={{ fontSize: "0.8em", marginTop: "25px" }}>
+                {recordsForDay.map((record) => (
+                  <div
+                    key={record.amount}
+                    style={{ color: getStatusColor(record.status) }}
+                  >
+                    {record.amount}
+                  </div>
+                ))}
+              </div>
+            )}
+            {/* 거래 내역이 3개 이상일 경우 공 표시 */}
+            {hasThreeOrMoreRecords && (
+              <div style={{ display: "flex", gap: "5px" }}>
+                {recordsForDay.some((record) => record.status === "입금") && (
+                  <C.CalendarBall style={{ backgroundColor: "green" }}>
+                    ball
+                  </C.CalendarBall>
+                )}
+                {recordsForDay.some((record) => record.status === "출금") && (
+                  <C.CalendarBall style={{ backgroundColor: "red" }}>
+                    ball
+                  </C.CalendarBall>
+                )}
+              </div>
+            )}
           </C.CalendarDayCellButton>
         );
         day = addDays(day, 1);

@@ -24,17 +24,19 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
   const redirectToMain = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();
     if (!cookies.userID) {
-      navigate("/");
+      navigate("/beforeLogin");
     } else {
-      navigate("/afterLogin");
+      navigate("/main");
     }
   };
 
   return (
     <S.SideBarContainer>
       <S.SideBarTitle onClick={redirectToMain}>
-        <p>MesBiens</p>
-        <p>메비앙</p>
+        <S.LogoImg
+          src={`${process.env.PUBLIC_URL}/images/logo/Logo.png`}
+          alt="MesBiens"
+        />
       </S.SideBarTitle>
 
       <S.SideMenuListContainer>

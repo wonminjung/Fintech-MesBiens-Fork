@@ -8,7 +8,7 @@ interface DividerProps {
 }
 
 const VerticalDivider = styled.div<DividerProps>`
-  height: ${(props) => props.height || ""};
+  height: ${(props) => props.height || "100%"};
   width: ${(props) => props.width || "1px"};
   background-color: ${(props) => props.backgroundColor || "var(--grey)"};
   margin: ${(props) => props.margin || "0"};

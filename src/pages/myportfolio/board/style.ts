@@ -65,6 +65,9 @@ export const BC = {
       cursor: pointer;
     }
   `,
+  h2: styled.h2`
+    margin-left: 40px;
+  `,
 
   /* Pagination */
   PaginationWrapper: styled.div`

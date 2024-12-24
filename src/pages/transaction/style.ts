@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import DefaultButton from "../../components/button/DefaultButton";
 import { InputField } from "../../components/inputfield/style";
 import { Link } from "react-router-dom";
@@ -7,9 +7,10 @@ export const T = {
   MainContainer: styled.div`
     display: flex;
     flex-direction: row;
+    width: 100%;
     overflow: auto;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     padding: 20px;
   `,
   H1: styled.h2`
@@ -110,6 +111,19 @@ export const T = {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #ffffff;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
   `,
   MyBank: styled.div`
     display: flex;
