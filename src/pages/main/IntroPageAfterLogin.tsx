@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import { M, I } from "./style";
+import React from "react";
+import { M } from "./style";
 // import L from "../login/LoginStyle";
-import DefaultInputField from "../../components/inputfield/InputField";
-import DefaultButton from "../../components/button/DefaultButton";
-import { useNavigate } from "react-router-dom";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 
-const IntroPage_afterLogin: React.FC = () => {
-  const [userID, setUserID] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<string>("");
-  const navigate = useNavigate();
+const IntroPageAfterLogin: React.FC = () => {
   const [cookies] = useCookies<string>(["useID"]); // 쿠키 가져오기
 
   return (
@@ -59,10 +52,7 @@ const IntroPage_afterLogin: React.FC = () => {
           </li>
         </ul>
       </M.LeftAreaContainer>
-      <VerticalDivider margin="40px 0" />
-
-      <div>{cookies.userID ? `저장된 ID: ${cookies.userID}` : ""}</div>
     </M.MainContainer>
   );
 };
-export default IntroPage_afterLogin;
+export default IntroPageAfterLogin;

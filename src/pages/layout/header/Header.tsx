@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { S, A } from "./style";
 import VerticalDivider from "../../../components/divider/VerticalDivider";
-import PlainButton from "../../../components/button/PlainButton";
 import { useCookies } from "react-cookie";
-import { T } from "../../transaction/style";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,17 +23,30 @@ const Header: React.FC = () => {
     console.log("로그아웃되었습니다.");
     alert("로그아웃되었습니다.");
     removeCookie("userID");
-    navigate("/");
+    navigate("/beforeLogin");
     // 페이지 세로고침
     window.location.reload();
   };
 
+  const handleCheckLogin = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event?.preventDefault();
+    // 쿠키에 userID가 없으면 로그인 페이지로 리다이렉션
+    if (!cookies.userID) {
+      alert("로그인 필요");
+      navigate("/login");
+    } else {
+      // 로그인 상태가 확인되면 원하는 페이지로 이동
+      const targetUrl = event.currentTarget.getAttribute("href");
+      navigate(targetUrl as string); // 페이지 이동
+    }
+  }; // 쿠키와 navigate가 변경될 때마다 실행
+
   const redirectToMain = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();
     if (!cookies.userID) {
-      navigate("/");
+      navigate("/beforeLogin");
     } else {
-      navigate("/afterLogin");
+      navigate("/main");
     }
   };
 
@@ -70,12 +81,12 @@ const Header: React.FC = () => {
         </S.SearchBarContainer>
 
         <S.LoginSignupContainer>
-          <VerticalDivider />
-          <S.Link to="/myPage">
-            <PlainButton>MYPAGE</PlainButton>
-          </S.Link>
-          <VerticalDivider />
-          <PlainButton onClick={redirectToMain}>HOME</PlainButton>
+          <VerticalDivider style={{ height: "30px" }} />
+          <S.Button onClick={handleCheckLogin} href="/myPage">
+            MYPAGE
+          </S.Button>
+          <VerticalDivider style={{ height: "30px" }} />
+          <S.Button onClick={redirectToMain}>HOME</S.Button>
           {/* <VerticalDivider />
           <Link to="/login">
             <PlainButton>로그인</PlainButton>
@@ -85,10 +96,12 @@ const Header: React.FC = () => {
             <PlainButton>회원가입</PlainButton>
           </Link> */}
         </S.LoginSignupContainer>
-        <S.img
-          src={`${process.env.PUBLIC_URL}/images/bell.svg`}
-          onClick={handleOpenModal}
-        />
+        {cookies.userID && (
+          <S.img
+            src={`${process.env.PUBLIC_URL}/images/bell.svg`}
+            onClick={handleOpenModal}
+          />
+        )}
         {isModalOpen && (
           <>
             <A.Overlay onClick={handleCloseModal} />

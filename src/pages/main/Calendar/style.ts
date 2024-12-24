@@ -25,6 +25,12 @@ export const SM = {
     width: 80%;
     margin-right: 20px;
   `,
+  Form: styled.form`
+    display: flex;
+    flex-direction: space-between;
+    align-items: center;
+    width: 100%;
+  `,
   // ScheduleDetails: styled.div`
   //   &:h3 {
   //     margin-bottom: 10px;
@@ -96,6 +102,22 @@ export const C = {
   CalendarDayCellButton: styled.div`
     height: 4.3em;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &:hover,
+    &.selected {
+      border-radius: 8px;
+    }
+  `,
+  CalendarBall: styled.div`
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--second-color);
+    color: var(--second-color);
+    font-size: 0;
+    margin-top: 30px;
   `,
 };

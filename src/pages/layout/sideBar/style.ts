@@ -31,6 +31,10 @@ const S = {
       padding: 0;
     }
   `,
+  LogoImg: styled.img`
+    width: 100px;
+    margin-bottom: 50px;
+  `,
   SideMenuListContainer: styled.nav`
     & > ul {
       list-style: none;
