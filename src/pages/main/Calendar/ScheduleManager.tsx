@@ -1,68 +1,74 @@
-import React, { FormEvent, useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import Calendar from "./Calendar";
 import "./Calendar.css";
 import { SM, C } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
-import DefaultButton from "../../../components/button/DefaultButton";
+import { records } from "../../Recent/data";
 
 interface Schedules {
   [date: string]: string[];
 }
 
-const ScheduleMaganer: React.FC = () => {
+const ScheduleManager: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [schedules, setSchedules] = useState<Schedules>({});
 
+  // 날짜 선택 핸들러
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
   };
 
-  const handleAddSchedule = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const schedule = (form.schedule as HTMLInputElement).value.trim();
-    if (!schedule) return;
+  // 날짜 포맷팅 함수
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
-    setSchedules((prev) => ({
-      ...prev,
-      [selectedDate!.toDateString()]: [
-        ...(prev[selectedDate!.toDateString()] || []),
-        schedule,
-      ],
-    }));
-    form.reset();
+  // 상태에 따른 색상 반환 함수
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "입금":
+        return "green"; // 입금은 초록색
+      case "출금":
+        return "red"; // 출금은 빨간색
+      default:
+        return "black"; // 기본 색상
+    }
   };
 
   return (
     <SM.ScheduleManager>
-      {/*캘린더 */}
+      {/* 캘린더 컴포넌트 */}
       <C.Calendar>
         <Calendar onDateSelect={handleDateSelect} />
       </C.Calendar>
 
-      {/* 일정 등록 및 표시 */}
+      {/* 일정 등록 및 표시 영역 */}
       <SM.ScheduleContainer>
         {selectedDate ? (
           <div className="schedule-details">
-            <h3>{`지출 내역 (${selectedDate.toLocaleDateString()})`}</h3>
+            <h3>{`소비, 수입 내역 | ${formatDate(selectedDate)}`}</h3>
             <HorizontalDivider />
             <br />
-            {/* 일정 등록 폼 */}
-            <form onSubmit={handleAddSchedule}>
-              <SM.TextInput
-                name="schedule"
-                placeholder="지출 내역을 입력하세요"
-                required
-              />
-              <SM.Button type="submit">등록</SM.Button>
-            </form>
             {/* 일정 목록 */}
-            <ul>
+            <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
               {(schedules[selectedDate.toDateString()] || []).map(
                 (schedule, index) => (
                   <li key={index}>{schedule}</li>
                 )
               )}
+              {records
+                .filter((record) => record.date === formatDate(selectedDate))
+                .map((record, index) => (
+                  <li
+                    key={index}
+                    style={{ color: getStatusColor(record.status) }}
+                  >
+                    {record.amount} - {record.category} ({record.status})
+                  </li>
+                ))}
             </ul>
           </div>
         ) : (
@@ -73,4 +79,4 @@ const ScheduleMaganer: React.FC = () => {
   );
 };
 
-export default ScheduleMaganer;
+export default ScheduleManager;

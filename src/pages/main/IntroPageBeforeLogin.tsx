@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { M, I } from "./style";
 // import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
@@ -8,7 +8,7 @@ import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useAuth } from "../../lib/AuthContext";
 import { useCookies } from "react-cookie";
 
-const IntroPage_beforeLogin: React.FC = () => {
+const IntroPageBeforeLogin: React.FC = () => {
   const { setUserID } = useAuth(); // Context에서 setUserID 가져오기
   const [loginForm, setLoginForm] = useState<{
     userID: string;
@@ -101,7 +101,9 @@ const IntroPage_beforeLogin: React.FC = () => {
           </li>
         </ul>
       </M.LeftAreaContainer>
-      <VerticalDivider margin="40px 0" />
+      <div style={{ alignContent: "center" }}>
+        <VerticalDivider height="90%" />
+      </div>
       <M.LoginContainer>
         <I.Container_top>
           <h1
@@ -152,4 +154,4 @@ const IntroPage_beforeLogin: React.FC = () => {
     </M.MainContainer>
   );
 };
-export default IntroPage_beforeLogin;
+export default IntroPageBeforeLogin;

@@ -1,11 +1,10 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 import Layout from "../pages/layout/Layout";
-import MainPage from "../pages/main/MainPage";
 import LoginPage from "../pages/login/LoginPage";
 import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
-import IntroPage from "../pages/main/IntroPage_afterLogin";
+import IntroPage from "../pages/main/IntroPageAfterLogin";
 import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
 import News from "../pages/myportfolio/News/News";
 import Recommend from "../pages/myportfolio/Recommend/Recommend";
@@ -17,8 +16,9 @@ import StockTest from "../pages/myportfolio/Recommend/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
 import Assets from "../pages/Assets/Assets";
-import IntroPage_beforeLogin from "../pages/main/IntroPage_beforeLogin";
-import IntroPage_afterLogin from "../pages/main/IntroPage_afterLogin";
+import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
+import IntroPageAfterLogin from "../pages/main/IntroPageAfterLogin";
+import MainPage from "../pages/main/MainPage";
 
 const routes: RouteObject[] = [
   {
@@ -26,20 +26,20 @@ const routes: RouteObject[] = [
     element: <Layout />,
     children: [
       {
-        path: "/",
-        element: <IntroPage_beforeLogin />,
+        path: "/beforeLogin",
+        element: <IntroPageBeforeLogin />,
       },
       {
         path: "/afterLogin",
-        element: <IntroPage_afterLogin />,
-      },
-      {
-        path: "/myPage",
-        element: <MyPageContainer />,
+        element: <IntroPageAfterLogin />,
       },
       {
         path: "/main",
         element: <MainPage />,
+      },
+      {
+        path: "/myPage",
+        element: <MyPageContainer />,
       },
       {
         path: "/intro",
