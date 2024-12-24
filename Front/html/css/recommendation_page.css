@@ -1,0 +1,11 @@
+/* 추천 섹션 스타일 */
+.recommendation-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+
+#recommendations {
+    font-size: 16px;
+    color: #333;
+}

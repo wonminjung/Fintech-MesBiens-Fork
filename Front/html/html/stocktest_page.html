@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>금융 종합 웹서비스 프로그램</title>
+    <link rel="stylesheet" href="../css/stocktest_page.css">
+</head>
+<body>
+<div class="container_main">
+    <div class="sidebar">
+        <h2>금융 종합 <br>웹서비스 프로그램</h2>
+        <nav>
+            <ul>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">지출 캘린더</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">최근 거래 내역</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">자산 현황</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">송금</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">나의 포트폴리오</a></li>
+            </ul>
+        </nav>
+        <iframe src="https://www.musinsa.com/main/" class="ppl">네이버</iframe>
+    </div>
+    <main class="main-content">
+        <div class="header">
+            <h2 class="welcome">Welcome to TB</h2>
+            <div class="search_bar">
+                <input type="text" class="search" placeholder="Search">
+                <button type="button" class="search-btn">검색</button>
+            </div>
+            <div class="login_sign_up">
+                <a href="login_page.html" type="button" class="login-btn">로그인</a>
+                <a href="sign-up.html" type="button" class="sign-up-btn">회원가입</a>
+            </div>
+        </div>
+        <div class="main_container">
+            <div class="container_right">
+                <nav class="navmenu">
+                    <ul>
+                    <li ><a href = "news_page.html">뉴스</a></li>
+                    <li ><a href = "portfolio_page.html">포트폴리오</a></li>
+                    <li ><a href = "stocktest_page.html">주식 추천</a></li>
+                    <li ><a href = "stocktrading_page.html">주식 거래</a></li>
+                    </ul>
+                </nav>
+                <hr style="border-style: solid">
+                <div class="test-container">
+                    <h3>투자 성향 테스트</h3>
+                    <form id="test-form">
+                        <div class="question">
+                            <label>1. 당신은 안전한 투자보다 고수익을 원하십니까?</label>
+                            <input type="radio" name="q1" value="1"> 전혀 아니다
+                            <input type="radio" name="q1" value="2"> 아니다
+                            <input type="radio" name="q1" value="3"> 보통이다
+                            <input type="radio" name="q1" value="4"> 그렇다
+                            <input type="radio" name="q1" value="5"> 매우 그렇다
+                        </div>
+                        <div class="question">
+                            <label>2. 단기 수익보다 장기 투자를 선호하십니까?</label>
+                            <input type="radio" name="q2" value="1"> 전혀 아니다
+                            <input type="radio" name="q2" value="2"> 아니다
+                            <input type="radio" name="q2" value="3"> 보통이다
+                            <input type="radio" name="q2" value="4"> 그렇다
+                            <input type="radio" name="q2" value="5"> 매우 그렇다
+                        </div>
+                        <!-- 추가적인 질문을 여기에 추가-->
+                        <button type="button" onclick="submitTest()">테스트 완료</button>
+                    </form>
+                </div>
+            </main>
+
+        </div>
+        </body>
+        <script>
+            function submitTest() {
+                const form = document.getElementById('test-form');
+                let totalScore = 0;
+            
+                // 각 질문의 점수를 합산
+                for (let i = 1; i <= 2; i++) { // 질문 수에 맞게 숫자 조정
+                    const answer = form['q' + i];
+                    for (let option of answer) {
+                        if (option.checked) {
+                            totalScore += parseInt(option.value);
+                        }
+                    }
+                }
+            
+                // 점수를 저장하고 추천 페이지로 이동
+                localStorage.setItem('investmentScore', totalScore);
+                window.location.href = "recommendation_page.html";
+            }
+            </script>
+        <script>
+            function loginAlert() {
+                alert("로그인 필요!");
+            }
+        </script>
+        </html>
+        
+        </body>
+        </html>
