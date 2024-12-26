@@ -16,7 +16,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
   const { logo, bankname, accountnumber, balance } = info;
 
   // 잔액 숨기기 상태
-  const [displayBtn, setDisplayBtn] = useState<boolean>(false);
+  const [displayBtn, setDisplayBtn] = useState<boolean>(true);
   const handleDisplay = useCallback(
     (): void => setDisplayBtn((prevState: boolean): boolean => !prevState),
     []
@@ -57,8 +57,6 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
 
   return (
     <S.FilledAccountWrapper>
-      {/* 카드리스트 상단 */}
-      {/* <S.FilledAccountHeader> */}
       <S.BankInfoContainer>
         <S.BankLogo src={logo} alt="은행 로고" />
         <S.BankInfo>
@@ -75,18 +73,20 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
         {copy && <S.CopyMessage>복사가 완료되었습니다.</S.CopyMessage>}
       </S.BankInfoContainer>
 
-      {/* </S.FilledAccountHeader> */}
-
-      {/* 카드리스트 하단 */}
       <S.FilledFooter>
-        <S.BalanceHideBtn>
-          <input id={`balance-hide-btn${index}`} type="checkbox" />
-          <label htmlFor={`balance-hide-btn${index}`} onClick={handleDisplay} />
-        </S.BalanceHideBtn>
         <S.Balance>
+          {/* <S.BalanceAmount> */}
           <span className={displayBtn ? "balance-hidden" : ""}>
             {balance.toLocaleString()} 원
           </span>
+          {/* </S.BalanceAmount> */}
+          <S.BalanceHideBtn>
+            <input id={`balance-hide-btn${index}`} type="checkbox" />
+            <label
+              htmlFor={`balance-hide-btn${index}`}
+              onClick={handleDisplay}
+            />
+          </S.BalanceHideBtn>
         </S.Balance>
         <S.RemittanceBtn>송금</S.RemittanceBtn>
       </S.FilledFooter>

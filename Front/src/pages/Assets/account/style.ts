@@ -90,11 +90,12 @@ const S = {
   `,
   /** AccountListContainer.tsx */
   AccountListContainer: styled.div`
-    height: 2000px;
+    height: 500px;
   `,
   AccountCardListWrapper: styled.div`
     margin-top: 15px;
     width: 100%;
+    margin-right: 1%;
     height: 100px;
     background-color: var(--forth-color);
     border-radius: var(--container-border-radius);
@@ -261,6 +262,9 @@ const S = {
     height: 56px;
     justify-content: flex-end;
   `,
+  BalanceAmount: styled.div`
+    width: 80%;
+  `,
   // 잔액 숨기기 버튼
   BalanceHideBtn: styled.div`
     display: flex;
@@ -272,7 +276,7 @@ const S = {
     label {
       display: block;
       position: relative;
-      height: 65%;
+      height: 36px;
       width: 72px;
       background-color: white;
       border: 2px solid #eee;
@@ -306,7 +310,8 @@ const S = {
   `,
   Balance: styled.div`
     display: flex;
-    width: 40%;
+    justify-content: flex-end;
+    width: 13em;
     background-color: white;
     border-radius: 20px;
     align-items: center;
