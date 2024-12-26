@@ -3,7 +3,8 @@ import Calendar from "./Calendar";
 import "./Calendar.css";
 import { SM, C } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
-import { records } from "../../Recent/data";
+import { records } from "../../recent/data";
+import CategoryIconMap from "./CategoryIconMap";
 
 interface Schedules {
   [date: string]: string[];
@@ -48,7 +49,7 @@ const ScheduleManager: React.FC = () => {
       {/* 일정 등록 및 표시 영역 */}
       <SM.ScheduleContainer>
         {selectedDate ? (
-          <div className="schedule-details">
+          <SM.ScheduleDetails>
             <h3>{`소비, 수입 내역 | ${formatDate(selectedDate)}`}</h3>
             <HorizontalDivider />
             <br />
@@ -61,16 +62,24 @@ const ScheduleManager: React.FC = () => {
               )}
               {records
                 .filter((record) => record.date === formatDate(selectedDate))
-                .map((record, index) => (
-                  <li
-                    key={index}
-                    style={{ color: getStatusColor(record.status) }}
-                  >
-                    {record.amount} - {record.category} ({record.status})
-                  </li>
-                ))}
+                .map((record, index) => {
+                  const CategoryIconComponent =
+                    record.category && CategoryIconMap[record.category]
+                      ? CategoryIconMap[record.category]
+                      : null; // 카테고리에 따른 아이콘 가져오기
+                  return (
+                    <SM.ScheduleDetailsCell key={index}>
+                      <SM.ImgContainer>
+                        {CategoryIconComponent && <CategoryIconComponent />}
+                      </SM.ImgContainer>
+                      <li style={{ color: getStatusColor(record.status) }}>
+                        {record.amount} | [{record.status}]
+                      </li>
+                    </SM.ScheduleDetailsCell>
+                  );
+                })}
             </ul>
-          </div>
+          </SM.ScheduleDetails>
         ) : (
           <p>날짜를 선택하세요</p>
         )}

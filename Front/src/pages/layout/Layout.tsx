@@ -6,11 +6,10 @@ import Header from "./header/Header";
 import CommonModal from "../../components/modal/CommonModal";
 
 const Layout: React.FunctionComponent = (): JSX.Element => {
-
-  const [ tempState, setTempState ] = useState<boolean>(false);
+  const [tempState, setTempState] = useState<boolean>(false);
   const handleTempState = (): void => {
     console.log("모달 실행");
-    setTempState((prevState: boolean): boolean => !prevState)
+    setTempState((prevState: boolean): boolean => !prevState);
   };
 
   return (
@@ -28,8 +27,8 @@ const Layout: React.FunctionComponent = (): JSX.Element => {
       </S.MainContentContainer>
 
       {/* 공용 모달창 */}
-      <div onClick={handleTempState}>test</div>
-      {tempState && <CommonModal onClick={handleTempState} />}
+      {/* <div onClick={handleTempState}>test</div>
+      {tempState && <CommonModal onClick={handleTempState} />} */}
     </S.RootContainer>
   );
 };

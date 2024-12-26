@@ -98,6 +98,23 @@ export const T = {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #ffffff;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
   `,
   /* 두번째 화면 */
   SecondPage: styled.div`
@@ -123,6 +140,23 @@ export const T = {
     }
     .fade-in {
       animation: fadeIn 0.5s ease-in-out;
+    }
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
     }
   `,
   MyBank: styled.div`

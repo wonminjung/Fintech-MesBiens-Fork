@@ -7,6 +7,23 @@ const P = {
     overflow: auto;
     border-radius: var(--container-border-radius);
     min-width: 1200px;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
   `,
   MenuBar: styled.nav`
     background-color: white; /* 배경색을 흰색으로 변경 */

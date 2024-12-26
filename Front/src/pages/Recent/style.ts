@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import PlainButton from "../../components/button/PlainButton";
 
 export const R = {
   TransferContainer: styled.div`
@@ -8,11 +7,29 @@ export const R = {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    /* border: 1px solid #ccc; */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     overflow: auto;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
   `,
   TransferHeader: styled.div`
     width: 100%;

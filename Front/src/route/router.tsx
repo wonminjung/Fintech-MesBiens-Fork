@@ -3,22 +3,21 @@ import Layout from "../pages/layout/Layout";
 import LoginPage from "../pages/login/LoginPage";
 import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
-import MyPageContainer from "../pages/myPage/MyPageContainer";
+import MyPageContainer from "../pages/mypage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPageAfterLogin";
-import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
-import News from "../pages/myportfolio/News/News";
-import Recommend from "../pages/myportfolio/Recommend/Recommend";
-import Trading from "../pages/myportfolio/Trading/Trading";
-import { Board, BoardContent } from "../pages/myportfolio/board/Board";
-import Notification from "../pages/myportfolio/Notification";
-import Tile1 from "../pages/myportfolio/News/Tile1";
-import StockTest from "../pages/myportfolio/Recommend/StockTest";
+import Portfolio from "../pages/community/Portfolio/Portfolio";
+import News from "../pages/community/News/News";
+import Recommend from "../pages/community/Recommend/Recommend";
+import Trading from "../pages/community/Trading/Trading";
+import { Board, BoardContent } from "../pages/community/board/Board";
+import Notification from "../pages/community/Notification";
+import Tile1 from "../pages/community/News/Tile1";
+import StockTest from "../pages/community/Recommend/StockTest";
 import Transaction from "../pages/transaction/Transaction";
-import Recent from "../pages/Recent/Recent";
+import Recent from "../pages/recent/Recent";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
-import IntroPageAfterLogin from "../pages/main/IntroPageAfterLogin";
 import MainPage from "../pages/main/MainPage";
-import AssetsContainer from "../pages/Assets/AssetsContainer";
+import AssetsContainer from "../pages/assets/AssetsContainer";
 
 const routes: RouteObject[] = [
   {
@@ -26,12 +25,8 @@ const routes: RouteObject[] = [
     element: <Layout />,
     children: [
       {
-        path: "/beforeLogin",
+        path: "/",
         element: <IntroPageBeforeLogin />,
-      },
-      {
-        path: "/afterLogin",
-        element: <IntroPageAfterLogin />,
       },
       {
         path: "/main",
@@ -50,8 +45,8 @@ const routes: RouteObject[] = [
         element: <Transaction />,
       },
       {
-        path: "/myportfolio",
-        element: <Portfolio />,
+        path: "/community",
+        element: <Board />,
       },
       {
         path: "/P_portfolio",
