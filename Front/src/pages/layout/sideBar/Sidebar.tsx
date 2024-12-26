@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import S from "./style";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const Sidebar: React.FunctionComponent = (): JSX.Element => {

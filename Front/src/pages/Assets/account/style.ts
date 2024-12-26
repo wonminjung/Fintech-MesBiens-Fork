@@ -44,6 +44,7 @@ const S = {
     cursor: pointer;
     user-select: none;
     margin-left: 20px;
+    z-index: 1000;
 
     &:hover {
       filter: brightness(0.85);
@@ -168,7 +169,8 @@ const S = {
     width: 40%;
     /* height: 0px; */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
     align-items: center;
     /* background: var(--third-color); */
     padding: 0 12px;
@@ -179,7 +181,7 @@ const S = {
   BankInfoWrapper: styled.div`
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   `,
   BankLogo: styled.img`
     width: 50px;
@@ -189,7 +191,9 @@ const S = {
     background: var(--white);
   `,
   BankInfo: styled.div`
-    margin-left: 12px;
+    display: inline-block;
+    width: 150px;
+    margin: 20px 0;
     user-select: none;
     & h4 {
       margin: 0;
@@ -228,7 +232,6 @@ const S = {
     font-size: 20px;
     color: grey;
     cursor: pointer;
-
     &:active {
       background-color: var(--lightGrey);
       color: white;
@@ -258,7 +261,7 @@ const S = {
   // 카드리스트 하단
   FilledFooter: styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     height: 56px;
     justify-content: flex-end;
   `,

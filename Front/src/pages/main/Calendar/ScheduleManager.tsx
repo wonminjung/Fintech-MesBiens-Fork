@@ -3,7 +3,7 @@ import Calendar from "./Calendar";
 import "./Calendar.css";
 import { SM, C } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
-import { records } from "../../recent/data";
+import { records } from "../../Recent/data";
 import CategoryIconMap from "./CategoryIconMap";
 
 interface Schedules {
@@ -50,7 +50,7 @@ const ScheduleManager: React.FC = () => {
       <SM.ScheduleContainer>
         {selectedDate ? (
           <SM.ScheduleDetails>
-            <h3>{`소비, 수입 내역 | ${formatDate(selectedDate)}`}</h3>
+            <h3>{`수입 • 지출 내역 | ${formatDate(selectedDate)}`}</h3>
             <HorizontalDivider />
             <br />
             {/* 일정 목록 */}
