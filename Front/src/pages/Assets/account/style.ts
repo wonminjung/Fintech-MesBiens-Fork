@@ -220,7 +220,7 @@ const S = {
     }
   `,
   CardListMenuContainer: styled.div`
-    position: relative;
+    /* position: relative; */
   `,
   CardlistMenuBtn: styled.button`
     width: 30x;

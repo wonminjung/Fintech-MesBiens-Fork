@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState, useEffect } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -15,18 +15,19 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
   info,
 }): JSX.Element => {
   const { logo, bankname, accountnumber, balance } = info;
-  const navigate = useNavigate(); // useNavigate 훅을 호출
 
   // 잔액 숨기기 상태
   const [displayBtn, setDisplayBtn] = useState<boolean>(true);
-  const handleDisplay = useCallback(() => {
-    setDisplayBtn((prevState) => !prevState);
-  }, []);
+  const handleDisplay = useCallback(
+    (): void => setDisplayBtn((prevState: boolean): boolean => !prevState),
+    []
+  );
+
+  const accountNumber = "123456789-12-123456";
 
   // 복사 버튼 상태
   const [copy, setCopy] = useState<boolean>(false);
   const lastClickTime = useRef<number | null>(null);
-
   const handleCopy = useCallback(async (): Promise<void> => {
     const now = Date.now();
 
@@ -37,41 +38,28 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
     lastClickTime.current = now; // 현재 시간을 기록
 
     try {
-      await navigator.clipboard.writeText(accountnumber);
+      await navigator.clipboard.writeText(accountNumber);
       setCopy(true);
 
       setTimeout(() => {
         setCopy(false);
       }, 2000);
     } catch (error) {
-      console.error("Failed to copy account number: ", error);
+      console.error("Faild to copy account number : ", error);
     }
-  }, [accountnumber]);
+  }, []);
 
   // 카드리스트 메뉴 상태
   const [isCardClicked, setIsCardClicked] = useState<boolean>(false);
-  const handleIsCardClicked = useCallback(() => {
-    setIsCardClicked((prevState) => !prevState);
-  }, []);
+  const handleIsCardClicked = useCallback(
+    (): void => setIsCardClicked((prevState: boolean): boolean => !prevState),
+    []
+  );
 
+  const navigate = useNavigate();
   const handleTransaction = () => {
     navigate("/transaction");
   };
-
-  // 클릭 외부에서 드롭다운 닫기
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const dropdownMenu = document.getElementById(`dropdown-${index}`);
-      if (dropdownMenu && !dropdownMenu.contains(event.target as Node)) {
-        setIsCardClicked(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [index]);
 
   return (
     <S.FilledAccountWrapper>
@@ -93,9 +81,11 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
 
       <S.FilledFooter>
         <S.Balance>
+          {/* <S.BalanceAmount> */}
           <span className={displayBtn ? "balance-hidden" : ""}>
             {balance.toLocaleString()} 원
           </span>
+          {/* </S.BalanceAmount> */}
           <S.BalanceHideBtn>
             <input id={`balance-hide-btn${index}`} type="checkbox" />
             <label
@@ -108,14 +98,10 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
       </S.FilledFooter>
       <S.CardListMenuContainer>
         <S.CardlistMenuBtn onClick={handleIsCardClicked}>
-          {/* <img
-            src={`${process.env.PUBLIC_URL}/images/categoryicons/other.svg`}
-            alt="메뉴 버튼"
-          /> */}
           <FontAwesomeIcon icon={faEllipsis} />
         </S.CardlistMenuBtn>
         {isCardClicked && (
-          <S.CardlistDropdown id={`dropdown-${index}`}>
+          <S.CardlistDropdown>
             <S.CardlistDropDownItems>계좌 정보 수정</S.CardlistDropDownItems>
             <S.CardlistDropDownItems>계좌 삭제</S.CardlistDropDownItems>
           </S.CardlistDropdown>

@@ -39,33 +39,31 @@ export const BC = {
       border-bottom: 1px solid var(--forth-color);
     }
   `,
-  tr: styled.tr`
+  TR: styled.tr`
     background: var(--third-color);
     /* border-radius: 20px; */
   `,
-  trcont: styled.tr`
+  TRCont: styled.tr`
     &:hover {
       background: var(--forth-color);
+      cursor: pointer;
     }
   `,
-  th: styled.th`
+  TH: styled.th`
     width: 2em;
   `,
-  td: styled.td`
+  TD: styled.td`
     width: 2em;
   `,
-  tdtitle: styled.td`
+  TDTitle: styled.td`
     width: 2em;
     /* text-align: center; */
     white-space: nowrap; // 텍스트가 한 줄에만 표시되도록
     overflow: hidden; // 박스를 넘는 부분 숨기기
     text-overflow: ellipsis; // 넘치는 부분을 ...으로 표시
     max-width: 100px;
-    &:hover {
-      cursor: pointer;
-    }
   `,
-  h2: styled.h2`
+  H2: styled.h2`
     margin-left: 40px;
   `,
 
