@@ -25,6 +25,11 @@ export const BC = {
     align-items: center;
     justify-content: space-between;
   `,
+  TitleContainer: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
   Button: styled(DefaultButton)`
     /* height: 30px; */
   `,
@@ -56,7 +61,7 @@ export const BC = {
     width: 2em;
   `,
   TDTitle: styled.td`
-    width: 2em;
+    width: 20em;
     /* text-align: center; */
     white-space: nowrap; // 텍스트가 한 줄에만 표시되도록
     overflow: hidden; // 박스를 넘는 부분 숨기기
@@ -166,11 +171,10 @@ export const BP = {
     height: 3em;
     border-bottom: 2px solid #e0e0e0;
   `,
-  h2: styled.h2`
+  H2: styled.h2`
     font-size: 1.5em;
     font-weight: bold;
     color: #333;
-    margin: 0;
     /* white-space: nowrap; */
   `,
   PostActions: styled.div`
@@ -182,6 +186,7 @@ export const BP = {
   pWriter: styled.p`
     font-weight: bold;
     color: #555;
+    width: 3em;
   `,
   pWriterName: styled.p`
     white-space: nowrap;
@@ -205,7 +210,7 @@ export const BP = {
     top: 270px;
     background-color: var(--white);
   `,
-  button: styled(DefaultButton)`
+  Button: styled(DefaultButton)`
     width: 3em;
     height: 2em;
     font-size: 15px;
@@ -272,5 +277,87 @@ export const BP = {
   `,
   img: styled.img`
     width: 20px;
+  `,
+};
+
+export const BW = {
+  WriteContainer: styled.div`
+    height: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
+  `,
+  WriteHeader: styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* border-bottom: 2px solid var(--grey); */
+    padding-bottom: var(--padding-small-size);
+    height: 3em;
+    border-bottom: 2px solid #e0e0e0;
+  `,
+  WriteContent: styled.div`
+    margin-top: 20px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    height: 10em;
+    &:hover {
+      cursor: text;
+    }
+  `,
+  Input: styled.input`
+    height: 20px;
+    width: 4em;
+    margin-left: 10px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+  `,
+  TitleInput: styled.input`
+    height: 30px;
+    width: 30em;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin: 10px;
+  `,
+  ContentInput: styled.input`
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    /* height: 100%; */
+    box-sizing: border-box;
+  `,
+  TopContent: styled.div`
+    display: flex;
+    align-items: center;
+  `,
+  ButtonContainer: styled.div`
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
   `,
 };

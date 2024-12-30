@@ -2,27 +2,27 @@ import React, { useEffect, useState } from "react";
 import P from "../style";
 import MenuBar from "../MenuBar";
 import BoardList from "./BoardList";
-import BoardCont from "./BoardCont";
-import { BoardInfo, boardInfo } from "./BoardData";
+import BoardPost from "./BoardPost";
 import { BC } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import BoardWriter from "./BoardWriter";
 
 export const Board: React.FC = () => {
-  const { bno } = useParams<{ bno: string }>(); // URL에서 bno 가져오기
-  const [currentBoard, setCurrentBoard] = useState<BoardInfo | null>(null);
-
-  useEffect(() => {
-    // bno에 맞는 게시글 찾기
-    const foundBoard = boardInfo.find((board) => board.bno.toString() === bno);
-    setCurrentBoard(foundBoard || null);
-  }, [bno, boardInfo]);
+  const navigate = useNavigate();
+  const handleWrite = () => {
+    navigate("/boardWrite");
+  };
 
   return (
     <P.MainContainer>
       <MenuBar />
       <BC.Board>
         <BC.BoardContainer>
+          <BC.TitleContainer>
+            <BC.H2>자유게시판</BC.H2>
+            <BC.Button onClick={handleWrite}>글쓰기</BC.Button>
+          </BC.TitleContainer>
           <BC.HeaderContainer>
             <BC.BoardTable>
               <BC.TR>
@@ -34,11 +34,7 @@ export const Board: React.FC = () => {
             </BC.BoardTable>
           </BC.HeaderContainer>
           <BC.BoardTable>
-            {boardInfo.map(
-              (board: BoardInfo): JSX.Element => (
-                <BoardList key={board.bno} board={board} />
-              )
-            )}
+            <BoardList />
           </BC.BoardTable>
 
           {/* Pagination */}
@@ -85,7 +81,7 @@ export const BoardContent: React.FC = () => {
   return (
     <P.MainContainer>
       <MenuBar />
-      <BoardCont />
+      <BoardPost />
     </P.MainContainer>
   );
 };
@@ -94,7 +90,7 @@ export const BoardWrite: React.FC = () => {
   return (
     <P.MainContainer>
       <MenuBar />
-      {/* <BoardWrite /> */}
+      <BoardWriter />
     </P.MainContainer>
   );
 };

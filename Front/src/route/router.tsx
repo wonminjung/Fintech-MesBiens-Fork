@@ -9,7 +9,11 @@ import Portfolio from "../pages/community/Portfolio/Portfolio";
 import News from "../pages/community/News/News";
 import Recommend from "../pages/community/Recommend/Recommend";
 import Trading from "../pages/community/Trading/Trading";
-import { Board, BoardContent } from "../pages/community/board/Board";
+import {
+  Board,
+  BoardContent,
+  BoardWrite,
+} from "../pages/community/board/Board";
 import Notification from "../pages/community/Notification";
 import Tile1 from "../pages/community/News/Tile1";
 import StockTest from "../pages/community/Recommend/StockTest";
@@ -68,12 +72,12 @@ const routes: RouteObject[] = [
         path: "P_board",
         element: <Board />,
       },
-      // {
-      //   path: "boardWrite",
-      //   element: <BoardWrite />,
-      // },
       {
-        path: "P_board/:id",
+        path: "boardWrite",
+        element: <BoardWrite />,
+      },
+      {
+        path: "P_board/:bno",
         element: <BoardContent />,
       },
       {
