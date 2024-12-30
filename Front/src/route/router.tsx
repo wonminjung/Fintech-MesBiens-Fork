@@ -68,6 +68,14 @@ const routes: RouteObject[] = [
         path: "P_board",
         element: <Board />,
       },
+      // {
+      //   path: "boardWrite",
+      //   element: <BoardWrite />,
+      // },
+      {
+        path: "P_board/:id",
+        element: <BoardContent />,
+      },
       {
         path: "P_notification",
         element: <Notification />,
@@ -87,14 +95,6 @@ const routes: RouteObject[] = [
       {
         path: "assets",
         element: <AssetsContainer />,
-      },
-      // {
-      //   path: "boardWrite",
-      //   element: <BoardWrite />,
-      // },
-      {
-        path: "boardContent",
-        element: <BoardContent />,
       },
     ],
   },

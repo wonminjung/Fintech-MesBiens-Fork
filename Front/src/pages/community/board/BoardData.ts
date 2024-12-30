@@ -21,4 +21,11 @@ export const boardInfo: BoardInfo[] = [
     bcont: "민지는 TB조의 기술이사 이자 실질적인 팀장이죠",
     bhit: 300,
   },
+  {
+    bno: 2,
+    bname: "홍철",
+    btitle: "민지는 우리팀 기술이사이다.",
+    bcont: "민지는 TB조의 기술이사 이자 실질적인 팀장이죠",
+    bhit: 300,
+  },
 ];

@@ -9,7 +9,6 @@ import HorizontalDivider from "../../../components/divider/HorizontalDivider";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Board: React.FC = () => {
-  const navigate = useNavigate();
   const { bno } = useParams<{ bno: string }>(); // URL에서 bno 가져오기
   const [currentBoard, setCurrentBoard] = useState<BoardInfo | null>(null);
 
