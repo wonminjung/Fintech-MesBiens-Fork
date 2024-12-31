@@ -3,10 +3,13 @@ import S from "./style";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountCardListComponent from "./AccountCardListComponent";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
 const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
   const accountList = new Array(3).fill(1);
   const [isAccount, setIsAccount] = useState(false);
+  const { handleModal } = ModalFunc();
 
   return (
     <S.AccountListContainer>
@@ -24,7 +27,7 @@ const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
             : 
             (
               <S.EmptyAccountWrapper>
-              <S.AddAccountBtn>
+              <S.AddAccountBtn onClick={() => handleModal(ModalKeys.ADD_ACCCOUNT)}>
                   <FontAwesomeIcon icon={faPlus} />
               </S.AddAccountBtn>
               <S.EmptyAccountDescription>
