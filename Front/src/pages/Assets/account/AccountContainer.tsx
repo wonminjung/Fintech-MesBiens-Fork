@@ -3,10 +3,13 @@ import S from "./style";
 import AccountListContainer from "./AccountListContainer";
 import { faAngleDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
 const AccountContainer: React.FunctionComponent = (): JSX.Element => {
   const [isClickSort, setIsClickSort] = useState<boolean>(false);
   const sortBtnRef = useRef<HTMLDivElement>(null);
+  const { handleModal } = ModalFunc();
 
   const toggleIsClickSort = useCallback(() => {
     setIsClickSort((prevState) => !prevState);
@@ -31,7 +34,10 @@ const AccountContainer: React.FunctionComponent = (): JSX.Element => {
           <S.h2>자산 현황</S.h2>
           <S.SearchAndSortWrapper>
             <S.AddAccountBtn>
-              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon
+                icon={faPlus}
+                onClick={() => handleModal(ModalKeys.ADD_ACCOUNT)}
+              />
             </S.AddAccountBtn>
             <S.DropdownContainer>
               <S.AccountSort onClick={toggleIsClickSort} ref={sortBtnRef}>

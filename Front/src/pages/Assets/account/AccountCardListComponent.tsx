@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -18,43 +18,27 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
 
   // 잔액 숨기기 상태
   const [displayBtn, setDisplayBtn] = useState<boolean>(true);
-  const handleDisplay = useCallback(
-    (): void => setDisplayBtn((prevState: boolean): boolean => !prevState),
-    []
-  );
-
-  const accountNumber = "123456789-12-123456";
+  const handleDisplay = useCallback(() => {
+    setDisplayBtn((prevState) => !prevState);
+  }, []);
 
   // 복사 버튼 상태
   const [copy, setCopy] = useState<boolean>(false);
-  const lastClickTime = useRef<number | null>(null);
-  const handleCopy = useCallback(async (): Promise<void> => {
-    const now = Date.now();
-
-    if (lastClickTime.current && now - lastClickTime.current < 2000) {
-      return; // 스로틀 활성화 중에는 복사 방지
-    }
-
-    lastClickTime.current = now; // 현재 시간을 기록
-
+  const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(accountNumber);
+      await navigator.clipboard.writeText(accountnumber);
       setCopy(true);
-
-      setTimeout(() => {
-        setCopy(false);
-      }, 2000);
+      setTimeout(() => setCopy(false), 2000);
     } catch (error) {
-      console.error("Faild to copy account number : ", error);
+      console.error("Failed to copy account number: ", error);
     }
-  }, []);
+  }, [accountnumber]);
 
   // 카드리스트 메뉴 상태
   const [isCardClicked, setIsCardClicked] = useState<boolean>(false);
-  const handleIsCardClicked = useCallback(
-    (): void => setIsCardClicked((prevState: boolean): boolean => !prevState),
-    []
-  );
+  const handleIsCardClicked = useCallback(() => {
+    setIsCardClicked((prevState) => !prevState);
+  }, []);
 
   const navigate = useNavigate();
   const handleTransaction = () => {
@@ -81,11 +65,9 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({
 
       <S.FilledFooter>
         <S.Balance>
-          {/* <S.BalanceAmount> */}
           <span className={displayBtn ? "balance-hidden" : ""}>
             {balance.toLocaleString()} 원
           </span>
-          {/* </S.BalanceAmount> */}
           <S.BalanceHideBtn>
             <input id={`balance-hide-btn${index}`} type="checkbox" />
             <label

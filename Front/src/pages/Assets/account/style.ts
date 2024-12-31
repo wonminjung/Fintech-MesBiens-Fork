@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../global/style.css";
 import styled from "styled-components";
 import DefaultButton from "../../../components/button/DefaultButton";
+import AccountCardListComponent from "./AccountCardListComponent";
 
 const S = {
   AccountContainer: styled.div`
@@ -106,6 +107,18 @@ const S = {
     justify-content: center;
   `,
   // 계좌 없을 때
+  AccountEmptyCardListWrapper: styled.div`
+    margin-top: 15px;
+    width: 100%;
+    margin-right: 1%;
+    height: 100%;
+    background-color: var(--forth-color);
+    border-radius: var(--container-border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  `,
   EmptyAccountWrapper: styled.button`
     all: unset;
     display: flex;
