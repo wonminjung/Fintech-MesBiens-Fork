@@ -3,6 +3,8 @@ import S from "./style";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountCardListComponent from "./AccountCardListComponent";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
 export type Info = {
   id: number;
@@ -13,6 +15,7 @@ export type Info = {
 };
 
 const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
+<<<<<<< HEAD
   const [bankInfo, setBankInfo] = useState<Info[]>([
     {
       id: 1,
@@ -60,10 +63,16 @@ const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
       setIsAccount(() => !isAccount);
     }
   }, [bankInfo]);
+=======
+  const accountList = new Array(3).fill(1);
+  const [isAccount, setIsAccount] = useState(false);
+  const { handleModal } = ModalFunc();
+>>>>>>> 3aeac9260fe6ce376195441243f75ba7a6ea30dd
 
   return (
     <S.AccountListContainer>
       {/* 계좌 없을 때 */}
+<<<<<<< HEAD
       {/* AccountCardList map 으로 반복 예정 */}
       {isAccount ? (
         bankInfo.map(
@@ -92,6 +101,41 @@ const AccountListContainer: React.FunctionComponent = (): JSX.Element => {
           </S.EmptyAccountWrapper>
         </S.AccountCardListWrapper>
       )}
+=======
+      <S.AccountCardListWrapper>
+        {/* AccountCardList map 으로 반복 예정 */}
+        {isAccount ? 
+            (
+              accountList.map((_, index: number): JSX.Element => (
+              <S.AccountCardListWrapper key={index}>
+                  <AccountCardListComponent index={index} />
+              </S.AccountCardListWrapper>
+              ))
+            )
+            : 
+            (
+              <S.EmptyAccountWrapper>
+              <S.AddAccountBtn onClick={() => handleModal(ModalKeys.ADD_ACCCOUNT)}>
+                  <FontAwesomeIcon icon={faPlus} />
+              </S.AddAccountBtn>
+              <S.EmptyAccountDescription>
+                  등록된 계좌가 없습니다!
+              </S.EmptyAccountDescription>
+              <S.EmptyAccountTip>
+                  Tip. 그거 알고 계셨나요? 계좌가 없으면 돈이 없다는 사실
+              </S.EmptyAccountTip>
+              </S.EmptyAccountWrapper>
+            )
+        }
+      </S.AccountCardListWrapper>
+
+      {/* 계좌 있을 때, 임시용 */}
+      {accountList.map((_, index: number): JSX.Element => (
+          <S.AccountCardListWrapper key={index}>
+            <AccountCardListComponent index={index} />
+          </S.AccountCardListWrapper>
+      ))}
+>>>>>>> 3aeac9260fe6ce376195441243f75ba7a6ea30dd
     </S.AccountListContainer>
   );
 };

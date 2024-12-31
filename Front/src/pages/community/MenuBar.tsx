@@ -23,18 +23,18 @@ const MenuBar: React.FC = () => {
   return (
     <P.MenuBar>
       <ul>
-        <li>
+        {/* <li>
           <P.MenuButton onClick={Portfolio}>포트폴리오</P.MenuButton>
-        </li>
+        </li> */}
         <li>
           <P.MenuButton onClick={News}>뉴스</P.MenuButton>
         </li>
         <li>
           <P.MenuButton onClick={Recommend}>주식 추천</P.MenuButton>
         </li>
-        <li>
+        {/* <li>
           <P.MenuButton onClick={Transaction}>주식 거래</P.MenuButton>
-        </li>
+        </li> */}
         <li>
           <P.MenuButton onClick={Notice}>자유 게시판</P.MenuButton>
         </li>

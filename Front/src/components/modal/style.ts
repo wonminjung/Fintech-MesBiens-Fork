@@ -18,9 +18,8 @@ const S = {
         z-index: 100;
     `,
     ModalWindow: styled.div`
-        width: 30%;
-        height: 70%;
         background-color: white;
+        border-radius: 20px;
         z-index: 101;
     `,
 };

@@ -3,10 +3,11 @@ import P from "../style";
 import MenuBar from "../MenuBar";
 import BoardList from "./BoardList";
 import BoardPost from "./BoardPost";
-import { BC } from "./style";
+import { BC, C } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
 import { useNavigate } from "react-router-dom";
 import BoardWriter from "./BoardWriter";
+import ChatContent from "./Chat";
 
 export const Board: React.FC = () => {
   const navigate = useNavigate();
@@ -63,6 +64,9 @@ export const ChatArea: React.FC = () => {
       <BC.ChatArea>
         <h2>채팅</h2>
         <HorizontalDivider />
+        <C.ChatContainer>
+          <ChatContent />
+        </C.ChatContainer>
         {/* 채팅 메시지 부분 */}
         {/* 여기서 채팅 메시지를 동적으로 렌더링할 수 있습니다 */}
         <BC.ChatWrapper>

@@ -5,10 +5,9 @@ import { Info,  } from './types';
 type Props = {
     info: Info;
     index: number;
-    setParentEdited: Dispatch<SetStateAction<boolean>>;
 };
 
-const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index, setParentEdited }): JSX.Element => {
+const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index }): JSX.Element => {
     const { fieldName, value } = info;
     const valueByType = typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value;
     

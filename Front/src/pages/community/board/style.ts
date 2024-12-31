@@ -97,7 +97,7 @@ export const BC = {
     width: 35%;
     height: 100%;
     padding: var(--default-padding);
-    overflow-y: auto; // 채팅이 많아지면 스크롤바 생성
+    /* overflow-y: auto; // 채팅이 많아지면 스크롤바 생성 */
     border-radius: var(--container-border-radius);
     box-sizing: border-box; // 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
   `,
@@ -359,5 +359,39 @@ export const BW = {
     margin-top: 20px;
     display: flex;
     justify-content: flex-end;
+  `,
+};
+
+export const C = {
+  ChatContainer: styled.div`
+    display: block;
+    height: 70%;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
+  `,
+  ChatUl: styled.ul`
+    padding: 0;
+  `,
+  ChatLi: styled.li`
+    padding: 10px 0;
+    list-style-type: none;
+  `,
+  Anonymous: styled.strong`
+    color: var(--third-color);
   `,
 };

@@ -1,7 +1,6 @@
 /** MyPageContainer.tsx */
 export type MenuList = {
     list: string;
-    isSort: boolean;
     component: (props: any) => JSX.Element;
 }
 

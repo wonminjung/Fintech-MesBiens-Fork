@@ -5,19 +5,22 @@ import LeftMenuComponent from './LeftMenuComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { ToLeftMenuComponentTypes } from '../types';
+import ModalFunc from '../../../components/modal/utils/ModalFunc';
+import { ModalKeys } from '../../../components/modal/keys/ModalKeys';
 
 type Props = {
     toLeftMenuComponent: ToLeftMenuComponentTypes;
 };
 
 const LeftAreaContainer: React.FunctionComponent<Props> = ({ toLeftMenuComponent }): JSX.Element => {
+    const { handleModal } = ModalFunc();
 
     return (
         <S.LeftAreaContainer>
             <S.HeaderSection>
                 {/* 설정 버튼 */}
                 <S.SettingBtnContainer>
-                    <S.SettingBtn>
+                    <S.SettingBtn onClick={() => handleModal(ModalKeys.PROFILE_SETTING)}>
                         <FontAwesomeIcon icon={faGear} />
                     </S.SettingBtn>
                 </S.SettingBtnContainer>
