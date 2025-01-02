@@ -4,7 +4,8 @@ import { componentMap } from "../../components/modal/ModalContent";
 
 const initialState: ModalInitState = {
     isOpen: false,
-    component: null
+    component: null,
+    modalProps: null
 };
 
 export const modalSlice = createSlice(
@@ -17,6 +18,9 @@ export const modalSlice = createSlice(
             },
             openModal: (state, action: PayloadAction<{ isOpen: boolean }>) => {
                 state.isOpen = action.payload.isOpen;
+            },
+            setProps: (state, action: PayloadAction<{ modalProps: Record<string, any> | null }>) => {
+                state.modalProps = action.payload.modalProps;
             }
         }
     }

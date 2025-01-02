@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import DefaultButton from "../../../button/DefaultButton";
 
 
 const S = {
@@ -96,9 +97,13 @@ const S = {
         justify-content: center;
     `,
     ProfileBtnContainer: styled.div`
-        width: 30%;
+        width: 50%;
         display: flex;
         justify-content: space-around;
+        margin-top: 32px;
+    `,
+    ProfileSubmitBtn: styled(DefaultButton)`
+        width: 40%;
     `,
 };
 

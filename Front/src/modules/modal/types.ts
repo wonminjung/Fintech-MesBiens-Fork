@@ -4,4 +4,7 @@ import { componentMap } from "../../components/modal/ModalContent";
 export type ModalInitState = {
     isOpen: boolean;
     component: keyof typeof componentMap | null;
+    modalProps: ModalPropsType;
 }
+
+export type ModalPropsType = Record<string, any> | null;

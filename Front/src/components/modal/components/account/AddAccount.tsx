@@ -1,6 +1,12 @@
 import React from 'react';
+import { ModalPropsType } from '../../../../modules/modal/types';
 
-const AddAccount: React.FunctionComponent = (): JSX.Element => {
+type Props = {
+    modalProps: ModalPropsType;
+}
+
+const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element => {
+
     return (
         <>AddAccount</>
     );
