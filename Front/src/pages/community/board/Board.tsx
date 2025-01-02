@@ -8,6 +8,7 @@ import HorizontalDivider from "../../../components/divider/HorizontalDivider";
 import { useNavigate } from "react-router-dom";
 import BoardWriter from "./BoardWriter";
 import ChatContent from "./Chat";
+import { H1, H2 } from "../../../components/htags/style";
 
 export const Board: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const Board: React.FC = () => {
       <BC.Board>
         <BC.BoardContainer>
           <BC.TitleContainer>
-            <BC.H2>자유게시판</BC.H2>
+            <H1>자유게시판</H1>
             <BC.Button onClick={handleWrite}>글쓰기</BC.Button>
           </BC.TitleContainer>
           <BC.HeaderContainer>
@@ -62,7 +63,7 @@ export const ChatArea: React.FC = () => {
     <>
       {/* 채팅 Area */}
       <BC.ChatArea>
-        <h2>채팅</h2>
+        <H2>채팅</H2>
         <HorizontalDivider />
         <C.ChatContainer>
           <ChatContent />

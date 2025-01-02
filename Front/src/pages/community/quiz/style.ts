@@ -54,10 +54,6 @@ export const M = {
     margin-bottom: 50px;
     border-radius: 8px;
   `,
-  H1: styled.h1`
-    font-size: 1.5em;
-    text-align: center;
-  `,
 };
 
 export const ST = {
@@ -90,9 +86,5 @@ export const ST = {
     width: 1em;
     margin: 25px 10px;
     align-items: center;
-  `,
-  H1: styled.h1`
-    font-size: 40px;
-    text-align: center;
   `,
 };

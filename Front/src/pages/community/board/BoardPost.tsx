@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BP } from "./style";
 import { useNavigate, useParams } from "react-router-dom";
+import { H1 } from "../../../components/htags/style";
 
 type BoardInfo = {
   bno: number;
@@ -46,7 +47,7 @@ const BoardPost: React.FC = () => {
     <BP.PostContainer>
       {/* Title and Author Section */}
       <BP.PostHeader>
-        <BP.H2>{board.btitle || "민지는 우리팀 기술이사"}</BP.H2>
+        <H1>{board.btitle || "민지는 우리팀 기술이사"}</H1>
         <BP.PostActions>
           <BP.pWriter>작성자: </BP.pWriter>
           <BP.pWriterName>{board.bname || "홍철"}</BP.pWriterName>

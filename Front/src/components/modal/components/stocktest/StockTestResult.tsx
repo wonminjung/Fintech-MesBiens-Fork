@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ST } from "../../../../pages/community/Minigame/style";
+import { ST } from "../../../../pages/community/quiz/style";
 
 const StockTestResult: React.FC = () => {
   const [recommendations, setRecommendations] = useState<string>("");

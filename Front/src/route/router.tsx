@@ -5,20 +5,21 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPageAfterLogin";
-import News from "../pages/community/News/News";
-import Recommend from "../pages/community/Minigame/Minigame";
+import News from "../pages/community/news/News";
+import Recommend from "../pages/community/quiz/Quiz";
 import {
   Board,
   BoardContent,
   BoardWrite,
 } from "../pages/community/board/Board";
-import Tile1 from "../pages/community/News/Tile1";
-import StockTest from "../pages/community/Minigame/StockTest";
+import Tile1 from "../pages/community/news/Tile1";
+import StockTest from "../pages/community/quiz/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import MainPage from "../pages/main/MainPage";
 import AssetsContainer from "../pages/Assets/AssetsContainer";
+import Calculator from "../pages/community/calculator/Calculator";
 
 const routes: RouteObject[] = [
   {
@@ -56,6 +57,10 @@ const routes: RouteObject[] = [
       {
         path: "/C_quiz",
         element: <Recommend />,
+      },
+      {
+        path: "/C_calculator",
+        element: <Calculator />,
       },
       {
         path: "C_board",

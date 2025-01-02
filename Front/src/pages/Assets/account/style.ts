@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../global/style.css";
 import styled from "styled-components";
 import DefaultButton from "../../../components/button/DefaultButton";
-import AccountCardListComponent from "./AccountCardListComponent";
 
 const S = {
   AccountContainer: styled.div`
@@ -13,10 +12,7 @@ const S = {
   MenuHeaderContainer: styled.div`
     display: flex;
     justify-content: space-between;
-  `,
-  // 선택 메뉴 제목
-  h2: styled.h2`
-    margin-left: 40px;
+    width: 100%;
   `,
   // 검색 및 정렬
   SearchAndSortWrapper: styled.div`

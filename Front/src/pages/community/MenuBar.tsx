@@ -10,6 +10,9 @@ const MenuBar: React.FC = () => {
   const Quiz = () => {
     navigate("/C_quiz");
   };
+  const Calculator = () => {
+    navigate("/C_calculator");
+  };
   const Board = () => {
     navigate("/C_board");
   };
@@ -24,7 +27,7 @@ const MenuBar: React.FC = () => {
           <P.MenuButton onClick={Quiz}>심리 테스트</P.MenuButton>
         </li>
         <li>
-          <P.MenuButton>금융 계산기</P.MenuButton>
+          <P.MenuButton onClick={Calculator}>금융 계산기</P.MenuButton>
         </li>
         <li>
           <P.MenuButton onClick={Board}>자유 게시판</P.MenuButton>

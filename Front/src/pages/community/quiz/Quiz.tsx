@@ -2,6 +2,7 @@ import React from "react";
 import P from "../style";
 import MenuBar from "../MenuBar";
 import { M } from "./style";
+import { H1 } from "../../../components/htags/style";
 
 const Recommend: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Recommend: React.FC = () => {
       <MenuBar />
       <M.MainContainer>
         <M.Tiles>
-          <M.H1>주식 투자 성향 테스트</M.H1>
+          <H1>주식 투자 성향 테스트</H1>
           {/* <M.Link to="/StockTest"> */}
           <M.Link to="https://www.mk.co.kr/mcti/desc#slide3">
             <M.Img
@@ -19,7 +20,7 @@ const Recommend: React.FC = () => {
           </M.Link>
         </M.Tiles>
         <M.Tiles>
-          <M.H1>퀴즈로 배우는 시사경제</M.H1>
+          <H1>퀴즈로 배우는 시사경제</H1>
           {/* <M.Link to="/StockTest"> */}
           <M.Link to="https://www.econedu.go.kr/user/playEcon/quizLeanCurrEcon/menu/main">
             <M.Img
@@ -30,7 +31,7 @@ const Recommend: React.FC = () => {
           </M.Link>
         </M.Tiles>
         <M.Tiles>
-          <M.H1>나의 경제 EBTI 진단하기</M.H1>
+          <H1>나의 경제 EBTI 진단하기</H1>
           {/* <M.Link to="/StockTest"> */}
           <M.Link to="https://www.econedu.go.kr/user/playEcon/econEbti/menu/main">
             <M.Img

@@ -3,6 +3,7 @@ import "./style.css";
 import { R } from "./style";
 import { records, Record } from "./data";
 import { faBank } from "@fortawesome/free-solid-svg-icons";
+import { H1 } from "../../components/htags/style";
 
 const Recent: React.FC = () => {
   const [startDate, setStartDate] = useState<string>("");
@@ -52,7 +53,7 @@ const Recent: React.FC = () => {
   return (
     <R.TransferContainer>
       <R.TransferHeader>
-        <R.h2>최근 거래내역</R.h2>
+        <H1>최근 거래내역</H1>
         <R.DateInputContainer>
           <R.DateInput
             type="date"

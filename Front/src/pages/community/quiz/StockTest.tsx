@@ -6,6 +6,7 @@ import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 import MenuBar from "../MenuBar";
 import P from "../style";
+import { H1 } from "../../../components/htags/style";
 
 const StockTest: React.FC = () => {
   const { handleModal } = ModalFunc();
@@ -46,7 +47,7 @@ const StockTest: React.FC = () => {
     <P.MainContainer>
       <MenuBar />
       <ST.StockTestContainer>
-        <ST.H1>투자 성향 테스트</ST.H1>
+        <H1>투자 성향 테스트</H1>
         <HorizontalDivider />
         <ST.StockTestForm id="StockTestForm" onSubmit={onSubmit}>
           <div className="question">
