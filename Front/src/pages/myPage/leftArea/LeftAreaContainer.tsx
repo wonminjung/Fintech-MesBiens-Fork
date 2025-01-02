@@ -20,7 +20,7 @@ const LeftAreaContainer: React.FunctionComponent<Props> = ({ toLeftMenuComponent
             <S.HeaderSection>
                 {/* 설정 버튼 */}
                 <S.SettingBtnContainer>
-                    <S.SettingBtn onClick={() => handleModal(ModalKeys.PROFILE_SETTING, { test: [1, 2, 3, 4], test1: [2, 3, 4, 5], test2: [3, 4, 5, 6] })}>
+                    <S.SettingBtn onClick={() => handleModal(ModalKeys.PROFILE_SETTING)}>
                         <FontAwesomeIcon icon={faGear} />
                     </S.SettingBtn>
                 </S.SettingBtnContainer>
