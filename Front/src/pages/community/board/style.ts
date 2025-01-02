@@ -156,11 +156,28 @@ export const BP = {
   PostContainer: styled.div`
     height: 100%;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: transparent;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: auto;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
   `,
   PostHeader: styled.div`
     display: flex;
@@ -237,6 +254,8 @@ export const BP = {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
   `,
   CommentsSection: styled.div`
+    display: block;
+    overflow: auto;
     margin-top: 30px;
     padding-top: 15px;
     border-top: 2px solid #e0e0e0;
@@ -275,7 +294,7 @@ export const BP = {
     cursor: pointer;
     margin-right: 10px;
   `,
-  img: styled.img`
+  Img: styled.img`
     width: 20px;
   `,
 };
@@ -284,7 +303,7 @@ export const BW = {
   WriteContainer: styled.div`
     height: 100%;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: transparent;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -306,7 +325,7 @@ export const BW = {
     color: #444;
     background-color: #f9f9f9;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     height: 10em;
@@ -322,7 +341,7 @@ export const BW = {
     line-height: 1.6;
     color: #444;
     background-color: #f9f9f9;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-top: 10px;
@@ -334,7 +353,7 @@ export const BW = {
     line-height: 1.6;
     color: #444;
     background-color: #f9f9f9;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     margin: 10px;

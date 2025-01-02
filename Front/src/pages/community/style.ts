@@ -3,10 +3,10 @@ import styled from "styled-components";
 const P = {
   MainContainer: styled.div`
     display: inline-block;
-    flex-grow: 1;
-    overflow: auto;
+    /* flex-grow: 1; */
+    overflow-y: auto;
     border-radius: var(--container-border-radius);
-    min-width: 1200px;
+    width: 100%;
     /* 스크롤바 */
     &::-webkit-scrollbar {
       width: 7px;
@@ -29,10 +29,6 @@ const P = {
     background-color: white; /* 배경색을 흰색으로 변경 */
     font-size: 20px; /* 글자 크기 증가 */
     display: flex;
-    flex-grow: 1;
-    overflow: hidden;
-    /* position: fixed; */
-    /* width: 85%; */
     justify-content: space-around;
     margin-bottom: 10px;
     border-top-left-radius: 10px;

@@ -15,7 +15,7 @@ const BoardList: React.FC = () => {
   const navigate = useNavigate();
 
   const handleContent = (bno: number) => {
-    navigate(`/P_board/${bno}`); // URL을 동적으로 생성
+    navigate(`/C_board/${bno}`); // URL을 동적으로 생성
   };
 
   useEffect(() => {

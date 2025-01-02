@@ -25,7 +25,7 @@ const BoardWriter: React.FC = () => {
     console.log("등록 완료");
     console.log("게시글 데이터:", JSON.stringify(postData, null, 2)); // JSON 형식으로 출력
     // 게시글 등록 로직 추가, ex) API 호출 등
-    navigate("/P_Board");
+    navigate("/C_Board");
   };
 
   return (

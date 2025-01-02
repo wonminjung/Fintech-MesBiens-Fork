@@ -12,7 +12,7 @@ import ChatContent from "./Chat";
 export const Board: React.FC = () => {
   const navigate = useNavigate();
   const handleWrite = () => {
-    navigate("/boardWrite");
+    navigate("/C_boardWrite");
   };
 
   return (

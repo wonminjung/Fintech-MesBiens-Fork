@@ -4,39 +4,30 @@ import { useNavigate } from "react-router-dom";
 
 const MenuBar: React.FC = () => {
   const navigate = useNavigate();
-  const Portfolio = () => {
-    navigate("/P_portfolio");
-  };
   const News = () => {
-    navigate("/P_news");
+    navigate("/C_news");
   };
-  const Recommend = () => {
-    navigate("/P_recommend");
+  const Quiz = () => {
+    navigate("/C_quiz");
   };
-  const Transaction = () => {
-    navigate("/P_transaction");
-  };
-  const Notice = () => {
-    navigate("/P_board");
+  const Board = () => {
+    navigate("/C_board");
   };
 
   return (
     <P.MenuBar>
       <ul>
-        {/* <li>
-          <P.MenuButton onClick={Portfolio}>포트폴리오</P.MenuButton>
-        </li> */}
         <li>
           <P.MenuButton onClick={News}>뉴스</P.MenuButton>
         </li>
         <li>
-          <P.MenuButton onClick={Recommend}>주식 추천</P.MenuButton>
+          <P.MenuButton onClick={Quiz}>심리 테스트</P.MenuButton>
         </li>
-        {/* <li>
-          <P.MenuButton onClick={Transaction}>주식 거래</P.MenuButton>
-        </li> */}
         <li>
-          <P.MenuButton onClick={Notice}>자유 게시판</P.MenuButton>
+          <P.MenuButton>금융 계산기</P.MenuButton>
+        </li>
+        <li>
+          <P.MenuButton onClick={Board}>자유 게시판</P.MenuButton>
         </li>
       </ul>
     </P.MenuBar>

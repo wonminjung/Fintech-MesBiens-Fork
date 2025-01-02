@@ -5,18 +5,15 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPageAfterLogin";
-import Portfolio from "../pages/community/Portfolio/Portfolio";
 import News from "../pages/community/News/News";
-import Recommend from "../pages/community/Recommend/Recommend";
-import Trading from "../pages/community/Trading/Trading";
+import Recommend from "../pages/community/Minigame/Minigame";
 import {
   Board,
   BoardContent,
   BoardWrite,
 } from "../pages/community/board/Board";
-import Notification from "../pages/community/Notification";
 import Tile1 from "../pages/community/News/Tile1";
-import StockTest from "../pages/community/Recommend/StockTest";
+import StockTest from "../pages/community/Minigame/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
@@ -53,36 +50,24 @@ const routes: RouteObject[] = [
         element: <Board />,
       },
       {
-        path: "/P_portfolio",
-        element: <Portfolio />,
-      },
-      {
-        path: "/P_news",
+        path: "/C_news",
         element: <News />,
       },
       {
-        path: "/P_recommend",
+        path: "/C_quiz",
         element: <Recommend />,
       },
       {
-        path: "P_transaction",
-        element: <Trading />,
-      },
-      {
-        path: "P_board",
+        path: "C_board",
         element: <Board />,
       },
       {
-        path: "boardWrite",
+        path: "C_boardWrite",
         element: <BoardWrite />,
       },
       {
-        path: "P_board/:bno",
+        path: "C_board/:bno",
         element: <BoardContent />,
-      },
-      {
-        path: "P_notification",
-        element: <Notification />,
       },
       {
         path: "N_tile1",

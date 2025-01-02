@@ -88,7 +88,7 @@ const BoardPost: React.FC = () => {
               <p>{comment.text}</p>
               <BP.CommentActions>
                 <BP.CommentLike>
-                  <BP.img
+                  <BP.Img
                     src={`${process.env.PUBLIC_URL}/images/heart-fill.svg`}
                     alt="Like"
                   />

@@ -1,25 +1,52 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../../components/button/DefaultButton";
-import submitTest from "./SubmitStockTest";
-import { ST } from "./style";
+import { M, ST } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
+import MenuBar from "../MenuBar";
+import P from "../style";
 
 const StockTest: React.FC = () => {
-  const navigate = useNavigate();
+  const { handleModal } = ModalFunc();
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    submitTest(event, (path: string) =>
-      navigate(path, { state: { submitted: true } })
-    );
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const form = document.getElementById("StockTestForm") as HTMLFormElement;
+    let totalScore = 0;
+    let allAnswered = true;
+
+    // 각 질문의 점수를 합산
+    for (let i = 1; i <= 2; i++) {
+      // 질문 수에 맞게 숫자 조정
+      const answer = form["q" + i] as RadioNodeList;
+      const selectedOption = Array.from(answer).find(
+        (option) => (option as HTMLInputElement).checked
+      );
+
+      if (!selectedOption) {
+        allAnswered = false;
+        break;
+      } else {
+        totalScore += parseInt((selectedOption as HTMLInputElement).value);
+      }
+    }
+
+    // 모든 질문에 응답하지 않았으면 alert 표시
+    if (!allAnswered) {
+      alert("모든 질문에 답변해 주세요.");
+    } else {
+      // 점수를 저장하고 추천 페이지로 이동
+      localStorage.setItem("investmentScore", totalScore.toString());
+      console.log("제출 완료");
+      handleModal(ModalKeys.STOCK_TEST_RESULT);
+    }
   };
 
   return (
-    <>
+    <P.MainContainer>
+      <MenuBar />
       <ST.StockTestContainer>
-        <h1 style={{ textAlign: "center", fontSize: "40px" }}>
-          투자 성향 테스트
-        </h1>
+        <ST.H1>투자 성향 테스트</ST.H1>
         <HorizontalDivider />
         <ST.StockTestForm id="StockTestForm" onSubmit={onSubmit}>
           <div className="question">
@@ -62,7 +89,7 @@ const StockTest: React.FC = () => {
           테스트 완료
         </DefaultButton>
       </ST.StockTestContainer>
-    </>
+    </P.MainContainer>
   );
 };
 
