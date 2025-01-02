@@ -29,6 +29,7 @@ const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Ele
                     <FontAwesomeIcon icon={faXmark} />
                 </S.CloseBtn>
             </S.ProfileHeader>
+
             <S.ProfileBody method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
                 <S.ProfileImageContainer>
                     <S.ProfileLabel htmlFor="profileImg">
@@ -39,10 +40,10 @@ const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Ele
                     </S.ProfileLabel>
                 </S.ProfileImageContainer>
                 <S.ImageUpload type="file" id="profileImg" name="profileImg" onChange={handleFileChange}/>
-
                 <S.UserName>화성갈끄니까</S.UserName>
                 <S.UserEmail>doji@tesla.co.kr</S.UserEmail>
             </S.ProfileBody>
+
             <S.ProfileFooter>
                 <S.ProfileBtnContainer>
                     <S.ProfileSubmitBtn>완료</S.ProfileSubmitBtn>
