@@ -9,7 +9,6 @@ import { RootState } from "../../modules/store/store";
 import { componentMap } from "../../components/modal/ModalContent";
 
 const Layout: React.FunctionComponent = (): JSX.Element => {
-  
   const { isOpen, component } = useSelector((state: RootState) => state.modal);
   // 현재 스토어에 저장된 component 로 모달창 띄우기 위한 상수
   const ComponentToRender = component ? componentMap[component] : null;
@@ -30,11 +29,10 @@ const Layout: React.FunctionComponent = (): JSX.Element => {
 
       {/* 공용 모달창 */}
       {isOpen && ComponentToRender ? (
-          <CommonModal>
-            <ComponentToRender/>
-          </CommonModal>
-        ) : null
-      }
+        <CommonModal>
+          <ComponentToRender />
+        </CommonModal>
+      ) : null}
     </S.RootContainer>
   );
 };

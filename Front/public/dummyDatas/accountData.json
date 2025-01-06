@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "logo": "/images/bankimages/kb1.jpg",
+    "bankname": "KB국민은행",
+    "accountnumber": "942902-00-137892",
+    "balance": 2000000
+  },
+  {
+    "id": 2,
+    "logo": "/images/bankimages/woori.png",
+    "bankname": "우리은행",
+    "accountnumber": "1002-463-489938",
+    "balance": 1500000
+  },
+  {
+    "id": 3,
+    "logo": "/images/bankimages/shinhan.png",
+    "bankname": "신한은행",
+    "accountnumber": "110-496-238490",
+    "balance": 1400000
+  },
+  {
+    "id": 4,
+    "logo": "/images/bankimages/hana.jpg",
+    "bankname": "KEB하나은행",
+    "accountnumber": "194-239-347989",
+    "balance": 5000000
+  },
+  {
+    "id": 5,
+    "logo": "/images/bankimages/ibk1.jpg",
+    "bankname": "IBK기업은행",
+    "accountnumber": "484-069485-22-358",
+    "balance": 3000000
+  }
+]

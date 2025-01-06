@@ -25,7 +25,7 @@ const SignupPage: React.FC = () => {
     <L.Body>
       <L.MainContainer>
         <L.Container_top>
-          <h1 style={{ fontSize: "3em" }}>Sign Up</h1>
+          <h1 style={{ fontSize: "3em" }}>회원가입</h1>
         </L.Container_top>
         <L.Container_bottom>
           <L.P_tag>회원정보를 모두 입력하세요.</L.P_tag>

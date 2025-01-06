@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     console.log("로그아웃되었습니다.");
     alert("로그아웃되었습니다.");
     removeCookie("userID");
-    navigate("/beforeLogin");
+    navigate("/");
     // 페이지 세로고침
     window.location.reload();
   };
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
   const redirectToMain = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();
     if (!cookies.userID) {
-      navigate("/beforeLogin");
+      navigate("/");
     } else {
       navigate("/main");
     }

@@ -5,20 +5,21 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPageAfterLogin";
-import Portfolio from "../pages/myportfolio/Portfolio/Portfolio";
-import News from "../pages/myportfolio/News/News";
-import Recommend from "../pages/myportfolio/Recommend/Recommend";
-import Trading from "../pages/myportfolio/Trading/Trading";
-import { Board, BoardContent } from "../pages/myportfolio/board/Board";
-import Notification from "../pages/myportfolio/Notification";
-import Tile1 from "../pages/myportfolio/News/Tile1";
-import StockTest from "../pages/myportfolio/Recommend/StockTest";
+import News from "../pages/community/news/News";
+import Recommend from "../pages/community/quiz/Quiz";
+import {
+  Board,
+  BoardContent,
+  BoardWrite,
+} from "../pages/community/board/Board";
+import Tile1 from "../pages/community/news/Tile1";
+import StockTest from "../pages/community/quiz/StockTest";
 import Transaction from "../pages/transaction/Transaction";
 import Recent from "../pages/Recent/Recent";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
-import IntroPageAfterLogin from "../pages/main/IntroPageAfterLogin";
 import MainPage from "../pages/main/MainPage";
 import AssetsContainer from "../pages/Assets/AssetsContainer";
+import Calculator from "../pages/community/calculator/Calculator";
 
 const routes: RouteObject[] = [
   {
@@ -26,12 +27,8 @@ const routes: RouteObject[] = [
     element: <Layout />,
     children: [
       {
-        path: "/beforeLogin",
+        path: "/",
         element: <IntroPageBeforeLogin />,
-      },
-      {
-        path: "/afterLogin",
-        element: <IntroPageAfterLogin />,
       },
       {
         path: "/main",
@@ -50,32 +47,32 @@ const routes: RouteObject[] = [
         element: <Transaction />,
       },
       {
-        path: "/myportfolio",
-        element: <Portfolio />,
-      },
-      {
-        path: "/P_portfolio",
-        element: <Portfolio />,
-      },
-      {
-        path: "/P_news",
-        element: <News />,
-      },
-      {
-        path: "/P_recommend",
-        element: <Recommend />,
-      },
-      {
-        path: "P_transaction",
-        element: <Trading />,
-      },
-      {
-        path: "P_board",
+        path: "/community",
         element: <Board />,
       },
       {
-        path: "P_notification",
-        element: <Notification />,
+        path: "/C_news",
+        element: <News />,
+      },
+      {
+        path: "/C_quiz",
+        element: <Recommend />,
+      },
+      {
+        path: "/C_calculator",
+        element: <Calculator />,
+      },
+      {
+        path: "C_board",
+        element: <Board />,
+      },
+      {
+        path: "C_boardWrite",
+        element: <BoardWrite />,
+      },
+      {
+        path: "C_board/:bno",
+        element: <BoardContent />,
       },
       {
         path: "N_tile1",
@@ -92,14 +89,6 @@ const routes: RouteObject[] = [
       {
         path: "assets",
         element: <AssetsContainer />,
-      },
-      // {
-      //   path: "boardWrite",
-      //   element: <BoardWrite />,
-      // },
-      {
-        path: "boardContent",
-        element: <BoardContent />,
       },
     ],
   },

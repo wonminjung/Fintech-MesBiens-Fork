@@ -36,7 +36,7 @@
 
 /* 테두리 모서리 */
 :root {
-  --container-border-radius: 20px;
+  --container-border-radius: 15px;
   --container-top-border-radius: 20px 20px 0px 0px;
   --container-bottom-border-radius: 0px 0px 20px 20px;
   --sidebar-border-raduis: 0px 20px 20px 0px;

@@ -2,9 +2,11 @@
 
 import AddAccount from "./components/account/AddAccount";
 import ProfileSetting from "./components/profile/ProfileSetting";
+import StockTestResult from "./components/stocktest/StockTestResult";
 import { ComponentMap } from "./types";
 
 export const componentMap: ComponentMap = {
-    profileSetting: ProfileSetting,
-    addAccount: AddAccount
+  profileSetting: ProfileSetting,
+  addAccount: AddAccount,
+  stockTestResult: StockTestResult,
 };

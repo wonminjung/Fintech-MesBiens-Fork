@@ -13,11 +13,9 @@ const App: React.FunctionComponent = (): JSX.Element => {
   // }, [document.location]);
   
   return (
-    <>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 };
 

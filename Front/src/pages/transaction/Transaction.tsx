@@ -3,6 +3,7 @@ import { T } from "./style";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 import HorizontalDivider from "../../components/divider/HorizontalDivider";
 import { Link } from "react-router-dom";
+import { H1 } from "../../components/htags/style";
 
 const Transaction: React.FC = () => {
   const [showBankDetails, setShowBankDetails] = useState(false);
