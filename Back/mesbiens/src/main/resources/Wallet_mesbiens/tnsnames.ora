@@ -1,0 +1,12 @@
+mesbiens_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g27c757c2004786_mesbiens_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+mesbiens_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g27c757c2004786_mesbiens_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+mesbiens_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g27c757c2004786_mesbiens_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+mesbiens_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g27c757c2004786_mesbiens_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+mesbiens_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=g27c757c2004786_mesbiens_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+
