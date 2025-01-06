@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const DefaultButton: React.FC<ButtonProps> = ({ children, ...rest }) => {
   return (
-    <DButton type="submit" {...rest}>
+    <DButton {...rest}>
       {children}
     </DButton>
   );
