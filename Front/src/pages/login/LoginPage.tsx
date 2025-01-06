@@ -1,10 +1,5 @@
-import React, {
-  ChangeEvent,
-  ReactHTMLElement,
-  useEffect,
-  useState,
-} from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import L from "./LoginStyle";
 import DefaultButton from "../../components/button/DefaultButton";
 import DefaultInputField from "../../components/inputfield/InputField";

@@ -2,11 +2,9 @@ import React from 'react';
 import S from './style';
 import ModalFunc from './utils/ModalFunc';
 
-type Props = React.PropsWithChildren<{
-    [key: string]: unknown;
-}>;
+type Props = React.PropsWithChildren;
 
-const CommonModal: React.FunctionComponent<Props> = ({ children, ...rest }): JSX.Element => {
+const CommonModal: React.FunctionComponent<Props> = ({ children }): JSX.Element => {
     const { closeModal } = ModalFunc();
     
     return (
@@ -14,7 +12,7 @@ const CommonModal: React.FunctionComponent<Props> = ({ children, ...rest }): JSX
             {/* 모달 백그라운드 */}
             <S.ModalBackround onClick={() => closeModal()}/>
             {/* 모달창 */}
-            <S.ModalWindow {...rest}>{children}</S.ModalWindow>
+            <S.ModalWindow>{children}</S.ModalWindow>
         </S.ModalContainer>
     );
 };

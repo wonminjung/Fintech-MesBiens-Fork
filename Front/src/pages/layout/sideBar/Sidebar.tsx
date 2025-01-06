@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import S from "./style";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const Sidebar: React.FunctionComponent = (): JSX.Element => {
@@ -24,7 +24,7 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
   const redirectToMain = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();
     if (!cookies.userID) {
-      navigate("/beforeLogin");
+      navigate("/");
     } else {
       navigate("/main");
     }
@@ -43,7 +43,7 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
         <ul>
           <li>
             <a href="/main" onClick={handleCheckLogin}>
-              지출 캘린더
+              수입 • 지출 캘린더
             </a>
           </li>
           <li>
@@ -62,8 +62,8 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
             </a>
           </li>
           <li>
-            <a href="/myportfolio" onClick={handleCheckLogin}>
-              나의 포트폴리오
+            <a href="/community" onClick={handleCheckLogin}>
+              커뮤니티
             </a>
           </li>
         </ul>

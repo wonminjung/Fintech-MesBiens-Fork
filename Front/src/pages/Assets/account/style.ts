@@ -12,17 +12,13 @@ const S = {
   MenuHeaderContainer: styled.div`
     display: flex;
     justify-content: space-between;
-  `,
-  // 선택 메뉴 제목
-  MenuTitle: styled.div`
-    font-size: 28px;
-    font-weight: bold;
+    width: 100%;
   `,
   // 검색 및 정렬
   SearchAndSortWrapper: styled.div`
     display: flex;
     justify-content: flex-end;
-    width: 40%;
+    width: 200px;
   `,
   AccountSearch: styled.div`
     display: flex;
@@ -35,14 +31,17 @@ const S = {
   `,
   AccountSort: styled.div`
     display: flex;
-    height: 52px;
+    height: 42px;
+    width: 80px;
     align-items: center;
     justify-content: space-evenly;
     background-color: lightgray;
     font-size: 14px;
-    border-radius: 20px;
+    border-radius: 8px;
     cursor: pointer;
     user-select: none;
+    margin-left: 20px;
+    z-index: 1000;
 
     &:hover {
       filter: brightness(0.85);
@@ -60,7 +59,6 @@ const S = {
       transform: rotate(360deg);
       transition: transform 0.3s;
     }
-
   `,
   Dropdown: styled.ul`
     display: none;
@@ -90,12 +88,13 @@ const S = {
   `,
   /** AccountListContainer.tsx */
   AccountListContainer: styled.div`
-    height: 2000px;
+    height: 500px;
   `,
   AccountCardListWrapper: styled.div`
-    margin-top: 32px;
+    margin-top: 15px;
     width: 100%;
-    height: 240px;
+    margin-right: 1%;
+    height: 100px;
     background-color: var(--forth-color);
     border-radius: var(--container-border-radius);
     display: flex;
@@ -104,6 +103,18 @@ const S = {
     justify-content: center;
   `,
   // 계좌 없을 때
+  AccountEmptyCardListWrapper: styled.div`
+    margin-top: 15px;
+    width: 100%;
+    margin-right: 1%;
+    height: 100%;
+    background-color: var(--forth-color);
+    border-radius: var(--container-border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  `,
   EmptyAccountWrapper: styled.button`
     all: unset;
     display: flex;
@@ -115,18 +126,18 @@ const S = {
   AddAccountBtn: styled.button`
     all: unset;
     display: flex;
-    width: 84px;
-    height: 84px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background-color: var(--button-color);
     color: white;
-    font-size: 60px;
+    font-size: 30px;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
-    
+
     &:active {
       transform: scale(1.15);
     }
@@ -147,14 +158,14 @@ const S = {
     opacity: 0.7;
   `,
 
-  /** AccountCardListComponent.tsx */
+  /* AccountCardListComponent.tsx */
   FilledAccountWrapper: styled.div`
     width: 100%;
-    height: 100%;
+    height: 80px;
     padding: 12px;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: space-between;
   `,
   // 카드리스트 상단
@@ -164,12 +175,13 @@ const S = {
     justify-content: space-between;
   `,
   BankInfoContainer: styled.div`
-    width: 320px;
-    height: 62px;
+    width: 40%;
+    /* height: 0px; */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
     align-items: center;
-    background: var(--third-color);
+    /* background: var(--third-color); */
     padding: 0 12px;
     box-sizing: border-box;
     border-radius: 10px;
@@ -178,25 +190,24 @@ const S = {
   BankInfoWrapper: styled.div`
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   `,
-  BankLogo: styled.div`
-    width: 42px;
-    height: 42px;
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
+  BankLogo: styled.img`
+    width: 50px;
+    height: 50px;
+    /* object-fit: cover; */
+    border-radius: 50%;
+    background: var(--white);
   `,
   BankInfo: styled.div`
-    margin-left: 12px;
+    display: inline-block;
+    width: 150px;
+    margin: 20px 0;
     user-select: none;
     & h4 {
       margin: 0;
       font-size: 15px;
-      color: white;
+      /* color: white; */
       filter: brightness(0.93);
     }
   `,
@@ -218,18 +229,18 @@ const S = {
     }
   `,
   CardListMenuContainer: styled.div`
-    position: relative;
+    /* position: relative; */
   `,
   CardlistMenuBtn: styled.button`
-    width: 48px;
-    height: 48px;
+    width: 30x;
+    height: 30px;
     border: none;
     border-radius: 50%;
+    margin-left: 10px;
     background-color: inherit;
     font-size: 20px;
     color: grey;
     cursor: pointer;
-
     &:active {
       background-color: var(--lightGrey);
       color: white;
@@ -240,8 +251,8 @@ const S = {
     padding: 0;
     margin: 0;
     width: 200px;
-    right: 0;
-    top: 80%;
+    right: 30px;
+    top: 40%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: white;
     border: 1px solid var(--lightGrey);
@@ -251,7 +262,7 @@ const S = {
   CardlistDropDownItems: styled.li`
     padding: 12px;
     cursor: pointer;
-    
+
     &:hover {
       background-color: #f0f0f0;
     }
@@ -259,9 +270,12 @@ const S = {
   // 카드리스트 하단
   FilledFooter: styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     height: 56px;
     justify-content: flex-end;
+  `,
+  BalanceAmount: styled.div`
+    width: 80%;
   `,
   // 잔액 숨기기 버튼
   BalanceHideBtn: styled.div`
@@ -274,7 +288,7 @@ const S = {
     label {
       display: block;
       position: relative;
-      height: 65%;
+      height: 36px;
       width: 72px;
       background-color: white;
       border: 2px solid #eee;
@@ -308,7 +322,8 @@ const S = {
   `,
   Balance: styled.div`
     display: flex;
-    width: 30%;
+    justify-content: flex-end;
+    width: 13em;
     background-color: white;
     border-radius: 20px;
     align-items: center;
@@ -339,8 +354,8 @@ const S = {
     position: absolute;
     display: inline-block;
     width: 50%;
-    left: 70%;
-    top: 100%;
+    left: 100%;
+    top: 10%;
     text-align: center;
     background-color: #4caf50;
     color: white;
@@ -350,7 +365,6 @@ const S = {
     font-size: 14px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   `,
-
 };
 
 export default S;
