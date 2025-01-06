@@ -20,6 +20,7 @@ import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import MainPage from "../pages/main/MainPage";
 import AssetsContainer from "../pages/Assets/AssetsContainer";
 import Calculator from "../pages/community/calculator/Calculator";
+import ToggleBtn from "../components/button/ToggleButton";
 
 const routes: RouteObject[] = [
   {
@@ -108,6 +109,10 @@ const routes: RouteObject[] = [
   {
     path: "*",
     // element: <NotFoundContainer />,
+  },
+  {
+    path: "testTBtn",
+    element: <ToggleBtn />,
   },
 ];
 

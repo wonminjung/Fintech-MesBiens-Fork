@@ -40,3 +40,45 @@ export const PButton = styled.button<{ width?: string; height?: string }>`
     /* text-decoration: underline; */
   }
 `;
+
+export const TButton = {
+  ToggleBtnContainer: styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  `,
+  /* On / Off toggle */
+  ToggleBtn: styled.button`
+    background-color: #b7b9ba;
+    border: 1px solid #aaa;
+    border-radius: 99px;
+    width: 50px;
+    height: 28px;
+    transition: background-color 0.1s ease, border-color 0.2s ease;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748);
+    position: relative;
+    &.toggled {
+      background-color: #15b58e;
+      & div {
+        left: calc(50px - 25px);
+      }
+    }
+    &:hover {
+      border-color: #6f6f6f;
+    }
+  `,
+  Thumb: styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 99px;
+    transform: translateX(0);
+    transition: left 0.15s ease;
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+  `,
+};

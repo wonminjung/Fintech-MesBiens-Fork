@@ -18,7 +18,7 @@ const Calculator = () => {
           <C.ToggleContainer>
             <H2>용어설명</H2>
             <C.ToggleBtn onClick={toggleExplanation}>
-              {showExplanation ? "숨기기" : "보기"}{" "}
+              {showExplanation ? "용어 설명" : "용어 설명"}{" "}
             </C.ToggleBtn>
           </C.ToggleContainer>
         </C.TitleContainer>
