@@ -7,6 +7,7 @@ const C = {
   MainContainer: styled.div`
     display: flex;
     flex-direction: column;
+    z-index: 0;
     width: 100%;
   `,
   CalculatorContainer: styled.div`
@@ -68,6 +69,9 @@ const C = {
     border-bottom: 1px solid #ddd;
     width: 80%;
     text-align: end;
+    &:focus {
+      outline: none;
+    }
   `,
   ButtonContainer: styled.div`
     display: flex;

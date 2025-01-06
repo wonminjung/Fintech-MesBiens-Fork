@@ -63,6 +63,9 @@ export const S = {
     padding: 0 10px;
     font-size: 15px;
     border: none;
+    &:focus {
+      outline: none;
+    }
     height: 2em;
     @media (max-width: 600px) {
       width: 100%;

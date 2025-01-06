@@ -21,6 +21,7 @@
   --button-hover-color: var(--second-color);
   --border-color: var(--grey);
   --gradient: linear-gradient(to top, var(--third-color), var(--first-color));
+  --circlegradient: linear-gradient(to left, var(--white), var(--black));
 
   --scrollbar-color: var(--lightGrey);
   --scrollbaractive-color: darkgrey;

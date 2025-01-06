@@ -47,7 +47,6 @@ const S = {
         & > a {
           color: var(--text-color-white);
           text-decoration: none;
-          color: var(--text-color-white);
           display: block;
           padding: 15px 10px;
           transition: background-color 0.3s;
@@ -55,10 +54,12 @@ const S = {
         margin-left: 3em;
 
         /* 메뉴에 마우스 호버 시 효과 */
-        &:hover {
+        &:hover,
+        .active {
           background-color: var(--bg-color);
           border-top-left-radius: 10px;
           border-bottom-left-radius: 10px;
+          color: var(--black);
 
           &:before,
           &:after {
@@ -73,12 +74,12 @@ const S = {
 
           &:before {
             bottom: 100%;
-            box-shadow: 16px 16px var(--bg-hover-color);
+            box-shadow: 16px 16px var(--forth-color);
           }
 
           &:after {
             top: 100%;
-            box-shadow: 16px -16px var(--bg-hover-color);
+            box-shadow: 16px -16px var(--forth-color);
           }
 
           & > a {
