@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { S, A } from "./style";
 import VerticalDivider from "../../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -72,12 +74,9 @@ const Header: React.FC = () => {
         {/* {SearchVisible && ( */}
         <S.SearchBarContainer>
           <S.SearchInput type="text" placeholder="Search.." />
-          {/* )} */}
-          <S.SearchImg
-            src={`${process.env.PUBLIC_URL}/images/search.svg`}
-            alt="Search"
-            onClick={toggleSearchBar}
-          />
+          <S.PlainBtn>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </S.PlainBtn>
         </S.SearchBarContainer>
 
         <S.LoginSignupContainer>
@@ -97,10 +96,9 @@ const Header: React.FC = () => {
           </Link> */}
         </S.LoginSignupContainer>
         {cookies.userID && (
-          <S.img
-            src={`${process.env.PUBLIC_URL}/images/bell.svg`}
-            onClick={handleOpenModal}
-          />
+          <S.PlainBtn>
+            <FontAwesomeIcon icon={faBell} onClick={handleOpenModal} />
+          </S.PlainBtn>
         )}
         {isModalOpen && (
           <>

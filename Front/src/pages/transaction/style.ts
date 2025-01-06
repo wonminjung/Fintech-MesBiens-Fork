@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import DefaultButton from "../../components/button/DefaultButton";
 import { InputField } from "../../components/inputfield/style";
 import { Link } from "react-router-dom";
+import PlainButton from "../../components/button/PlainButton";
 
 export const T = {
   MainContainer: styled.div`
@@ -72,7 +73,7 @@ export const T = {
     height: 35px;
     margin-bottom: 20px;
   `,
-  PlainButton: styled.button`
+  PlainButton: styled(PlainButton)`
     margin: 0;
     font-size: 15px;
     border: none;

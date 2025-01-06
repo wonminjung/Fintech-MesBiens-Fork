@@ -43,12 +43,14 @@ export const S = {
   SearchContainer: styled.div`
     display: flex;
     align-content: flex-end;
+    align-items: center;
   `,
   SearchBarContainer: styled.div`
     display: flex;
     justify-content: flex-end;
     border-bottom: 2px solid var(--second-color);
     margin-right: 20px;
+    align-items: center;
 
     @media (max-width: 600px) {
       flex-direction: column;
@@ -61,18 +63,21 @@ export const S = {
     padding: 0 10px;
     font-size: 15px;
     border: none;
-    //width: 40%;
     height: 2em;
-    /* opacity: 0; */
-    /* transform: translateX(-30px); */
-    /* transition: transform 0.5s ease-in-out; */
     @media (max-width: 600px) {
       width: 100%;
       margin-bottom: 2em;
     }
     &:focus {
-      /* transform: translateX(0); */
-      /* opacity: 1; */
+      text-decoration: none;
+      border: none;
+    }
+  `,
+  PlainBtn: styled(PlainButton)`
+    width: 2em;
+    align-items: center;
+    &:hover {
+      color: var(--second-color);
     }
   `,
   SearchImg: styled.img`

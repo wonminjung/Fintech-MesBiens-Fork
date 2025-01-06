@@ -51,7 +51,6 @@ const C = {
     background-color: #ddd;
     padding: 10px;
     margin: 0;
-    font-size: 18px;
   `,
   ContentContainer: styled.div`
     display: flex;
@@ -81,6 +80,11 @@ const C = {
     height: 3em;
     justify-content: center;
     align-items: center;
+    gap: 5px;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      background-color: #ddd;
+    }
   `,
   ColorBtn: styled(DefaultButton)`
     width: 50%;

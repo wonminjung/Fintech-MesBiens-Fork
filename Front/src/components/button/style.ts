@@ -57,16 +57,16 @@ export const TButton = {
     height: 28px;
     transition: background-color 0.1s ease, border-color 0.2s ease;
     cursor: pointer;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748);
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748); */
     position: relative;
     &.toggled {
-      background-color: #15b58e;
+      background-color: var(--third-color);
       & div {
         left: calc(50px - 25px);
       }
     }
     &:hover {
-      border-color: #6f6f6f;
+      border-color: var(--third-color);
     }
   `,
   Thumb: styled.div`

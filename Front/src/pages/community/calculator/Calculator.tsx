@@ -3,6 +3,8 @@ import MenuBar from "../MenuBar";
 import C from "./style";
 import { H1, H2 } from "../../../components/htags/style";
 import ToggleBtn from "../../../components/button/ToggleButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 const Calculator = () => {
   const [showExplanation, setShowExplanation] = useState(false);
@@ -49,7 +51,10 @@ const Calculator = () => {
           </C.Label>
           <C.Label>이자과세</C.Label>
           <C.ButtonContainer>
-            <C.WhiteBtn>초기화</C.WhiteBtn>
+            <C.WhiteBtn>
+              <FontAwesomeIcon icon={faRotateRight} />
+              초기화
+            </C.WhiteBtn>
             <C.ColorBtn>계산하기</C.ColorBtn>
           </C.ButtonContainer>
         </C.ContentContainer>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DefaultButton from "../../../components/button/DefaultButton";
 import DefaultInputField from "../../../components/inputfield/InputField";
 import PlainButton from "../../../components/button/PlainButton";
+import { platform } from "os";
 
 export const BC = {
   Board: styled.div`
@@ -200,12 +201,12 @@ export const BP = {
     gap: 10px;
     /* position: relative; */
   `,
-  pWriter: styled.p`
+  PWriter: styled.p`
     font-weight: bold;
     color: #555;
     width: 3em;
   `,
-  pWriterName: styled.p`
+  PWriterName: styled.p`
     white-space: nowrap;
     /* padding-left: 1em; */
     font-size: 1em;
@@ -214,10 +215,12 @@ export const BP = {
     display: flex;
     align-items: center;
     cursor: pointer;
-    /* padding-left: 3em; */
-    /* padding-bottom: 3em; */
+
     font-size: 1.5em;
-    /* position: absolute; */
+  `,
+  ThreeDotBtn: styled(PlainButton)`
+    width: 2em;
+    align-items: center;
   `,
   ActionButtons: styled.div`
     display: flex;
