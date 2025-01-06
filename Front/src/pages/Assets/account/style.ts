@@ -229,7 +229,7 @@ const S = {
     }
   `,
   CardListMenuContainer: styled.div`
-    /* position: relative; */
+    position: relative;
   `,
   CardlistMenuBtn: styled.button`
     width: 30x;
@@ -251,8 +251,8 @@ const S = {
     padding: 0;
     margin: 0;
     width: 200px;
-    right: 30px;
-    top: 40%;
+    right: 0px;
+    top: 60%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: white;
     border: 1px solid var(--lightGrey);
