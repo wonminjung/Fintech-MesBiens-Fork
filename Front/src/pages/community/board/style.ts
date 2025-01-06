@@ -7,7 +7,7 @@ export const BC = {
   Board: styled.div`
     display: flex;
     width: 100%;
-    height: 85%;
+    height: 100%;
   `,
 
   /* Board */

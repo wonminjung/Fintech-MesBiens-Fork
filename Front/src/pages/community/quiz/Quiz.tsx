@@ -11,7 +11,7 @@ const Recommend: React.FC = () => {
       <M.MainContainer>
         <M.Tiles>
           <H1>주식 투자 성향 테스트</H1>
-          {/* <M.Link to="/StockTest"> */}
+          {/* 출처 남기기 */}
           <M.Link to="https://www.mk.co.kr/mcti/desc#slide3">
             <M.Img
               src={`${process.env.PUBLIC_URL}/images/minigame/stocktestthumbnail.jpg`}
@@ -21,7 +21,7 @@ const Recommend: React.FC = () => {
         </M.Tiles>
         <M.Tiles>
           <H1>퀴즈로 배우는 시사경제</H1>
-          {/* <M.Link to="/StockTest"> */}
+          {/* 출처 남기기 */}
           <M.Link to="https://www.econedu.go.kr/user/playEcon/quizLeanCurrEcon/menu/main">
             <M.Img
               src={`${process.env.PUBLIC_URL}/images/minigame/econquizthumbnail.png`}
@@ -32,7 +32,7 @@ const Recommend: React.FC = () => {
         </M.Tiles>
         <M.Tiles>
           <H1>나의 경제 EBTI 진단하기</H1>
-          {/* <M.Link to="/StockTest"> */}
+          {/* 출처 남기기 */}
           <M.Link to="https://www.econedu.go.kr/user/playEcon/econEbti/menu/main">
             <M.Img
               src={`${process.env.PUBLIC_URL}/images/minigame/econthumbnail.png`}
