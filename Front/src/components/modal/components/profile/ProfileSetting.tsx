@@ -3,10 +3,16 @@ import S from './style';
 import ModalFunc from '../../utils/ModalFunc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { ModalPropsType } from '../../../../modules/modal/types';
 
-const ProfileSetting: React.FunctionComponent = (): JSX.Element => {
-    const { closeModal } = ModalFunc();
+type Props = {
+    modalProps: ModalPropsType;
+}
+
+const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element => {
     const [ selectedFile, setSelectedFile ] = useState<File|null>(null);
+    const { closeModal } = ModalFunc();
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFile(e.target.files?.[0] || null);
     };
@@ -23,6 +29,7 @@ const ProfileSetting: React.FunctionComponent = (): JSX.Element => {
                     <FontAwesomeIcon icon={faXmark} />
                 </S.CloseBtn>
             </S.ProfileHeader>
+
             <S.ProfileBody method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
                 <S.ProfileImageContainer>
                     <S.ProfileLabel htmlFor="profileImg">
@@ -33,13 +40,15 @@ const ProfileSetting: React.FunctionComponent = (): JSX.Element => {
                     </S.ProfileLabel>
                 </S.ProfileImageContainer>
                 <S.ImageUpload type="file" id="profileImg" name="profileImg" onChange={handleFileChange}/>
-
                 <S.UserName>화성갈끄니까</S.UserName>
                 <S.UserEmail>doji@tesla.co.kr</S.UserEmail>
             </S.ProfileBody>
+
             <S.ProfileFooter>
-                <button>완료</button>
-                <button>취소</button>
+                <S.ProfileBtnContainer>
+                    <S.ProfileSubmitBtn>완료</S.ProfileSubmitBtn>
+                    <S.ProfileSubmitBtn type="button">취소</S.ProfileSubmitBtn>
+                </S.ProfileBtnContainer>
             </S.ProfileFooter>
         </S.ProfileSetContainer>
     );
