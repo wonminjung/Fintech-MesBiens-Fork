@@ -38,7 +38,13 @@ const S = {
             transform: scale(1.05);
         }
     `,
-    FormBody: styled.form`
+    Form: styled.form`
+        height: 64%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    `,
+    FormBody: styled.div`
         padding-left: 52px;
         margin-bottom: 32px;
     `,
