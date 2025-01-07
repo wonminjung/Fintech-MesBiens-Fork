@@ -13,48 +13,45 @@ import { H1, H2 } from "../../../components/htags/style";
 export const Board: React.FC = () => {
   const navigate = useNavigate();
   const handleWrite = () => {
-    navigate("/C_boardWrite");
+    navigate("C_boardWrite");
   };
 
   return (
-    <P.MainContainer>
-      <MenuBar />
-      <BC.Board>
-        <BC.BoardContainer>
-          <BC.TitleContainer>
-            <H1>자유게시판</H1>
-            <BC.Button onClick={handleWrite}>글쓰기</BC.Button>
-          </BC.TitleContainer>
-          <BC.HeaderContainer>
-            <BC.BoardTable>
-              <BC.TR>
-                <BC.TD>글번호</BC.TD>
-                <BC.TDTitle>게시글</BC.TDTitle>
-                <BC.TD>작성자</BC.TD>
-                <BC.TD>조회수</BC.TD>
-              </BC.TR>
-            </BC.BoardTable>
-          </BC.HeaderContainer>
+    <BC.Board>
+      <BC.BoardContainer>
+        <BC.TitleContainer>
+          <H1>자유게시판</H1>
+          <BC.Button onClick={handleWrite}>글쓰기</BC.Button>
+        </BC.TitleContainer>
+        <BC.HeaderContainer>
           <BC.BoardTable>
-            <BoardList />
+            <BC.TR>
+              <BC.TD>글번호</BC.TD>
+              <BC.TDTitle>게시글</BC.TDTitle>
+              <BC.TD>작성자</BC.TD>
+              <BC.TD>조회수</BC.TD>
+            </BC.TR>
           </BC.BoardTable>
+        </BC.HeaderContainer>
+        <BC.BoardTable>
+          <BoardList />
+        </BC.BoardTable>
 
-          {/* Pagination */}
-          <BC.PaginationWrapper>
-            <BC.Pagination>
-              <a href="#">&laquo;</a>
-              <a href="#">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <a href="#">&raquo;</a>
-            </BC.Pagination>
-          </BC.PaginationWrapper>
-        </BC.BoardContainer>
-        <ChatArea />
-      </BC.Board>
-    </P.MainContainer>
+        {/* Pagination */}
+        <BC.PaginationWrapper>
+          <BC.Pagination>
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">&raquo;</a>
+          </BC.Pagination>
+        </BC.PaginationWrapper>
+      </BC.BoardContainer>
+      <ChatArea />
+    </BC.Board>
   );
 };
 
@@ -83,19 +80,9 @@ export const ChatArea: React.FC = () => {
 };
 
 export const BoardContent: React.FC = () => {
-  return (
-    <P.MainContainer>
-      <MenuBar />
-      <BoardPost />
-    </P.MainContainer>
-  );
+  return <BoardPost />;
 };
 
 export const BoardWrite: React.FC = () => {
-  return (
-    <P.MainContainer>
-      <MenuBar />
-      <BoardWriter />
-    </P.MainContainer>
-  );
+  return <BoardWriter />;
 };
