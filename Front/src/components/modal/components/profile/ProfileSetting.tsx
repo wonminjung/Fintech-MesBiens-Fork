@@ -25,31 +25,31 @@ const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Ele
     return(
         <S.ProfileSetContainer>
             <S.ProfileHeader>
+                <S.Title>프로필 변경</S.Title>
                 <S.CloseBtn onClick={() => closeModal()}>
                     <FontAwesomeIcon icon={faXmark} />
                 </S.CloseBtn>
             </S.ProfileHeader>
+            
+            <S.ProfileForm method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
+                <S.ProfileBody>
+                    <S.ProfileImageContainer>
+                        <S.ProfileLabel htmlFor="profileImg">
+                            <S.ProfileImage src={`${process.env.PUBLIC_URL}/images/myPage/profile/user-profile.jpg`} alt="사용자 프로필" />
+                            <S.ImageUploadBtn>
+                                <FontAwesomeIcon icon={faUpRightFromSquare} />
+                            </S.ImageUploadBtn>
+                        </S.ProfileLabel>
+                    </S.ProfileImageContainer>
+                    <S.ImageUpload type="file" id="profileImg" name="profileImg" onChange={handleFileChange}/>
+                    <S.UserName>화성갈끄니까</S.UserName>
+                    <S.UserEmail>doji@tesla.co.kr</S.UserEmail>
+                </S.ProfileBody>
 
-            <S.ProfileBody method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
-                <S.ProfileImageContainer>
-                    <S.ProfileLabel htmlFor="profileImg">
-                        <S.ProfileImage src={`${process.env.PUBLIC_URL}/images/myPage/profile/user-profile.jpg`} alt="사용자 프로필" />
-                        <S.ImageUploadBtn>
-                            <FontAwesomeIcon icon={faUpRightFromSquare} />
-                        </S.ImageUploadBtn>
-                    </S.ProfileLabel>
-                </S.ProfileImageContainer>
-                <S.ImageUpload type="file" id="profileImg" name="profileImg" onChange={handleFileChange}/>
-                <S.UserName>화성갈끄니까</S.UserName>
-                <S.UserEmail>doji@tesla.co.kr</S.UserEmail>
-            </S.ProfileBody>
-
-            <S.ProfileFooter>
-                <S.ProfileBtnContainer>
+                <S.ProfileFooter>
                     <S.ProfileSubmitBtn>완료</S.ProfileSubmitBtn>
-                    <S.ProfileSubmitBtn type="button">취소</S.ProfileSubmitBtn>
-                </S.ProfileBtnContainer>
-            </S.ProfileFooter>
+                </S.ProfileFooter>
+            </S.ProfileForm>
         </S.ProfileSetContainer>
     );
 };
