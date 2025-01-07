@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import DefaultButton from "../../components/button/DefaultButton";
 import { InputField } from "../../components/inputfield/style";
 import { Link } from "react-router-dom";
+import PlainButton from "../../components/button/PlainButton";
 
 export const T = {
   MainContainer: styled.div`
@@ -34,9 +35,11 @@ export const T = {
     height: 30px;
     padding: 10px;
     margin: 20px 0;
-    /* border: 1px solid #e0e0e0; */
     border: none;
     border-radius: 4px;
+    &:focus {
+      outline: none;
+    }
     /* ::placeholder {
       font-size: 400px;
     } */
@@ -72,7 +75,7 @@ export const T = {
     height: 35px;
     margin-bottom: 20px;
   `,
-  PlainButton: styled.button`
+  PlainButton: styled(PlainButton)`
     margin: 0;
     font-size: 15px;
     border: none;

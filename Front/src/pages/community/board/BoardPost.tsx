@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BP } from "./style";
 import { useNavigate, useParams } from "react-router-dom";
 import { H1 } from "../../../components/htags/style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 
 type BoardInfo = {
   bno: number;
@@ -49,14 +51,12 @@ const BoardPost: React.FC = () => {
       <BP.PostHeader>
         <H1>{board.btitle || "민지는 우리팀 기술이사"}</H1>
         <BP.PostActions>
-          <BP.pWriter>작성자: </BP.pWriter>
-          <BP.pWriterName>{board.bname || "홍철"}</BP.pWriterName>
+          <BP.PWriter>작성자: </BP.PWriter>
+          <BP.PWriterName>{board.bname || "홍철"}</BP.PWriterName>
           <BP.ThreeDotContainer>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/three-dots-vertical.svg`}
-              onClick={handleThreeDots}
-              alt="Options"
-            />
+            <BP.ThreeDotBtn onClick={handleThreeDots}>
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </BP.ThreeDotBtn>
           </BP.ThreeDotContainer>
           {buttonVisible && (
             <BP.ActionButtons>

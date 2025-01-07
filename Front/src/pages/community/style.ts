@@ -3,7 +3,6 @@ import styled from "styled-components";
 const P = {
   MainContainer: styled.div`
     display: inline-block;
-    /* flex-grow: 1; */
     overflow-y: auto;
     border-radius: var(--container-border-radius);
     width: 100%;

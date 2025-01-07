@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import S from "./style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { NavLink } from "react-router-dom";
 
 const Sidebar: React.FunctionComponent = (): JSX.Element => {
   const navigate = useNavigate();
@@ -42,29 +43,29 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
       <S.SideMenuListContainer>
         <ul>
           <li>
-            <a href="/main" onClick={handleCheckLogin}>
+            <NavLink to="/main" onClick={handleCheckLogin}>
               수입 • 지출 캘린더
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/recent" onClick={handleCheckLogin}>
+            <NavLink to="/recent" onClick={handleCheckLogin}>
               최근 거래 내역
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/assets" onClick={handleCheckLogin}>
+            <NavLink to="/assets" onClick={handleCheckLogin}>
               자산 현황
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/transaction" onClick={handleCheckLogin}>
+            <NavLink to="/transaction" onClick={handleCheckLogin}>
               송금
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/community" onClick={handleCheckLogin}>
+            <NavLink to="/community" onClick={handleCheckLogin}>
               커뮤니티
-            </a>
+            </NavLink>
           </li>
         </ul>
       </S.SideMenuListContainer>
