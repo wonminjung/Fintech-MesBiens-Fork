@@ -9,12 +9,12 @@ import MemWithdrawal from './contentArea/memWithdrawal/MemWithdrawal';
 const MyPageContainer: React.FunctionComponent = (): JSX.Element => {
     const menuList: MenuList[] = [
         {
-            list: "보안 설정",
-            component: (props: any) => <SecurityContainer {...props}/>
-        },
-        {
             list: "정보 수정",
             component: (props: any) => <MemInfoModiContainer {...props}/>
+        },
+        {
+            list: "보안 설정",
+            component: (props: any) => <SecurityContainer {...props}/>
         },
         {
             list: "회원 탈퇴",

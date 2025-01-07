@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import S from './style';
 import { MenuList } from '../../types';
 import ChangePwdComponent from './ChangePwdComponent';
+import AuthenticationComponent from './AuthenticationComponent';
 
 type Props = {
     menuList: MenuList;
@@ -9,12 +10,13 @@ type Props = {
 
 const SecurityContainer: React.FunctionComponent<Props> = ({ menuList }): JSX.Element => {
     const { list } = menuList;
+    const [ authenticationStatus, setAuthenticationStatus ] = useState(false);
 
     return (
         <S.SelectedMenuHeaderContainer>
             <S.MenuTitle>{list}</S.MenuTitle>
 
-            <ChangePwdComponent />
+            {authenticationStatus ? <ChangePwdComponent /> : <AuthenticationComponent />}
         </S.SelectedMenuHeaderContainer>
     );
 };
