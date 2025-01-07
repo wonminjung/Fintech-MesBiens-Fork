@@ -33,7 +33,7 @@ const P = {
     border-top-left-radius: 10px;
     z-index: 1000; // 다른 요소보다 위에 표시되도록 설정
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
+    padding: 5px 0;
     & ul {
       list-style: none; /* 리스트 불릿 제거 */
       padding: 0; /* 기본 패딩 제거 */

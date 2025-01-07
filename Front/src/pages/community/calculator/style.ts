@@ -12,9 +12,27 @@ const C = {
   `,
   CalculatorContainer: styled.div`
     display: flex;
+    overflow-y: auto;
     width: 60%;
     flex-direction: column;
     align-self: center;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
   `,
   TitleContainer: styled.div`
     display: flex;
@@ -32,24 +50,45 @@ const C = {
     padding: 5px 10px;
     cursor: pointer;
   `,
+  ExplanationContainerWrap: styled.div`
+    margin: 0;
+    padding: 0;
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    justify-content: center;
+  `,
   ExplanationContainer: styled.div`
-    width: auto;
-    padding: 5px 10px;
+    width: 100%;
+    align-self: center;
+    margin: 10px;
+    border-radius: 8px;
     background-color: inherit;
     display: flex;
     justify-content: center;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    background-color: #ddd;
   `,
   TabContainer: styled.div`
     display: flex;
     width: auto;
+    border-bottom: 1px solid #ddd;
     padding: 0 20px;
   `,
+  PlainButton: styled(PlainButton)`
+    border-radius: 0;
+    &:hover {
+      border-bottom: 1px solid black;
+    }
+    & .active {
+      border-bottom: 1px solid black;
+      font-weight: bold;
+    }
+  `,
   H2: styled(H2)`
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #ddd;
+    font-size: 15px;
+    padding: 10px;
+    margin: 0;
+  `,
+  P: styled.p`
     padding: 10px;
     margin: 0;
   `,
@@ -61,14 +100,15 @@ const C = {
   `,
   Label: styled.div`
     display: flex;
-    gap: 20px;
+    align-items: center;
     padding: 20px;
   `,
   Input: styled.input`
     border: none;
     border-bottom: 1px solid #ddd;
-    width: 80%;
+    width: 60%;
     text-align: end;
+    margin-left: 20px;
     &:focus {
       outline: none;
     }
@@ -88,6 +128,59 @@ const C = {
     transition: 0.3s ease-in-out;
     &:hover {
       background-color: #ddd;
+    }
+  `,
+  TabBtnContainer: styled.div`
+    display: flex;
+    width: 15%;
+    flex-grow: 1;
+  `,
+  LeftTabBtn: styled.a`
+    display: flex;
+    flex-grow: 1;
+    height: 2em;
+    border: 1px solid #ddd;
+    border-radius: 8px 0 0 8px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+    padding: 3px;
+    margin-left: 20px;
+    &:hover {
+      background-color: #ddd;
+      cursor: pointer;
+    }
+    &.active {
+      background-color: var(--forth-color);
+    }
+  `,
+  RightTabBtn: styled.a`
+    display: flex;
+    flex-grow: 1;
+    height: 2em;
+    border: 1px solid #ddd;
+    border-radius: 0 8px 8px 0;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+    padding: 3px;
+    &:hover {
+      background-color: #ddd;
+      cursor: pointer;
+    }
+  `,
+  CenterTabBtn: styled.a`
+    display: flex;
+    flex-grow: 1;
+    height: 2em;
+    border: 1px solid #ddd;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+    padding: 3px;
+    &:hover {
+      background-color: #ddd;
+      cursor: pointer;
     }
   `,
   ColorBtn: styled(DefaultButton)`
