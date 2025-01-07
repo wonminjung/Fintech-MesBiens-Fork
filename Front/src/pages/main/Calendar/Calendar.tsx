@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { records } from "../../Recent/data";
+import { records } from "../../recent/data";
 import {
   format,
   addMonths,

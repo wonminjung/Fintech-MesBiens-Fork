@@ -6,7 +6,6 @@ import Header from "./header/Header";
 import ModalRendererContent from "../../components/modal/ModalRendererContent";
 
 const Layout: React.FunctionComponent = (): JSX.Element => {
-  
   return (
     <S.RootContainer>
       {/* 고정이 되는 메인 메뉴 */}
@@ -20,7 +19,7 @@ const Layout: React.FunctionComponent = (): JSX.Element => {
           <Outlet />
         </S.OutletContainer>
       </S.MainContentContainer>
-      
+
       {/* 공용 모달창 */}
       <ModalRendererContent />
     </S.RootContainer>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuBar from "../MenuBar";
 import C from "./style";
 import { H1, H2 } from "../../../components/htags/style";
@@ -6,11 +6,34 @@ import ToggleBtn from "../../../components/button/ToggleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
+type Info = {
+  tab: string;
+  ex: string;
+};
+
 const Calculator = () => {
   const [showExplanation, setShowExplanation] = useState(false);
+  const [info, setInfo] = useState<Info>({ tab: "", ex: "" });
+
   const toggleExplanation = () => {
-    setShowExplanation(() => !showExplanation);
+    setShowExplanation((prev) => !prev);
   };
+
+  useEffect(() => {
+    const fetchCalcExplanationData = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.PUBLIC_URL}/dummyDatas/calculatorExplanation.json`
+        );
+        const data = await response.json();
+        setInfo(data[0]);
+      } catch (error) {
+        console.error("Error fetching board data:", error);
+      }
+    };
+
+    fetchCalcExplanationData();
+  }, []);
 
   return (
     <C.MainContainer>
@@ -26,24 +49,21 @@ const Calculator = () => {
           </C.ToggleContainer>
         </C.TitleContainer>
         <C.TabContainer>
-          <H2>예금</H2>
+          <H2>{info.tab}</H2>
         </C.TabContainer>
         {showExplanation && (
           <C.ExplanationContainer>
-            <C.H2>
-              예금 계산기 일정 금액을 한번에 납입하는 정기예금입니다. 원하시는
-              계산 방식을 선택해 주세요.
-            </C.H2>
+            <C.H2>{info.ex}</C.H2>
           </C.ExplanationContainer>
         )}
         <C.ContentContainer>
           <C.Label>
             예치금액
-            <C.Input type="string" placeholder="0 원" />
+            <C.Input type="string" placeholder="0" /> 원
           </C.Label>
           <C.Label>
             에금기간
-            <C.Input type="string" placeholder="0 년" />
+            <C.Input type="string" placeholder="0" />
           </C.Label>
           <C.Label>
             연이자율

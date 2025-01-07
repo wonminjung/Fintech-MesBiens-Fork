@@ -3,7 +3,7 @@ import Calendar from "./Calendar";
 import "./Calendar.css";
 import { SM, C } from "./style";
 import HorizontalDivider from "../../../components/divider/HorizontalDivider";
-import { records } from "../../Recent/data";
+import { records } from "../../recent/data";
 import CategoryIconMap from "./CategoryIconMap";
 
 interface Schedules {

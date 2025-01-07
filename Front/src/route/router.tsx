@@ -15,7 +15,7 @@ import {
 import Tile1 from "../pages/community/news/Tile1";
 import StockTest from "../pages/community/quiz/StockTest";
 import Transaction from "../pages/transaction/Transaction";
-import Recent from "../pages/Recent/Recent";
+import Recent from "../pages/recent/Recent";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import MainPage from "../pages/main/MainPage";
 import AssetsContainer from "../pages/Assets/AssetsContainer";
