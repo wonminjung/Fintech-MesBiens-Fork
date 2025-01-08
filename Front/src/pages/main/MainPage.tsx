@@ -1,5 +1,5 @@
 import React from "react";
-import ScheduleManager from "./Calendar/ScheduleManager";
+import ScheduleManager from "./calendar/ScheduleManager";
 
 const MainPage: React.FC = () => {
   return <ScheduleManager />;

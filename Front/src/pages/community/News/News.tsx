@@ -4,12 +4,7 @@ import MenuBar from "../MenuBar";
 import NewsTiles from "./NewsTiles";
 
 const News: React.FC = () => {
-  return (
-    <P.MainContainer>
-      <MenuBar />
-      <NewsTiles />
-    </P.MainContainer>
-  );
+  return <NewsTiles />;
 };
 
 export default News;

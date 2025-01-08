@@ -8,11 +8,14 @@ const S = {
         height: 420px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
     `,
     ProfileHeader: styled.div`
         display: flex;
-        justify-content: flex-end;
-        margin-bottom: 32px;
+        justify-content: space-between;
+    `,
+    Title: styled.h2`
+        margin-left: 16px;
     `,
     CloseBtn: styled.button`
         all: unset;
@@ -36,7 +39,13 @@ const S = {
             transform: scale(1.05);
         }
     `,
-    ProfileBody: styled.form`
+    ProfileForm: styled.form`
+        height: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    `,
+    ProfileBody: styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -92,18 +101,15 @@ const S = {
         color: #929294;
     `,
     ProfileFooter: styled.div`
-        height: 10%;
+        width: 100%;
         display: flex;
         justify-content: center;
     `,
-    ProfileBtnContainer: styled.div`
-        width: 50%;
-        display: flex;
-        justify-content: space-around;
-        margin-top: 32px;
-    `,
     ProfileSubmitBtn: styled(DefaultButton)`
-        width: 40%;
+        font-size: 15px;
+        width: 80%;
+        height: 35px;
+        margin-bottom: 20px;
     `,
 };
 

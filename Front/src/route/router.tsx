@@ -5,21 +5,23 @@ import SignupPage from "../pages/signup/SignupPage";
 import FindIDPage from "../pages/findID/FindIDPage";
 import MyPageContainer from "../pages/myPage/MyPageContainer";
 import IntroPage from "../pages/main/IntroPageAfterLogin";
-import News from "../pages/community/News/News";
+import News from "../pages/community/news/News";
 import Recommend from "../pages/community/quiz/Quiz";
 import {
   Board,
   BoardContent,
   BoardWrite,
 } from "../pages/community/board/Board";
-import Tile1 from "../pages/community/News/Tile1";
+import Tile1 from "../pages/community/news/Tile1";
 import StockTest from "../pages/community/quiz/StockTest";
 import Transaction from "../pages/transaction/Transaction";
-import Recent from "../pages/Recent/Recent";
+import Recent from "../pages/recent/Recent";
 import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import MainPage from "../pages/main/MainPage";
-import AssetsContainer from "../pages/Assets/AssetsContainer";
+import AssetsContainer from "../pages/assets/AssetsContainer";
 import Calculator from "../pages/community/calculator/Calculator";
+import MenuBar from "../pages/community/MenuBar";
+import InnerLayout from "../pages/community/InnerLayout";
 
 const routes: RouteObject[] = [
   {
@@ -31,48 +33,50 @@ const routes: RouteObject[] = [
         element: <IntroPageBeforeLogin />,
       },
       {
-        path: "/main",
+        path: "main",
         element: <MainPage />,
       },
       {
-        path: "/myPage",
+        path: "myPage",
         element: <MyPageContainer />,
       },
       {
-        path: "/intro",
+        path: "intro",
         element: <IntroPage />,
       },
       {
-        path: "/transaction",
+        path: "transaction",
         element: <Transaction />,
       },
       {
-        path: "/community",
-        element: <Board />,
-      },
-      {
-        path: "/C_news",
-        element: <News />,
-      },
-      {
-        path: "/C_quiz",
-        element: <Recommend />,
-      },
-      {
-        path: "/C_calculator",
-        element: <Calculator />,
-      },
-      {
-        path: "C_board",
-        element: <Board />,
-      },
-      {
-        path: "C_boardWrite",
-        element: <BoardWrite />,
-      },
-      {
-        path: "C_board/:bno",
-        element: <BoardContent />,
+        path: "community",
+        element: <InnerLayout />,
+        children: [
+          {
+            path: "C_news",
+            element: <News />,
+          },
+          {
+            path: "C_quiz",
+            element: <Recommend />,
+          },
+          {
+            path: "C_calculator",
+            element: <Calculator />,
+          },
+          {
+            path: "C_board",
+            element: <Board />,
+          },
+          {
+            path: "C_board/C_boardWrite",
+            element: <BoardWrite />,
+          },
+          {
+            path: "C_board/:bno",
+            element: <BoardContent />,
+          },
+        ],
       },
       {
         path: "N_tile1",
