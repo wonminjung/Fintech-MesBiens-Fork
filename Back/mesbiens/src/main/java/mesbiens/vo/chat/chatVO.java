@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @SequenceGenerator(
-			name="chat_no_seq_chatNo",
+			name="chat_no_seq_chat",
 			sequenceName = "chat_no_seq", // 시퀀스 이름
 			initialValue = 1, // 시작값
 			allocationSize = 1 // 증가값
@@ -31,7 +31,7 @@ public class chatVO {
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE, // 사용할 전략을 시퀀스로 선택
-			generator = "hat_no_seq_chatNo" // 시퀀스 생성기에 설정해 놓은 제너레이터 이름
+			generator = "chat_no_seq_chat" // 시퀀스 생성기에 설정해 놓은 제너레이터 이름
 		)
 	private Number chatNo;
 	

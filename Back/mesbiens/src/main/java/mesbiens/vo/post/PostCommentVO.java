@@ -22,12 +22,12 @@ import lombok.ToString;
 @ToString
 @Entity
 @SequenceGenerator(
-			name = "postComment_no_seq_postCommentNo", // 시퀀스 제너레이터 이름
+			name = "postComment_no_seq_postComment", // 시퀀스 제너레이터 이름
 			sequenceName = "postComment_no_seq", // 시퀀스 이름
 			initialValue = 1, // 시작값
 			allocationSize = 1 // 증감값
 		)
-@Table(name="PostComment")
+@Table(name="postComment")
 @EqualsAndHashCode(of="postCommentNo")
 
 public class PostCommentVO {
@@ -35,7 +35,7 @@ public class PostCommentVO {
 	@Id
 	@GeneratedValue(
 				strategy = GenerationType.SEQUENCE,
-				generator = "postComment_no_seq_postCommentNo"
+				generator = "postComment_no_seq_postComment"
 			)
 	private Number postCommentNo;
 	
