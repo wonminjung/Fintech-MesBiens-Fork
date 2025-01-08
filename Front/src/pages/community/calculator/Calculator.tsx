@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MenuBar from "../MenuBar";
 import C from "./style";
 import { H1, H2 } from "../../../components/htags/style";
 import ToggleBtn from "../../../components/button/ToggleButton";
@@ -61,6 +60,7 @@ const Calculator = () => {
             <C.PlainButton
               key={index}
               onClick={() => handleButtonClick(info.tab)}
+              className={selectedTab === info.tab ? "active" : ""}
             >
               {info.tab}
             </C.PlainButton>

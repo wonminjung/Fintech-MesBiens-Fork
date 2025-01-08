@@ -8,7 +8,7 @@ export const BC = {
   Board: styled.div`
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 80%;
   `,
 
   /* Board */
@@ -75,9 +75,9 @@ export const BC = {
 
   /* Pagination */
   PaginationWrapper: styled.div`
-    margin-top: auto;
     text-align: center;
     padding-top: 15px;
+    margin-top: 20px;
   `,
   Pagination: styled.div`
     text-align: center;
@@ -304,13 +304,7 @@ export const BP = {
 
 export const BW = {
   WriteContainer: styled.div`
-    height: 100%;
     padding: 20px;
-    background-color: transparent;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    overflow: hidden;
   `,
   WriteHeader: styled.div`
     display: flex;
