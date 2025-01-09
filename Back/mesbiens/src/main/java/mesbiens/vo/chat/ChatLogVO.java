@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @Table(name="chatLog")
 @EqualsAndHashCode(of="chatLogNo")
 
-public class chatLogVO {
+public class ChatLogVO {
 	
 	@Id
 	@GeneratedValue(
@@ -43,16 +44,20 @@ public class chatLogVO {
 	@JoinColumn(name = "chatNo", nullable = false) // 외래키 매핑
 	// name = "chatNo": Chat 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private chatVO chatNo; // 익명채팅 No 
+	private ChatVO chatNo; // 익명채팅 No 
 	
+	@Column(nullable = false)
 	private String chatLogContent; // 채팅내용
 	
 	@CreationTimestamp
+	@Column(nullable = false)
 	private Timestamp chatLogSendTime; // 채팅 전송 시각
 	
 	@CreationTimestamp
+	@Column(nullable = false)
 	private Timestamp chatLogCreateTime; // 로그 생성 시각
 	
+	@Column(nullable = false)
 	private String chatLogDescription; // 로그 설명
 	
 }

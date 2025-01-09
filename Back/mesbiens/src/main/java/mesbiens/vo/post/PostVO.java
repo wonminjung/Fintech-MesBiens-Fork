@@ -1,6 +1,8 @@
 package mesbiens.vo.post;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -42,19 +45,19 @@ public class PostVO {
 			)
 	private Number postNo; // 게시글 ID
 	
-	/* userVO 외래키 (userVO 작성전까지 주석처리)
 	@ManyToOne // 다대일 관계 설정
-	@JoinColumn(name = "UserId", nullable = false) // 외래키 매핑
-	// name = "UserId": Post 테이블에서 외래키 컬럼 이름.
+	@JoinColumn(name = "memberId", nullable = false) // 외래키 매핑
+	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private UserVO user; // 회원 ID(글쓴이)
-	*/
+	private MemberVO memberVO; // 회원 ID(글쓴이)
 	
+	@Column(nullable = false)
 	private String postTitle; // 글제목
 	
-	@Column(length = 4000)
+	@Column(length = 4000, nullable = false)
 	private String postCont; // 글내용
 	
+	@Column(nullable = false)
 	private Number postHit; // 조회수
 	
 	private String posfFileName; // 첨부파일 이름
@@ -65,10 +68,16 @@ public class PostVO {
 	private String postModify; // 게시글 수정여부
 		
 	@CreationTimestamp // 등록시점의 날짜와 시간값을 사용하기 위한 에노테이션
+	@Column(nullable = false)
 	private Timestamp postDate; // 작성일
 	
 	@CreationTimestamp
 	private Timestamp postModifyDate; // 게시글 수정일시
+	
+	
+	@OneToMany(mappedBy = "PostVO", orphanRemoval = true)
+    private List<PostLogVO> 로그목록 = new ArrayList<>();
+	
 	
 	private Number postStartPageRow; // 쪽 시작 행 번호
 	private Number postEndPageRow; // 쪽 끝 행 번호

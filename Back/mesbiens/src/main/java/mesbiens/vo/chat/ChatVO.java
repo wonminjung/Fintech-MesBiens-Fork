@@ -1,5 +1,6 @@
 package mesbiens.vo.chat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import mesbiens.vo.post.MemberVO;
 
 @Setter
 @Getter
@@ -26,7 +28,7 @@ import lombok.ToString;
 @Table(name="chat")
 @EqualsAndHashCode(of="chatNo")
 
-public class chatVO {
+public class ChatVO {
 	
 	@Id
 	@GeneratedValue(
@@ -35,15 +37,15 @@ public class chatVO {
 		)
 	private Number chatNo;
 	
-	/* userVO 외래키 (userVO 작성전까지 주석처리)
 	@ManyToOne // 다대일 관계 설정
-	@JoinColumn(name = "UserId", nullable = false) // 외래키 매핑
-	// name = "UserId": Post 테이블에서 외래키 컬럼 이름.
+	@JoinColumn(name = "memberId", nullable = false) // 외래키 매핑
+	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private UserVO user; // 회원 ID(글쓴이)
-	*/
+	private MemberVO memberVO; // 회원 ID(글쓴이)
 	
+	@Column(nullable = false)
 	private String chatSessionId; // 사용자 익명 아이디
+	@Column(nullable = false)
 	private String chatCotent; // 익명채팅 내용
 
 	
