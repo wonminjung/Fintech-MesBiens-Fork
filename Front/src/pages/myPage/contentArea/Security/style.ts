@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DefaultButton from "../../../../components/button/DefaultButton";
 
 const S = {
     /** SecurityContainer.tsx */
@@ -13,17 +14,14 @@ const S = {
     `,
 
     /** ChangePwdComponent.tsx */
-    ChangePwdWrapper: styled.div`
-        width: 500px;
-        margin: 48px 0 0 52px;
-    `,
-
-    /** AuthenticationComponent.tsx */
-    AuthContainer: styled.div`
+    Container: styled.div`
+        display: flex;
         height: 100%;
-        margin-top: 48px;
-        margin-left: 52px;
-        background: gray;
+        justify-content: center;
+        align-items: center;
+    `,
+    Wrapper: styled.div`
+        width: 80%;
     `,
     FieldTitle: styled.h2`
         font-size: 16px;
@@ -33,6 +31,63 @@ const S = {
         height: 24px;
         font-weight: 400;
         color: var(--text-color-black);
+    `,
+    Table: styled.table`
+        width: 80%;
+        font-size: 14px;
+        border-top: 1px solid #cccccc;
+        border-bottom: 1px solid #cccccc;
+        border-collapse: collapse;
+    `,
+    Tr: styled.tr`
+    `,
+    Th: styled.th`
+        padding: 10px 10px 10px 32px;
+        border-bottom: 1px solid #eeeeee;
+        width: 25%;
+
+        &[data-underline="false"] {
+            border-bottom: none;
+        }
+    `,
+    Td: styled.td`
+        padding: 10px;
+        border-bottom: 1px solid #eeeeee;
+
+        &[data-underline="false"] {
+            border-bottom: none;
+        }
+    `,
+    Input: styled.input`
+        width: 286px;
+        height: 36px;
+        font-size: 16px;
+        padding-left: 8px;
+
+        &[data-fieldwarnning="true"] {
+            border: 2px solid red;
+            outline: none;
+        }
+    `,
+    Message: styled.span`
+        display: block;
+        font-size: 13px;
+        margin-top: 6px;
+
+        &[data-fieldwarnning="true"] {
+
+        }
+    `,
+    BtnContainer: styled.div`
+        display: flex;
+        width: 84%;
+        margin-top: 64px;
+        justify-content: center;
+        box-sizing: border-box;
+    `,
+    Btn: styled(DefaultButton)`
+        width: 100px;
+        margin: 0 10px;
     `,
 };
 
