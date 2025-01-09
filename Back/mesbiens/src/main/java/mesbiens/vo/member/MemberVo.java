@@ -1,4 +1,4 @@
-package mesbiens.vo;
+package mesbiens.vo.member;
 
 
 
@@ -28,41 +28,41 @@ public class MemberVo {
 	
 	@Id 
 	 @GeneratedValue(strategy = GenerationType.IDENTITY) // Primary Key 자동 증가
-	 @Column(name = "memberid")
-	 private Long memberid; // 회원 아이디 (Primary Key)
+	 @Column(name = "memberId")
+	 private Long memberId; // 회원 아이디 (Primary Key)
 
 	 @Column(name = "name", nullable = false, length = 100) // 회원 이름
-	 private String name;
+	 private String memberName;
 
 	 @Column(name = "email", nullable = false, unique = true, length = 255) // 이메일 (유니크 제약)
-	 private String email;
+	 private String memberEmail;
 
 	 @Column(name = "loginid", nullable = false, unique = true, length = 50) // 로그인 ID (유니크 제약)
-	 private String loginid;
+	 private String memberLoginId;
 
 	 @Column(name = "password", nullable = false, length = 255) // 비밀번호 (암호화 후 저장)
-	 private String password;
+	 private String memberPassword;
 
 	 @Column(name = "phonenumber", length = 20) // 전화번호
-	 private String phonenumber;
+	 private String memberPhoneNumber;
 
 	 @Column(name = "address", length = 255) // 주소
-	 private String address;
+	 private String memberAddress;
 
 	 @Temporal(TemporalType.DATE) // 생년월일 (DATE 형식)
 	 @Column(name = "dob")
-	 private Date dob; // 생년월일
+	 private Date memberDob; // 생년월일
 
 	 @Temporal(TemporalType.DATE) // 가입 날짜
 	 @Column(name = "join_date", nullable = false)
-	 private Date joindate; // 가입 날짜
+	 private Date memberJoinDate; // 가입 날짜
 
 	 @Lob // 프로필 이미지 (BLOB 타입)
 	 @Column(name = "profile_image")
-	 private byte[] profileimage;
+	 private byte[] memberProFileImage;
 
 	 @Column(name = "sns_signup", nullable = false, length = 1) // SNS 가입 여부
-	 private String snssignup; // SNS 가입 여부 ('Y' 또는 'N')
+	 private String memberSnsSignUp; // SNS 가입 여부 ('Y' 또는 'N')
 
 
 }

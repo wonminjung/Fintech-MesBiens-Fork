@@ -1,4 +1,4 @@
-package mesbiens.vo;
+package mesbiens.vo.member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

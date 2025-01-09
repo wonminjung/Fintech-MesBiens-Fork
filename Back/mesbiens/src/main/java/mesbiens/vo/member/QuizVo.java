@@ -1,4 +1,4 @@
-package mesbiens.vo;
+package mesbiens.vo.member;
 
 import java.util.Date;
 
