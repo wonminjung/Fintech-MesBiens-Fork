@@ -21,6 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import mesbiens.vo.bank.BankInfoVO;
+import mesbiens.vo.user.UserVo;
 
 // 계좌 Entity Bean 클래스
 
@@ -44,8 +45,7 @@ public class AccountVO {
 	)
 	private int accountNo;
 	
-	/* Foriegn Key */
-//	private List<UserVO> userNo; // 회원 No
+	private UserVo userNo; // 회원 No
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(referencedColumnName = "bankCode")
@@ -57,12 +57,16 @@ public class AccountVO {
 	@Column(nullable = false)
 	private Long accountBalance; // 계좌 잔액
 	
+	// 계좌 잔액 기본값 0 들어가는 메소드
 	@PrePersist
 	public void setDefaultBalanace() {
 		if(this.accountBalance == null) {
 			this.accountBalance = 0L;
 		}
 	}
+	
+	@Column(nullable = false)
+	private String accountPassword; // 계좌 비밀번호
 	
 	@CreationTimestamp
 	private Timestamp accountOpeningDate; // 계좌 개설일

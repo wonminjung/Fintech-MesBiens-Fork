@@ -1,4 +1,4 @@
-package mesbiens.vo.member;
+package mesbiens.vo.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ public class LoginRecordVo {
 
     @ManyToOne // 회원 ID (외래 키)
     @JoinColumn(name = "user_id", nullable = false) // 외래 키 컬럼 설정
-    private MemberVo member; // MemberVo 엔티티와 연관됨 (회원 테이블과 연결)
+    private UserVo member; // MemberVo 엔티티와 연관됨 (회원 테이블과 연결)
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "user_login_time", nullable = false) // 로그인 시각 (필수)

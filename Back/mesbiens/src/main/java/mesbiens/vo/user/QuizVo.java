@@ -1,4 +1,4 @@
-package mesbiens.vo.member;
+package mesbiens.vo.user;
 
 import java.util.Date;
 
@@ -26,7 +26,7 @@ public class QuizVo {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private MemberVo member;  // MemberVo와의 관계 (사용자 ID)
+    private UserVo member;  // MemberVo와의 관계 (사용자 ID)
 
     @Column(name = "quiz_question", nullable = false, length = 500)
     private String quizQuestion;  // 퀴즈 질문

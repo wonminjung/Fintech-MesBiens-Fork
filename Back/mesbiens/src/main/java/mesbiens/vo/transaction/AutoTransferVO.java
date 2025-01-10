@@ -21,7 +21,7 @@ import mesbiens.vo.account.AccountVO;
 @Entity
 @DiscriminatorValue("AUTOTRANSFER")
 @Table(name = "autotransfer")
-public class AutoTransferVO extends TransactionVO {
+public class AutoTransferVO {
 
     @Column(nullable = false)
     private Timestamp transferDate; // 이체 날짜
@@ -29,16 +29,14 @@ public class AutoTransferVO extends TransactionVO {
   @ManyToOne
   @JoinColumn(
   		name = "sender_account_id", 
-  		referencedColumnName = "accountNo", 
-  		nullable = true
+  		referencedColumnName = "accountNo"
   		) // 송신 계좌 외래키
   private AccountVO senderAccount; // 송신 계좌 참조
 
   @ManyToOne
   @JoinColumn(
-  	name = "receiver_account_id", 
-  	referencedColumnName = "accountNo", 
-  	nullable = true
+  	name = "receiver_account_id",
+  	referencedColumnName = "accountNo"
   	) // 수신 계좌 외래키
   private AccountVO receiverAccount; // 수신 계좌 참조
 

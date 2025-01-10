@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import mesbiens.vo.member.MemberVo;
+import mesbiens.vo.user.UserVo;
 
 @Setter
 @Getter
@@ -46,7 +46,7 @@ public class PostLogVO {
 	@JoinColumn(name = "memberId", nullable = false) // 외래키 매핑
 	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private MemberVo memberVO; // 회원 ID(글쓴이)
+	private UserVo memberVO; // 회원 ID(글쓴이)
 	
 	private String postLogType; // 로그 유형
 	

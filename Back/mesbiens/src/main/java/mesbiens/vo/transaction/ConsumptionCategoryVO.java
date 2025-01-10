@@ -1,4 +1,4 @@
-package mesbiens.vo.consumptioncategory;
+package mesbiens.vo.transaction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode(of = "")
+@EqualsAndHashCode(of = "consumptionCateNo")
 @Entity
 @Table(name = "consumptioncategory")
 @SequenceGenerator(

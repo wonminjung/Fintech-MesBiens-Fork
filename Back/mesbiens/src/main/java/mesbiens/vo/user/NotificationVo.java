@@ -1,4 +1,4 @@
-package mesbiens.vo.member;
+package mesbiens.vo.user;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class NotificationVo {
 
 	    @ManyToOne
 	    @JoinColumn(name = "USER_ID", nullable = false)
-	    private MemberVo member; // 외래 키로 회원 ID 연결
+	    private UserVo member; // 외래 키로 회원 ID 연결
 
 	    @Column(name = "NOTIFICATION_TITLE", nullable = false, length = 50)
 	    private String notificationTitle; // 알림 제목
