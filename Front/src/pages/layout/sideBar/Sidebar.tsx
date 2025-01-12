@@ -43,27 +43,27 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
       <S.SideMenuListContainer>
         <ul>
           <li>
-            <NavLink to="/main" onClick={handleCheckLogin}>
+            <NavLink to={"/main"} onClick={handleCheckLogin}>
               수입 • 지출 캘린더
             </NavLink>
           </li>
           <li>
-            <NavLink to="/recent" onClick={handleCheckLogin}>
+            <NavLink to={"/recent"} onClick={handleCheckLogin}>
               최근 거래 내역
             </NavLink>
           </li>
           <li>
-            <NavLink to="/assets" onClick={handleCheckLogin}>
+            <NavLink to={"/assets"} onClick={handleCheckLogin}>
               자산 현황
             </NavLink>
           </li>
           <li>
-            <NavLink to="/transaction" onClick={handleCheckLogin}>
+            <NavLink to={"/transaction"} onClick={handleCheckLogin}>
               송금
             </NavLink>
           </li>
           <li>
-            <NavLink to="/community" onClick={handleCheckLogin}>
+            <NavLink to={"/community"} onClick={handleCheckLogin}>
               커뮤니티
             </NavLink>
           </li>
