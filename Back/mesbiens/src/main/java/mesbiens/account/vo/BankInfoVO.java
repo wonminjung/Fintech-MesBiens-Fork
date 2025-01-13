@@ -1,4 +1,4 @@
-package mesbiens.bank.vo;
+package mesbiens.account.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

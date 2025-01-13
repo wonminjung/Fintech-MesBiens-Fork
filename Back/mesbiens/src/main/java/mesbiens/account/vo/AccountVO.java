@@ -22,7 +22,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import mesbiens.bank.vo.BankInfoVO;
 import mesbiens.user.vo.UserVo;
 
 // 계좌 Entity Bean 클래스

@@ -1,5 +1,10 @@
 package mesbiens.transaction.vo;
 
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +19,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 // 거래 로그 Entity Bean 클래스
-
 
 @Setter
 @Getter
@@ -40,5 +44,10 @@ public class TransactionDetailLogVO {
 	@JoinColumn(referencedColumnName = "transactionDetailNo")
 	private TransactionDetailVO transactionDetailNo; // 거래 내역 No.
 	
+	@Column(nullable = false)
+	private TransactionLogType transactionLogType; // 거래 로그 상태
+	
+	@CreationTimestamp
+	private Timestamp transactionLogCreateAt; // 로그 생성 시간
 	
 }
