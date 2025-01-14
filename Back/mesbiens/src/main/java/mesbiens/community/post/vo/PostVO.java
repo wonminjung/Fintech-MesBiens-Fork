@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import mesbiens.user.vo.UserVo;
+import mesbiens.member.vo.MemberVO;
 
 @Setter
 @Getter
@@ -40,6 +40,7 @@ import mesbiens.user.vo.UserVo;
 public class PostVO {
 	
 	@Id // 구분키인 식별키로 지정
+	@Column(name="post_no")
 	@GeneratedValue(
 				strategy = GenerationType.SEQUENCE, // 사용할 전략을 시퀀스로 선택
 				generator = "post_no_seq_post" // 시퀀스 생성기에 설정해 놓은 제너레이터 이름
@@ -47,37 +48,43 @@ public class PostVO {
 	private Number postNo; // 게시글 ID
 	
 	@ManyToOne // 다대일 관계 설정
-	@JoinColumn(name = "memberId", nullable = false) // 외래키 매핑
+	@JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래키 매핑
 	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private UserVo memberVO; // 회원 ID(글쓴이)
+	private MemberVO memberNo; // 회원 ID(글쓴이)
 	
-	@Column(nullable = false)
+	@Column(name="post_title", nullable = false)
 	private String postTitle; // 글제목
 	
-	@Column(length = 4000, nullable = false)
+	@Column(name="post_cont", length = 4000, nullable = false)
 	private String postCont; // 글내용
 	
-	@Column(nullable = false)
+	@Column(name="post_hit", nullable = false)
 	private Number postHit; // 조회수
 	
+	@Column(name="post_file_name")
 	private String posfFileName; // 첨부파일 이름
-	private String postFilepath; // 첨부파일 경로
+	@Column(name="post_file_path")
+	private String postFilePath; // 첨부파일 경로
+	@Column(name="post_file_type")
 	private String postFileType; // 첨부파일 유형
+	@Column(name="post_file_size")
 	private String postFileSize; // 첨부파일 크기
 	
+	@Column(name="post_modify")
 	private String postModify; // 게시글 수정여부
 		
 	@CreationTimestamp // 등록시점의 날짜와 시간값을 사용하기 위한 에노테이션
-	@Column(nullable = false)
+	@Column(name="post_date", nullable = false)
 	private Timestamp postDate; // 작성일
 	
+	@Column(name="post_modify_date")
 	@CreationTimestamp
 	private Timestamp postModifyDate; // 게시글 수정일시
 	
 	
-	@OneToMany(mappedBy = "PostVO", orphanRemoval = true)
-    private List<PostLogVO> 로그목록 = new ArrayList<>();
+//	@OneToMany(mappedBy = "postVO", orphanRemoval = true)
+//    private List<PostLogVO> logList = new ArrayList<>();
 	
 	
 	private Number postStartPageRow; // 쪽 시작 행 번호

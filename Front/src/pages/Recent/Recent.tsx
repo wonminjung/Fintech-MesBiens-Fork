@@ -136,9 +136,8 @@ const Recent: React.FC = () => {
                 <R.TableRow>{record.category}</R.TableRow>
                 <R.TableRow>{record.amount}</R.TableRow>
                 <R.TableRow
-                  className={`status ${
-                    record.status === "입금" ? "success" : "failure"
-                  }`}
+                  className={`status ${record.status === "입금" ? "success" : "failure"
+                    }`}
                 >
                   {record.status}
                 </R.TableRow>

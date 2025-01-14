@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import mesbiens.user.vo.UserVo;
+import mesbiens.member.vo.MemberVO;
 
 @Setter
 @Getter
@@ -32,12 +32,13 @@ import mesbiens.user.vo.UserVo;
 			initialValue = 1, // 시작값
 			allocationSize = 1 // 증감값
 		)
-@Table(name="postComment")
+@Table(name="post_comment")
 @EqualsAndHashCode(of="postCommentNo")
 
 public class PostCommentVO {
 	
 	@Id
+	@Column(name="post_comment_no")
 	@GeneratedValue(
 				strategy = GenerationType.SEQUENCE,
 				generator = "postComment_no_seq_postComment"
@@ -45,32 +46,35 @@ public class PostCommentVO {
 	private Number postCommentNo;
 	
 	@ManyToOne // 다대일 관계 설정
-	@JoinColumn(name = "PostNo", nullable = false) // 외래키 매핑
+	@JoinColumn(name = "post_no", referencedColumnName = "post_no", nullable = false) // 외래키 매핑
 	// name = "PostNo": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private PostVO user; // 회원 ID(글쓴이)
+	private PostVO postNo; // 게시판 번호
 	
 	@ManyToOne // 다대일 관계 설정
-	@JoinColumn(name = "memberId", nullable = false) // 외래키 매핑
+	@JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래키 매핑
 	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private UserVo memberVO; // 회원 ID(글쓴이)
+	private MemberVO memberNo; // 회원 ID(글쓴이)
 	
+	@Column(name="pstc_parents_no")
 	private Number postCommentParentsNo; // 부모댓글
 	
-	@Column(nullable = false)
+	@Column(name="pstc_content", nullable = false)
 	private String postCommentContent; // 댓글 내용
 	
 	@CreationTimestamp
-	@Column(nullable = false)
+	@Column(name="pstc_date", nullable = false)
 	private Timestamp postCommentDate; // 댓글 작성 일자
 	
+	@Column(name="pstc_modify")
 	private String postCommentModify; // 댓글 수정여부
 	
-	@OneToMany(mappedBy = "PostCommentVO", orphanRemoval = true)
-    private List<PostLogVO> 로그목록 = new ArrayList<>();
+//	@OneToMany(mappedBy = "PostCommentVO", orphanRemoval = true)
+//    private List<PostLogVO> logList = new ArrayList<>();
 	
 	@CreationTimestamp
+	@Column(name="pstc_modify_date")
 	private Timestamp postCommnetModifyDate; // 댓글 수정일시
 	
 }

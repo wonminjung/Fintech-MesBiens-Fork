@@ -1,4 +1,4 @@
-package mesbiens.user.controller;
+package mesbiens.member.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
