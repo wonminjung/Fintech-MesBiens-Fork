@@ -13,7 +13,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
-import mesbiens.user.vo.UserVo;
+import mesbiens.member.vo.MemberVO;
 
 @Entity
 @Table(name = "quiz")
@@ -22,12 +22,12 @@ import mesbiens.user.vo.UserVo;
 public class QuizVo {
 	
 	@Id
-	@Column(name = "quiz_id")
-    private Long quizId;  // 퀴즈 ID
+	@Column(name = "quiz_no")
+    private Long quizNo;  // 퀴즈 ID
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserVo member;  // MemberVo와의 관계 (사용자 ID)
+    @JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false)
+    private MemberVO member;  // MemberVo와의 관계 (사용자 ID)
 
     @Column(name = "quiz_question", nullable = false, length = 500)
     private String quizQuestion;  // 퀴즈 질문
