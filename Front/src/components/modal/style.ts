@@ -15,12 +15,12 @@ const S = {
         height: 100%;
         background-color: black;
         filter: opacity(0.33);
-        z-index: 100;
+        z-index: 1000;
     `,
     ModalWindow: styled.div`
         background-color: white;
         border-radius: 20px;
-        z-index: 101;
+        z-index: 1001;
     `,
 };
 

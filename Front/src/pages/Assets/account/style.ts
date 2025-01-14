@@ -27,12 +27,11 @@ const S = {
   `,
   DropdownContainer: styled.div`
     position: relative;
-    width: 7vw;
   `,
   AccountSort: styled.div`
     display: flex;
-    height: 42px;
-    width: 80px;
+    height: 48px;
+    width: 100px;
     align-items: center;
     justify-content: space-evenly;
     background-color: lightgray;
@@ -41,7 +40,6 @@ const S = {
     cursor: pointer;
     user-select: none;
     margin-left: 20px;
-    z-index: 1000;
 
     &:hover {
       filter: brightness(0.85);
@@ -73,6 +71,7 @@ const S = {
     right: 0;
     width: 10vw;
     margin-top: 8px;
+    z-index: 900;
 
     &[data-activedropdown="true"] {
       display: block;
@@ -81,6 +80,7 @@ const S = {
   DropdownItem: styled.li`
     padding: 12px;
     cursor: pointer;
+    z-index: 900;
 
     &:hover {
       background-color: #f0f0f0;
@@ -241,6 +241,7 @@ const S = {
     font-size: 20px;
     color: grey;
     cursor: pointer;
+
     &:active {
       background-color: var(--lightGrey);
       color: white;
@@ -258,6 +259,7 @@ const S = {
     border: 1px solid var(--lightGrey);
     border-radius: 4px;
     list-style: none;
+    z-index: 900;
   `,
   CardlistDropDownItems: styled.li`
     padding: 12px;
