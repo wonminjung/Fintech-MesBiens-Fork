@@ -21,6 +21,7 @@ import mesbiens.account.vo.AccountVO;
 @Entity
 @DiscriminatorValue("AUTOTRANSFER")
 @Table(name = "autotransfer")
+
 public class AutoTransferVO {
 
     @Column(nullable = false)
@@ -38,6 +39,7 @@ public class AutoTransferVO {
   	name = "receiver_account_id",
   	referencedColumnName = "accountNo"
   	) // 수신 계좌 외래키
-  private AccountVO receiverAccount; // 수신 계좌 참조
+  private AccountVO receiverAccount; // 수신 계좌 참조 
 
 }
+	
