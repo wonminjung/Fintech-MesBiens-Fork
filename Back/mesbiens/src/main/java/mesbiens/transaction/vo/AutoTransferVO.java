@@ -16,30 +16,29 @@ import lombok.Getter;
 import lombok.Setter;
 import mesbiens.account.vo.AccountVO;
 
-@Getter
-@Setter
-@Entity
-@DiscriminatorValue("AUTOTRANSFER")
-@Table(name = "autotransfer")
-
+//@Getter
+//@Setter
+//@Entity
+//@DiscriminatorValue("AUTOTRANSFER")
+//@Table(name = "autotransfer")
 public class AutoTransferVO {
-
-    @Column(nullable = false)
-    private Timestamp transferDate; // 이체 날짜
-
-  @ManyToOne
-  @JoinColumn(
-  		name = "sender_account_id", 
-  		referencedColumnName = "accountNo"
-  		) // 송신 계좌 외래키
-  private AccountVO senderAccount; // 송신 계좌 참조
-
-  @ManyToOne
-  @JoinColumn(
-  	name = "receiver_account_id",
-  	referencedColumnName = "accountNo"
-  	) // 수신 계좌 외래키
-  private AccountVO receiverAccount; // 수신 계좌 참조 
+//
+//    @Column(name="transfer_date", nullable = false)
+//    private Timestamp transferDate; // 이체 날짜
+//
+//  @ManyToOne
+//  @JoinColumn(
+//  		name = "sender_account_id", 
+//  		referencedColumnName = "accountNo"
+//  		) // 송신 계좌 외래키
+//  private AccountVO senderAccount; // 송신 계좌 참조
+//
+//  @ManyToOne
+//  @JoinColumn(
+//  	name = "receiver_account_id",
+//  	referencedColumnName = "accountNo"
+//  	) // 수신 계좌 외래키
+//  private AccountVO receiverAccount; // 수신 계좌 참조
 
 }
 	

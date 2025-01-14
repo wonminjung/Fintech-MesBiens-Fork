@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "consumptionCateNo")
 @Entity
-@Table(name = "consumptioncategory")
+@Table(name = "consumption_category")
 @SequenceGenerator(
 	name = "consumptioncategory_no_seq_generator",
 	sequenceName = "consumptioncategory_no_seq",
@@ -28,16 +28,17 @@ import lombok.ToString;
 )
 public class ConsumptionCategoryVO {
 	@Id
+	@Column(name="consumption_cate_no")
 	@GeneratedValue(
 		strategy = GenerationType.SEQUENCE,
 		generator = "consumptioncategory_no_seq_generator"
 	)
 	private int consumptionCateNo; // 소비 카테고리 고유 번호
 	
-	@Column(nullable = false)
+	@Column(name="category_name", nullable = false)
 	private String categoryName; // 카테고리명
 	
-	@Column(nullable = false)
+	@Column(name="icon_path", nullable = false)
 	private String iconPath; // 아이콘 경로
 	
 	

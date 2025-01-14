@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,52 +31,56 @@ import mesbiens.account.vo.AccountVO;
 @ToString
 @EqualsAndHashCode(of = "transactionNo")
 @Entity
-@Table(name =  "transactionDetail")
+@Table(name = "transaction_detail")
 @SequenceGenerator(
-	name = "transactiondetail_no_seq_generator",
-	sequenceName = "transactiondetail_no_seq",
+	name = "transaction_no_seq_generator",
+	sequenceName = "transaction_no_seq",
 	initialValue = 1,
 	allocationSize = 1
 )
 public class TransactionDetailVO {
 	@Id
+	@Column(name="TRANSACTION_no")
 	@GeneratedValue(
 		strategy = GenerationType.SEQUENCE,
-		generator = "transactiondetail_no_seq_generator"
+		generator = "transaction_no_seq_generator"
 	)
 	private int transactionNo; // 거래내역No
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "accountNo")
+	@JoinColumn(name="receiver_account_no", referencedColumnName = "account_no")
 	private AccountVO transactionReceiverAccountNo; // 수신 계좌
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "accountNo")
+	@JoinColumn(name="sender_account_no", referencedColumnName = "account_no")
 	private AccountVO transactionSenderAccountNo; // 송신 계좌
 	
-	@OneToOne
-	@JoinColumn(referencedColumnName = "consumptionCateCode")
-	private ConsumptionCategoryVO consumptionCateCode; // 소비 카테고리 코드
+	@ManyToOne
+	@JoinColumn(name="consumption_cate_no", referencedColumnName = "consumption_cate_no")
+	private ConsumptionCategoryVO consumptionCateNo; // 소비 카테고리 코드
 	
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING) // Enum(상수) Class만 들어갈때 사용
+	@Column(name="TRNS_type_name", nullable = false)
 	private TransactionType transactionTypeName; // 거래 유형명
 	
-	@Column(nullable = false)
+	@Column(name="TRNS_balance", nullable = false)
 	private Long transactionBalance; // 거래 금액
 	
-	@Column(nullable = false)
+	@Column(name="TRNS_place", nullable = false)
 	private String transactionPlace; // 거래 점포
 	
-	@Column(nullable = false)
+	@Column(name="TRNS_memo", nullable = false)
 	private String transactionMemo; // 거래 메모
 	
+	@Column(name="TRNS_create_at")
 	@CreationTimestamp
 	private Timestamp transactionCreateAt; // 거래 시간
 	
-	@Column(nullable = false, length = 1, columnDefinition = "char(1) check (status in ('Y', 'N'))")
-	private char transactionCancelYN; // 거래 취소 여부
+//	@Column(name="TRNS_cancel_YN", nullable = false, length = 1, columnDefinition = "string check (transactionCancelYN in ('Y', 'N'))")
+	@Column(name="TRNS_cancel_YN", nullable = false, length = 1)
+	private String transactionCancelYN; // 거래 취소 여부
 	
-	@Column(nullable = false)
+	@Column(name="TRNS_update_at", nullable = false)
 	@UpdateTimestamp
 	private LocalDateTime transactionUpdateAt; // 거래 수정 시간
 }

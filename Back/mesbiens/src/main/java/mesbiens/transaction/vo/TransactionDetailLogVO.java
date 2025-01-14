@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +27,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "transactionLogNo")
 @Entity
-@Table(name = "transationlog")
+@Table(name = "transaction_detail_log")
 @SequenceGenerator(
 	name = "transactionlog_no_seq_generator",
 	sequenceName = "transactionlog_no_seq",
@@ -34,6 +36,7 @@ import lombok.ToString;
 )
 public class TransactionDetailLogVO {
 	@Id
+	@Column(name="TRANSACTION_log_no")
 	@GeneratedValue(
 		strategy = GenerationType.SEQUENCE,
 		generator = "transactionlog_no_seq_generator"
@@ -41,12 +44,14 @@ public class TransactionDetailLogVO {
 	private int transactionLogNo; // 거래 로그 No.
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "transactionDetailNo")
-	private TransactionDetailVO transactionDetailNo; // 거래 내역 No.
+	@JoinColumn(name="TRNS_no", referencedColumnName = "transaction_no")
+	private TransactionDetailVO transactionNo; // 거래 내역 No.
 	
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	@Column(name="TRNS_log_type", nullable = false)
 	private TransactionLogType transactionLogType; // 거래 로그 상태
 	
+	@Column(name="TRNS_log_create_at")
 	@CreationTimestamp
 	private Timestamp transactionLogCreateAt; // 로그 생성 시간
 	
