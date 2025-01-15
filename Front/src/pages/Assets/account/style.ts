@@ -27,6 +27,7 @@ const S = {
   `,
   DropdownContainer: styled.div`
     position: relative;
+    z-index: 10000;
   `,
   AccountSort: styled.div`
     display: flex;
@@ -71,7 +72,6 @@ const S = {
     right: 0;
     width: 10vw;
     margin-top: 8px;
-    z-index: 900;
 
     &[data-activedropdown="true"] {
       display: block;
@@ -80,7 +80,7 @@ const S = {
   DropdownItem: styled.li`
     padding: 12px;
     cursor: pointer;
-    z-index: 900;
+    z-index: 900 !important;
 
     &:hover {
       background-color: #f0f0f0;

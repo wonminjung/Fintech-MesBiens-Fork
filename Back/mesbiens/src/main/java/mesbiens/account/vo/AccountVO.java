@@ -51,7 +51,7 @@ public class AccountVO {
 	@JoinColumn(name = "member_no", referencedColumnName = "member_no")
 	private MemberVO memberNo; // 회원 No
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "bank_code", referencedColumnName = "bank_code")
 	private BankInfoVO bankCode; // 은행 코드
 	
