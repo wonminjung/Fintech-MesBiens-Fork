@@ -36,7 +36,7 @@ public class ChatVO {
 			strategy = GenerationType.SEQUENCE, // 사용할 전략을 시퀀스로 선택
 			generator = "chat_no_seq_chat" // 시퀀스 생성기에 설정해 놓은 제너레이터 이름
 		)
-	private Number chatNo;
+	private int chatNo;
 	
 	@ManyToOne // 다대일 관계 설정
 	@JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래키 매핑

@@ -23,7 +23,7 @@ import lombok.Setter;
 public class LoginRecordVo {
 	@Id
     @Column(name = "record_no") // 로그인 기록 ID (Primary Key)
-    private Long recordNo;
+    private int recordNo;
 
     @ManyToOne // 회원 ID (외래 키)
     @JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래 키 컬럼 설정

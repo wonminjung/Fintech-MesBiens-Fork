@@ -43,7 +43,7 @@ public class PostCommentVO {
 				strategy = GenerationType.SEQUENCE,
 				generator = "postComment_no_seq_postComment"
 			)
-	private Number postCommentNo;
+	private int postCommentNo;
 	
 	@ManyToOne // 다대일 관계 설정
 	@JoinColumn(name = "post_no", referencedColumnName = "post_no", nullable = false) // 외래키 매핑
@@ -58,7 +58,7 @@ public class PostCommentVO {
 	private MemberVO memberNo; // 회원 ID(글쓴이)
 	
 	@Column(name="pstc_parents_no")
-	private Number postCommentParentsNo; // 부모댓글
+	private int postCommentParentsNo; // 부모댓글
 	
 	@Column(name="pstc_content", nullable = false)
 	private String postCommentContent; // 댓글 내용
