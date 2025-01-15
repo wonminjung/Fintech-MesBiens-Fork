@@ -21,7 +21,7 @@ public class NotificationVo {
 
 	    @Id
 	    @Column(name = "NOTIFICATION_NO") // 자동 증가를 제거하고 수동으로 관리
-	    private Long notificationNo; // 알림 ID, 수동으로 설정해야 함
+	    private int notificationNo; // 알림 ID, 수동으로 설정해야 함
 
 	    @ManyToOne
 	    @JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false)
