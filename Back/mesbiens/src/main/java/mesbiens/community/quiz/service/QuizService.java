@@ -38,7 +38,7 @@ public class QuizService {
         QuizVo quiz = new QuizVo();
         
         // 수동으로 ID 값을 설정
-       quiz.setQuizNo(123L);; // 예시: ID를 123L로 설정
+       quiz.setQuizNo(123);; // 예시: ID를 123L로 설정
 
         // quizVo에서 나머지 값들을 설정
         quiz.setQuizQuestion(quizVo.getQuizQuestion());
