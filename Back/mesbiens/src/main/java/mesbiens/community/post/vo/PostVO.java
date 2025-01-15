@@ -1,8 +1,7 @@
 package mesbiens.community.post.vo;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,7 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -45,22 +44,22 @@ public class PostVO {
 				strategy = GenerationType.SEQUENCE, // 사용할 전략을 시퀀스로 선택
 				generator = "post_no_seq_post" // 시퀀스 생성기에 설정해 놓은 제너레이터 이름
 			)
-	private Number postNo; // 게시글 ID
+	private int postNo; // 게시글 ID
 	
 	@ManyToOne // 다대일 관계 설정
-	@JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래키 매핑
+	@JoinColumn(name = "member_no", referencedColumnName = "member_no") // 외래키 매핑
 	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
 	private MemberVO memberNo; // 회원 ID(글쓴이)
 	
-	@Column(name="post_title", nullable = false)
+	@Column(name="post_title")
 	private String postTitle; // 글제목
 	
-	@Column(name="post_cont", length = 4000, nullable = false)
+	@Column(name="post_cont", length = 4000)
 	private String postCont; // 글내용
 	
-	@Column(name="post_hit", nullable = false)
-	private Number postHit; // 조회수
+	@Column(name="post_hit")
+	private int postHit; // 조회수
 	
 	@Column(name="post_file_name")
 	private String posfFileName; // 첨부파일 이름
@@ -87,8 +86,8 @@ public class PostVO {
 //    private List<PostLogVO> logList = new ArrayList<>();
 	
 	
-	private Number postStartPageRow; // 쪽 시작 행 번호
-	private Number postEndPageRow; // 쪽 끝 행 번호
+	private int postStartPageRow; // 쪽 시작 행 번호
+	private int postEndPageRow; // 쪽 끝 행 번호
 	
 }
 	
