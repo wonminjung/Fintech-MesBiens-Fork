@@ -47,7 +47,7 @@ const MesBiensShop: React.FC = () => {
           />
         </shop.LogoContainer>
         <shop.Nav>
-          {["전체", "생활", "뷰티", "청소"].map((category, index) => (
+          {["전체", "생활", "뷰티"].map((category, index) => (
             <shop.NavTab
               key={index}
               onClick={() => handleButtonClick(category)}

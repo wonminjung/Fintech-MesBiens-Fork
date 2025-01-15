@@ -35,6 +35,7 @@ const shop = {
     width: inherit;
     justify-content: center;
     gap: 10rem;
+    z-index: 1;
   `,
   NavTab: styled.a`
     cursor: pointer;
@@ -43,7 +44,10 @@ const shop = {
     }
   `,
   BodyContainer: styled.div`
-    width: 60%;
+    width: 70rem;
+    @media screen and (max: 1000px) {
+      width: 50rem;
+    }
   `,
   DividerContainer: styled.div`
     display: flex;
