@@ -29,9 +29,9 @@ public class QuizService {
     @Transactional
     public QuizVo createQuiz(Long memberId,QuizVo quizVo) {
     	
-    	// memberId로 Member 객체를 조회
-        MemberVO member = memberRepository.findById(memberId)
-        .orElseThrow(() -> new RuntimeException("Member not found"));
+    //memberId로 Member 객체를 조회
+      MemberVO member = memberRepository.findById(memberId)
+     .orElseThrow(() -> new RuntimeException("Member not found"));
 
     	
     	 // 새로운 QuizVo 객체 생성
@@ -53,7 +53,7 @@ public class QuizService {
         
 
         // quiz 객체에 member 설정
-        quiz.setMember(member);
+      //  quiz.setMember(member);
         
         QuizVo savedQuiz = quizRepository.save(quiz);
         log.info("Quiz created successfully with ID: " + savedQuiz.getQuizNo());

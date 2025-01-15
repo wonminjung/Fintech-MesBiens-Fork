@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mesbiens.community.quiz.service.QuizService;
@@ -39,14 +38,9 @@ public class QuizController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<QuizVo> createQuiz(@RequestParam Long memberId, @RequestBody QuizVo quizVo) {
-        
-    	 QuizVo createdQuiz = quizService.createQuiz(memberId, quizVo);
-    	// 클라이언트에서 전달한 CreateQuizRequest 객체를 처리
-        //System.out.println(createQuizRequest);
-       
-        // Quiz를 생성하는 로직 등 처리
-        return ResponseEntity.ok(createdQuiz);
+    public ResponseEntity<String> createQuiz(@RequestBody QuizVo quiz) {
+        // quiz 객체를 처리하는 로직
+        return ResponseEntity.ok("Quiz created successfully!");
     }
 
 
