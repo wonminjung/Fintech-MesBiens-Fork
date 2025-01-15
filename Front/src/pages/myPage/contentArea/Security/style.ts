@@ -44,6 +44,7 @@ const S = {
     Th: styled.th`
         padding: 10px 10px 10px 32px;
         border-bottom: 1px solid #eeeeee;
+        text-align: left;
         width: 25%;
 
         &[data-underline="false"] {
