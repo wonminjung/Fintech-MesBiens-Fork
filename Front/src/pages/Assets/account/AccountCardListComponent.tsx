@@ -4,17 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Info } from "./AccountListContainer";
 import { useNavigate } from "react-router-dom";
-import ToggleBtn from "../../../components/button/ToggleButton";
 
 type Props = {
   index: number;
   info: Info;
 };
 
-const AccountCardListComponent: React.FunctionComponent<Props> = ({
-  index,
-  info,
-}): JSX.Element => {
+const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, info }): JSX.Element => {
   const { logo, bankname, accountnumber, balance } = info;
 
   // 잔액 숨기기 상태

@@ -23,7 +23,7 @@ public class QuizVo {
 	
 	@Id
 	@Column(name = "quiz_no")
-    private Long quizNo;  // 퀴즈 ID
+    private int quizNo;  // 퀴즈 ID
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false)
