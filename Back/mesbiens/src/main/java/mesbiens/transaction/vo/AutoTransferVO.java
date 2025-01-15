@@ -41,3 +41,4 @@ public class AutoTransferVO {
 //  private AccountVO receiverAccount; // 수신 계좌 참조
 
 }
+	

@@ -37,7 +37,8 @@ public class QuizVo {
 
     @Column(name = "quiz_hint", length = 300)
     private String quizHint;  // 퀴즈 힌트 (nullable)
-
+    
+   
     @Column(name = "quiz_difficulty", nullable = false, length = 1)
     private String quizDifficulty;  // 퀴즈 난이도
 
@@ -50,6 +51,8 @@ public class QuizVo {
 
     @Column(name = "quiz_correct_count", nullable = false)
     private int quizCorrectCount;  // 퀴즈 맞춘 개수
+    
+   
 
     @Column(name = "quiz_rank", length = 50)
     private String quizRank;  // 퀴즈 랭크 (nullable)

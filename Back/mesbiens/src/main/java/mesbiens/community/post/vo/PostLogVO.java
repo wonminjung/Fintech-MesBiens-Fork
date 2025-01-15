@@ -76,7 +76,7 @@ public class PostLogVO {
 	@Column(name="post_log_comment_date")
 	private Timestamp postLogCommentDate; // 게시글 작성일
 		
-	@CreationTimestamp // 이 애노테이션은 글 등록시점의 날짜와 시간값을 기록한다.
+	@CreationTimestamp // 이 애노테이션은 글 등록시점의 날짜와 시간값을 기록한다.  
 	@Column(name="post_log_time", nullable = false)
 	private Timestamp postLogTime; // 로그 생성 시각
 	
