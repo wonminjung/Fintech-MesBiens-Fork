@@ -1,0 +1,20 @@
+[
+  {
+    "img": "../images/shoppingImg/perfume.png",
+    "productName": "메비앙 시그니처 퍼퓸",
+    "productPrice": "49,000원",
+    "category": "뷰티"
+  },
+  {
+    "img": "../images/shoppingImg/water.png",
+    "productName": "메비앙 프리미엄 생수 (500ml)",
+    "productPrice": "800원",
+    "category": "생활"
+  },
+  {
+    "img": "../images/shoppingImg/waterpackage.png",
+    "productName": "메비앙 프리미엄 생수 (2L)*36개",
+    "productPrice": "24,750원",
+    "category": "생활"
+  }
+]

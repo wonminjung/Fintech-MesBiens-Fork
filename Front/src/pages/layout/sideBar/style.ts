@@ -87,14 +87,12 @@ const S = {
           }
         }
       }
+      & > li:nth-child(6) {
+        margin-top: 8rem;
+      }
     }
   `,
-  Ppl: styled.iframe`
-    width: 90%;
-    height: 100%;
-    border-radius: 20px;
-    margin-top: 1em;
-  `,
+  ShopContainer: styled.div``,
 };
 
 export default S;

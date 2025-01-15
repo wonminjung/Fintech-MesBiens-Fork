@@ -22,6 +22,7 @@ import AssetsContainer from "../pages/assets/AssetsContainer";
 import Calculator from "../pages/community/calculator/Calculator";
 import MenuBar from "../pages/community/MenuBar";
 import InnerLayout from "../pages/community/InnerLayout";
+import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
 
 const routes: RouteObject[] = [
   {
@@ -107,6 +108,10 @@ const routes: RouteObject[] = [
   {
     path: "/findId",
     element: <FindIDPage />,
+  },
+  {
+    path: "/MesBiensShop",
+    element: <MesBiensShop />,
   },
   // 나머지 경로
   {
