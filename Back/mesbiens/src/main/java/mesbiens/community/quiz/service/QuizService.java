@@ -27,7 +27,7 @@ public class QuizService {
 
     // 퀴즈 생성
     @Transactional
-    public QuizVo createQuiz(Long memberId,QuizVo quizVo) {
+    public QuizVo createQuiz(int memberId,QuizVo quizVo) {
     	
     //memberId로 Member 객체를 조회
       MemberVO member = memberRepository.findById(memberId)
@@ -69,17 +69,17 @@ public class QuizService {
     }
 
     // 특정 사용자 퀴즈 조회
-    public List<QuizVo> getQuizzesByUserId(Long memberNo) {
+    public List<QuizVo> getQuizzesByUserId(int memberNo) {
         return quizRepository.findByMember_memberNo(memberNo);
     }
 
     // 특정 퀴즈 조회
-    public Optional<QuizVo> getQuizById(Long quizId) {
+    public Optional<QuizVo> getQuizById(int quizId) {
         return quizRepository.findById(quizId);
     }
 
     // 퀴즈 수정
-    public QuizVo updateQuiz(Long quizId, QuizVo updatedQuizVo) {
+    public QuizVo updateQuiz(int quizId, QuizVo updatedQuizVo) {
         Optional<QuizVo> existingQuizOpt = quizRepository.findById(quizId);
         if (existingQuizOpt.isPresent()) {
         	  
@@ -99,7 +99,7 @@ public class QuizService {
     }
 
     // 퀴즈 삭제
-    public boolean deleteQuiz(Long quizId) {
+    public boolean deleteQuiz(int quizId) {
         if (quizRepository.existsById(quizId)) {
             quizRepository.deleteById(quizId);
             return true;
@@ -107,5 +107,6 @@ public class QuizService {
             return false;
         }
     }
+
 
 }

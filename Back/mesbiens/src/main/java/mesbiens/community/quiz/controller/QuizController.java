@@ -33,7 +33,7 @@ public class QuizController {
 
     // 특정 퀴즈 조회
     @GetMapping("/{quizId}")
-    public Optional<QuizVo> getQuizById(@PathVariable Long quizId) {
+    public Optional<QuizVo> getQuizById(@PathVariable int quizId) {
         return quizService.getQuizById(quizId);
     }
 
@@ -46,7 +46,7 @@ public class QuizController {
 
     // 퀴즈 수정
     @PutMapping("/update/{quizId}")
-    public ResponseEntity<QuizVo> updateQuiz(@PathVariable Long quizId, @RequestBody QuizVo updatedQuizVo) {
+    public ResponseEntity<QuizVo> updateQuiz(@PathVariable int quizId, @RequestBody QuizVo updatedQuizVo) {
         try {
             QuizVo updatedQuiz = quizService.updateQuiz(quizId, updatedQuizVo);
             return ResponseEntity.ok(updatedQuiz);
@@ -57,7 +57,7 @@ public class QuizController {
 
     // 퀴즈 삭제
     @DeleteMapping("/delete/{quizId}")
-    public ResponseEntity<String> deleteQuiz(@PathVariable Long quizId) {
+    public ResponseEntity<String> deleteQuiz(@PathVariable int quizId) {
         boolean deleted = quizService.deleteQuiz(quizId);
         if (deleted) {
             return ResponseEntity.ok("Quiz deleted successfully");

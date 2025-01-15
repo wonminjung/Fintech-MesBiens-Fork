@@ -13,7 +13,7 @@ import mesbiens.community.quiz.vo.QuizVo;
 @Setter
 public class CreateQuizRequest {
 	
-	private Long memberId;
+	private int memberId;
     private QuizVo quizVo;
     private String quizQuestion;
     private String quizCorrectAnswer;
@@ -28,11 +28,11 @@ public class CreateQuizRequest {
     // 기본 생성자
     public CreateQuizRequest() {}
     
-    public Long getMemberId() {
+    public int getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(Long memberId) {
+    public void setMemberId(int memberId) {
         this.memberId = memberId;
     }
 
