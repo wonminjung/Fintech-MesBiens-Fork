@@ -2,7 +2,8 @@ import { styled } from "styled-components";
 import DefaultButton from "../../../button/DefaultButton";
 
 const S = {
-    AddAccountContainer: styled.div`
+    /** AddAccount.tsx */
+    Container: styled.div`
         width: 400px;
         height: 400px;
         display: flex;
@@ -67,6 +68,9 @@ const S = {
       height: 35px;
       margin-bottom: 20px;
     `,
+
+    /** ModiAccount.tsx */
+
 };
 
 export default S;

@@ -115,7 +115,7 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  EmptyAccountWrapper: styled.button`
+  EmptyAccountWrapper: styled.div`
     all: unset;
     display: flex;
     flex-direction: column;

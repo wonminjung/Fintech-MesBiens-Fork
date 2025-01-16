@@ -4,7 +4,6 @@ import { RootState, useAppDispatch } from "../../../modules/store/store";
 import { componentMap } from "../ModalContent";
 
 const ModalFunc = () => {
-    // const { changeComponent, openModal } = modalActions;
     const { isOpen } = useSelector((state: RootState) => state.modal);
     const dispatch = useAppDispatch();
     

@@ -2,16 +2,22 @@ import React, { useCallback, useState } from "react";
 import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { Info } from "./AccountListContainer";
 import { useNavigate } from "react-router-dom";
+import Account from "../type";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
 type Props = {
   index: number;
-  info: Info;
+  acct: Account;
+  setBankInfo: React.Dispatch<React.SetStateAction<Account[]>>;
 };
 
-const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, info }): JSX.Element => {
-  const { logo, bankname, accountnumber, balance } = info;
+const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct, setBankInfo }): JSX.Element => {
+  const { bankName, bankLogo } = acct.bankCode;
+  const { accountNumber, accountBalance } = acct;
+  const { handleModal } = ModalFunc();
+  
 
   // 잔액 숨기기 상태
   const [displayBtn, setDisplayBtn] = useState<boolean>(true);
@@ -23,13 +29,13 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, info 
   const [copy, setCopy] = useState<boolean>(false);
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(accountnumber);
+      await navigator.clipboard.writeText(accountNumber);
       setCopy(true);
       setTimeout(() => setCopy(false), 2000);
     } catch (error) {
       console.error("Failed to copy account number: ", error);
     }
-  }, [accountnumber]);
+  }, [accountNumber]);
 
   // 카드리스트 메뉴 상태
   const [isCardClicked, setIsCardClicked] = useState<boolean>(false);
@@ -42,13 +48,18 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, info 
     navigate("/transaction");
   };
 
+  const handleModi = () => {
+    handleModal(ModalKeys.MODI_ACCOUNT, acct);
+    setIsCardClicked(false);
+  };
+
   return (
     <S.FilledAccountWrapper>
       <S.BankInfoContainer>
-        <S.BankLogo src={logo} alt="은행 로고" />
+        <S.BankLogo src={bankLogo} alt="은행 로고" />
         <S.BankInfo>
-          <h4>{bankname}</h4>
-          <h4>{accountnumber}</h4>
+          <h4>{bankName}</h4>
+          <h4>{accountNumber}</h4>
         </S.BankInfo>
 
         <S.AccountNumberCopyBtn onClick={handleCopy}>
@@ -63,7 +74,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, info 
       <S.FilledFooter>
         <S.Balance>
           <span className={displayBtn ? "balance-hidden" : ""}>
-            {balance.toLocaleString()} 원
+            {accountBalance.toLocaleString()} 원
           </span>
           <S.BalanceHideBtn>
             <input id={`balance-hide-btn${index}`} type="checkbox" />
@@ -81,7 +92,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, info 
         </S.CardlistMenuBtn>
         {isCardClicked && (
           <S.CardlistDropdown>
-            <S.CardlistDropDownItems>계좌 정보 수정</S.CardlistDropDownItems>
+            <S.CardlistDropDownItems onClick={handleModi}>계좌 정보 수정</S.CardlistDropDownItems>
             <S.CardlistDropDownItems>계좌 삭제</S.CardlistDropDownItems>
           </S.CardlistDropdown>
         )}
