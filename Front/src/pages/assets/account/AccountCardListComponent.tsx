@@ -3,7 +3,7 @@ import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import Account from "../type";
+import { Account } from "../types";
 import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
@@ -48,9 +48,15 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
     navigate("/transaction");
   };
 
+  // 계좌 수정 함수
   const handleModi = () => {
     handleModal(ModalKeys.MODI_ACCOUNT, acct);
     setIsCardClicked(false);
+  };
+
+  // 계좌 삭제 함수
+  const deleteAccount = () => {
+    
   };
 
   return (
@@ -63,10 +69,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
         </S.BankInfo>
 
         <S.AccountNumberCopyBtn onClick={handleCopy}>
-          <img
-            src={`${process.env.PUBLIC_URL}/images/myPage/account/copy-icon.svg`}
-            alt="복사 버튼"
-          />
+          <img src={`${process.env.PUBLIC_URL}/images/myPage/account/copy-icon.svg`} alt="복사 버튼" />
         </S.AccountNumberCopyBtn>
         {copy && <S.CopyMessage>복사가 완료되었습니다.</S.CopyMessage>}
       </S.BankInfoContainer>
@@ -78,22 +81,21 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
           </span>
           <S.BalanceHideBtn>
             <input id={`balance-hide-btn${index}`} type="checkbox" />
-            <label
-              htmlFor={`balance-hide-btn${index}`}
-              onClick={handleDisplay}
-            />
+            <label htmlFor={`balance-hide-btn${index}`} onClick={handleDisplay} />
           </S.BalanceHideBtn>
         </S.Balance>
         <S.RemittanceBtn onClick={handleTransaction}>송금</S.RemittanceBtn>
       </S.FilledFooter>
+
       <S.CardListMenuContainer>
         <S.CardlistMenuBtn onClick={handleIsCardClicked}>
           <FontAwesomeIcon icon={faEllipsis} />
         </S.CardlistMenuBtn>
+
         {isCardClicked && (
           <S.CardlistDropdown>
             <S.CardlistDropDownItems onClick={handleModi}>계좌 정보 수정</S.CardlistDropDownItems>
-            <S.CardlistDropDownItems>계좌 삭제</S.CardlistDropDownItems>
+            <S.CardlistDropDownItems onClick={deleteAccount}>계좌 삭제</S.CardlistDropDownItems>
           </S.CardlistDropdown>
         )}
       </S.CardListMenuContainer>

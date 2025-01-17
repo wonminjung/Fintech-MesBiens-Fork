@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 import { H1 } from "../../../components/htags/style";
-import Account from "../type";
+import { Account } from "../types";
 
 const AccountContainer: React.FunctionComponent = (): JSX.Element => {
   const [ bankInfo, setBankInfo ] = useState<Account[]>([]);
@@ -17,6 +17,7 @@ const AccountContainer: React.FunctionComponent = (): JSX.Element => {
   const toggleIsClickSort = useCallback(() => {
     setIsClickSort((prevState) => !prevState);
   }, []);
+  
   // 수정할 예정.. 다른 곳 클릭해도 드롭다운 메뉴가 닫히도록 구현할 예정
   const handleDropdown = useCallback(
     (e: React.MouseEvent): void => {

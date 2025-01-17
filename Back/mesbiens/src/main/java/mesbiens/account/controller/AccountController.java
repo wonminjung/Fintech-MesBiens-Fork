@@ -21,11 +21,13 @@ public class AccountController {
 	@Autowired
 	private AccountService acctService;
 	
+	// 계좌 가져오기
 	@GetMapping
 	public List<AccountVO> getAcctInfo() {
 		return acctService.getAcctInfo();
 	}
 	
+	// 계좌 추가하기
 	@PostMapping("/add")
 	public void addAcct(@RequestBody AccountVO acct) {
 		System.out.println(acct);

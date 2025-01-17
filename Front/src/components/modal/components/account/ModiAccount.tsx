@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import S from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import ModalFunc from '../../utils/ModalFunc';
-import Account from '../../../../pages/assets/type';
+import { RootState } from '../../../../modules/store/store';
+import { useSelector } from 'react-redux';
+import { BankInfo } from '../../../../pages/assets/types';
 
-interface ModiAccountProps {
-    acct: Account;
-}
-
-const ModiAccount: React.FC<ModiAccountProps> = ({ acct }) => {
+const ModiAccount: React.FC<any> = () => {
     const { closeModal } = ModalFunc();
-    console.log(acct);
-    // const { bankName, bankLogo } = acct?.bankCode;
-    // const { accountNumber, accountBalance } = acct;
+    const { modalProps } = useSelector((state: RootState) => state.modal);
+    const [ bankList, setBankList ] = useState<BankInfo[]>([]);
+
+    const { bankName, bankLogo } = modalProps?.bankCode || {};
+    const { accountNumber, accountBalance } = modalProps || {};
+
+    useEffect(() => {
+        const bankData = async () => {
+            const response: Response = await fetch("http://localhost:7200/allBankList");
+            const data: BankInfo[] = await response.json();
+            
+            return data;
+        };
+        
+        bankData()
+        .then((resData) => {
+            setBankList(resData);
+        })
+        .catch(() => console.log("뱅크 데이터 불러오기 실패"));
+    }, []);
 
     return (
         <S.Container>
@@ -24,10 +39,22 @@ const ModiAccount: React.FC<ModiAccountProps> = ({ acct }) => {
                 </S.CloseBtn>
             </S.Header>
 
-            {/* <p>{bankName}</p>
-            <p>{bankLogo}</p>
-            <p>{accountNumber}</p>
-            <p>{accountBalance}</p> */}
+            {modalProps && bankList && (
+                <>
+                    <p>{bankName}</p>
+                    <p>{bankLogo}</p>
+                    <p>{accountNumber}</p>
+                    <p>{accountBalance}</p>
+                    {bankList.map((bank: BankInfo) => (
+                        <div key={bank.bankCode}>
+                            <p>{bank.bankCode}</p>
+                            <p>{bank.bankLogo}</p>
+                            <p>{bank.bankName}</p>
+                        </div>
+                    ) )}
+                </>
+            )}
+            
         </S.Container>
     );
 };

@@ -1,4 +1,4 @@
-type Account = {
+export type Account = {
     accountNo: number;
     accountBalance: number;
     accountNumber: string;
@@ -7,10 +7,8 @@ type Account = {
     accountOpeningDate: Date;
 }
 
-type BankInfo = {
+export type BankInfo = {
     bankCode: string;
     bankLogo: string;
     bankName: string;
 }
-
-export default Account;

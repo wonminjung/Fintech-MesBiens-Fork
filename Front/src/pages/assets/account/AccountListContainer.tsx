@@ -5,7 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AccountCardListComponent from "./AccountCardListComponent";
 import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
-import Account from "../type";
+import { Account } from "../types";
 
 type Props = {
   bankInfo: Account[];

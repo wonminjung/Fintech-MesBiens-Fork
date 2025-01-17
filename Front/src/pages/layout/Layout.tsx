@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import S from "./style";
 import Sidebar from "./sideBar/Sidebar";
 import Header from "./header/Header";
-import ModalRendererContent from "../../components/modal/ModalRendererContent";
+import ModalRendererComponent from "../../components/modal/ModalRendererComponent";
 
 const Layout: React.FunctionComponent = (): JSX.Element => {
   return (
@@ -21,7 +21,7 @@ const Layout: React.FunctionComponent = (): JSX.Element => {
       </S.MainContentContainer>
 
       {/* 공용 모달창 */}
-      <ModalRendererContent />
+      <ModalRendererComponent />
     </S.RootContainer>
   );
 };
