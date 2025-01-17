@@ -14,6 +14,9 @@ public class PageVO {
     private int page; // 현재 페이지
     private int maxpage; // 총 페이지 수
     private long totalCount; // 총 레코드 수
-    private List<PostVO> guestBookList; // 페이징된 방명록 목록
+    private List<PostVO> PostList; // 페이징된 방명록 목록
+	
+	private String FindField; // 
+	private Object FindName;
 
 }

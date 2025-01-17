@@ -61,6 +61,8 @@ public class PostVO {
 	@Column(name="post_hit")
 	private int postHit; // 조회수
 	
+	@Column(name="post_file")
+	private String postFile;
 	@Column(name="post_file_name")
 	private String posfFileName; // 첨부파일 이름
 	@Column(name="post_file_path")
