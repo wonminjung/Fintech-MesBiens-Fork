@@ -67,9 +67,16 @@ const shop = {
     justify-content: center;
     gap: 20px;
   `,
-  Item: styled.div`
+  Item: styled.a`
     width: 18rem;
     height: 22rem;
+    transition: transform 0.3s ease-in-out;
+    text-decoration: none;
+    color: black;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   `,
   ItemImg: styled.img`
     width: 18rem;
@@ -87,6 +94,8 @@ const shop = {
       font-weight: bold;
     }
   `,
+
+  ProductContainer: styled.div``,
 };
 
 export default shop;

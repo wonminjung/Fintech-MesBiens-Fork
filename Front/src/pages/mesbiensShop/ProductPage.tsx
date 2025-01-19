@@ -8,7 +8,7 @@ type shoppingInfo = {
   category: string;
 };
 
-const MesBiensShop: React.FC = () => {
+const ProductPage = () => {
   const [shoppingInfos, setShoppingInfos] = useState<shoppingInfo[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("전체");
 
@@ -58,26 +58,10 @@ const MesBiensShop: React.FC = () => {
           ))}
         </shop.Nav>
       </shop.HeaderContainer>
-      <shop.BodyContainer>
-        <shop.DividerContainer>
-          <shop.Divider></shop.Divider>
-          BEST
-          <shop.Divider></shop.Divider>
-        </shop.DividerContainer>
-        <shop.ItemContainer>
-          {filteredItems.map((item, index) => (
-            <shop.Item key={index} href="/product">
-              <shop.ItemImg src={item.img} alt={item.productName} />
-              <shop.ItemDescription>
-                <li>{item.productName}</li>
-                <li>{item.productPrice}</li>
-              </shop.ItemDescription>
-            </shop.Item>
-          ))}
-        </shop.ItemContainer>
-      </shop.BodyContainer>
+
+      <shop.ProductContainer></shop.ProductContainer>
     </shop.MainContainer>
   );
 };
 
-export default MesBiensShop;
+export default ProductPage;

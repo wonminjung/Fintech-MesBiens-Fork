@@ -20,9 +20,10 @@ import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import MainPage from "../pages/main/MainPage";
 import AssetsContainer from "../pages/assets/AssetsContainer";
 import Calculator from "../pages/community/calculator/Calculator";
-import MenuBar from "../pages/community/MenuBar";
 import InnerLayout from "../pages/community/InnerLayout";
 import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
+import { elements } from "chart.js";
+import ProductPage from "../pages/mesbiensShop/ProductPage";
 
 const routes: RouteObject[] = [
   {
@@ -113,6 +114,14 @@ const routes: RouteObject[] = [
     path: "/MesBiensShop",
     element: <MesBiensShop />,
   },
+  {
+    path: "product",
+    element: <ProductPage />,
+  },
+  // {
+  //   path: "ProductPage",
+  //   element: <ProductPage />,
+  // },
   // 나머지 경로
   {
     path: "*",
