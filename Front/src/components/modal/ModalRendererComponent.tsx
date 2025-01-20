@@ -4,9 +4,9 @@ import { RootState } from '../../modules/store/store';
 import { componentMap } from './ModalContent';
 import CommonModal from './CommonModal';
 
-// 모달 컴포넌트에 props 전달하여 렌더링 하기 위한 컴포넌트
-const ModalRendererContent: React.FunctionComponent = (): JSX.Element => {
-    const { isOpen, component, modalProps } = useSelector((state: RootState) => state.modal);
+// 모달 컴포넌트 렌더링 하기 위한 컴포넌트
+const ModalRendererComponent: React.FunctionComponent = (): JSX.Element => {
+    const { isOpen, component } = useSelector((state: RootState) => state.modal);
 
     if(!isOpen || !component) return <></>;
 
@@ -14,9 +14,9 @@ const ModalRendererContent: React.FunctionComponent = (): JSX.Element => {
 
     return (
         <CommonModal>
-            <Component modalProps={modalProps} />
+            <Component />
         </CommonModal>
     );
 };
 
-export default ModalRendererContent;
+export default ModalRendererComponent;

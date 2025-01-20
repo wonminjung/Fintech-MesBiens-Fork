@@ -13,9 +13,9 @@ public class AccountDAOImpl implements AccountDAO {
 	@Autowired
 	private AccountJpaRepository acctJpaRepo;
 
-	// 계좌 가져오기
+	// 모든 계좌 가져오기
 	@Override
-	public List<AccountVO> getAcctInfo() {
+	public List<AccountVO> getAllAcct() {
 		return acctJpaRepo.findAll();
 	}
 
@@ -24,6 +24,19 @@ public class AccountDAOImpl implements AccountDAO {
 	public void addAcct(AccountVO acct) {
 		acctJpaRepo.save(acct);
 	}
+
+	// 제거할 계좌가 존재하는지 검색(Primary key 기준)
+	@Override
+	public boolean existsByIdAcct(int accountNo) {
+		return acctJpaRepo.findById(accountNo) != null;
+	}
+
+	// 계좌 삭제 (삭제한 레코드 개수 반환)
+	@Override
+	public int delAcct(int accountNo) {
+		return acctJpaRepo.delAcct(accountNo);
+	}
+
 	
 	
 	
