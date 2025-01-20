@@ -12,6 +12,8 @@ import { H1, H2 } from "../../../components/htags/style";
 
 export const Board: React.FC = () => {
   const navigate = useNavigate();
+
+
   const handleWrite = () => {
     navigate("C_boardWrite");
   };
