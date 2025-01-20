@@ -22,8 +22,8 @@ import AssetsContainer from "../pages/assets/AssetsContainer";
 import Calculator from "../pages/community/calculator/Calculator";
 import InnerLayout from "../pages/community/InnerLayout";
 import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
-import { elements } from "chart.js";
 import ProductPage from "../pages/mesbiensShop/ProductPage";
+import CategoryPage from "../pages/mesbiensShop/CategoryPage";
 
 const routes: RouteObject[] = [
   {
@@ -115,8 +115,12 @@ const routes: RouteObject[] = [
     element: <MesBiensShop />,
   },
   {
-    path: "product",
+    path: "/product/:productNo",
     element: <ProductPage />,
+  },
+  {
+    path: "/category/:category",
+    element: <CategoryPage />,
   },
   // {
   //   path: "ProductPage",

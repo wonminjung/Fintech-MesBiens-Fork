@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const shop = {
+export const shop = {
   MainContainer: styled.div`
     display: flex;
     flex-direction: column;
@@ -44,7 +44,11 @@ const shop = {
     }
   `,
   BodyContainer: styled.div`
+    display: flex;
+    margin-top: 2rem;
     width: 70rem;
+    gap: 10rem;
+    justify-content: center;
     @media screen and (max: 1000px) {
       width: 50rem;
     }
@@ -98,4 +102,35 @@ const shop = {
   ProductContainer: styled.div``,
 };
 
-export default shop;
+export const p = {
+  ProductImg: styled.img`
+    width: 30rem;
+  `,
+  ProductInfo: styled.div`
+    display: block;
+    flex: 1;
+  `,
+  BtnContainer: styled.div`
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    align-items: center;
+    height: 2rem;
+  `,
+  Btn: styled.button`
+    border: 1px solid black;
+    background: transparent;
+    flex: 1;
+    cursor: pointer;
+    height: 100%;
+    &:hover {
+      background: #ccc;
+    }
+  `,
+  QtyInput: styled.input`
+    display: block;
+    width: 3rem;
+    height: 100%;
+    border: none;
+  `,
+};
