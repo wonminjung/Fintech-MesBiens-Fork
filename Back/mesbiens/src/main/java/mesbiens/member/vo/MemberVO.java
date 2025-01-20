@@ -1,11 +1,8 @@
 package mesbiens.member.vo;
 
-
-
 import java.sql.Timestamp;
-
 import org.hibernate.annotations.CreationTimestamp;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="member")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})//프록시 객체의 직렬화를 방지
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
