@@ -7,6 +7,7 @@ const S = {
   AccountContainer: styled.div`
     display: flex;
     flex-direction: column;
+    height: 100%;
   `,
   /** AccountContainer.tsx */
   MenuHeaderContainer: styled.div`
@@ -27,7 +28,6 @@ const S = {
   `,
   DropdownContainer: styled.div`
     position: relative;
-    z-index: 10000;
   `,
   AccountSort: styled.div`
     display: flex;
@@ -72,6 +72,7 @@ const S = {
     right: 0;
     width: 10vw;
     margin-top: 8px;
+    z-index: 100;
 
     &[data-activedropdown="true"] {
       display: block;
@@ -80,7 +81,6 @@ const S = {
   DropdownItem: styled.li`
     padding: 12px;
     cursor: pointer;
-    z-index: 900 !important;
 
     &:hover {
       background-color: #f0f0f0;
@@ -88,7 +88,7 @@ const S = {
   `,
   /** AccountListContainer.tsx */
   AccountListContainer: styled.div`
-    height: 500px;
+    height: 100%;
   `,
   AccountCardListWrapper: styled.div`
     margin-top: 15px;
@@ -107,7 +107,7 @@ const S = {
     margin-top: 15px;
     width: 100%;
     margin-right: 1%;
-    height: 100%;
+    height: calc(100% - 15px);
     background-color: var(--forth-color);
     border-radius: var(--container-border-radius);
     display: flex;
@@ -115,7 +115,7 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  EmptyAccountWrapper: styled.button`
+  EmptyAccountWrapper: styled.div`
     all: unset;
     display: flex;
     flex-direction: column;
@@ -241,6 +241,7 @@ const S = {
     font-size: 20px;
     color: grey;
     cursor: pointer;
+    z-index: initial;
 
     &:active {
       background-color: var(--lightGrey);
@@ -251,7 +252,7 @@ const S = {
     position: absolute;
     padding: 0;
     margin: 0;
-    width: 200px;
+    widtH: 400%;
     right: 0px;
     top: 60%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -259,7 +260,6 @@ const S = {
     border: 1px solid var(--lightGrey);
     border-radius: 4px;
     list-style: none;
-    z-index: 900;
   `,
   CardlistDropDownItems: styled.li`
     padding: 12px;
@@ -325,7 +325,7 @@ const S = {
   Balance: styled.div`
     display: flex;
     justify-content: flex-end;
-    width: 13em;
+    width: 17em;
     background-color: white;
     border-radius: 20px;
     align-items: center;
@@ -340,7 +340,6 @@ const S = {
     }
   `,
   RemittanceBtn: styled(DefaultButton)`
-    width: 15%;
     height: 100%;
     border-radius: 20px;
     margin-left: 8px;

@@ -43,7 +43,7 @@ const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element
     };
 
     return (
-        <S.AddAccountContainer>
+        <S.Container>
             <S.Header>
                 <S.Title>계좌 추가</S.Title>
                 <S.CloseBtn onClick={() => closeModal()}>
@@ -52,7 +52,7 @@ const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element
             </S.Header>
 
             <S.Form method="POST" action="#" onSubmit={onSubmit}>
-                <S.FormBody >
+                <S.FormBody>
                     <S.FieldContainer>
                         <S.FieldLabel htmlFor="bankName">은행명</S.FieldLabel>
                         <S.FieldInput id="bankName" name="bankName" placeholder="은행명을 입력하세요" onBlur={handleBlur} />
@@ -71,7 +71,7 @@ const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element
                     <S.SubmitBtn>완료</S.SubmitBtn>
                 </S.Footer>
             </S.Form>
-        </S.AddAccountContainer>
+        </S.Container>
     );
 };
 

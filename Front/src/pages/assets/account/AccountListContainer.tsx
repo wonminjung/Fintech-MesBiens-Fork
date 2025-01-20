@@ -1,48 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AccountCardListComponent from "./AccountCardListComponent";
 import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
+import { Account } from "../types";
 
-export type Info = {
-  id: number;
-  logo: string;
-  bankname: string;
-  accountnumber: string;
-  balance: number;
-};
+type Props = {
+  bankInfo: Account[];
+  setBankInfo: React.Dispatch<React.SetStateAction<Account[]>>;
+}
 
-const AccountListContainer: React.FC = () => {
-  const [bankInfo, setBankInfo] = useState<Info[]>([]);
+const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBankInfo }): JSX.Element => {
   const { handleModal } = ModalFunc();
 
-  const fetchAccountsData = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.PUBLIC_URL}/dummyDatas/accountData.json`
-      );
-      if (!response.ok) {
-        throw new Error("등록된 계좌가 없습니다.");
-      }
-      const data: Info[] = await response.json();
-      setBankInfo(data);
-    } catch (error) {
-      console.error("데이터를 가져오는 중 오류 발생:", error);
-    }
+  const getAccountList = async () => {
+      const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/account`);
+      const acctList: Account[] = await response.json();
+
+      return acctList;
   };
 
   useEffect(() => {
-    fetchAccountsData();
+    getAccountList()
+    .then((acctList: Account[]) => {
+      setBankInfo(acctList);
+    })
+    .catch(() => { console.log("데이터 가져오기 실패") });
   }, []);
 
   return (
     <S.AccountListContainer>
       {bankInfo.length > 0 ? (
-        bankInfo.map((account, index /* index 추가 */) => (
-          <S.AccountCardListWrapper>
-            <AccountCardListComponent index={index} info={account} />{" "}
+        bankInfo.map((acct, index /* index 추가 */) => (
+          <S.AccountCardListWrapper key={acct.accountNo}>
+            <AccountCardListComponent index={index} acct={acct} bankInfo={bankInfo} setBankInfo={setBankInfo} />
             {/*index 전달 */}
           </S.AccountCardListWrapper>
         ))
