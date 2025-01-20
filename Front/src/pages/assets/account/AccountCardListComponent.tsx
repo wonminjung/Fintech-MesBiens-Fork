@@ -2,19 +2,20 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 import { Account } from "../types";
 import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 import { Link } from "react-router-dom";
+import ResponseType from "../../../common/response/ResponseType";
 
 type Props = {
   index: number;
   acct: Account;
+  bankInfo: Account[];
   setBankInfo: React.Dispatch<React.SetStateAction<Account[]>>;
 };
 
-const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct, setBankInfo }): JSX.Element => {
+const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct, bankInfo, setBankInfo }): JSX.Element => {
   const { bankName, bankLogo } = acct.bankCode;
   const { accountNumber, accountBalance } = acct;
   const { handleModal } = ModalFunc();
@@ -53,9 +54,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
 
     document.addEventListener("click", closeCard);
 
-    return () => {
-      document.removeEventListener("click", closeCard);
-    };
+    return () => document.removeEventListener("click", closeCard);
   }, []);
 
   // 계좌 수정 함수
@@ -64,8 +63,42 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
     setIsCardClicked(false);
   };
 
+  const delFetch = async () => {
+
+
+  };
+
   // 계좌 삭제 함수
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
+    try {
+      const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/account/delete`, 
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(
+            {
+              accountNo: acct.accountNo
+            }
+          )
+        }
+      );
+      const data: ResponseType = await response.json();
+  
+      if(response.status === 200) {
+        const newBankInfo = bankInfo.filter((account: Account) => account.accountNo !== acct.accountNo);
+        setBankInfo(newBankInfo);
+        alert(data.message);
+        setIsCardClicked(false);
+      }
+      if(response.status === 400) {
+        alert(data.message);
+      }
+
+    }catch(err) {
+      alert(err);
+    }
     
   };
 

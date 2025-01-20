@@ -325,7 +325,7 @@ const S = {
   Balance: styled.div`
     display: flex;
     justify-content: flex-end;
-    width: 13em;
+    width: 17em;
     background-color: white;
     border-radius: 20px;
     align-items: center;

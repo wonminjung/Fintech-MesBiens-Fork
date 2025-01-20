@@ -17,7 +17,7 @@ const ModiAccount: React.FC<any> = () => {
 
     useEffect(() => {
         const bankData = async () => {
-            const response: Response = await fetch("http://localhost:7200/allBankList");
+            const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/allBankList`);
             const data: BankInfo[] = await response.json();
             
             return data;

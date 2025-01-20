@@ -16,7 +16,7 @@ const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBan
   const { handleModal } = ModalFunc();
 
   const getAccountList = async () => {
-      const response: Response = await fetch("http://localhost:7200/account");
+      const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/account`);
       const acctList: Account[] = await response.json();
 
       return acctList;
@@ -35,7 +35,7 @@ const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBan
       {bankInfo.length > 0 ? (
         bankInfo.map((acct, index /* index 추가 */) => (
           <S.AccountCardListWrapper key={acct.accountNo}>
-            <AccountCardListComponent index={index} acct={acct} setBankInfo={setBankInfo} />
+            <AccountCardListComponent index={index} acct={acct} bankInfo={bankInfo} setBankInfo={setBankInfo} />
             {/*index 전달 */}
           </S.AccountCardListWrapper>
         ))
