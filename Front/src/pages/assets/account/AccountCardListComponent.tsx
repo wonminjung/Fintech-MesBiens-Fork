@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Account } from "../types";
 import ModalFunc from "../../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
+import { Link } from "react-router-dom";
 
 type Props = {
   index: number;
@@ -17,6 +18,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
   const { bankName, bankLogo } = acct.bankCode;
   const { accountNumber, accountBalance } = acct;
   const { handleModal } = ModalFunc();
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
   
 
   // 잔액 숨기기 상태
@@ -42,11 +44,19 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
   const handleIsCardClicked = useCallback(() => {
     setIsCardClicked((prevState) => !prevState);
   }, []);
+  useEffect(() => {
+    const closeCard = (e: MouseEvent): void => {
+      if(menuBtnRef.current && !menuBtnRef.current.contains(e.target as Node)) {
+        setIsCardClicked(false);
+      }
+    };
 
-  const navigate = useNavigate();
-  const handleTransaction = () => {
-    navigate("/transaction");
-  };
+    document.addEventListener("click", closeCard);
+
+    return () => {
+      document.removeEventListener("click", closeCard);
+    };
+  }, []);
 
   // 계좌 수정 함수
   const handleModi = () => {
@@ -80,15 +90,19 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
             {accountBalance.toLocaleString()} 원
           </span>
           <S.BalanceHideBtn>
-            <input id={`balance-hide-btn${index}`} type="checkbox" />
+            <input type="checkbox" id={`balance-hide-btn${index}`} />
             <label htmlFor={`balance-hide-btn${index}`} onClick={handleDisplay} />
           </S.BalanceHideBtn>
         </S.Balance>
-        <S.RemittanceBtn onClick={handleTransaction}>송금</S.RemittanceBtn>
+        <Link to={"/transaction"} style={{ all: "unset" }}>
+          <S.RemittanceBtn>
+            송금
+          </S.RemittanceBtn>
+        </Link>
       </S.FilledFooter>
 
       <S.CardListMenuContainer>
-        <S.CardlistMenuBtn onClick={handleIsCardClicked}>
+        <S.CardlistMenuBtn onClick={handleIsCardClicked} ref={menuBtnRef}>
           <FontAwesomeIcon icon={faEllipsis} />
         </S.CardlistMenuBtn>
 

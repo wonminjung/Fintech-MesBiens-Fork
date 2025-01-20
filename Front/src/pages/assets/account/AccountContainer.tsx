@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import S from "./style";
 import AccountListContainer from "./AccountListContainer";
 import { faAngleDown, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -18,39 +18,42 @@ const AccountContainer: React.FunctionComponent = (): JSX.Element => {
     setIsClickSort((prevState) => !prevState);
   }, []);
   
-  // 수정할 예정.. 다른 곳 클릭해도 드롭다운 메뉴가 닫히도록 구현할 예정
-  const handleDropdown = useCallback(
-    (e: React.MouseEvent): void => {
-      if (
-        sortBtnRef.current &&
-        !sortBtnRef.current.contains(e.target as Node)
-      ) {
-        setIsClickSort(false);
-      }
-    },
-    [setIsClickSort]
-  );
+  useEffect(() => {
+    const closeDropdown = (e: MouseEvent): void => {
+        if ( sortBtnRef.current && !sortBtnRef.current.contains(e.target as Node) ) {
+          setIsClickSort(false);
+        }
+    };
+    
+    // useEffect() 훅함수 내에서 선언하여 렌더링 될 때 전역 이벤트 설정
+    document.addEventListener("click", closeDropdown);
+    
+    // useEffect() 훅함수에서 return은 컴포넌트가 언마운트 될 때 설정한 전역 이벤트도 제거
+    return () => {
+      document.removeEventListener("click", closeDropdown);
+    };
+  }, []);
 
   // 드롭아이템 이벤트 함수
-  const highCost = () => {
-    const newBankInfo = bankInfo.sort((prev: Account, current: Account) => current.accountBalance - prev.accountBalance);
+  const closeDropdownItem = (newBankInfo: Account[]): void => {
     setBankInfo(newBankInfo);
     setIsClickSort(false);
+  };
+  const highCost = () => {
+    const newBankInfo = bankInfo.sort((prev: Account, current: Account) => current.accountBalance - prev.accountBalance);
+    closeDropdownItem(newBankInfo);
   };
   const lowCost = () => {
     const newBankInfo = bankInfo.sort((prev: Account, current: Account) => prev.accountBalance - current.accountBalance);
-    setBankInfo(newBankInfo);
-    setIsClickSort(false);
+    closeDropdownItem(newBankInfo);
   };
   const latest = () => {
     const newBankInfo = bankInfo.sort((prev: Account, current: Account) => new Date(current.accountOpeningDate).getTime() - new Date(prev.accountOpeningDate).getTime());
-    setBankInfo(newBankInfo);
-    setIsClickSort(false);
+    closeDropdownItem(newBankInfo);
   };
   const timeworn = () => {
     const newBankInfo = bankInfo.sort((prev: Account, current: Account) => new Date(prev.accountOpeningDate).getTime() - new Date(current.accountOpeningDate).getTime());
-    setBankInfo(newBankInfo);
-    setIsClickSort(false);
+    closeDropdownItem(newBankInfo);
   };
 
   return (
@@ -59,19 +62,15 @@ const AccountContainer: React.FunctionComponent = (): JSX.Element => {
         <H1>자산 현황</H1>
         <S.SearchAndSortWrapper>
           <S.AddAccountBtn>
-            <FontAwesomeIcon
-              icon={faPlus}
-              onClick={() => handleModal(ModalKeys.ADD_ACCOUNT)}
-            />
+            <FontAwesomeIcon icon={faPlus} onClick={() => handleModal(ModalKeys.ADD_ACCOUNT)} />
           </S.AddAccountBtn>
+
           <S.DropdownContainer>
             <S.AccountSort onClick={toggleIsClickSort} ref={sortBtnRef}>
               <span>정렬 순서</span>
-              <S.AccountSortIcon
-                icon={faAngleDown}
-                data-spinsorticon={isClickSort}
-              />
+              <S.AccountSortIcon icon={faAngleDown} data-spinsorticon={isClickSort} />
             </S.AccountSort>
+
             {isClickSort && (
               <S.Dropdown data-activedropdown={isClickSort}>
                 <S.DropdownItem onClick={highCost}>금액 많은 순</S.DropdownItem>
