@@ -13,26 +13,12 @@ import { H1, H2 } from "../../../components/htags/style";
 export const Board: React.FC = () => {
   const navigate = useNavigate();
 
-  const [boardData, setBoardData] = useState([]);
-
-  useEffect(() => {
-    fetch("/community/C_boardWrite") // 백엔드에서 게시판 목록 API 호출
-      .then((response) => response.json())
-      .then((data) => {
-        setBoardData(data);
-      })
-      .catch((error) => console.error("게시글 가져오기 오류:", error));
-  }, []);
 
   const handleWrite = () => {
     navigate("C_boardWrite");
   };
 
   return (
-
-
-
-
     <BC.Board>
       <BC.BoardContainer>
         <BC.TitleContainer>
@@ -50,7 +36,6 @@ export const Board: React.FC = () => {
           </BC.BoardTable>
         </BC.HeaderContainer>
         <BC.BoardTable>
-          {/* <BoardList boardData={boardData} /> */}
           <BoardList />
         </BC.BoardTable>
 
