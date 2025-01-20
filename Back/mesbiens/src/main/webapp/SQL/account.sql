@@ -13,5 +13,7 @@ insert into account values(account_no_seq.nextval, 16820493, '842391069283', sys
 insert into account values(account_no_seq.nextval, 300, '123456789', sysdate, '1234', 'B003', 2);
 insert into account values(account_no_seq.nextval, 32005690, '72068375610', sysdate, '1234', 'B004', 2);
 insert into account values(account_no_seq.nextval, 8301692720, '17396838267', sysdate, '1234', 'B005', 2);
+insert into account values(account_no_seq.nextval, 898990, '662473856734', sysdate, '1234', 'B005', 2);
+insert into account values(account_no_seq.nextval, 300, '123456789', sysdate, '1234', 'B003', 2);
 
 commit;
