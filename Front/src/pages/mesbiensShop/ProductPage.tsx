@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
+import { useDispatch } from "react-redux";
+import { addToCart } from "./redux/cartSlice"; // addToCart 액션 임포트
 import { shop, p } from "./style";
 import ShoppingNav from "./ShoppingNav";
 
@@ -14,12 +16,9 @@ interface ProductData {
 const ProductPage: React.FC = () => {
   const { productNo } = useParams<{ productNo: string }>();
   const [product, setProduct] = useState<ProductData | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
   const [quantity, setQuantity] = useState<number>(1);
-
-  const handleButtonClick = (category: string) => {
-    setSelectedCategory(category);
-  };
+  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 액션 디스패치
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -41,11 +40,24 @@ const ProductPage: React.FC = () => {
   }, [productNo]);
 
   const handleAddToCart = () => {
-    console.log(`장바구니에 ${quantity}개 ${product?.productName} 추가`);
+    if (product) {
+      const cartItem = {
+        productNo: product.productNo,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        quantity,
+      };
+      dispatch(addToCart(cartItem)); // cartItem 객체를 addToCart 액션에 전달
+      console.log(`장바구니에 ${quantity}개 ${product.productName} 추가`);
+    }
   };
 
   const handleBuyNow = () => {
     console.log(`바로 구매: ${product?.productName}`);
+  };
+
+  const handleGoToCart = () => {
+    navigate("/cart"); // 장바구니 페이지로 이동
   };
 
   if (!product) {
@@ -72,6 +84,8 @@ const ProductPage: React.FC = () => {
             ></p.QtyInput>
             <p.Btn onClick={handleAddToCart}>장바구니 담기</p.Btn>
             <p.Btn onClick={handleBuyNow}>바로구매</p.Btn>
+            <p.Btn onClick={handleGoToCart}>장바구니로 이동</p.Btn>{" "}
+            {/* 장바구니로 이동 버튼 */}
           </p.BtnContainer>
         </p.ProductInfo>
       </shop.BodyContainer>
