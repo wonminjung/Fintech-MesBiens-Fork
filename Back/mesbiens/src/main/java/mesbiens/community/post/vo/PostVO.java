@@ -64,13 +64,21 @@ public class PostVO {
 	@Column(name="post_file")
 	private String postFile;
 	@Column(name="post_file_name")
-	private String posfFileName; // 첨부파일 이름
+	private String postFileName; // 첨부파일 이름
 	@Column(name="post_file_path")
 	private String postFilePath; // 첨부파일 경로
 	@Column(name="post_file_type")
 	private String postFileType; // 첨부파일 유형
 	@Column(name="post_file_size")
-	private String postFileSize; // 첨부파일 크기
+	private String postFileSize; // 첨부파일
+	
+	@Column(name="post_upload_file")
+	private String postUploadFile;
+	
+	@Column(name="post_find_field")
+	private String findField; // 게시판 검색 타입 (Title, Content)
+	@Column(name="post_find_name")
+	private String findName; // 게시판 검색 이름
 	
 	@Column(name="post_modify")
 	private String postModify; // 게시글 수정여부

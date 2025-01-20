@@ -16,7 +16,7 @@ public class PageVO {
     private long totalCount; // 총 레코드 수
     private List<PostVO> PostList; // 페이징된 방명록 목록
 	
-	private String FindField; // 
-	private Object FindName;
+    private String findField; // 게시판 검색 타입 (Title, Content)
+	private String findName; // 게시판 검색 이름
 
 }

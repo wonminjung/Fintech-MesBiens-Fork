@@ -11,5 +11,5 @@ import lombok.Setter;
 public class PostVO2 {
 	
 	private MultipartFile uploadFile;
-	// 실제 업로드 되어진 파일을 저장. bbs_wirte.jsp의 <input type="file" name="uploadFile"의 네임파라미터 이름과 멤버변수명(속성명, 필드명)을 같게 한다.
+	// 실제 업로드 되어진 파일을 저장. Post.tsx의 <input type="file" name="uploadFile"의 네임파라미터 이름과 멤버변수명(속성명, 필드명)을 같게 한다.
 }
