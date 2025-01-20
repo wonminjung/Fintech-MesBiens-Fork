@@ -67,6 +67,11 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
               커뮤니티
             </NavLink>
           </li>
+          <li>
+            <NavLink to={"/MesBiensShop"} onClick={handleCheckLogin}>
+              메비앙샵
+            </NavLink>
+          </li>
         </ul>
       </S.SideMenuListContainer>
     </S.SideBarContainer>

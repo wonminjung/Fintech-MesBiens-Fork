@@ -20,8 +20,10 @@ import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
 import MainPage from "../pages/main/MainPage";
 import AssetsContainer from "../pages/assets/AssetsContainer";
 import Calculator from "../pages/community/calculator/Calculator";
-import MenuBar from "../pages/community/MenuBar";
 import InnerLayout from "../pages/community/InnerLayout";
+import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
+import ProductPage from "../pages/mesbiensShop/ProductPage";
+import CategoryPage from "../pages/mesbiensShop/CategoryPage";
 
 const routes: RouteObject[] = [
   {
@@ -108,6 +110,22 @@ const routes: RouteObject[] = [
     path: "/findId",
     element: <FindIDPage />,
   },
+  {
+    path: "/MesBiensShop",
+    element: <MesBiensShop />,
+  },
+  {
+    path: "/product/:productNo",
+    element: <ProductPage />,
+  },
+  {
+    path: "/category/:category",
+    element: <CategoryPage />,
+  },
+  // {
+  //   path: "ProductPage",
+  //   element: <ProductPage />,
+  // },
   // 나머지 경로
   {
     path: "*",
