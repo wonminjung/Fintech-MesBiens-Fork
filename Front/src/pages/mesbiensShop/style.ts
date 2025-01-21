@@ -95,8 +95,9 @@ export const shop = {
   `,
   Divider: styled.div`
     height: 1px;
-    width: 25rem;
+    width: 100%;
     border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
   `,
   ItemContainer: styled.div`
     display: flex;
@@ -157,7 +158,7 @@ export const p = {
     cursor: pointer;
     height: 100%;
     &:hover {
-      background: #ccc;
+      background: var(--forth-color);
     }
   `,
   QtyInput: styled.input`
@@ -165,5 +166,63 @@ export const p = {
     width: 3rem;
     height: 100%;
     border: none;
+  `,
+};
+
+export const cart = {
+  ContentContainer: styled.div`
+    width: 70%;
+  `,
+  ContentUl: styled.ul`
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  `,
+  ContentLi: styled.li`
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+  `,
+  Thumbnail: styled.img`
+    width: 5rem;
+    height: 5rem;
+    margin-right: 10px;
+  `,
+  ClearCartContainer: styled.div`
+    display: flex;
+    justify-content: flex-end;
+  `,
+  ProductInfo: styled.div`
+    text-align: left;
+    padding-left: 20px;
+    flex: 1;
+  `,
+  QtyContainer: styled.div``,
+  AmountContainer: styled.div`
+    padding: 0 2rem;
+  `,
+  Price: styled.div`
+    padding: 3px 0;
+  `,
+  Input: styled.input`
+    width: 2rem;
+    border: none;
+  `,
+  Btn: styled.button`
+    border: 1px solid black;
+    background-color: transparent;
+    cursor: pointer;
+  `,
+  PurchaseContainer: styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 20px;
+  `,
+  TotalAmount: styled.div`
+    padding-right: 20px;
   `,
 };
