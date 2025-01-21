@@ -16,9 +16,9 @@ const initialState: CartState = {
   cartItems: [], // 초기 상태를 빈 배열로 설정
 };
 
-const cartSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
       const existingItem = state.cartItems.find(
@@ -35,4 +35,4 @@ const cartSlice = createSlice({
 });
 
 export const { addToCart } = cartSlice.actions;
-export default cartSlice.reducer;
+/* export default cartSlice.reducer; */

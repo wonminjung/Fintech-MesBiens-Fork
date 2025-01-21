@@ -36,6 +36,7 @@ export const shop = {
     justify-content: center;
     gap: 10rem;
     z-index: 1;
+    position: relative;
   `,
   NavTab: styled.a`
     cursor: pointer;
@@ -43,6 +44,38 @@ export const shop = {
       color: var(--third-color);
     }
   `,
+  RightContainer: styled.div`
+    position: absolute;
+    right: 2rem;
+    display: flex;
+    gap: 20px;
+  `,
+  Cart: styled.a`
+    border: none;
+    background-image: url(${`${process.env.PUBLIC_URL}/images/shoppingImg/bag.svg`});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    &:hover {
+      background-image: url(${`${process.env.PUBLIC_URL}/images/shoppingImg/bag-fill.svg`});
+    }
+  `,
+  Home: styled.a`
+    background-image: url(${`${process.env.PUBLIC_URL}/images/shoppingImg/house.svg`});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    &:hover {
+      background-image: url(${`${process.env.PUBLIC_URL}/images/shoppingImg/house-fill.svg`});
+    }
+  `,
+
   BodyContainer: styled.div`
     display: flex;
     margin-top: 2rem;

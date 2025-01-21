@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
 import { useDispatch } from "react-redux";
-import { addToCart } from "./redux/cartSlice"; // addToCart 액션 임포트
+import { addToCart } from "../../modules/cart/cartSlice"; // addToCart 액션 임포트
 import { shop, p } from "./style";
 import ShoppingNav from "./ShoppingNav";
 
@@ -57,7 +57,7 @@ const ProductPage: React.FC = () => {
   };
 
   const handleGoToCart = () => {
-    navigate("/cart"); // 장바구니 페이지로 이동
+    navigate("/Cart"); // 장바구니 페이지로 이동
   };
 
   if (!product) {
