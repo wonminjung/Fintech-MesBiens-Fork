@@ -1,7 +1,6 @@
 package mesbiens.security;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
@@ -28,6 +26,12 @@ public class JwtTokenProvider {
     public JwtTokenProvider(@Value("${jwt.secretKey}") String secretKeyBase64, UserDetailsService userDetailsService) {
         // Base64 URL-safe 디코더로 변경
         byte[] decodedKey = Base64.getUrlDecoder().decode(secretKeyBase64);  // URL-safe Base64 디코딩 사용
+        
+        // 키 길이가 256비트(32바이트)가 아닌 경우 예외 처리
+        if (decodedKey.length != 32) {
+            throw new IllegalArgumentException("The secret key must be 256 bits (32 bytes).");
+        }
+        
         this.key = new SecretKeySpec(decodedKey, 0, decodedKey.length, "HmacSHA256");
         this.userDetailsService = userDetailsService;
     }
