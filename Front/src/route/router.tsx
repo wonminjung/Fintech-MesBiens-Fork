@@ -24,6 +24,7 @@ import InnerLayout from "../pages/community/InnerLayout";
 import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
 import ProductPage from "../pages/mesbiensShop/ProductPage";
 import CategoryPage from "../pages/mesbiensShop/CategoryPage";
+import CartPage from "../pages/mesbiensShop/CartPage";
 
 const routes: RouteObject[] = [
   {
@@ -121,6 +122,10 @@ const routes: RouteObject[] = [
   {
     path: "/category/:category",
     element: <CategoryPage />,
+  },
+  {
+    path: "/Cart",
+    element: <CartPage />,
   },
   // {
   //   path: "ProductPage",

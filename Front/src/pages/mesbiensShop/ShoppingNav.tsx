@@ -22,6 +22,10 @@ const ShoppingNav: React.FC = () => {
             {category}
           </shop.NavTab>
         ))}
+        <shop.RightContainer>
+          <shop.Cart href="/Cart" />
+          <shop.Home href="/main" />
+        </shop.RightContainer>
       </shop.Nav>
     </shop.HeaderContainer>
   );

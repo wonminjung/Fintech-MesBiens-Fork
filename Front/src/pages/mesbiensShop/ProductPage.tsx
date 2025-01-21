@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // useNavigate 훅 임포트
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../modules/cart/cartSlice"; // addToCart 액션 임포트
 import { shop, p } from "./style";
 import ShoppingNav from "./ShoppingNav";
-
-interface ProductData {
-  productNo: number;
-  img: string;
-  productName: string;
-  productPrice: string;
-  category: string;
-}
+import { ProductData } from "./ProductData";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../components/modal/keys/ModalKeys";
+import ModalRendererComponent from "../../components/modal/ModalRendererComponent";
 
 const ProductPage: React.FC = () => {
   const { productNo } = useParams<{ productNo: string }>();
   const [product, setProduct] = useState<ProductData | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
   const [quantity, setQuantity] = useState<number>(1);
-
-  const handleButtonClick = (category: string) => {
-    setSelectedCategory(category);
-  };
+  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 액션 디스패치
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
+  const { handleModal } = ModalFunc();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -41,7 +37,19 @@ const ProductPage: React.FC = () => {
   }, [productNo]);
 
   const handleAddToCart = () => {
-    console.log(`장바구니에 ${quantity}개 ${product?.productName} 추가`);
+    if (product) {
+      const cartItem = {
+        productNo: product.productNo,
+        productName: product.productName,
+        productPrice: product.productPrice,
+        productImg: product.img,
+        quantity,
+      };
+      dispatch(addToCart(cartItem)); // cartItem 객체를 addToCart 액션에 전달
+      console.log(`장바구니에 ${quantity}개 ${product.productName} 추가`);
+      console.log(product.productPrice);
+      handleModal(ModalKeys.SHOPPING_CART_MODAL);
+    }
   };
 
   const handleBuyNow = () => {
@@ -60,7 +68,7 @@ const ProductPage: React.FC = () => {
         <p.ProductImg src={product.img} alt={product.productName} />
         <p.ProductInfo>
           <h1>{product.productName}</h1>
-          <p>가격: {product.productPrice}</p>
+          <p>가격: {product.productPrice.toLocaleString()}원</p>
           <p.BtnContainer>
             <label>수량: </label>
             <p.QtyInput
@@ -75,6 +83,8 @@ const ProductPage: React.FC = () => {
           </p.BtnContainer>
         </p.ProductInfo>
       </shop.BodyContainer>
+
+      <ModalRendererComponent />
     </shop.MainContainer>
   );
 };

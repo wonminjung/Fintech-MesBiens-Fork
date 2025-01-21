@@ -3,6 +3,7 @@
 import AddAccount from "./components/account/AddAccount";
 import ModiAccount from "./components/account/ModiAccount";
 import ProfileSetting from "./components/profile/ProfileSetting";
+import ShoppingCartModal from "./components/shopping/shoppingCart";
 import StockTestResult from "./components/stocktest/StockTestResult";
 import { ComponentMap } from "./types";
 
@@ -11,4 +12,5 @@ export const componentMap: ComponentMap = {
   addAccount: AddAccount,
   modiAccount: ModiAccount,
   stockTestResult: StockTestResult,
+  shoppingCartModal: ShoppingCartModal,
 };
