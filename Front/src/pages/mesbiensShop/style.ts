@@ -88,6 +88,23 @@ export const shop = {
     gap: 10rem;
     justify-content: center;
     overflow-y: auto;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
     @media screen and (max: 1000px) {
       width: 50rem;
     }
