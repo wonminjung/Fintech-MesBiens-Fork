@@ -61,9 +61,10 @@ public class MemberService {
         return jwtTokenProvider.createToken(member.getMemberId(), "USER");
     }
 
-    // 사용자 정보 조회
-    public MemberResponseDTO findById(int memberNo) {
-        MemberVO member = memberRepository.findByMemberNo(memberNo)
+    // 사용자 정보 조회 (id를 String으로 처리)
+    public MemberResponseDTO findById(String memberId) {
+        // memberId를 기준으로 조회
+        MemberVO member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         return toResponseDTO(member);
