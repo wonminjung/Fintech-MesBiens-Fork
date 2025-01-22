@@ -4,11 +4,13 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import mesbiens.transaction.dao.TransactionDetailDAO;
 import mesbiens.transaction.vo.TransactionDetailVO;
 import mesbiens.transaction.vo.TransactionType;
 
+@Service
 public class TransactionDetailServiceImpl implements TransactionDetailService {
 
 	@Autowired

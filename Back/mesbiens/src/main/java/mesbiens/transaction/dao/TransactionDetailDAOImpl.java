@@ -4,9 +4,12 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import mesbiens.transaction.vo.TransactionDetailVO;
 import mesbiens.transaction.vo.TransactionType;
 
+@Repository
 public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 
 	@Override
