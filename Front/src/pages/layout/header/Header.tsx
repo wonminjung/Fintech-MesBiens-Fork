@@ -54,6 +54,11 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const test = () => {
+    console.log("test");
+    handleModal(ModalKeys.SIGNUP_SUCCESS);
+  };
+
   return (
     <S.HeaderContainer>
       <S.HeaderWelcome>
@@ -62,6 +67,8 @@ const Header: React.FC = () => {
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         )}
       </S.HeaderWelcome>
+
+      <button onClick={test}>test</button>
 
       <S.SearchContainer>
         {/* {SearchVisible && ( */}

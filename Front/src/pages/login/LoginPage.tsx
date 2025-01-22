@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import L from "./LoginStyle";
 import DefaultButton from "../../components/button/DefaultButton";
@@ -16,12 +16,25 @@ const LoginPage: React.FC = () => {
     userID: "",
     userPassword: "",
   });
-
-  const [cookies, setCookie] = useCookies<string>(["userID"]);
+  const [cookies, setCookie, removeCookie] = useCookies<string>([
+    "userID",
+    "rememberMe",
+  ]);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (cookies.rememberMe) {
+      setLoginForm((prevForm) => ({
+        ...prevForm,
+        userID: cookies.rememberMe,
+      }));
+      setRememberMe(true);
+    }
+  }, [cookies.rememberMe]);
 
   const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -40,8 +53,13 @@ const LoginPage: React.FC = () => {
       console.log("아이디 : " + userID);
       console.log("비밀번호 : " + userPassword);
       handleModal(ModalKeys.LOGIN_SUCCESS);
-      // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
-      setCookie("userID", userID);
+
+      setCookie("userID", userID, { maxAge: 30 * 24 * 60 * 60 });
+      if (rememberMe) {
+        setCookie("rememberMe", userID, { maxAge: 30 * 24 * 60 * 60 });
+      } else {
+        removeCookie("rememberMe");
+      }
 
       navigate("/main");
     }
@@ -53,6 +71,10 @@ const LoginPage: React.FC = () => {
       ...prevForm,
       [name]: value,
     }));
+  };
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(e.target.checked);
   };
 
   return (
@@ -83,8 +105,12 @@ const LoginPage: React.FC = () => {
               onChange={handleChange}
               required
             />
-            <L.RememberMe type="checkbox" />
-            <label htmlFor="remember">ID 기억하기</label>
+            <L.RememberMe
+              type="checkbox"
+              checked={rememberMe}
+              onChange={handleCheckbox}
+            />
+            <label>ID 기억하기</label>
             {errors && <div style={{ color: "red" }}>{errors}</div>}
             <DefaultButton width="100%">Login</DefaultButton>
           </form>

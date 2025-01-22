@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import ModalFunc from "../../utils/ModalFunc";
 import { loginSuccess } from "./style";
+import { useEffect } from "react";
 
 const LoginSuccessModal: React.FC = () => {
   const { closeModal } = ModalFunc();
@@ -11,6 +12,19 @@ const LoginSuccessModal: React.FC = () => {
     navigate("/main");
     window.location.reload();
   };
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        handleButton();
+      }
+    };
+
+    window.addEventListener("keypress", handleKeyPress);
+    return () => {
+      window.removeEventListener("keypress", handleKeyPress);
+    };
+  }, []);
 
   return (
     <loginSuccess.Maincontainer>
