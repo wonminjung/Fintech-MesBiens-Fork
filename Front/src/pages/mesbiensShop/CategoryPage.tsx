@@ -7,7 +7,7 @@ interface ProductData {
   productNo: number;
   img: string;
   productName: string;
-  productPrice: string;
+  productPrice: number;
   category: string;
 }
 
@@ -52,7 +52,7 @@ const CategoryPage: React.FC = () => {
               <shop.ItemImg src={item.img} alt={item.productName} />
               <shop.ItemDescription>
                 <li>{item.productName}</li>
-                <li>{item.productPrice}</li>
+                <li>{item.productPrice.toLocaleString()}원</li>
               </shop.ItemDescription>
             </shop.Item>
           ))}
