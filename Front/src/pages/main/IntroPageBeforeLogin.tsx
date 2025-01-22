@@ -8,15 +8,18 @@ import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 import { RootState } from "../../modules/store/store";
 import { useSelector } from "react-redux";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 
 const IntroPageBeforeLogin: React.FC = () => {
+  const { handleModal } = ModalFunc();
   const [loginForm, setLoginForm] = useState({
     userID: "",
     userPassword: "",
   });
 
   const [cookies, setCookie] = useCookies<string>(["userID"]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
 
   const user = useSelector((state: RootState) => state.user);
@@ -37,13 +40,14 @@ const IntroPageBeforeLogin: React.FC = () => {
       // 유효성 통과 시
       console.log("아이디 : " + userID);
       console.log("비밀번호 : " + userPassword);
-      alert("로그인 성공");
+      // alert("로그인 성공");
+      handleModal(ModalKeys.LOGIN_SUCCESS);
 
       // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
       setCookie("userID", userID, { path: "/" });
 
-      navigate("/main");
-      window.location.reload();
+      // navigate("/main");
+      // window.location.reload();
     }
   };
 

@@ -7,8 +7,11 @@ import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules/store/store";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 
 const LoginPage: React.FC = () => {
+  const { handleModal } = ModalFunc();
   const [loginForm, setLoginForm] = useState({
     userID: "",
     userPassword: "",
@@ -36,10 +39,9 @@ const LoginPage: React.FC = () => {
       // 유효성 통과 시
       console.log("아이디 : " + userID);
       console.log("비밀번호 : " + userPassword);
-      alert("로그인 성공");
-
+      handleModal(ModalKeys.LOGIN_SUCCESS);
       // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
-      setCookie("userID", userID, { path: "/" });
+      setCookie("userID", userID);
 
       navigate("/main");
     }

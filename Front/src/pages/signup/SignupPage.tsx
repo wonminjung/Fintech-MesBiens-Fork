@@ -8,15 +8,17 @@ import { signup } from "../../modules/user/userSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules/store/store";
 import { useNavigate } from "react-router-dom";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 
 const SignupPage: React.FC = () => {
+  const { handleModal } = ModalFunc();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<string>("");
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
@@ -26,18 +28,17 @@ const SignupPage: React.FC = () => {
     if (password !== confirmPassword) {
       setErrors("비밀번호가 일치하지 않습니다!");
     } else {
-      alert("회원가입 완료");
-      navigate("/login");
+      dispatch(signup({ name, email, username, password }));
+      console.log("Signup Data:", {
+        name,
+        email,
+        username,
+        password,
+        confirmPassword,
+      });
+      console.log("Redux State:", user);
+      handleModal(ModalKeys.SIGNUP_SUCCESS);
     }
-    dispatch(signup({ name, email, username, password }));
-    console.log("Signup Data:", {
-      name,
-      email,
-      username,
-      password,
-      confirmPassword,
-    });
-    console.log("Redux State:", user);
   };
 
   return (
