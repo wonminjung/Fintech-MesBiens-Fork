@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 public class MemberService {
 
+	
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
