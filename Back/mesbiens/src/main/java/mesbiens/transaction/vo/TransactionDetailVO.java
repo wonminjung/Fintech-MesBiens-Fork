@@ -3,6 +3,7 @@ package mesbiens.transaction.vo;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -61,6 +62,7 @@ public class TransactionDetailVO {
 	@Enumerated(EnumType.STRING) // Enum(상수) Class만 들어갈때 사용
 	@Column(name="TRNS_type_name", nullable = false)
 	private TransactionType transactionTypeName; // 거래 유형명
+	
 	
 	@Column(name="TRNS_balance", nullable = false)
 	private Long transactionBalance; // 거래 금액
