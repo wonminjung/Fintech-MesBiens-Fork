@@ -73,6 +73,9 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
               메비앙샵
             </NavLink>
           </li>
+          {/* <li>
+            <NavLink to={"/TestPage"}>Test</NavLink>
+          </li> */}
         </ul>
       </S.SideMenuListContainer>
     </S.SideBarContainer>

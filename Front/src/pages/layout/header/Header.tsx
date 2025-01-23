@@ -68,7 +68,7 @@ const Header: React.FC = () => {
         )}
       </S.HeaderWelcome>
 
-      <button onClick={test}>test</button>
+      {/* <button onClick={test}>test</button> */}
 
       <S.SearchContainer>
         {/* {SearchVisible && ( */}
