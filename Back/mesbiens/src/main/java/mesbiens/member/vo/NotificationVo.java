@@ -21,7 +21,7 @@ import java.util.Date;
 @Setter
 public class NotificationVo {
 
-	 @Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "NOTIFICATION_NO")
 	    private int notificationNo;
@@ -31,7 +31,7 @@ public class NotificationVo {
 	    private MemberVO memberVo;
 
 	    @ManyToOne
-	    @JoinColumn(name = "type_Id", referencedColumnName = "NTFC_type_id", nullable = false)
+	    @JoinColumn(name = "notificationTypeNo", referencedColumnName = "notificationType_No", nullable = false)
 	    private NotificationType notificationType;
 	    
 	    @Column(name = "NTFC_title", nullable = false, length = 100)

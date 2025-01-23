@@ -16,11 +16,11 @@ import lombok.Setter;
 @Setter
 public class NotificationType {
 
-	 @Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notification_type_seq")
 	    @SequenceGenerator(name = "notification_type_seq", sequenceName = "notification_type_seq", allocationSize = 1)
-	    @Column(name = "NTFC_type_id")
-	    private int typeId; // 유형 ID
+	    @Column(name = "notificationType_No")
+	    private int notificationTypeNo; // 유형 ID
 
 	    @Column(name = "NTFC_type_name", nullable = false, length = 50, unique = true)
 	    private String typeName; // 유형 이름 (예: SYSTEM, PROMOTION)
