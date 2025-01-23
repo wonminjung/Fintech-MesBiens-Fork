@@ -38,8 +38,9 @@ const SignupPage: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+
     if (password === "") {
       setErrors(
         "대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요."
@@ -62,9 +63,9 @@ const SignupPage: React.FC = () => {
       });
       console.log("Redux State:", user);
       handleModal(ModalKeys.SIGNUP_SUCCESS);
+      alert("회원가입 완료");
     }
   };
-
   return (
     <L.Body>
       <L.MainContainer>

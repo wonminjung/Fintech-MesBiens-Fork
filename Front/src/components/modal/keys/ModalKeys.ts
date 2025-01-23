@@ -8,4 +8,6 @@ export const ModalKeys = {
   LOGOUT_SUCCESS: "logoutSuccessModal",
   LOGIN_REQUIRE: "loginRequireModal",
   SIGNUP_SUCCESS: "signupSuccessModal",
+  SEND_MEMO: "sendMemoModal",
+  ACCOUNT_PWD: "accountPwdModal",
 };

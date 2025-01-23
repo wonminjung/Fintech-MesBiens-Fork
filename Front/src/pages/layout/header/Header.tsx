@@ -72,12 +72,12 @@ const Header: React.FC = () => {
 
       <S.SearchContainer>
         {/* {SearchVisible && ( */}
-        <S.SearchBarContainer>
+        {/* <S.SearchBarContainer>
           <S.SearchInput type="text" placeholder="Search.." />
           <S.PlainBtn>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </S.PlainBtn>
-        </S.SearchBarContainer>
+        </S.SearchBarContainer> */}
 
         <S.LoginSignupContainer>
           <VerticalDivider style={{ height: "30px" }} />

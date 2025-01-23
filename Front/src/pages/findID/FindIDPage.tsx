@@ -97,6 +97,7 @@ const FindIDPage: React.FC = () => {
                   placeholder="인증번호 입력"
                   value={confirmID}
                   onChange={(e) => setConfirmID(e.target.value)}
+                  required
                 />
                 <DefaultButton type="submit" width="100%" height="2.5em">
                   확인

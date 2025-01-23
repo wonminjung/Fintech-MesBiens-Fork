@@ -9,6 +9,8 @@ import SignupSuccessModal from "./components/login/signupSuccess";
 import ProfileSetting from "./components/profile/ProfileSetting";
 import ShoppingCartModal from "./components/shopping/shoppingCart";
 import StockTestResult from "./components/stocktest/StockTestResult";
+import AccountPwdModal from "./components/transaction/accountPwd";
+import SendMemoModal from "./components/transaction/sendMemo";
 import { ComponentMap } from "./types";
 
 export const componentMap: ComponentMap = {
@@ -21,4 +23,6 @@ export const componentMap: ComponentMap = {
   logoutSuccessModal: LogoutSuccessModal,
   loginRequireModal: LoginRequireModal,
   signupSuccessModal: SignupSuccessModal,
+  sendMemoModal: SendMemoModal,
+  accountPwdModal: AccountPwdModal,
 };
