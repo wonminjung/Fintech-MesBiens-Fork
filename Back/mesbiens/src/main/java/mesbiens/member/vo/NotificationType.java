@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,14 +16,15 @@ import lombok.Setter;
 @Setter
 public class NotificationType {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "type_id")
-    private int typeId; // 유형 ID
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notification_type_seq")
+	    @SequenceGenerator(name = "notification_type_seq", sequenceName = "notification_type_seq", allocationSize = 1)
+	    @Column(name = "NTFC_type_id")
+	    private int typeId; // 유형 ID
 
-    @Column(name = "type_name", nullable = false, length = 50, unique = true)
-    private String typeName; // 유형 이름 (예: SYSTEM, PROMOTION)
+	    @Column(name = "NTFC_type_name", nullable = false, length = 50, unique = true)
+	    private String typeName; // 유형 이름 (예: SYSTEM, PROMOTION)
 
-    @Column(name = "description", length = 255)
-    private String description; // 유형 설명
+	    @Column(name = "NTFC_description", length = 255)
+	    private String description; // 유형 설명
 }

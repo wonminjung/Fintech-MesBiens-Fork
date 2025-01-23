@@ -31,7 +31,7 @@ public class NotificationVo {
 	    private MemberVO memberVo;
 
 	    @ManyToOne
-	    @JoinColumn(name = "type_id", referencedColumnName = "type_id", nullable = false)
+	    @JoinColumn(name = "type_Id", referencedColumnName = "NTFC_type_id", nullable = false)
 	    private NotificationType notificationType;
 	    
 	    @Column(name = "NTFC_title", nullable = false, length = 100)
