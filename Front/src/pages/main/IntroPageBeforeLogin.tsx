@@ -166,9 +166,8 @@ const IntroPageBeforeLogin: React.FC = () => {
             <DefaultButton width="100%">Login</DefaultButton>
           </form>
           <I.SignUp>
-            <I.P_tag style={{ textAlign: "right" }}>
-              <a href="/signup">회원가입</a>
-            </I.P_tag>
+            <a href="/signup">회원가입</a>
+            <a href="findID">아이디/비밀번호 찾기</a>
           </I.SignUp>
         </I.Container_bottom>
       </M.LoginContainer>

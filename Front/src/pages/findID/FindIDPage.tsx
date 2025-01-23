@@ -97,7 +97,6 @@ const FindIDPage: React.FC = () => {
                   placeholder="인증번호 입력"
                   value={confirmID}
                   onChange={(e) => setConfirmID(e.target.value)}
-                  required
                 />
                 <DefaultButton type="submit" width="100%" height="2.5em">
                   확인
@@ -160,7 +159,7 @@ const FindIDPage: React.FC = () => {
           </L.P_tag>
           <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
           <L.P_tag style={{ margin: "20px" }}>
-            <a href="/intro">홈으로</a> 나가기
+            <a href="/">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>
