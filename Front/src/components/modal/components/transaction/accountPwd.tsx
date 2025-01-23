@@ -1,12 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import ModalFunc from "../../utils/ModalFunc";
 import React, { useEffect, useState } from "react";
 import DefaultButton from "../../../button/DefaultButton";
 import { Memo } from "./style";
 import { useDispatch } from "react-redux";
 import { setAccountPwd } from "../../../../modules/transaction/accountPwdSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../modules/store/store";
 
 const AccountPwdModal: React.FC = () => {
   const [accountInputValue, setAccountInputValue] = useState("");
@@ -16,9 +13,12 @@ const AccountPwdModal: React.FC = () => {
   //   console.log(accountInputValue);
   // };
 
-  const handleButton = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAccountInputValue(e.target.value);
-    console.log(accountInputValue);
+    console.log(setAccountInputValue);
+  };
+
+  const handleButton = () => {
     if (accountInputValue === "0000") {
       dispatch(setAccountPwd(accountInputValue));
     } else {
@@ -30,7 +30,7 @@ const AccountPwdModal: React.FC = () => {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        handleButton(e as unknown as React.ChangeEvent<HTMLInputElement>);
+        handleButton();
       }
     };
 
@@ -43,7 +43,7 @@ const AccountPwdModal: React.FC = () => {
   return (
     <Memo.MainContainer>
       <h1>계좌 비밀번호 입력</h1>
-      <Memo.Input placeholder="계좌 비밀번호" />
+      <Memo.Input placeholder="계좌 비밀번호" onChange={handleInput} />
       <DefaultButton onClick={handleButton}>입력</DefaultButton>
     </Memo.MainContainer>
   );

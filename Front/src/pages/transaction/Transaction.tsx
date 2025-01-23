@@ -36,9 +36,10 @@ const Transaction: React.FC = () => {
     set입력금액(입력금액);
   };
   const handle금액 = () => {
-    console.log(`입력금액: ${입력금액}`);
+    console.log(`출금 금액: ${입력금액}`);
   };
   const handleInputClick = () => {
+    console.log("입금 계좌번호 : " + 계좌번호);
     if (계좌번호.length >= 10 && 계좌번호.length <= 14) {
       setShowBankDetails(true);
     } else if (계좌번호 === "") {
@@ -63,12 +64,12 @@ const Transaction: React.FC = () => {
 
   const handleBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedBank = event.target.value;
-    console.log(selectedBank);
+    console.log("입금 은행 : " + selectedBank);
     setSelectedBank(selectedBank);
   };
   const handleMyBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const mySelectedBank = event.target.value;
-    console.log(mySelectedBank);
+    console.log("출금 은행 : " + mySelectedBank);
     setMySelectedBank(mySelectedBank);
     if (amountRef.current) {
       amountRef.current.focus();
@@ -77,7 +78,6 @@ const Transaction: React.FC = () => {
 
   const handle계좌번호 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const 계좌번호 = event.target.value;
-    console.log(계좌번호);
     set계좌번호(계좌번호);
   };
 
@@ -97,13 +97,15 @@ const Transaction: React.FC = () => {
     handleModal(ModalKeys.SEND_MEMO);
   };
 
-  // useEffect(() => {
-  //   if (accountPassword === "0000") {
-  //     setShowConfirm(true);
-  //   } else {
-  //     alert("비밀번호가 틀립니다!");
-  //   }
-  // }, [accountPassword]);
+  useEffect(() => {
+    if (accountPassword === "0000") {
+      setShowConfirm(true);
+    } else if (accountPassword !== "") {
+      alert("비밀번호가 틀립니다!");
+    } else {
+      return;
+    }
+  }, [accountPassword]);
 
   return (
     <T.MainContainer>
