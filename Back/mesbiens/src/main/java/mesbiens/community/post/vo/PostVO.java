@@ -70,7 +70,7 @@ public class PostVO {
 	@Column(name="post_file_type")
 	private String postFileType; // 첨부파일 유형
 	@Column(name="post_file_size")
-	private String postFileSize; // 첨부파일
+	private Long postFileSize; // 첨부파일
 	
 	@Column(name="post_upload_file")
 	private String postUploadFile;

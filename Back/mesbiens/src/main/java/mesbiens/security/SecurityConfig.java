@@ -26,9 +26,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers
                 ("/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/logout/*",
-                		"/quiz/list","quiz/{quizId}","quiz//update/{quizId}","/quiz/delete/{quizId}",
-                		"/community/C_board/C_boardWrite","/community/C_board/C_boardWrite_ok","/community/C_board","/community/{postNo}","community/{postNo}/view"
-                		,"/community/{postNo}","/account/add","/account/modify","/account/delete"
+                		"/quiz/list","quiz/{quizId}","quiz//update/{quizId}","/quiz/delete/{quizId}"
+//                		"/community/C_board/C_boardWrite","/community/C_board/C_boardWrite_ok","/community/C_board","/community/C_board/{postNo}","/community/C_board/{postNo}/view","/community/C_board/{postNo}"
+                		,"/community/**"
+                		,"/account/**"
+//                		,"/account/add","/account/modify","/account/delete"
                 		,"/notifications/member/{memberNo}","/notifications/{notificationNo}/read"
                 		,"/notifications").permitAll() // 경로 접근 허용
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요

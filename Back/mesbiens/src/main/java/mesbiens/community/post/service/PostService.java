@@ -2,10 +2,10 @@ package mesbiens.community.post.service;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletRequest;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
 
@@ -18,7 +18,7 @@ public interface PostService {
 	void insertPost(PostRequestDTO postRequest, HttpServletRequest request) throws Exception; // 게시판 저장
 
 
-	Map<String, Object> getPostList(int page, int limit, String findField, String findName); // 게시판 목록
+	Map<String, Object> getPostList(int page, int limit); // 게시판 목록
 
 
 	PostVO getPostWithViewIncrease(int postNo); // 게시글 내용보기(조회수 증가 게시글 상세 보기)

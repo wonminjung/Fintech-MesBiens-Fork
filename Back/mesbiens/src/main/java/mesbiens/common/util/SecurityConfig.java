@@ -11,7 +11,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 				.allowedOriginPatterns("http://localhost:4000/*") // 허용할 출처 : React 도메인 
-				.allowedMethods("GET", "POST", "DELETE", "UPDATE") // 허용할 HTTP method
+				.allowedMethods("GET", "POST", "DELETE", "UPDATE", "DELETE", "OPTIONS") // 허용할 HTTP method
 				.allowCredentials(true); // 쿠키 인증 요청 허용
 				
 	}

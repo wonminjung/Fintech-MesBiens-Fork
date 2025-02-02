@@ -11,16 +11,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import mesbiens.community.post.dao.PostDAO;
 import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
+import mesbiens.member.vo.MemberVO;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -28,8 +31,11 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDAO postDAO;
 	
+//	 @Autowired
+//	private ServletContext servletContext; // ServletContext 주입
+	
 	// 게시판 저장시 이름을 순차적인 숫자를 넣기위한 카운터
-	private static final String COUNTER_FILE_PATH = "upload/counter.txt"; // 카운터 파일 위치
+	private static final String COUNTER_FILE_PATH = "src/main/webapp/upload/counter.txt"; // 카운터 파일 위치
 
 	// 게시판 글쓰기
 	@Override
@@ -42,23 +48,30 @@ public class PostServiceImpl implements PostService {
 	}
 
 	// 게시판 저장
+	@Transactional
 	@Override
 	public void insertPost(PostRequestDTO postRequest, HttpServletRequest request) throws Exception {
 		
 		PostVO postVO = new PostVO();
+		postVO.setPostNo(0);
 		postVO.setPostTitle(postRequest.getPostTitle());
 	    postVO.setPostCont(postRequest.getPostCont());
 	    postVO.setFindField(postRequest.getFindField());
 	    postVO.setFindName(postRequest.getFindName());
 	    postVO.setPostModify(postRequest.getPostModify());
+	    
+	    MemberVO member = new MemberVO();
+	    member.setMemberNo(2); // 실제 존재하는 회원 ID로 설정 (테스트용)
+	    postVO.setMemberNo(member);
 		
-		String uploadFolder = request.getSession().getServletContext().getRealPath("upload");
+		String uploadFolder = request.getServletContext().getRealPath("/upload");
 		// 업로드될 파일의 디렉터리의 실제경로(RealPath)를 읽어옴
 
         MultipartFile uploadFile = postRequest.getUploadFile(); // 업로드될 파일이름을 받아옴
 
         // 업로드 파일이 있을경우 만 동작
         if (!uploadFile.isEmpty()) {
+        	
             String fileName = uploadFile.getOriginalFilename(); // 사용자가 업로드한 원본 파일명을 가져옴
 
             Calendar cal = Calendar.getInstance();
@@ -88,29 +101,45 @@ public class PostServiceImpl implements PostService {
             String fileExtension = (index != -1) ? fileName.substring(index + 1) : ""; // 확장자
                         
             // **파일명 생성 (bbsYYYYMMDD_000000.확장자)**
-            String refFileName = "bbs" + year + month + date + "_" + fileCounterStr + "." + fileExtension;
+            String refFileName = "mesbiens" + year + month + date + "_" + fileCounterStr + "." + fileExtension;
             String postFilePath = "/" + today + "/" + refFileName;
-
-            
-            // 파일 이름에 난수가 아닌 6자리숫자 순차 증가 방식으로 이름 지정
-//            Random r = new Random();
-//            int random = r.nextInt(100000000); // 파일 이름 난수 설정
-//            int index = fileName.lastIndexOf("."); // 우측에서 부터 읽어서 "."의 인덱스 번호값을 가져옴 
-//            String fileExtension = fileName.substring(index + 1); // 인덱스 값의 + 1의 문자열(확장자)를 읽어옴
-//            String refFileName = "Post" + year + month + date + random + "." + fileExtension; // PostYYYYMMDD[random].확장자 형식의 파일명 생성
-//            String postFileName = "/" + year + "-" + month + "-" + date + "/" + refFileName; // 
-
-            postVO.setPostFile(postFilePath);
 
             File saveFile = new File(homedir + "/" + refFileName); // 저장될 파일의 이름및 경로를 지정
             // upload/현재날짜 폴더/PostYYYYMMDD[random].확장자 형식으로 지정
             
+//            System.out.println("파일 저장 경로 : "+homedir);
+//            System.out.println("파일 저장 경로: " + homedir + "/" + refFileName);
+//            System.out.println("파일 존재 여부: " + saveFile.exists());
+//            System.out.println("Upload 파일 명 : "+uploadFile.getOriginalFilename());
+//        	System.out.println("Upload 파일 크기 : "+uploadFile.getSize());
+//        	System.out.println("Upload 파일 이름/확장자 : "+uploadFile.getContentType());
+//        	System.out.println("쓰기 권한 여부: " + saveFile.canWrite());
+        	
+        	postVO.setPostFilePath(postFilePath); // 저장될 파일 경로
+            postVO.setPostFileName(refFileName); // 저장될 파일 이름
+            postVO.setPostFileSize(uploadFile.getSize()); // 저장될 파일 크기
+            
+            String[] parts = postFilePath.split("/");
+            if (parts.length == 2) {
+                String fileType = parts[1];
+                System.out.println(fileType);  // 결과: png
+                postVO.setPostFileType(fileType);
+            } // 저장될 파일 확장자
+            
+            
+            
+        	// 동일한 파일명 존재시
+        	if (saveFile.exists()) {
+        	    saveFile.delete(); // 기존 파일 삭제
+        	}
+        	
             try {
             	uploadFile.transferTo(saveFile);
             } catch (Exception e) {
-            	throw new RuntimeException("파일 업로드 중 오류 발생", e);
+            	throw new RuntimeException("파일 업로드 중 오류 발생" + e.getMessage(), e);
             }
         } else {
+        	// 첨부파일이 없는 경우
             postRequest.setPostFile("");
         }
 
@@ -163,13 +192,10 @@ public class PostServiceImpl implements PostService {
 
 	// 게시판 목록
     @Override
-    public Map<String, Object> getPostList(int page, int limit, String findField, String findName) {
+    public Map<String, Object> getPostList(int page, int limit) {
     	
         // 검색 및 페이징 정보 설정
         PageVO pageVO = new PageVO();
-        pageVO.setFindField(findField);
-        pageVO.setFindName(findName != null ? "%" + findName + "%" : null);
-        // url에 정보를 넣기 위해 findName이 null이 아니라면 %findName 작성 or null 이라면 %null 값 입력
         
         pageVO.setStartrow((page - 1) * limit + 1);
         pageVO.setEndrow(pageVO.getStartrow() + limit - 1);
@@ -191,8 +217,6 @@ public class PostServiceImpl implements PostService {
         response.put("endpage", endpage);
         response.put("maxpage", maxpage);
         response.put("totalCount", totalCount);
-        response.put("findField", findField);
-        response.put("findName", findName);
 
         return response;
     } // 게시판 목록
@@ -225,8 +249,8 @@ public class PostServiceImpl implements PostService {
         if (!postVO.getMemberNo().equals(postRequest.getMemberNo())) {
             throw new RuntimeException("사용자 계정이 일치하지 않습니다.");
         }
-
-        String uploadFolder = request.getSession().getServletContext().getRealPath("/upload");
+        
+        String uploadFolder = request.getServletContext().getRealPath("/upload");
         String postFilePath = "";
 
         if (uploadFile != null && !uploadFile.isEmpty()) { // 첨부파일이 존재한다면
