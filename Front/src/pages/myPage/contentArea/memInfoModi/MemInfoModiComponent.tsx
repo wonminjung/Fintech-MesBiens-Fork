@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import S from './style';
 import FormFiledComponent from './FormFiledComponent';
 import { Info } from './types';
+import { RootState } from '../../../../modules/store/store';
+import { useSelector } from 'react-redux';
 
 const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
+    const member = useSelector((state: RootState) => state.user);
     const tempMemInfo = [
         {
             fieldName: "아이디",
-            value: "hongil"
+            value: member.username
         },
         {
             fieldName: "닉네임",
-            value: "화성갈끄니까"
+            value: member.name
         },
         {
             fieldName: "이름",
@@ -23,7 +26,7 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
         },
         {
             fieldName: "이메일",
-            value: "doji@tesla.co.kr"
+            value: member.email
         },
         {
             fieldName: "주소",
