@@ -69,7 +69,9 @@ public class MemberVO {
 	private String memberProfile;
 	
 	@Column(name = "member_sns_sign_up_YN", nullable = false, length = 1) // SNS 가입 여부 ('Y' 또는 'N')
-	private String memberSnsSignUpYN; 
+	private String memberSnsSignUpYN;
+
+	private String roles; // 역할을 저장하는 필드
 
 
 }
