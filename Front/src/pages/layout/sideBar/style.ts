@@ -43,6 +43,7 @@ const S = {
       & > li {
         cursor: pointer;
         position: relative;
+        margin-bottom: 10px;
 
         & > a {
           color: var(--text-color-white);

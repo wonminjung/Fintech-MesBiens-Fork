@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../modules/store/store";
 import ModalFunc from "../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
+import ModalRendererComponent from "../../components/modal/ModalRendererComponent";
 
 const SignupPage: React.FC = () => {
   const { handleModal } = ModalFunc();
@@ -63,7 +64,8 @@ const SignupPage: React.FC = () => {
       });
       console.log("Redux State:", user);
       handleModal(ModalKeys.SIGNUP_SUCCESS);
-      alert("회원가입 완료");
+      console.log("회원가입 완료");
+      // alert("회원가입 완료");
     }
   };
   return (
@@ -137,6 +139,7 @@ const SignupPage: React.FC = () => {
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>
+      <ModalRendererComponent />
     </L.Body>
   );
 };
