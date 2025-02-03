@@ -3,8 +3,6 @@ import S from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { Account } from "../types";
-import ModalFunc from "../../../components/modal/utils/ModalFunc";
-import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 import { Link } from "react-router-dom";
 import ResponseType from "../../../common/response/ResponseType";
 
@@ -18,10 +16,8 @@ type Props = {
 const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct, bankInfo, setBankInfo }): JSX.Element => {
   const { bankName, bankLogo } = acct.bankCode;
   const { accountNumber, accountBalance } = acct;
-  const { handleModal } = ModalFunc();
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   
-
   // 잔액 숨기기 상태
   const [displayBtn, setDisplayBtn] = useState<boolean>(true);
   const handleDisplay = useCallback(() => {
@@ -57,12 +53,6 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
     return () => document.removeEventListener("click", closeCard);
   }, []);
 
-  // 계좌 수정 함수
-  const handleModi = () => {
-    handleModal(ModalKeys.MODI_ACCOUNT, acct);
-    setIsCardClicked(false);
-  };
-
   // 계좌 삭제 함수
   const deleteAccount = async () => {
     try {
@@ -92,7 +82,7 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
       }
 
     }catch(err) {
-      alert(err);
+      alert("계좌를 삭제하는데 문제가 발생했습니다.");
     }
     
   };
@@ -136,7 +126,6 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
 
         {isCardClicked && (
           <S.CardlistDropdown>
-            <S.CardlistDropDownItems onClick={handleModi}>계좌 정보 수정</S.CardlistDropDownItems>
             <S.CardlistDropDownItems onClick={deleteAccount}>계좌 삭제</S.CardlistDropDownItems>
           </S.CardlistDropdown>
         )}

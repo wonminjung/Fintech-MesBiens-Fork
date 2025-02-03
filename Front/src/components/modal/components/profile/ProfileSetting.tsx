@@ -4,6 +4,8 @@ import ModalFunc from '../../utils/ModalFunc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ModalPropsType } from '../../../../modules/modal/types';
+import { RootState } from '../../../../modules/store/store';
+import { useSelector } from 'react-redux';
 
 type Props = {
     modalProps: ModalPropsType;
@@ -12,6 +14,7 @@ type Props = {
 const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element => {
     const [ selectedFile, setSelectedFile ] = useState<File|null>(null);
     const { closeModal } = ModalFunc();
+    const member = useSelector((state: RootState) => state.user);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFile(e.target.files?.[0] || null);
@@ -42,8 +45,8 @@ const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Ele
                         </S.ProfileLabel>
                     </S.ProfileImageContainer>
                     <S.ImageUpload type="file" id="profileImg" name="profileImg" onChange={handleFileChange}/>
-                    <S.UserName>화성갈끄니까</S.UserName>
-                    <S.UserEmail>doji@tesla.co.kr</S.UserEmail>
+                    <S.UserName>{member.name}</S.UserName>
+                    <S.UserEmail>{member.email}</S.UserEmail>
                 </S.ProfileBody>
 
                 <S.ProfileFooter>

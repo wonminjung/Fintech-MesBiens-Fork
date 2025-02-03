@@ -30,7 +30,13 @@ public class TransactionDetailController {
 
     @GetMapping // 거래 내역 조회 (전체 조회)
     public List<TransactionDetailVO> getAllTransactionList() {
-        return trsdService.getAllTransactionList();
+    	List<TransactionDetailVO> trnsList = trsdService.getAllTransactionList();
+//    	
+//    	
+//    	if()
+//    	
+//        return ;
+    	return trnsList;
     }
 
     // 특정 날짜 범위 거래 내역 조회

@@ -25,8 +25,9 @@ const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBan
   useEffect(() => {
     getAccountList()
     .then(({ acctList, response }) => {
-      console.log(response);
-      setBankInfo(acctList);
+      if(response.status === 200 && response.ok) {
+        setBankInfo(acctList);
+      }
     })
     .catch(() => { console.log("데이터 가져오기 실패") });
   }, []);
