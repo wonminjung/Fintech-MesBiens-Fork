@@ -1,6 +1,7 @@
 package mesbiens.community.post.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -97,6 +98,17 @@ public class PostDAOImpl implements PostDAO {
 	@Override
 	public void updatePost(PostVO postVO) {
 		postRepository.save(postVO); // JPA에서 업데이트 처리 (save()는 자동으로 수정 적용)		
-	}	
+	}
+
+	@Override
+	public void deletePost(int postNo) {
+	    Optional<PostVO> postOptional = postRepository.findById(postNo);
+	    if (postOptional.isPresent()) {
+	        postRepository.delete(postOptional.get());
+	    } else {
+	        throw new RuntimeException("게시글을 찾을 수 없습니다: " + postNo);
+	    }
+	}
+
 	
 }

@@ -29,7 +29,10 @@ public interface PostService {
 	void increaseViewCount(int postNo); // 조회수 증가
 
 
-	void editPost(int postNo, PostRequestDTO postRequest, MultipartFile uploadFile, HttpServletRequest request); // 게시글 수정
+	void editPost(int postNo, PostRequestDTO postRequest, HttpServletRequest request); // 게시글 수정
+
+
+	void deleteBbs(int postNo, String delPwd, HttpServletRequest request, String memberNo);
 	
 
 }

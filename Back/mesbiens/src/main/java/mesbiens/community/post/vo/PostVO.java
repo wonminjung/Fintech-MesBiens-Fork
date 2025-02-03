@@ -1,7 +1,7 @@
 package mesbiens.community.post.vo;
 
 import java.sql.Timestamp;
-
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -62,7 +62,7 @@ public class PostVO {
 	private int postHit; // 조회수
 	
 	@Column(name="post_file")
-	private String postFile;
+	private int postFile; // 첨부파일 여부
 	@Column(name="post_file_name")
 	private String postFileName; // 첨부파일 이름
 	@Column(name="post_file_path")
@@ -70,15 +70,18 @@ public class PostVO {
 	@Column(name="post_file_type")
 	private String postFileType; // 첨부파일 유형
 	@Column(name="post_file_size")
-	private Long postFileSize; // 첨부파일
+	private Long postFileSize; // 첨부파일 크기
 	
 	@Column(name="post_upload_file")
 	private String postUploadFile;
 	
 	@Column(name="post_find_field")
-	private String findField; // 게시판 검색 타입 (Title, Content)
+	private String postFindField; // 게시판 검색 타입 (Title, Content)
 	@Column(name="post_find_name")
-	private String findName; // 게시판 검색 이름
+	private String postFindName; // 게시판 검색 이름
+	
+	@Column(name="post_password")
+	private String postPassword; // 게시판 비밀번호
 	
 	@Column(name="post_modify")
 	private String postModify; // 게시글 수정여부
@@ -89,7 +92,7 @@ public class PostVO {
 	
 	@Column(name="post_modify_date")
 	@CreationTimestamp
-	private Timestamp postModifyDate; // 게시글 수정일시
+	private Date postModifyDate; // 게시글 수정일시
 	
 	
 //	@OneToMany(mappedBy = "postVO", orphanRemoval = true)

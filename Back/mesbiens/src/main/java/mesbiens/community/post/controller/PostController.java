@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -74,7 +76,7 @@ public class PostController {
 	
 	// 게시글 내용보기(게시글 상세보기)
 	@GetMapping("/C_board/{postNo}")
-    public ResponseEntity<PostVO> getPostNo(@PathVariable int postNo, 
+    public ResponseEntity<PostVO> getPostNo(@PathVariable(name = "postNo") int postNo, 
                                           @RequestParam(value = "state", required = false, defaultValue = "post_cont") String state) {
 		PostVO postVO;
 
@@ -89,23 +91,45 @@ public class PostController {
 	
 	// 게시글 내용보기(게시글 조회수 증가)
 	@PutMapping("/C_board/{postNo}/view")
-    public ResponseEntity<String> increasePostView(@PathVariable int postNo) {
+    public ResponseEntity<String> increasePostView(@PathVariable(name = "postNo") int postNo) {
         postService.increaseViewCount(postNo);
         return ResponseEntity.ok("조회수 증가 성공");
     }
 	
     // 게시글 수정 (파일 업로드 포함)
     @PutMapping("/C_board/{postNo}")
-    public ResponseEntity<String> editPostNo(@PathVariable int postNo,
-//								    	   @RequestPart("postRequest") PostRequestDTO postRequest,
-    									   @RequestParam(value = "postRequest", required = false) PostRequestDTO postRequest,
-								    	   @RequestPart(value = "uploadFile", required = false) MultipartFile uploadFile,
-                                           HttpServletRequest request) {
+    public ResponseEntity<String> editPostNo(@PathVariable(name = "postNo") int postNo,
+								    		@ModelAttribute PostRequestDTO postRequest,  
+										    @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
+											) 
+    {  
+    	HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         try {
-            postService.editPost(postNo, postRequest, uploadFile, request);
+            postService.editPost(postNo, postRequest, request);
             return ResponseEntity.ok("게시글 수정 성공");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 수정 실패: " + e.getMessage());
+        }
+    }
+    
+ // 게시글 삭제 (RESTful 방식)
+    @DeleteMapping("/C_board/{postNo}")
+    public ResponseEntity<String> deleteBbs(
+            @PathVariable(name = "postNo") int postNo,
+            @RequestBody Map<String, String> requestbody,
+            HttpServletRequest request) {
+    	
+    	// JSON Data로 받기위함
+    	String delPwd = requestbody.get("delPwd");
+    	String memberNo = requestbody.get("member_no");
+
+        try {
+            postService.deleteBbs(postNo, delPwd, request, memberNo);
+            return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("비밀번호가 일치하지 않습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제 실패: " + e.getMessage());
         }
     }
 	

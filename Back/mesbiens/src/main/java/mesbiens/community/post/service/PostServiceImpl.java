@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,13 +58,14 @@ public class PostServiceImpl implements PostService {
 		postVO.setPostNo(0);
 		postVO.setPostTitle(postRequest.getPostTitle());
 	    postVO.setPostCont(postRequest.getPostCont());
-	    postVO.setFindField(postRequest.getFindField());
-	    postVO.setFindName(postRequest.getFindName());
-	    postVO.setPostModify(postRequest.getPostModify());
+	    postVO.setPostFindField(postRequest.getPostFindField());
+	    postVO.setPostFindName(postRequest.getPostFindName());
+	    postVO.setPostPassword(postRequest.getPostPassword());
+//	    postVO.setPostModify(postRequest.getPostModify());
 	    
-	    MemberVO member = new MemberVO();
-	    member.setMemberNo(2); // 실제 존재하는 회원 ID로 설정 (테스트용)
-	    postVO.setMemberNo(member);
+//	    MemberVO member = new MemberVO();
+//	    member.setMemberNo(2); // 실제 존재하는 회원 ID로 설정 (테스트용)
+//	    postVO.setMemberNo(member);
 		
 		String uploadFolder = request.getServletContext().getRealPath("/upload");
 		// 업로드될 파일의 디렉터리의 실제경로(RealPath)를 읽어옴
@@ -71,6 +74,8 @@ public class PostServiceImpl implements PostService {
 
         // 업로드 파일이 있을경우 만 동작
         if (!uploadFile.isEmpty()) {
+        	
+        	int validUploadFile = 1; // 첨부파일이 있다는 유효성
         	
             String fileName = uploadFile.getOriginalFilename(); // 사용자가 업로드한 원본 파일명을 가져옴
 
@@ -118,6 +123,7 @@ public class PostServiceImpl implements PostService {
         	postVO.setPostFilePath(postFilePath); // 저장될 파일 경로
             postVO.setPostFileName(refFileName); // 저장될 파일 이름
             postVO.setPostFileSize(uploadFile.getSize()); // 저장될 파일 크기
+            postVO.setPostFile(validUploadFile);
             
             String[] parts = postFilePath.split("/");
             if (parts.length == 2) {
@@ -140,7 +146,7 @@ public class PostServiceImpl implements PostService {
             }
         } else {
         	// 첨부파일이 없는 경우
-            postRequest.setPostFile("");
+            postRequest.setPostFile(0);
         }
 
         postDAO.insertPost(postVO);	
@@ -242,74 +248,114 @@ public class PostServiceImpl implements PostService {
 
 	// 게시글 수정
 	@Override
-	public void editPost(int postNo, PostRequestDTO postRequest, MultipartFile uploadFile, HttpServletRequest request) {
-		
-		PostVO postVO = postDAO.getPostById(postNo);
+	public void editPost(int postNo, PostRequestDTO postRequest, HttpServletRequest request) {
+	    // 기존 게시글 불러오기
+	    PostVO postVO = postDAO.getPostById(postNo);
+	    if (postVO == null) {
+	        throw new RuntimeException("게시글을 찾을 수 없습니다: " + postNo);
+	    }
 
-        if (!postVO.getMemberNo().equals(postRequest.getMemberNo())) {
-            throw new RuntimeException("사용자 계정이 일치하지 않습니다.");
+	    // 게시글 작성자 검증
+	    if (!postVO.getMemberNo().equals(postRequest.getMemberNo())) {
+	        throw new RuntimeException("사용자 계정이 일치하지 않습니다.");
+	    }
+
+	    // 게시글 정보 수정
+	    postVO.setPostTitle(postRequest.getPostTitle());
+	    postVO.setPostCont(postRequest.getPostCont());
+	    postVO.setPostFindField(postRequest.getPostFindField());
+	    postVO.setPostFindName(postRequest.getPostFindName());
+	    postVO.setPostModifyDate(new Date()); // 수정 날짜 기록
+
+	    MultipartFile uploadFile = postRequest.getUploadFile();
+	    String uploadFolder = request.getServletContext().getRealPath("/upload");
+
+	    if (uploadFile != null && !uploadFile.isEmpty()) {
+	    	
+	        // 기존 파일 삭제
+	        if (postVO.getPostFileName() != null) {
+	            File delFile = new File(uploadFolder + postVO.getPostFileName());
+	            if (delFile.exists()) {
+	                delFile.delete();
+	            }
+	        }
+
+	        // 새로운 파일 저장
+	        String originalFileName = uploadFile.getOriginalFilename();
+	        String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	        String homedir = uploadFolder + "/" + today;
+
+	        File dir = new File(homedir);
+	        if (!dir.exists()) {
+	            dir.mkdirs();
+	        }
+
+	        // 파일명 생성
+	        int fileCounter = getFileCounter(today);
+	        String fileCounterStr = String.format("%06d", fileCounter);
+	        updateFileCounter(today, fileCounter + 1);
+
+	        String fileExtension = "";
+	        int index = originalFileName.lastIndexOf(".");
+	        if (index != -1) {
+	            fileExtension = originalFileName.substring(index + 1);
+	        }
+
+	        String modiFileName = "bbs" + today.replace("-", "") + "_" + fileCounterStr + "." + fileExtension;
+	        String postFilePath = "/" + today + "/" + modiFileName;
+
+	        try {
+	            uploadFile.transferTo(new File(homedir + "/" + modiFileName));
+	        } catch (Exception e) {
+	            throw new RuntimeException("파일 업로드 중 오류 발생", e);
+	        }
+
+	        // 게시글에 파일 정보 업데이트
+	        postVO.setPostFileName(modiFileName);
+	        postVO.setPostFilePath(postFilePath);
+	        postVO.setPostFileSize(uploadFile.getSize());
+	        postVO.setPostFileType(fileExtension);
+	    }
+
+	    postDAO.updatePost(postVO); // 수정된 게시글 저장
+	}
+
+	@Override
+	public void deleteBbs(int postNo, String delPwd, HttpServletRequest request, String memberNo) {
+		PostVO post = postDAO.getPostById(postNo);
+        if (post == null) {
+            throw new IllegalArgumentException("게시글을 찾을 수 없습니다.");
         }
         
-        String uploadFolder = request.getServletContext().getRealPath("/upload");
-        String postFilePath = "";
-
-        if (uploadFile != null && !uploadFile.isEmpty()) { // 첨부파일이 존재한다면
-            String refFileName = uploadFile.getOriginalFilename(); // 첨부파일의 원본파일명 불러오기
-            File delFile = new File(uploadFolder + "/" + postVO.getPostFileName()); // uploadFolder/파일 이름 으로 파일 만들기
-
-            if (delFile.exists()) {
-                delFile.delete(); // 기존 파일 삭제
-            }
-
-            // 날짜 기반 폴더 생성
-            Calendar cal = Calendar.getInstance();
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH) + 1;
-            int date = cal.get(Calendar.DATE);
-
-            String today = String.format("%04d-%02d-%02d", year, month, date);
-            // YYYYMMDD(10진수) 방식으로 이름 문자열 방식으로 지정한다. 
-            
-            String homedir = uploadFolder + "/" + today;
-            // homedir 의 경로로 uploadFolder/오늘날짜 를 지정한다.
-
-            File path01 = new File(homedir);
-            // "path01"파일을 uploadFolder"현재날짜" 이름으로 지정
-            if (!path01.exists()) {
-                path01.mkdir();
-            }
-            // path01로 지정된 "uploadFolder/today" 폴더가 없다면 폴더를 생성해라
-
-
-            // **파일 카운터 로드 및 업데이트**
-            int fileCounter = getFileCounter(today);
-            String fileCounterStr = String.format("%06d", fileCounter); // 6자리 숫자 포맷
-            updateFileCounter(today, fileCounter + 1); // 카운터 증가
-            int index = refFileName.lastIndexOf(".");
-            String fileExtension = (index != -1) ? refFileName.substring(index + 1) : ""; // 확장자
-                        
-            // **파일명 생성 (bbsYYYYMMDD_000000.확장자)**
-            String modiFileName = "bbs" + year + month + date + "_" + fileCounterStr + "." + fileExtension;
-            postFilePath = "/" + today + "/" + modiFileName;
-
-            postVO.setPostFileName(postFilePath);
-
-            File saveFile = new File(homedir + "/" + modiFileName); // 저장될 파일의 이름및 경로를 지정
-            // upload/현재날짜 폴더/PostYYYYMMDD[random].확장자 형식으로 지정
-            
-            try {
-            	uploadFile.transferTo(saveFile);
-            } catch (Exception e) {
-            	throw new RuntimeException("파일 업로드 중 오류 발생", e);
-            }
-        } else {
-        	postRequest.setPostFile("");
+        // 비밀번호 검증
+        if (!post.getPostPassword().equals(delPwd)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        postRequest.setPostNo(postNo);
-        postRequest.setPostFileName(postFilePath);
-        postDAO.updatePost(postVO);
-    } // 게시글 수정
+        // 게시글 삭제
+        postDAO.deletePost(postNo);
+
+     // 첨부 파일 삭제
+        if (post.getPostFile() == 1) { // 첨부파일이 있는경우
+            String uploadPath = request.getServletContext().getRealPath("/upload");
+            File delFile = new File(uploadPath + post.getPostFile());
+
+            try {
+                if (delFile.exists()) {
+                    if (delFile.delete()) {
+                        System.out.println("파일 삭제 성공: " + delFile.getAbsolutePath());
+                    } else {
+                        System.out.println("파일 삭제 실패: " + delFile.getAbsolutePath());
+                    }
+                }
+            } catch (SecurityException e) {
+                System.err.println("파일 삭제 중 보안 예외 발생: " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("파일 삭제 중 오류 발생: " + e.getMessage());
+            }
+        }
+	}
+
 	
 	
 }

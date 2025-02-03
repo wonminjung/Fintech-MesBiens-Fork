@@ -21,6 +21,8 @@ public interface PostDAO {
 
 	void updatePost(PostVO postVO); // 게시글 수정
 
+	void deletePost(int postNo);
+
 	
 
 }
