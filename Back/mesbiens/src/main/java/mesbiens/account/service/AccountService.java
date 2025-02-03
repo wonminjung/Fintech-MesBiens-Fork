@@ -15,6 +15,4 @@ public interface AccountService {
 	// 계좌 삭제하기
 	boolean delAcct(int accountNo);
 
-	boolean modiAcct(int accountNo);
-
 }

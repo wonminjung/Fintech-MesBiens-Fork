@@ -45,16 +45,5 @@ public class AccountServiceImpl implements AccountService {
 		return result > 0;
 	}
 
-	// 계좌 수정하기
-	@Override
-	public boolean modiAcct(int accountNo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
-	
-	
 	
 }

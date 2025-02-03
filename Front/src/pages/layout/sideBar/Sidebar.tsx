@@ -64,7 +64,7 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/community"} onClick={handleCheckLogin}>
+            <NavLink to={"/community/C_board"} onClick={handleCheckLogin}>
               커뮤니티
             </NavLink>
           </li>
