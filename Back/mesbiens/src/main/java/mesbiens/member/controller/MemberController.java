@@ -82,8 +82,10 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
         }
 
-        //  JWT 생성 및 쿠키 설정
-        String token = jwtTokenProvider.createToken(member.getMemberId(), "USER_ROLE");
+        // JWT 생성 및 쿠키 설정
+        // validity를 1시간 (3600000ms)로 설정
+        long validity = 3600000; // 1시간
+        String token = jwtTokenProvider.createToken(member.getMemberId(), "USER_ROLE", validity);
         jwtTokenProvider.addJwtTokenToCookie(response, token);
 
         System.out.println("로그인 성공! JWT 발급: " + token);

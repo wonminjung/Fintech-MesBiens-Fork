@@ -1,9 +1,11 @@
 package mesbiens.security;
 
-import io.jsonwebtoken.*;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.util.Base64;
+import java.util.Date;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,21 +13,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
-import java.util.Date;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtTokenProvider {
-
+	private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
     private final SecretKey key;
     private final long accessTokenValidity = 3600000; // 1시간 (60분)
     private final long refreshTokenValidity = 86400000; // 24시간 (1일)
     private final UserDetailsService userDetailsService;
 
     public JwtTokenProvider(@Value("${jwt.secretKey}") String secretKeyBase64, UserDetailsService userDetailsService) {
-        byte[] decodedKey = Base64.getUrlDecoder().decode(secretKeyBase64);
+    	System.out.println("Secret Key (Base64): " + secretKeyBase64); // Base64 인코딩된 키 값 출력
+    	byte[] decodedKey = Base64.getUrlDecoder().decode(secretKeyBase64);
+    	System.out.println("Secret Key (Decoded Length): " + decodedKey.length); // 디코딩된 키 길이 출력
         if (decodedKey.length != 32) {
             throw new IllegalArgumentException("The secret key must be 256 bits (32 bytes).");
         }
@@ -33,16 +40,31 @@ public class JwtTokenProvider {
         this.userDetailsService = userDetailsService;
     }
 
-    //  Access Token 생성
+    // Access Token 생성
     public String createAccessToken(String memberId, String role) {
-        return createToken(memberId, role, accessTokenValidity);
+        log.debug("createAccessToken() 메서드 시작: memberId={}, role={}", memberId, role);
+        try {
+            String token = createToken(memberId, role, accessTokenValidity);
+            log.debug("createAccessToken() 메서드 종료 (성공): token={}", token); // 토큰 값은 보안에 유의하여 로그에 남기지 않도록 주의
+            return token;
+        } catch (Exception e) {
+            log.error("createAccessToken() 메서드 오류: {}", e.getMessage(), e);
+            return null;
+        }
     }
 
-    //  Refresh Token 생성 (서버에서 저장하여 관리)
+    // Refresh Token 생성 (서버에서 저장하여 관리)
     public String createRefreshToken(String memberId) {
-        return createToken(memberId, "REFRESH", refreshTokenValidity);
+        log.debug("createRefreshToken() 메서드 시작: memberId={}", memberId);
+        try {
+            String token = createToken(memberId, "REFRESH", refreshTokenValidity);
+            log.debug("createRefreshToken() 메서드 종료 (성공): token={}", token); // 토큰 값은 보안에 유의하여 로그에 남기지 않도록 주의
+            return token;
+        } catch (Exception e) {
+            log.error("createRefreshToken() 메서드 오류: {}", e.getMessage(), e);
+            return null;
+        }
     }
-
     //  공통적인 토큰 생성 로직
     public String createToken(String memberId, String role, long validity) {
         Claims claims = Jwts.claims().setSubject(memberId);
@@ -58,27 +80,24 @@ public class JwtTokenProvider {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+     
+    
 
     //  JWT 토큰을 쿠키에 저장 (Access Token)
     public void addJwtTokenToCookie(HttpServletResponse response, String token) {
-        Cookie cookie = new Cookie("jwt", token);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge((int) (accessTokenValidity / 1000)); // 초 단위
-        cookie.setAttribute("SameSite", "Strict"); // CSRF 방지
-        response.addCookie(cookie);
+        String cookieValue = "jwt=" + token +
+                             "; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=" + (accessTokenValidity / 1000);
+
+        response.addHeader("Set-Cookie", cookieValue); // 기존 setHeader → addHeader 로 수정
     }
 
     //  Refresh Token을 쿠키에 저장
     public void addRefreshTokenToCookie(HttpServletResponse response, String refreshToken) {
-        Cookie cookie = new Cookie("refresh_token", refreshToken);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge((int) (refreshTokenValidity / 1000)); // 초 단위
-        cookie.setAttribute("SameSite", "Strict"); // CSRF 방지
-        response.addCookie(cookie);
+        String cookieValue = "refresh_token=" + refreshToken +
+                             "; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=" + (refreshTokenValidity / 1000);
+
+        response.addHeader("Set-Cookie", cookieValue); // 기존 setHeader → addHeader로 변경
+        System.out.println("JWT 쿠키 추가됨: " + cookieValue); // 로그 추가
     }
 
     //  JWT 쿠키 삭제 (로그아웃 시)
@@ -176,9 +195,13 @@ public class JwtTokenProvider {
         UserDetails userDetails = userDetailsService.loadUserByUsername(memberId);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
+/*
+	public String createToken(String memberId, String role) {
+		 // 유효 기간을 1시간으로 고정
+	    long validity = 3600000;  // 1시간
 
-	public String createToken(String memberId, String string) {
-		// TODO Auto-generated method stub
-		return null;
+	    return createToken(memberId, role, validity);  // 첫 번째 메소드 호출
 	}
-}
+*/
+	
+	}
