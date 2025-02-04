@@ -15,7 +15,6 @@ import java.util.Optional;
 @Service
 public class MemberService {
 
-	
     private final MemberRepository memberRepository;
     private final LoginRecordService loginRecordService;
     private final PasswordEncoder passwordEncoder;

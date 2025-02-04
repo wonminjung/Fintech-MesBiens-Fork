@@ -1,12 +1,8 @@
 package mesbiens.security;
 
 import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,11 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import mesbiens.member.service.CustomUserDetailsService;
 
-import java.util.Collections;
+
 
 @Configuration
 
@@ -47,7 +41,7 @@ public class SecurityConfig {
         .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 활성화
         .csrf(csrf -> csrf.disable()) // REST API는 대부분 stateless(JWT 등)을 사용하기 때문에 csrf 비활성화
         .authorizeHttpRequests(auth -> auth.requestMatchers(
-        		"/members/register", "/members/login", "/members/{id}", "/quiz/create",
+        		"/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/me",
                 "/members/logout/*",
                 "/quiz/list", "quiz/{quizId}", "quiz//update/{quizId}", "/quiz/delete/{quizId}",
                 "/community/**","/account/**", "/transaction/**",
@@ -55,19 +49,23 @@ public class SecurityConfig {
                 "/notifications/{notificationNo}/read", "/notifications").permitAll() // 서버 URL에 요청할 경우 인증 없이 접근 가능
             .anyRequest().authenticated() // 나머지 요청은 인증 필요
         )
+      
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless 설정
+   
 
     return http.build();
+   
+
 //    http
 //        .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
 //        .authorizeHttpRequests(authz -> authz
 //            .requestMatchers("/members/register", "/members/login", "/members/{id}", "/quiz/create",
 //                "/members/logout/*",
 //                "/quiz/list", "quiz/{quizId}", "quiz//update/{quizId}", "/quiz/delete/{quizId}",
-//                "/community/C_board/C_boardWrite", "/community/C_board/C_boardWrite_ok", "/community/C_board",
-//                "/community/{postNo}", "community/{postNo}/view", "/community/{postNo}", "/account/add",
+//                "/commustNo}", "community/{postNo}/view", "/community/{postNo}", "/account/add",
 //                "/account/modify", "/account/delete", "/notifications/member/{memberNo}",
-//                "/notifications/{notificationNo}/read", "/notifications")
+//                "/notifications/{notificationNo}/read", nity/C_board/C_boardWrite", "/community/C_board/C_boardWrite_ok", "/community/C_board",
+//                "/community/{po"/notifications")
 //            .permitAll() // 경로 접근 허용
 //            .anyRequest().authenticated() // 나머지 요청은 인증 필요
 //        );

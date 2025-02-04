@@ -72,6 +72,7 @@ public class MemberVO {
 	private String memberSnsSignUpYN;
 
 	private String roles; // 역할을 저장하는 필드
+	
 
 
 }
