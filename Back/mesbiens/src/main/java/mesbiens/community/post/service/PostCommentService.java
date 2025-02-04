@@ -14,4 +14,6 @@ public interface PostCommentService {
 
 	void deleteComment(int postCommentNo); // 댓글 삭제
 
+	List<PostCommentVO> getCommentsByPostNo(int postNo);
+
 }

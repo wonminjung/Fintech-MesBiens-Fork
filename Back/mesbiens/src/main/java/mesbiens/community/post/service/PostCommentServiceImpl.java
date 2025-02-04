@@ -1,6 +1,8 @@
 package mesbiens.community.post.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,19 +44,28 @@ public class PostCommentServiceImpl implements PostCommentService {
 	    return postCommentDAO.saveComment(comment); // DAO를 통해 저장
 	}
 
+	// 댓글 조회
 	@Override
 	public PostCommentVO getCommentById(int postCommentNo) {
-		return postCommentDAO.findById(postCommentNo); // 댓글 조회
+		return postCommentDAO.findById(postCommentNo); 
 	}
 
+	// 댓글 수정
 	@Override
 	public PostCommentVO updateComment(PostCommentVO postComment) {
-		return postCommentDAO.update(postComment); // 댓글 수정
+		return postCommentDAO.update(postComment); 
 	}
 
+	// 댓글 삭제
 	@Override
 	public void deleteComment(int postCommentNo) {
-		postCommentDAO.delete(postCommentNo); // 댓글 삭제
+		postCommentDAO.delete(postCommentNo); 
+	}
+
+	// 게시판 상세보기에 답글 보기
+	@Override
+	public List<PostCommentVO> getCommentsByPostNo(int postNo) {
+		return postCommentDAO.findCommentsByPostNo(postNo);
 	}
 
 }

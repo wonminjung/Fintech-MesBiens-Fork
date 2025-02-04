@@ -267,6 +267,10 @@ export const BP = {
       color: #333;
     }
   `,
+  FileSection: styled.div`
+    width: 3em;
+    height: 2em;
+  `,
   PostContent: styled.div`
     margin-top: 20px;
     font-size: 1em;
@@ -291,6 +295,11 @@ export const BP = {
     color: #333;
     margin-bottom: 15px;
   `,
+
+  AddCommentContainer: styled.div`
+    font-size: 1.2em;
+  `,
+
   Comment: styled.div`
     padding: 15px;
     margin-top: 10px;
@@ -393,6 +402,11 @@ export const BW = {
     display: flex;
     align-items: center;
   `,
+  MiddleContent: styled.div`
+    display: flex;
+    align-items: center;
+  `,
+
   ButtonContainer: styled.div`
     margin-top: 20px;
     display: flex;

@@ -14,5 +14,7 @@ public interface PostCommentDAO {
 
 	void delete(int postCommentNo);
 
+	List<PostCommentVO> findCommentsByPostNo(int postNo);
+
 
 }

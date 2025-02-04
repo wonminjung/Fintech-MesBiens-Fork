@@ -1,5 +1,6 @@
 package mesbiens.community.post.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,7 +101,7 @@ public class PostController {
 	
 	// 게시글 내용보기(게시글 상세보기)
 	@GetMapping("/C_board/{postNo}")
-    public ResponseEntity<PostVO> getPostNo(@PathVariable(name = "postNo") int postNo, 
+    public ResponseEntity<Map<String, Object>> getPostNo(@PathVariable(name = "postNo") int postNo, 
                                           @RequestParam(value = "state", required = false, defaultValue = "post_cont") String state) {
 		PostVO postVO;
 
@@ -109,8 +110,14 @@ public class PostController {
         } else {
         	postVO = postService.getPostWithoutViewIncrease(postNo); // 조회수 증가 없이 조회
         }
+        
+        List<PostCommentVO> postcomments = postCommentService.getCommentsByPostNo(postNo); // 댓글 조회
 
-        return ResponseEntity.ok(postVO);
+        Map<String, Object> response = new HashMap<>();
+        response.put("post", postVO);
+        response.put("postcomments", postcomments);
+
+        return ResponseEntity.ok(response);
     }
 	
 	// 게시글 내용보기(게시글 조회수 증가)
@@ -132,6 +139,7 @@ public class PostController {
             postService.editPost(postNo, postRequest, request);
             return ResponseEntity.ok("게시글 수정 성공");
         } catch (Exception e) {
+        	e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 수정 실패: " + e.getMessage());
         }
     }
@@ -147,8 +155,8 @@ public class PostController {
     	String postPassword = requestbody.get("postPassword");
     	String memberNo = requestbody.get("memberNo");
 
-    	System.out.println(postPassword);
-    	System.out.println(requestbody.get("postPassword"));
+//    	System.out.println(postPassword);
+//    	System.out.println(requestbody.get("postPassword"));
     	
         try {
             postService.deletePost(postNo, postPassword, request, memberNo);

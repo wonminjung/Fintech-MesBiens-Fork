@@ -126,12 +126,16 @@ public class PostServiceImpl implements PostService {
             postVO.setPostFile(validUploadFile);
             postVO.setPostModify("수정전");
             
-            String[] parts = postFilePath.split("/");
-            if (parts.length == 2) {
-                String fileType = parts[1];
-                System.out.println(fileType);  // 결과: png
-                postVO.setPostFileType(fileType);
-            } // 저장될 파일 확장자
+         // 파일 확장자 추출
+            int Fileindex = fileName.lastIndexOf(".");
+            if (Fileindex != -1 && Fileindex < fileName.length() - 1) {
+                String fileType = fileName.substring(Fileindex + 1);  // 확장자 추출
+//                System.out.println("fileType: " + fileType);      // 예: png
+                postVO.setPostFileType(fileType);                 // postFileType 저장
+            } else {
+//                System.out.println("파일 확장자가 없습니다.");
+                postVO.setPostFileType("unknown");                // 확장자가 없는 경우 처리
+            }
             
             
             
