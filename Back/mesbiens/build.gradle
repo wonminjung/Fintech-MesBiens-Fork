@@ -54,6 +54,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+//tasks.withType(JavaCompile) {
+//    options.compilerArgs << "-parameters" //메서드 파라미터 이름을 클래스 파일에 저장하도록 지정하는 옵션
+//}
 tasks.withType(JavaCompile) {
-    options.compilerArgs << "-parameters" //메서드 파라미터 이름을 클래스 파일에 저장하도록 지정하는 옵션
+    options.compilerArgs += ['-parameters']
 }

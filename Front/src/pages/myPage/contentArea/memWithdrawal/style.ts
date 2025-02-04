@@ -14,7 +14,7 @@ const S = {
     WithdrawalNotiContainer: styled.ul`
         display: flex;
         justify-content: center;
-        margin-top: 30px;
+        margin-top: 104px;
         padding: 0;
     `,
     NotiWrapper: styled.div`
