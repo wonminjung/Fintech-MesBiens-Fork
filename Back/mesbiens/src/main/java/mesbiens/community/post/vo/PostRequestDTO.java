@@ -20,13 +20,14 @@ public class PostRequestDTO {
 	private String postTitle; // 글제목
 	private String postCont; // 글내용
 	private int postHit; // 조회수
-	private String postFile;
+	private int postFile; // 첨부파일 여부
 	private String postFileName; // 첨부파일 이름
 	private String postFilePath; // 첨부파일 경로
 	private String postFileType; // 첨부파일 유형
-	private String postFileSize; // 첨부파일
-	private String findField; // 게시판 검색 타입 (Title, Content)
-	private String findName; // 게시판 검색 이름
+	private String postFileSize; // 첨부파일 크기
+	private String postFindField; // 게시판 검색 타입 (Title, Content)
+	private String postFindName; // 게시판 검색 이름
+	private String postPassword; // 게시판 비밀번호
 	private String postModify; // 게시글 수정여부
 	private Timestamp postDate; // 작성일
 	private Timestamp postModifyDate; // 게시글 수정일시

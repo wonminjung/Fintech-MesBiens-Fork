@@ -1,6 +1,7 @@
 package mesbiens.community.post.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +14,6 @@ import jakarta.persistence.PersistenceContext;
 import mesbiens.community.post.repository.PostRepository;
 import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostVO;
-import mesbiens.member.repository.MemberRepository;
 
 @Repository
 public class PostDAOImpl implements PostDAO {
@@ -34,6 +34,16 @@ public class PostDAOImpl implements PostDAO {
 	// 게시판 저장
 	@Override
 	public void insertPost(PostVO postVO) {
+		
+//		long postSeq_no = postRepository.getPostNextSequenceValue();
+//	    
+//	    // DB에 해당 postNo가 이미 존재하는지 확인
+//	    if (postRepository.existsById((int) postSeq_no)) {
+//	        throw new IllegalStateException("중복된 postNo: " + postSeq_no);
+//	    }
+//	    
+//	    postVO.setPostNo((int) postSeq_no);
+		
 		postRepository.save(postVO); // JPA save 메서드를 사용해 저장
 	}
 
@@ -56,7 +66,13 @@ public class PostDAOImpl implements PostDAO {
 	 public List<PostVO> getPostList(PageVO pageVO) {
         int page = pageVO.getPage() - 1; // JPA Pageable은 0부터 시작
         int size = pageVO.getEndrow() - pageVO.getStartrow() + 1;
-
+        
+        // page가 0보다 작은지 검증
+        if (page < 0) {
+            page = 0; // 페이지 번호를 0으로 보정
+        }
+        
+        // Spring Data JPA에서 페이징 처리와 정렬을 설정
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "postNo"));
 
         return postRepository.searchPosts(pageVO.getFindField(), pageVO.getFindName(), pageable).getContent();
@@ -82,6 +98,17 @@ public class PostDAOImpl implements PostDAO {
 	@Override
 	public void updatePost(PostVO postVO) {
 		postRepository.save(postVO); // JPA에서 업데이트 처리 (save()는 자동으로 수정 적용)		
-	}	
+	}
+
+	@Override
+	public void deletePost(int postNo) {
+	    Optional<PostVO> postOptional = postRepository.findById(postNo);
+	    if (postOptional.isPresent()) {
+	        postRepository.delete(postOptional.get());
+	    } else {
+	        throw new RuntimeException("게시글을 찾을 수 없습니다: " + postNo);
+	    }
+	}
+
 	
 }
