@@ -1,12 +1,13 @@
 package mesbiens.transaction.dao;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import mesbiens.transaction.vo.TransactionDetailVO;
+import mesbiens.transaction.dto.RecentTransactionResponseDTO;
 import mesbiens.transaction.repository.TransactionDetailRepository;
 
 
@@ -21,7 +22,14 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 	public List<TransactionDetailVO> allList() {
 		return trnsJpaRepo.findAll();
 	}
+
+	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
+	@Override
+	public List<RecentTransactionResponseDTO> getTrnsList(LocalDateTime startDate, LocalDateTime endDate) {
+		return trnsJpaRepo.findRecentList(startDate, endDate);
+	}
     
+	
     
 
 //    @Override // 전체 조회

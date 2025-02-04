@@ -1,6 +1,7 @@
 package mesbiens.transaction.service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ public interface TransactionDetailService {
 
 	// 모든 거래내역 반환
 	List<TransactionDetailVO> allList();
+
+	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
+	boolean getTrnsList(LocalDateTime startDate, LocalDateTime endDate);
 	
 	
 	

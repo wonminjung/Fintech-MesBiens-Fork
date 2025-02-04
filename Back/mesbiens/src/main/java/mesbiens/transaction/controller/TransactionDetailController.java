@@ -1,25 +1,23 @@
 package mesbiens.transaction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import mesbiens.transaction.dto.RecentTransactionRequestDTO;
 import mesbiens.transaction.dto.TransactionResponseDTO;
 import mesbiens.transaction.service.TransactionDetailService;
 import mesbiens.transaction.vo.TransactionDetailVO;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/transaction")
@@ -43,9 +41,27 @@ public class TransactionDetailController {
 	}
 	
 	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
-	@GetMapping("/details/{memberNo}")
-	public void getTrnsList() {
+	@PostMapping("/recent")
+	public ResponseEntity<Map<String, String>> getTrnsList(@RequestBody RecentTransactionRequestDTO requestDate) {
+		Map<String, String> response = new HashMap<>();
 		
+		if(requestDate == null) {
+			response.put("message", "전달받은 날짜 정보가 존재하지 않음");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		// LocalDate 타입을 localDateTime 타입으로 변환하면서 시간 정보 추가
+		LocalDateTime startDate = requestDate.getRecentStartDate().atStartOfDay();
+		LocalDateTime endDate = requestDate.getRecentEndDate().atTime(23, 59, 59);
+		
+		boolean result = trnsService.getTrnsList(startDate, endDate);
+		if(result) {
+			response.put("message", "거래 내역 가져오기 성공");
+			return ResponseEntity.ok(response);
+		}
+		
+		response.put("message", "거래 내역 가져오기 실패");
+		return ResponseEntity.badRequest().body(response);
 	}
 
     

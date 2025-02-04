@@ -1,14 +1,18 @@
 package mesbiens.transaction.dao;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import mesbiens.transaction.dto.RecentTransactionResponseDTO;
 import mesbiens.transaction.vo.TransactionDetailVO;
 
 public interface TransactionDetailDAO {
 
 	// 모든 거래내역 반환
 	List<TransactionDetailVO> allList();
+
+	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
+	List<RecentTransactionResponseDTO> getTrnsList(LocalDateTime startDate, LocalDateTime endDate);
 	
 	
 //    List<TransactionDetailVO> findAllTransactions();
