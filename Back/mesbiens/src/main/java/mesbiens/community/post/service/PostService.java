@@ -3,8 +3,6 @@ package mesbiens.community.post.service;
 import java.util.Map;
 
 
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.servlet.http.HttpServletRequest;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
@@ -32,7 +30,8 @@ public interface PostService {
 	void editPost(int postNo, PostRequestDTO postRequest, HttpServletRequest request); // 게시글 수정
 
 
-	void deleteBbs(int postNo, String delPwd, HttpServletRequest request, String memberNo);
-	
+	void deletePost(int postNo, String delPwd, HttpServletRequest request, String memberNo);
+
+	PostVO getPostById(int postNo);
 
 }

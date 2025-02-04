@@ -1,5 +1,6 @@
 package mesbiens.community.post.repository;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,8 +37,5 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 	// 게시물 리스트 조회 (페이징 + 검색)
 	@Query("SELECT p FROM PostVO p WHERE p.postTitle LIKE %:findField% OR p.postCont LIKE %:findName%")
 	Page<PostVO> searchPosts(@Param("findField") String findField, @Param("findName") String findName, Pageable pageable);
-
-
-	
 	
 }

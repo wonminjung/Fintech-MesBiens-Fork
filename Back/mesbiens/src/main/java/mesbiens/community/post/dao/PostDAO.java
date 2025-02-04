@@ -23,6 +23,6 @@ public interface PostDAO {
 
 	void deletePost(int postNo);
 
-	
+	PostVO findById(int postNo);
 
 }

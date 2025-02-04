@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import mesbiens.community.post.repository.PostRepository;
 import mesbiens.community.post.vo.PageVO;
@@ -88,18 +89,20 @@ public class PostDAOImpl implements PostDAO {
         postRepository.save(postVO); // 변경된 조회수 저장
 	}
 
-	
+	// postNo 가져오기
 	@Override
 	public PostVO getPostById(int postNo) {
 		return postRepository.findById(postNo)
                 .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다: " + postNo));
 	}
 
+	// 게시글 수정
 	@Override
 	public void updatePost(PostVO postVO) {
 		postRepository.save(postVO); // JPA에서 업데이트 처리 (save()는 자동으로 수정 적용)		
 	}
 
+	// 게시글 삭제
 	@Override
 	public void deletePost(int postNo) {
 	    Optional<PostVO> postOptional = postRepository.findById(postNo);
@@ -110,5 +113,13 @@ public class PostDAOImpl implements PostDAO {
 	    }
 	}
 
-	
+	// 댓글 작성을 위한 postNo 가져오기
+	@Override
+	public PostVO findById(int postNo) {
+		System.out.println("==============================================================================");
+		System.out.println(postRepository.findById(postNo));
+		System.out.println("==============================================================================");
+		return postRepository.findById(postNo) .orElseThrow(() -> new EntityNotFoundException("Post not found with ID: " + postNo));
+	}
+
 }

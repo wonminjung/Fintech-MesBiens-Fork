@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +23,6 @@ import mesbiens.community.post.dao.PostDAO;
 import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
-import mesbiens.member.vo.MemberVO;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -65,7 +62,7 @@ public class PostServiceImpl implements PostService {
 	    
 //	    MemberVO member = new MemberVO();
 //	    member.setMemberNo(2); // 실제 존재하는 회원 ID로 설정 (테스트용)
-//	    postVO.setMemberNo(member);
+	    postVO.setMemberNo(postRequest.getMemberNo());
 		
 		String uploadFolder = request.getServletContext().getRealPath("/upload");
 		// 업로드될 파일의 디렉터리의 실제경로(RealPath)를 읽어옴
@@ -105,7 +102,7 @@ public class PostServiceImpl implements PostService {
             int index = fileName.lastIndexOf(".");
             String fileExtension = (index != -1) ? fileName.substring(index + 1) : ""; // 확장자
                         
-            // **파일명 생성 (bbsYYYYMMDD_000000.확장자)**
+            // **파일명 생성 (mesbiensYYYYMMDD_000000.확장자)**
             String refFileName = "mesbiens" + year + month + date + "_" + fileCounterStr + "." + fileExtension;
             String postFilePath = "/" + today + "/" + refFileName;
 
@@ -124,6 +121,7 @@ public class PostServiceImpl implements PostService {
             postVO.setPostFileName(refFileName); // 저장될 파일 이름
             postVO.setPostFileSize(uploadFile.getSize()); // 저장될 파일 크기
             postVO.setPostFile(validUploadFile);
+            postVO.setPostModify("수정전");
             
             String[] parts = postFilePath.split("/");
             if (parts.length == 2) {
@@ -254,9 +252,12 @@ public class PostServiceImpl implements PostService {
 	    if (postVO == null) {
 	        throw new RuntimeException("게시글을 찾을 수 없습니다: " + postNo);
 	    }
+	    
+//	    System.out.println(postVO.getMemberNo());
+//	    System.out.println(postRequest.getMemberNo());
 
 	    // 게시글 작성자 검증
-	    if (!postVO.getMemberNo().equals(postRequest.getMemberNo())) {
+	    if (postVO.getMemberNo() != postRequest.getMemberNo()) {
 	        throw new RuntimeException("사용자 계정이 일치하지 않습니다.");
 	    }
 
@@ -266,6 +267,7 @@ public class PostServiceImpl implements PostService {
 	    postVO.setPostFindField(postRequest.getPostFindField());
 	    postVO.setPostFindName(postRequest.getPostFindName());
 	    postVO.setPostModifyDate(new Date()); // 수정 날짜 기록
+	    postVO.setPostModify("수정됨");
 
 	    MultipartFile uploadFile = postRequest.getUploadFile();
 	    String uploadFolder = request.getServletContext().getRealPath("/upload");
@@ -301,7 +303,7 @@ public class PostServiceImpl implements PostService {
 	            fileExtension = originalFileName.substring(index + 1);
 	        }
 
-	        String modiFileName = "bbs" + today.replace("-", "") + "_" + fileCounterStr + "." + fileExtension;
+	        String modiFileName = "mesbiens" + today.replace("-", "") + "_" + fileCounterStr + "." + fileExtension;
 	        String postFilePath = "/" + today + "/" + modiFileName;
 
 	        try {
@@ -320,8 +322,9 @@ public class PostServiceImpl implements PostService {
 	    postDAO.updatePost(postVO); // 수정된 게시글 저장
 	}
 
+	// 
 	@Override
-	public void deleteBbs(int postNo, String delPwd, HttpServletRequest request, String memberNo) {
+	public void deletePost(int postNo, String delPwd, HttpServletRequest request, String memberNo) {
 		PostVO post = postDAO.getPostById(postNo);
         if (post == null) {
             throw new IllegalArgumentException("게시글을 찾을 수 없습니다.");
@@ -356,6 +359,11 @@ public class PostServiceImpl implements PostService {
         }
 	}
 
-	
-	
+	// 댓글 작성을 위한 postNo 가져오기
+	@Override
+	public PostVO getPostById(int postNo) {
+//		System.out.println(postDAO.findById(postNo));
+		return postDAO.findById(postNo);
+	}
+
 }

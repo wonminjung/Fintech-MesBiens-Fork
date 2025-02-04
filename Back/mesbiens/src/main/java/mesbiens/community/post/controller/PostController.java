@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
+import mesbiens.community.post.service.PostCommentService;
 import mesbiens.community.post.service.PostService;
+import mesbiens.community.post.vo.PostCommentVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
 
@@ -32,6 +33,9 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private PostCommentService postCommentService;
 	
 	// 게시판 글쓰기
 	@GetMapping("/C_board/C_boardWrite")
@@ -112,9 +116,9 @@ public class PostController {
         }
     }
     
- // 게시글 삭제 (RESTful 방식)
+    // 게시글 삭제
     @DeleteMapping("/C_board/{postNo}")
-    public ResponseEntity<String> deleteBbs(
+    public ResponseEntity<String> deletePost(
             @PathVariable(name = "postNo") int postNo,
             @RequestBody Map<String, String> requestbody,
             HttpServletRequest request) {
@@ -124,7 +128,7 @@ public class PostController {
     	String memberNo = requestbody.get("member_no");
 
         try {
-            postService.deleteBbs(postNo, delPwd, request, memberNo);
+            postService.deletePost(postNo, delPwd, request, memberNo);
             return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("비밀번호가 일치하지 않습니다.");
@@ -132,5 +136,46 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제 실패: " + e.getMessage());
         }
     }
-	
+    
+    // 답글 작성
+    @PostMapping("/C_board/{postNo}/postComment_Write")
+    public ResponseEntity<PostCommentVO> createComment(@PathVariable(name = "postNo") int postNo,
+                                                       @RequestBody PostCommentVO postComment) {
+        PostVO post = postService.getPostById(postNo); // 게시글 조회
+
+        if (post == null) {
+            return ResponseEntity.badRequest().build(); // 게시글이 존재하지 않으면 400 반환
+        }
+
+        postComment.setPost(post);  // 게시글 객체 설정
+
+        PostCommentVO savedComment = postCommentService.createComment(postComment);  // 댓글 저장
+        return ResponseEntity.ok(savedComment); // 저장된 댓글 반환
+    }
+    
+    // 답글 수정
+    @PutMapping("/C_board/{postNo}/{postCommentNo}")
+    public ResponseEntity<PostCommentVO> updateComment(@PathVariable(name = "postCommentNo") int postCommentNo, @RequestBody PostCommentVO updatedComment) {
+        PostCommentVO existingComment = postCommentService.getCommentById(postCommentNo); // 기존 댓글 조회
+        if (existingComment == null || !existingComment.getPostCommentPassword().equals(updatedComment.getPostCommentPassword())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 댓글이 없거나 비밀번호 불일치 시 403 반환
+        }
+        existingComment.setPostCommentContent(updatedComment.getPostCommentContent()); // 댓글 내용 수정
+        PostCommentVO savedComment = postCommentService.updateComment(existingComment); // 수정된 댓글 저장
+        return ResponseEntity.ok(savedComment); // 수정된 댓글 반환
+    }
+
+    // 답글 삭제
+    @DeleteMapping("/C_board/{postNo}/{postCommentNo}")
+    public ResponseEntity<Void> deleteComment(@PathVariable(name = "postCommentNo") int postCommentNo, @RequestBody PostCommentVO comment) {
+        PostCommentVO existingComment = postCommentService.getCommentById(postCommentNo); // 기존 댓글 조회
+        if (existingComment == null || !existingComment.getPostCommentPassword().equals(comment.getPostCommentPassword())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 댓글이 없거나 비밀번호 불일치 시 403 반환
+        }
+        postCommentService.deleteComment(postCommentNo); // 댓글 삭제
+        return ResponseEntity.noContent().build();  // 204 No Content 반환
+    }
+
+
+
 }
