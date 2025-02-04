@@ -34,7 +34,7 @@ public class SecurityConfig {
     		.csrf(csrf -> csrf.disable()) // REST API는 대부분 stateless(JWT 등)을 사용하기 때문에 csrf 비활성화
     		.authorizeHttpRequests(auth -> auth.requestMatchers(
 					"/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/logout/*",
-            		"/quiz/list","quiz/{quizId}","quiz//update/{quizId}","/quiz/delete/{quizId}",
+            		"/quiz/list","quiz/{quizId}","quiz//update/{quizId}","/quiz/delete/{quizId}", "/transaction/all",
             		"/community/**", "/account/**", "/notifications/member/{memberNo}","/notifications/{notificationNo}/read",
             		"/notifications"
                 ).permitAll() // 서버 URL에 요청할 경우 인증 없이 접근 가능
