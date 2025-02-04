@@ -9,4 +9,6 @@ insert into consumption_category values (CONSUMPTIONCATEGORY_NO_SEQ.nextval, '�
 insert into consumption_category values (CONSUMPTIONCATEGORY_NO_SEQ.nextval, '입금', '/images/categoryicons/other.svg');
 insert into consumption_category values (CONSUMPTIONCATEGORY_NO_SEQ.nextval, '출금', '/images/categoryicons/other.svg');
 
+delete from consumption_category where consumption_cate_no in (7, 8);
+
 commit;

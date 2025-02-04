@@ -1,6 +1,5 @@
 package mesbiens.transaction.vo;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -75,14 +74,7 @@ public class TransactionDetailVO {
 	@Column(name="TRNS_create_at")
 	@CreationTimestamp
 	private LocalDateTime trnsCreateAt; // 거래 시간
-	
-//	@Column(name="TRNS_cancel_YN", nullable = false, length = 1, columnDefinition = "string check (transactionCancelYN in ('Y', 'N'))")
-	@Column(name="TRNS_cancel_YN", nullable = false, length = 1)
-	private String transactionCancelYN; // 거래 취소 여부
-	
-	@Column(name="TRNS_update_at", nullable = false)
-	@UpdateTimestamp
-	private LocalDateTime transactionUpdateAt; // 거래 수정 시간
+
 }
 
 
