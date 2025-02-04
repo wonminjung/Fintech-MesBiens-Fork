@@ -13,4 +13,14 @@ public class MemberResponseDTO {
     private String memberBirth;    // 생년월일
     private String memberProfile;  // 프로필 이미지
     private String memberSnsSignUpYN; // SNS 가입 여부 ('Y' 또는 'N')
+    
+    // 필요한 생성자 추가
+    public MemberResponseDTO(String memberId, String memberName, String memberEmail) {
+        this.memberId = memberId;
+        this.memberName = memberName;
+        this.memberEmail = memberEmail;
+    }
+
+    //  기본 생성자 추가 (Spring 사용 시 필수)
+    public MemberResponseDTO() {}
 }

@@ -50,7 +50,7 @@ const S = {
           text-decoration: none;
           display: block;
           padding: 15px 10px;
-          transition: background-color 0.3s;
+          /* transition: background-color 0.3s; */
         }
         margin-left: 3em;
 

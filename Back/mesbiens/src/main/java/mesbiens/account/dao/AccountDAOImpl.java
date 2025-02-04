@@ -40,8 +40,6 @@ public class AccountDAOImpl implements AccountDAO {
 	public int delAcct(int accountNo) {
 		return acctJpaRepo.delAcct(accountNo);
 	}
-
-	
 	
 	
 }
