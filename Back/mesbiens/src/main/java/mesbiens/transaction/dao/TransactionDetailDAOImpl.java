@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import mesbiens.transaction.vo.TransactionDetailVO;
 import mesbiens.transaction.repository.TransactionDetailRepository;
 
+
 @Repository
 public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 
