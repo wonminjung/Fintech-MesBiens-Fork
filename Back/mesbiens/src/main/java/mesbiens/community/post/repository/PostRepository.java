@@ -14,6 +14,10 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 	
 	// JpaRepository를 상속받아 기본 CRUD 메서드 제공
 	
+	// 게시판 저장
+	@Query(value="select post_no_seq.nextval from dual", nativeQuery=true)
+	int getPostNextSequenceValue(); // post_no_seq 시퀀스 다음번호값 가져오기
+	
 	// 게시판 목록
 	// 게시물 개수 조회(검색 필터)
 	@Query("SELECT COUNT(p) FROM PostVO p WHERE " +
@@ -26,10 +30,13 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 			// findField 가 PostContent 이면서 해당 postContent의 값이 %찾고자 하는 이름% 이라면
 	long countByFindField(@Param("findField") String findField, @Param("findName") String findName);
 
+	
+	
 	// 게시판 목록
 	// 게시물 리스트 조회 (페이징 + 검색)
-	@Query("SELECT p FROM PostVO p WHERE p.postTitle LIKE %:keyword% OR p.postCont LIKE %:keyword%")
-	Page<PostVO> searchPosts(String findField, String findName, Pageable pageable);
+	@Query("SELECT p FROM PostVO p WHERE p.postTitle LIKE %:findField% OR p.postCont LIKE %:findName%")
+	Page<PostVO> searchPosts(@Param("findField") String findField, @Param("findName") String findName, Pageable pageable);
+
 
 	
 	
