@@ -6,12 +6,13 @@ import mesbiens.community.post.vo.PostCommentVO;
 
 public interface PostCommentDAO {
 
-	PostCommentVO save(PostCommentVO postComment);
+	PostCommentVO saveComment(PostCommentVO comment);
 
 	PostCommentVO findById(int postCommentNo);
 
 	PostCommentVO update(PostCommentVO postComment);
 
 	void delete(int postCommentNo);
+
 
 }

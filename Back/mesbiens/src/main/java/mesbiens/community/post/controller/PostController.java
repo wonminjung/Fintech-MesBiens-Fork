@@ -1,11 +1,14 @@
 package mesbiens.community.post.controller;
 
+import java.util.List;
 import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +29,7 @@ import mesbiens.community.post.service.PostService;
 import mesbiens.community.post.vo.PostCommentVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
+import mesbiens.member.vo.MemberVO;
 
 @RestController // JSON 데이터를 반환하는 컨트롤러로 설정
 @RequestMapping("/community") // RESTful API 기본 경로 설정
@@ -55,12 +59,28 @@ public class PostController {
 	@PostMapping("/C_board/C_boardWrite_ok")
 	public ResponseEntity<String> postPostWrite(
 		    @ModelAttribute PostRequestDTO postRequest,  
+		    BindingResult bindingResult,
 		    @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
 		) {  
 		    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		    
+		    System.out.println(postRequest);
 
+		    // 유효성 검증 실패 시 처리
+		    if (bindingResult.hasErrors()) {
+		        StringBuilder errorMsg = new StringBuilder();
+		        for (FieldError error : bindingResult.getFieldErrors()) {
+		            errorMsg.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("\n");
+		        }
+		        return ResponseEntity.badRequest().body("입력 오류:\n" + errorMsg.toString());
+		    }
+		    
         try {
+        	if(uploadFile != null && !uploadFile.isEmpty()){
+                // 파일이 존재할 때의 로직 (예: postRequest에 파일 정보 세팅 등)
+                postRequest.setUploadFile(uploadFile);
+            }
+        	
         	postService.insertPost(postRequest, request);
             return ResponseEntity.ok("게시글이 성공적으로 저장되었습니다.");
         } catch (Exception e) {
@@ -68,15 +88,15 @@ public class PostController {
         }
     }
 	
-	// 게시판 목록
-	@GetMapping("/C_board")
-	public ResponseEntity<Map<String, Object>> getPostList(
-	@RequestParam(value = "page", defaultValue = "1") int page,
-    @RequestParam(value = "limit", defaultValue = "10") int limit) {
-
-		Map<String, Object> response = postService.getPostList(page, limit);
+	// 게시판 목록 조회
+    @GetMapping("/C_board")
+    public ResponseEntity<Map<String, Object>> getPostList(
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "limit", defaultValue = "10") int limit
+    ) {
+        Map<String, Object> response = postService.getPostList(page, limit);
         return ResponseEntity.ok(response);
-	}
+    }
 	
 	// 게시글 내용보기(게시글 상세보기)
 	@GetMapping("/C_board/{postNo}")
@@ -124,11 +144,14 @@ public class PostController {
             HttpServletRequest request) {
     	
     	// JSON Data로 받기위함
-    	String delPwd = requestbody.get("delPwd");
-    	String memberNo = requestbody.get("member_no");
+    	String postPassword = requestbody.get("postPassword");
+    	String memberNo = requestbody.get("memberNo");
 
+    	System.out.println(postPassword);
+    	System.out.println(requestbody.get("postPassword"));
+    	
         try {
-            postService.deletePost(postNo, delPwd, request, memberNo);
+            postService.deletePost(postNo, postPassword, request, memberNo);
             return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("비밀번호가 일치하지 않습니다.");
@@ -141,16 +164,20 @@ public class PostController {
     @PostMapping("/C_board/{postNo}/postComment_Write")
     public ResponseEntity<PostCommentVO> createComment(@PathVariable(name = "postNo") int postNo,
                                                        @RequestBody PostCommentVO postComment) {
-        PostVO post = postService.getPostById(postNo); // 게시글 조회
+    	try {
+            // 게시글 ID를 PostCommentVO에 설정
+            PostVO post = new PostVO();
+            post.setPostNo(postNo);
+            postComment.setPost(post);
 
-        if (post == null) {
-            return ResponseEntity.badRequest().build(); // 게시글이 존재하지 않으면 400 반환
+            PostCommentVO savedComment = postCommentService.createComment(postComment); // Service 호출
+            return ResponseEntity.ok(savedComment); // 성공 시 저장된 댓글 반환
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // 게시글 또는 회원이 존재하지 않을 경우
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // 서버 에러 처리
         }
-
-        postComment.setPost(post);  // 게시글 객체 설정
-
-        PostCommentVO savedComment = postCommentService.createComment(postComment);  // 댓글 저장
-        return ResponseEntity.ok(savedComment); // 저장된 댓글 반환
     }
     
     // 답글 수정

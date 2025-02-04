@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import mesbiens.community.post.summary.PostListSummary;
+import mesbiens.member.vo.MemberVO;
 
 @Getter
 @Setter
@@ -15,7 +17,9 @@ import lombok.ToString;
 public class PostRequestDTO {
 
 	private int postNo; // 게시글 ID
-	private int memberNo; // 회원 ID(글쓴이)
+//	private MemberVO member; // 회원
+	private int memberNo; // 회원 ID
+	private String memberName; // 회원 글쓴이
 	private String postTitle; // 글제목
 	private String postCont; // 글내용
 	private int postHit; // 조회수
@@ -39,4 +43,20 @@ public class PostRequestDTO {
 	
 	// 기본 생성자 필수
     public PostRequestDTO() {}
+    
+    public PostRequestDTO(PostListSummary post) {
+        this.postNo = post.getPostNo();
+        this.postTitle = post.getPostTitle();
+        this.memberNo = post.getMemberNo();
+        this.memberName = post.getMemberName();
+        this.postHit = post.getPostHit();
+        
+    }
+    
+    public MemberVO toMemberVO() {
+    	MemberVO member = new MemberVO();
+    	member.setMemberNo(this.memberNo);
+    	member.setMemberName(this.memberName);
+    	return member;
+    }
 }

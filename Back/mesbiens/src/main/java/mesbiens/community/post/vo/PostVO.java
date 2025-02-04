@@ -1,33 +1,36 @@
 package mesbiens.community.post.vo;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import mesbiens.member.vo.MemberVO;
 
 @Setter
 @Getter
-@ToString(exclude = "comments")
+@ToString
 @Entity
+@SequenceGenerator(
+			name="post_no_seq_post", // 시퀀스 제너레이터 이름
+			sequenceName = "post_no_seq", // 시퀀스 이름
+			initialValue = 1, // 시작값
+			allocationSize = 1 // 증감값
+		)
 @Table(name="post")
 @EqualsAndHashCode(of="postNo")
 
@@ -37,22 +40,17 @@ public class PostVO {
 	
 	@Id // 구분키인 식별키로 지정
 	@Column(name="post_no")
-	@SequenceGenerator(
-			name="post_no_seq_post", // 시퀀스 제너레이터 이름
-			sequenceName = "post_no_seq", // 시퀀스 이름
-			initialValue = 1, // 시작값
-			allocationSize = 1 // 증감값
-		)
 	@GeneratedValue(
 				strategy = GenerationType.SEQUENCE, // 사용할 전략을 시퀀스로 선택
 				generator = "post_no_seq_post" // 시퀀스 생성기에 설정해 놓은 제너레이터 이름
 			)
 	private int postNo; // 게시글 ID
 	
+	@ManyToOne // 다대일 관계 설정
 	@JoinColumn(name = "member_no", referencedColumnName = "member_no") // 외래키 매핑
 	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private int memberNo; // 회원 ID(글쓴이)
+	private MemberVO member; // 회원 ID(글쓴이)
 	
 	@Column(name="post_title")
 	private String postTitle; // 글제목
@@ -87,12 +85,7 @@ public class PostVO {
 	
 	@Column(name="post_modify")
 	private String postModify; // 게시글 수정여부
-	
-	// 댓글 관리
-	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference // 무한 재귀 방지(직렬화 시 포함할 데이터)
-	private List<PostCommentVO> comments = new ArrayList<>();
-	
+		
 	@CreationTimestamp // 등록시점의 날짜와 시간값을 사용하기 위한 에노테이션
 	@Column(name="post_date", nullable = false)
 	private Timestamp postDate; // 작성일
@@ -100,6 +93,11 @@ public class PostVO {
 	@Column(name="post_modify_date")
 	@CreationTimestamp
 	private Date postModifyDate; // 게시글 수정일시
+	
+	
+//	@OneToMany(mappedBy = "postVO", orphanRemoval = true)
+//    private List<PostLogVO> logList = new ArrayList<>();
+	
 	
 	private int postStartPageRow; // 쪽 시작 행 번호
 	private int postEndPageRow; // 쪽 끝 행 번호

@@ -17,9 +17,9 @@ public class PostCommentDAOImpl implements PostCommentDAO {
 
 	@Transactional
 	@Override
-	public PostCommentVO save(PostCommentVO postComment) {
-		return postCommentRepository.save(postComment);
-	}
+    public PostCommentVO saveComment(PostCommentVO comment) {
+        return postCommentRepository.save(comment);
+    }
 
 	@Override
 	public PostCommentVO findById(int postCommentNo) {

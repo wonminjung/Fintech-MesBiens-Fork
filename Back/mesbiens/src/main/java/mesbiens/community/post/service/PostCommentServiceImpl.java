@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import mesbiens.community.post.dao.PostCommentDAO;
+import mesbiens.community.post.dao.PostDAO;
 import mesbiens.community.post.vo.PostCommentVO;
+import mesbiens.community.post.vo.PostVO;
+import mesbiens.member.repository.MemberRepository;
+import mesbiens.member.vo.MemberVO;
 
 @Service
 public class PostCommentServiceImpl implements PostCommentService {
@@ -14,10 +18,28 @@ public class PostCommentServiceImpl implements PostCommentService {
 	@Autowired
     private PostCommentDAO postCommentDAO;
 	
-	@Transactional
+	@Autowired
+	private PostDAO postDAO;
+	
+	// 답글 작성
 	@Override
-	public PostCommentVO createComment(PostCommentVO postComment) {
-		return postCommentDAO.save(postComment); // 댓글 저장
+	@Transactional
+	public PostCommentVO createComment(PostCommentVO comment) {
+	    // ✅ 부모 테이블(Post, Member) 존재 여부 검증
+	    PostVO post = postDAO.getPostById(comment.getPost().getPostNo());
+	    if (post == null) {
+	        throw new IllegalArgumentException("게시글이 존재하지 않습니다.");
+	    }
+
+	    MemberVO member = postDAO.getMemberById(comment.getMember().getMemberNo());
+	    if (member == null) {
+	        throw new IllegalArgumentException("회원 정보가 존재하지 않습니다.");
+	    }
+
+	    comment.setPost(post);
+	    comment.setMember(member);
+
+	    return postCommentDAO.saveComment(comment); // DAO를 통해 저장
 	}
 
 	@Override

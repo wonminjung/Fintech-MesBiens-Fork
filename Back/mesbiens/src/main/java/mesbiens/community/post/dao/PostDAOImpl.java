@@ -13,8 +13,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import mesbiens.community.post.repository.PostRepository;
+import mesbiens.community.post.summary.PostListSummary;
 import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostVO;
+import mesbiens.member.repository.MemberRepository;
+import mesbiens.member.vo.MemberVO;
 
 @Repository
 public class PostDAOImpl implements PostDAO {
@@ -26,8 +29,8 @@ public class PostDAOImpl implements PostDAO {
     private EntityManager entityManager;
 	// JPA 사용 → entityManager.persist(post);로 데이터 저장.
 	
-//	@Autowired
-//	private MemberRepository memberRepository;
+	@Autowired
+	private MemberRepository memberRepository;
 
 	
 	// 게시판 글쓰기의 경우 DB 연동을 따로 하지 않아 작성 안함
@@ -49,44 +52,31 @@ public class PostDAOImpl implements PostDAO {
 	}
 
 	// 게시판 목록
-	@Override
-	public int getRowCount(PageVO p) {
-		// 검색 필터가 있을 경우 처리
-        String findField = p.getFindField();
-        String findName = p.getFindName();
-        
-        if (findName == null || findName.isEmpty()) {
-            return (int) postRepository.count(); // 전체 개수 조회
-        } else {
-            return (int) postRepository.countByFindField(findField, findName); // 검색된 개수 조회
-        }
-	}
+	 @Override
+	 public int getRowCount() {
+        return (int) postRepository.count();
+	 }
 
-	// 게시판 목록
-	@Override
-	 public List<PostVO> getPostList(PageVO pageVO) {
-        int page = pageVO.getPage() - 1; // JPA Pageable은 0부터 시작
-        int size = pageVO.getEndrow() - pageVO.getStartrow() + 1;
-        
-        // page가 0보다 작은지 검증
-        if (page < 0) {
-            page = 0; // 페이지 번호를 0으로 보정
-        }
-        
-        // Spring Data JPA에서 페이징 처리와 정렬을 설정
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "postNo"));
-
-        return postRepository.searchPosts(pageVO.getFindField(), pageVO.getFindName(), pageable).getContent();
-    }
-
+	 // 게시판 목록
+	 @Override
+	    public List<PostVO> getPostList(PageVO pageVO) {
+	        Pageable pageable = PageRequest.of(
+	            pageVO.getStartrow() / (pageVO.getEndrow() - pageVO.getStartrow()), 
+	            pageVO.getEndrow() - pageVO.getStartrow(), 
+	            Sort.by(Sort.Direction.DESC, "postNo")
+	        );
+	
+	        return postRepository.findAllPosts(pageable).getContent();
+	    }
+	
 	// 조회수 상승
 	@Override
 	public void increaseViewCount(int postNo) {
 		PostVO postVO = postRepository.findById(postNo)
-                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다: " + postNo));
+	            .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다: " + postNo));
 		// .orElseThrow() postNO 를 찾이 못했을 경우 RuntimeException 에러발생
 		postVO.setPostHit(postVO.getPostHit() + 1);
-        postRepository.save(postVO); // 변경된 조회수 저장
+	    postRepository.save(postVO); // 변경된 조회수 저장
 	}
 
 	// postNo 가져오기
@@ -120,6 +110,12 @@ public class PostDAOImpl implements PostDAO {
 		System.out.println(postRepository.findById(postNo));
 		System.out.println("==============================================================================");
 		return postRepository.findById(postNo) .orElseThrow(() -> new EntityNotFoundException("Post not found with ID: " + postNo));
+	}
+
+	@Override
+	public MemberVO getMemberById(int memberNo) {
+		 return memberRepository.findById(memberNo)
+	                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
 	}
 
 }

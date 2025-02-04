@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import mesbiens.member.vo.MemberVO;
 
 @Setter
 @Getter
@@ -53,12 +54,11 @@ public class PostCommentVO {
 	// name = "PostNo": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
 	
-//	@JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래키 매핑
+	@ManyToOne
+	@JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false) // 외래키 매핑
 //	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 //	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-//	private int memberNo; // 회원 ID(글쓴이)
-	@Column(name = "member_no", nullable = false) // 수정된 부분
-    private int memberNo;
+    private MemberVO member;
 	
 	@Column(name="pstc_content", nullable = false)
 	private String postCommentContent; // 댓글 내용
