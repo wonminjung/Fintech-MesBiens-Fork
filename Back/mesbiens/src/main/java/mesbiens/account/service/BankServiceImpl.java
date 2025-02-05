@@ -19,7 +19,4 @@ public class BankServiceImpl implements BankService {
 		return bankDao.getAllBankList();
 	}
 	
-	
-	
-	
 }
