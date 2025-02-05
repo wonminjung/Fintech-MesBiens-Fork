@@ -211,6 +211,7 @@ export const Board: React.FC = () => {
           `${process.env.REACT_APP_SERVER_URL}/community/C_board?page=${currentPage}`
         );
         const data: ApiResponse = await response.json();
+        console.log("API 데이터:", data)
         setPosts(data.plist);
         setTotalPages(data.maxPage || 1);
       } catch (error) {

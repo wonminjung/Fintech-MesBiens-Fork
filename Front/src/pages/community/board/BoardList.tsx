@@ -104,6 +104,8 @@ interface BoardListProps {
   boards: Post[];
 }
 
+
+
 const BoardList: React.FC<BoardListProps> = ({ boards }) => {
 
   const navigate = useNavigate(); // ✅ 페이지 이동을 위한 훅
@@ -114,15 +116,20 @@ const BoardList: React.FC<BoardListProps> = ({ boards }) => {
     navigate(`/community/C_board/${postNo}`); // (조회수 상승)게시글 상세보기로 이동
   };
 
+  
+
+
+
   return (
     <>
       {boards.length > 0 ? (
-        boards.map((post) => (
-          <BC.TRCont key={post.postNo} onClick={() => handleContent(post.postNo)}>
-            <BC.TD>{post.postNo}</BC.TD>
-            <BC.TDTitle>{post.postTitle}</BC.TDTitle>
-            <BC.TD>{post.memberName}</BC.TD>
-            <BC.TD>{post.postHit}</BC.TD>
+        boards.map((board) => (
+          
+          <BC.TRCont key={board.postNo} onClick={() => handleContent(board.postNo)}>
+            <BC.TD>{board.postNo}</BC.TD>
+            <BC.TDTitle>{board.postTitle}</BC.TDTitle>
+            <BC.TD>{board.memberName}</BC.TD>
+            <BC.TD>{board.postHit}</BC.TD>
           </BC.TRCont>
         ))
       ) : (
