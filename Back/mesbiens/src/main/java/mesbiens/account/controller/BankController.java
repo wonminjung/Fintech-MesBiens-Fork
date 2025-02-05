@@ -13,7 +13,6 @@ import mesbiens.account.vo.BankInfoVO;
 
 @RestController
 @RequestMapping("/allBankList")
-@CrossOrigin(origins = "http://localhost:4000")
 public class BankController {
 	
 	@Autowired
@@ -22,6 +21,7 @@ public class BankController {
 	// 모든 뱅크 리스트 가져오기
 	@GetMapping
 	public List<BankInfoVO> getAllBankList() {
+		System.out.println("test");
 		return bankService.getAllBankList();
 	}
 }
