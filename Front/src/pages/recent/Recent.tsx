@@ -4,6 +4,18 @@ import { R } from "./style";
 import { records, Record } from "./data";
 import { faBank } from "@fortawesome/free-solid-svg-icons";
 import { H1 } from "../../components/htags/style";
+import S from "../assets/style";
+
+type RecentData = {
+  trnsCreateAt: string;
+  bankName: string;
+  accountNumber: string;
+  memberName: string;
+  trnsMemo: string;
+  categoryName: string;
+  trnsBalance: number;
+  trnsTypeName: string;
+};
 
 const Recent: React.FC = () => {
   const [startDate, setStartDate] = useState<string>("");
@@ -11,29 +23,63 @@ const Recent: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedBank, setSelectedBank] = useState<string>("");
+  const [records, setRecords] = useState<RecentData[]>([]);
 
   useEffect(() => {
     const today = new Date();
-    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 2);
     const lastDayOfMonth = new Date(
       today.getFullYear(),
       today.getMonth() + 1,
-      0
+      1
     );
 
-    setStartDate(firstDayOfMonth.toISOString().split("T")[0]);
-    setEndDate(lastDayOfMonth.toISOString().split("T")[0]);
+    const newStartDate = firstDayOfMonth.toISOString().split("T")[0];
+    const newEndDate = lastDayOfMonth.toISOString().split("T")[0];
+
+    setStartDate(newStartDate);
+    setEndDate(newEndDate);
+
+    // 날짜를 설정한 후에 로그 출력
+    console.log("Start Date:", newStartDate);
+    console.log("End Date:", newEndDate);
+
+    const requestDate = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/transaction/recent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({
+            recentStartDate: newStartDate,
+            recentEndDate: newEndDate,
+          }),
+        }
+      );
+      const data: RecentData[] = await response.json();
+      return data;
+    };
+    requestDate()
+      .then((response) => {
+        setRecords(response);
+        console.log(response);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }, []);
 
   // 특정 날짜에 해당하는 거래 내역을 반환하는 함수
   const getRecordsInRange = (start: string, end: string) => {
     return records.filter(
       (record) =>
-        record.date >= start &&
-        record.date <= end &&
-        (selectedCategory ? record.category === selectedCategory : true) &&
-        (selectedStatus ? record.status === selectedStatus : true) &&
-        (selectedBank ? record.bank === selectedBank : true)
+        record.trnsCreateAt >= start &&
+        record.trnsCreateAt <= end &&
+        (selectedCategory ? record.categoryName === selectedCategory : true) &&
+        (selectedStatus ? record.trnsTypeName === selectedStatus : true) &&
+        (selectedBank ? record.bankName === selectedBank : true)
     );
   };
 
@@ -41,14 +87,20 @@ const Recent: React.FC = () => {
 
   // 카테고리 배열 생성 (중복 제거)
   const categories = Array.from(
-    new Set(records.map((record) => record.category).filter(Boolean))
+    new Set(records.map((record) => record.categoryName).filter(Boolean))
   ) as string[];
 
   // 상태 배열
-  const statuses = ["입금", "출금"];
+  const statuses = ["DEPOSIT", "WITHDRAWAL"];
 
   // 은행 배열
-  const banks = ["국민", "우리", "신한", "하나", "IBK기업"];
+  const banks = [
+    "KB국민은행",
+    "우리은행",
+    "신한은행",
+    "하나은행",
+    "IBK기업은행",
+  ];
 
   return (
     <R.TransferContainer>
@@ -128,18 +180,19 @@ const Recent: React.FC = () => {
           {filteredRecords.length > 0 ? (
             filteredRecords.map((record, index) => (
               <tr key={index}>
-                <R.TableRow>{record.date}</R.TableRow>
-                <R.TableRow>{record.bank}</R.TableRow>
-                <R.TableRow>{record.account}</R.TableRow>
-                <R.TableRow>{record.target}</R.TableRow>
-                <R.TableRow>{record.details}</R.TableRow>
-                <R.TableRow>{record.category}</R.TableRow>
-                <R.TableRow>{record.amount}</R.TableRow>
+                <R.TableRow>{record.trnsCreateAt}</R.TableRow>
+                <R.TableRow>{record.bankName}</R.TableRow>
+                <R.TableRow>{record.accountNumber}</R.TableRow>
+                <R.TableRow>{record.memberName}</R.TableRow>
+                <R.TableRow>{record.trnsMemo}</R.TableRow>
+                <R.TableRow>{record.categoryName}</R.TableRow>
+                <R.TableRow>{record.trnsBalance}</R.TableRow>
                 <R.TableRow
-                  className={`status ${record.status === "입금" ? "success" : "failure"
-                    }`}
+                  className={`status ${
+                    record.trnsTypeName === "DEPOSIT" ? "success" : "failure"
+                  }`}
                 >
-                  {record.status}
+                  {record.trnsTypeName === "DEPOSIT" ? "입금" : "출금"}
                 </R.TableRow>
               </tr>
             ))

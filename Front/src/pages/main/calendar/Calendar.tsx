@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { records } from "../../recent/data";
+import React, { useEffect, useState } from "react";
 import {
   format,
   addMonths,
@@ -19,9 +18,69 @@ interface SmallCalendarProps {
   onDateSelect: (date: Date) => void;
 }
 
+type RecentData = {
+  trnsCreateAt: string;
+  bankName: string;
+  accountNumber: string;
+  memberName: string;
+  trnsMemo: string;
+  categoryName: string;
+  trnsBalance: number;
+  trnsTypeName: string;
+};
+
 const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+  const [records, setRecords] = useState<RecentData[]>([]);
+
+  useEffect(() => {
+    const today = new Date();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 2);
+    const lastDayOfMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      1
+    );
+
+    const newStartDate = firstDayOfMonth.toISOString().split("T")[0];
+    const newEndDate = lastDayOfMonth.toISOString().split("T")[0];
+
+    setStartDate(newStartDate);
+    setEndDate(newEndDate);
+
+    // 날짜를 설정한 후에 로그 출력
+    console.log("Start Date:", newStartDate);
+    console.log("End Date:", newEndDate);
+
+    const requestDate = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/transaction/recent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({
+            recentStartDate: newStartDate,
+            recentEndDate: newEndDate,
+          }),
+        }
+      );
+      const data: RecentData[] = await response.json();
+      return data;
+    };
+    requestDate()
+      .then((response) => {
+        setRecords(response);
+        console.log(response);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }, []);
 
   const CalendarHeader = () => {
     return (
@@ -57,11 +116,11 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
     return <div className="calendar-days-row">{days}</div>;
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "입금":
+  const getStatusColor = (trnsTypeName: string) => {
+    switch (trnsTypeName) {
+      case "DEPOSIT":
         return "green"; // 입금은 초록색
-      case "출금":
+      case "WITHDRAWAL":
         return "red"; // 출금은 빨간색
       default:
         return "black"; // 기본 색상
@@ -86,11 +145,9 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
 
         // 해당 날짜의 거래 내역을 필터링
         const recordsForDay = records.filter(
-          (record) => record.date === format(day, "yyyy-MM-dd")
+          (record) =>
+            record.trnsCreateAt.split("T")[0] === format(day, "yyyy-MM-dd")
         );
-
-        // 거래 내역 개수 확인
-        const hasThreeOrMoreRecords = recordsForDay.length >= 3;
 
         days.push(
           <C.CalendarDayCellButton
@@ -110,14 +167,11 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             <span>{formattedDate}</span>
             {recordsForDay.length > 0 && (
               <div style={{ fontSize: "0.8em", marginTop: "25px" }}>
-                <div style={{ color: getStatusColor(recordsForDay[0].status) }}>
-                  {Math.abs(
-                    recordsForDay.reduce((sum, record) => {
-                      return record.status === "입금"
-                        ? sum + Number(record.amount)
-                        : sum - Number(record.amount);
-                    }, 0)
-                  ).toLocaleString()}{" "}
+                <div
+                  style={{
+                    color: getStatusColor(recordsForDay[0].trnsTypeName),
+                  }}
+                >
                   [{recordsForDay.length}]
                 </div>
               </div>
