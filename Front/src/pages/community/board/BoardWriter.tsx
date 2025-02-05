@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { BC, BP, BW } from "./style";
 import { useNavigate } from "react-router-dom";
+import { BP, BW } from "./style";
 
 const BoardWriter: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -11,21 +11,52 @@ const BoardWriter: React.FC = () => {
   };
 
   const navigate = useNavigate();
-  const [btitle, setBtitle] = useState(""); // 제목 상태
-  const [bname, setBname] = useState(""); // 작성자 상태
-  const [bcont, setBcont] = useState(""); // 게시글 나용 상태
-  const handleSubmit = () => {
-    const postData = {
-      btitle,
-      bname,
-      bcont,
-      date: new Date().toISOString(), // 현재 날짜 추가 (ISO 형식)
-    };
+  const [postTitle, setPostTitle] = useState("");
+  const [memberName, setMemberName] = useState("");
+  const [memberNo, setMemberNo] = useState(1); // 회원 번호 임시로 1로 설정 (나중에 로그인 정보로 대체 가능)
+  const [postPassword, setPostPassword] = useState("");
+  const [postCont, setPostCont] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
-    console.log("등록 완료");
-    console.log("게시글 데이터:", JSON.stringify(postData, null, 2)); // JSON 형식으로 출력
-    // 게시글 등록 로직 추가, ex) API 호출 등
-    navigate(-1);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleGoBack = () => {
+    navigate("/community/C_board"); // 목록으로 돌아가는 기능
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("postTitle", postTitle);
+    formData.append("memberName", memberName);
+    formData.append("memberNo", String(memberNo)); // memberNo 추가
+    formData.append("postPassword", postPassword);
+    formData.append("postCont", postCont);
+    if (file) {
+      formData.append("uploadFile", file);
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/community/C_board/C_boardWrite_ok`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        console.log("게시글 등록 성공");
+        navigate("/community/C_board");
+      } else {
+        console.error("게시글 등록 실패");
+      }
+    } catch (error) {
+      console.error("게시글 등록 중 에러 발생:", error);
+    }
   };
 
   return (
@@ -33,26 +64,49 @@ const BoardWriter: React.FC = () => {
       <BW.WriteHeader>
         <BW.TitleInput
           placeholder=" 제목"
-          value={btitle}
-          onChange={(e) => setBtitle(e.target.value)}
+          value={postTitle}
+          onChange={(e) => setPostTitle(e.target.value)}
         />
       </BW.WriteHeader>
+
       <BW.TopContent>
         <BW.Input
           placeholder=" 작성자"
-          value={bname}
-          onChange={(e) => setBname(e.target.value)}
+          value={memberName}
+          onChange={(e) => setMemberName(e.target.value)}
+        />
+        <BW.Input
+          placeholder=" 회원번호"
+          type="number"
+          value={memberNo}
+          onChange={(e) => setMemberNo(Number(e.target.value))}
+        />
+        <BW.Input
+          placeholder=" 비밀번호"
+          type="password"
+          value={postPassword}
+          onChange={(e) => setPostPassword(e.target.value)}
         />
       </BW.TopContent>
+
+      <BW.MiddleContent>
+        <label>첨부파일:</label>
+        <BW.Input type="file" onChange={handleFileChange} />
+      </BW.MiddleContent>
+
       <BW.WriteContent onClick={handleInputFocus}>
         <BW.ContentInput
           ref={inputRef}
           placeholder="게시글 입력"
-          value={bcont}
-          onChange={(e) => setBcont(e.target.value)}
+          value={postCont}
+          onChange={(e) => setPostCont(e.target.value)}
         />
       </BW.WriteContent>
+
       <BW.ButtonContainer>
+        <BP.Button type="submit" onClick={handleGoBack}>
+          목록
+        </BP.Button>
         <BP.Button type="submit" onClick={handleSubmit}>
           등록
         </BP.Button>

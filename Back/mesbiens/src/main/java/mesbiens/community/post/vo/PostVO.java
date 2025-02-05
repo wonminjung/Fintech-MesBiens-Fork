@@ -50,7 +50,7 @@ public class PostVO {
 	@JoinColumn(name = "member_no", referencedColumnName = "member_no") // 외래키 매핑
 	// name = "memberId": Post 테이블에서 외래키 컬럼 이름.
 	// nullable = false: 이 컬럼이 반드시 값이 있어야 함을 지정.
-	private MemberVO memberNo; // 회원 ID(글쓴이)
+	private MemberVO member; // 회원 ID(글쓴이)
 	
 	@Column(name="post_title")
 	private String postTitle; // 글제목
