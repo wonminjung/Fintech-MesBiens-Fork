@@ -23,16 +23,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtTokenProvider {
-	private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
+   private static final Logger log = LoggerFactory.getLogger(JwtTokenProvider.class);
     private final SecretKey key;
     private final long accessTokenValidity = 3600000; // 1시간 (60분)
     private final long refreshTokenValidity = 86400000; // 24시간 (1일)
     private final UserDetailsService userDetailsService;
 
     public JwtTokenProvider(@Value("${jwt.secretKey}") String secretKeyBase64, UserDetailsService userDetailsService) {
-    	System.out.println("Secret Key (Base64): " + secretKeyBase64); // Base64 인코딩된 키 값 출력
-    	byte[] decodedKey = Base64.getUrlDecoder().decode(secretKeyBase64);
-    	System.out.println("Secret Key (Decoded Length): " + decodedKey.length); // 디코딩된 키 길이 출력
+       System.out.println("Secret Key (Base64): " + secretKeyBase64); // Base64 인코딩된 키 값 출력
+       byte[] decodedKey = Base64.getUrlDecoder().decode(secretKeyBase64);
+       System.out.println("Secret Key (Decoded Length): " + decodedKey.length); // 디코딩된 키 길이 출력
         if (decodedKey.length != 32) {
             throw new IllegalArgumentException("The secret key must be 256 bits (32 bytes).");
         }
@@ -196,12 +196,12 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 /*
-	public String createToken(String memberId, String role) {
-		 // 유효 기간을 1시간으로 고정
-	    long validity = 3600000;  // 1시간
+   public String createToken(String memberId, String role) {
+       // 유효 기간을 1시간으로 고정
+       long validity = 3600000;  // 1시간
 
-	    return createToken(memberId, role, validity);  // 첫 번째 메소드 호출
-	}
+       return createToken(memberId, role, validity);  // 첫 번째 메소드 호출
+   }
 */
-	
-	}
+   
+   }
