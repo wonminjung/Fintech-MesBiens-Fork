@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,11 @@ public class AccountController {
 		
 		accounts.stream().forEach((account) -> {
 			AccountResponseDTO res = new AccountResponseDTO(account);
+			System.out.println(res.getAccountNo());
+			System.out.println(res.getMemberNo());
+			System.out.println(res.getAccountBalance());
+			System.out.println(res.getBankCode());
+			System.out.println("------------------------");
 			response.add(res);
 		});
 		
