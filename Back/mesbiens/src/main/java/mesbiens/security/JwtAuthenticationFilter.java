@@ -29,6 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //  Access Token 검증
             if (jwtTokenProvider.validateToken(token)) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                
+                //인증된 사용자 정보를 securitycontext에 저장
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 System.out.println(" JWT 인증 성공: " + authentication.getName());
             } else {

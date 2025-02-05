@@ -146,7 +146,7 @@ public class JwtTokenProvider {
             return false; //  유효하지 않으면 false 반환
         }
     }
-    
+    //HTTP 요청의 쿠키에서 jwt 이름의 쿠키를 찾아 jwt 토큰값 추출
     public String extractTokenFromRequest(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
