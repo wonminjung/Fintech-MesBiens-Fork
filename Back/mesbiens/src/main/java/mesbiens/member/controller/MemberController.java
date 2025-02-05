@@ -17,7 +17,7 @@ import mesbiens.security.JwtTokenProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
-
+//@CrossOrigin(origins = "http://localhost:4000")
 @RestController
 @RequestMapping("/members")
 public class MemberController {
@@ -31,11 +31,13 @@ public class MemberController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder; // 비밀번호 암호화용
     
+    @Autowired
     private JwtTokenProvider jwtTokenProvider; 
+    /*
     public MemberController(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
-
+*/
     //  Refresh Token을 이용한 Access Token 재발급 API
     @PostMapping("/token/refresh")
     public ResponseEntity<String> refreshToken(HttpServletRequest request, HttpServletResponse response) {
@@ -60,19 +62,27 @@ public class MemberController {
         return ResponseEntity.ok(registeredMember);
     }
 
-    //  로그인
+    //  로그인              
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         System.out.println("로그인 요청 도착! ID: " + loginRequest.getMemberId());
-
+        
+        //요청한 로그인 아이디에 앞뒤 공백을 제거 하여 공백이 있는지 확인하고 공백이 있으면 에러 발생
         if (loginRequest.getMemberId() == null || loginRequest.getMemberId().trim().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원 아이디가 누락되었습니다.");
         }
+        
+        //요청한 로그인 아이디에 공백이 있는지 확인
+        if(loginRequest.getMemberId().contains(" ")) {
+        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디에 공백을 포함할 수 없습니다");
+        }
 
+        //optional 객체 값이 존재할 수도 있고 없을수도 있는 상황을 처리하기 위해 사용 optional<MemberVO>는 MemberVO 객체값이 존재할 수도 있고 없을 수도 있다.
         Optional<MemberVO> memberOpt = memberService.findByMemberId(loginRequest.getMemberId());
-
+        
+        //isEmpty() 값이 있는지 없는지 확인하고 값이 있다면 true 없다면 false 따라서 값이 없으면 에러가 발생
         if (memberOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자를 찾을 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
         }
 
         MemberVO member = memberOpt.get();
@@ -90,8 +100,12 @@ public class MemberController {
 
         System.out.println("로그인 성공! JWT 발급: " + token);
 
-        return ResponseEntity.ok(new MemberResponseDTO(member.getMemberId(), member.getMemberName(), member.getMemberEmail()));
+        return ResponseEntity.ok(new MemberResponseDTO(member));//(new MemberResponseDTO(member.getMemberId(), member.getMemberName(), member.getMemberEmail()));
     }
+    
+    
+    
+    
     //  로그아웃 (쿠키 삭제 + 로그인 기록 갱신)
     @PostMapping("/logout/{recordNo}")
     public ResponseEntity<String> logout(@PathVariable("recordNo") int recordNo, HttpServletResponse response) {
@@ -132,6 +146,6 @@ public class MemberController {
         }
 
         MemberVO member = memberOpt.get();
-        return ResponseEntity.ok(new MemberResponseDTO(member.getMemberId(), member.getMemberName(), member.getMemberEmail()));
+        return ResponseEntity.ok(new MemberResponseDTO(member));//(new MemberResponseDTO(member.getMemberId(), member.getMemberName(), member.getMemberEmail()));
 }
 }

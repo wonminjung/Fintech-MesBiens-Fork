@@ -53,7 +53,7 @@ public class MemberService {
 
         return toResponseDTO(savedMember);
     }
-
+    
     //  로그인 (Access Token + Refresh Token 발급)
     public void login(String memberId, String password, String requestIp, HttpServletResponse response) {
         if (memberId == null || memberId.trim().isEmpty()) {
@@ -114,7 +114,8 @@ public class MemberService {
 
     //  DTO 변환 메서드
     private MemberResponseDTO toResponseDTO(MemberVO member) {
-        MemberResponseDTO responseDTO = new MemberResponseDTO();
+        MemberResponseDTO responseDTO = new MemberResponseDTO(member);
+        /*
         responseDTO.setMemberNo(member.getMemberNo());
         responseDTO.setMemberName(member.getMemberName());
         responseDTO.setMemberEmail(member.getMemberEmail());
@@ -124,6 +125,7 @@ public class MemberService {
         responseDTO.setMemberBirth(member.getMemberBirth());
         responseDTO.setMemberProfile(member.getMemberProfile());
         responseDTO.setMemberSnsSignUpYN(member.getMemberSnsSignUpYN());
+        */
         return responseDTO;
     }
 
