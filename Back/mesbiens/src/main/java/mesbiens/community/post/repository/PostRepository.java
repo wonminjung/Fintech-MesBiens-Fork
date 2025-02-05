@@ -1,12 +1,17 @@
 package mesbiens.community.post.repository;
 
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import mesbiens.community.post.summary.PostListSummary;
 import mesbiens.community.post.vo.PostVO;
 
 @Repository
@@ -30,7 +35,9 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 			// findField 가 PostContent 이면서 해당 postContent의 값이 %찾고자 하는 이름% 이라면
 	long countByFindField(@Param("findField") String findField, @Param("findName") String findName);
 
-	
+	@Query("SELECT p FROM PostVO p JOIN FETCH p.member")
+    Page<PostVO> findAllPosts(Pageable pageable);
+
 	
 	// 게시판 목록
 	// 게시물 리스트 조회 (페이징 + 검색)
@@ -38,6 +45,5 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 	Page<PostVO> searchPosts(@Param("findField") String findField, @Param("findName") String findName, Pageable pageable);
 
 
-	
 	
 }

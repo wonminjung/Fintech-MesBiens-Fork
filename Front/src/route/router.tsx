@@ -1,32 +1,31 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
-import Layout from "../pages/layout/Layout";
-import LoginPage from "../pages/login/LoginPage";
-import SignupPage from "../pages/signup/SignupPage";
-import FindIDPage from "../pages/findID/FindIDPage";
-import MyPageContainer from "../pages/myPage/MyPageContainer";
-import IntroPage from "../pages/main/IntroPageAfterLogin";
-import News from "../pages/community/news/News";
-import Recommend from "../pages/community/quiz/Quiz";
+import AssetsContainer from "../pages/assets/AssetsContainer";
 import {
   Board,
-  BoardContent,
-  BoardWrite,
+  BoardWrite
 } from "../pages/community/board/Board";
-import Tile1 from "../pages/community/news/Tile1";
-import StockTest from "../pages/community/quiz/StockTest";
-import Transaction from "../pages/transaction/Transaction";
-import Recent from "../pages/recent/Recent";
-import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
-import MainPage from "../pages/main/MainPage";
-import AssetsContainer from "../pages/assets/AssetsContainer";
+import BoardPost from "../pages/community/board/BoardPost";
 import Calculator from "../pages/community/calculator/Calculator";
 import InnerLayout from "../pages/community/InnerLayout";
+import News from "../pages/community/news/News";
+import Tile1 from "../pages/community/news/Tile1";
+import Recommend from "../pages/community/quiz/Quiz";
+import StockTest from "../pages/community/quiz/StockTest";
+import FindIDPage from "../pages/findID/FindIDPage";
+import Layout from "../pages/layout/Layout";
+import LoginPage from "../pages/login/LoginPage";
+import IntroPage from "../pages/main/IntroPageAfterLogin";
+import IntroPageBeforeLogin from "../pages/main/IntroPageBeforeLogin";
+import MainPage from "../pages/main/MainPage";
+import CartPage from "../pages/mesbiensShop/CartPage";
+import CategoryPage from "../pages/mesbiensShop/CategoryPage";
 import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
 import ProductPage from "../pages/mesbiensShop/ProductPage";
-import CategoryPage from "../pages/mesbiensShop/CategoryPage";
-import CartPage from "../pages/mesbiensShop/CartPage";
 import PurchasePage from "../pages/mesbiensShop/PurchasePage";
-import TestPage from "../pages/TestPage";
+import MyPageContainer from "../pages/myPage/MyPageContainer";
+import Recent from "../pages/recent/Recent";
+import SignupPage from "../pages/signup/SignupPage";
+import Transaction from "../pages/transaction/Transaction";
 
 const routes: RouteObject[] = [
   {
@@ -78,8 +77,8 @@ const routes: RouteObject[] = [
             element: <BoardWrite />,
           },
           {
-            path: "C_board/:bno",
-            element: <BoardContent />,
+            path: "C_board/:postNo",
+            element: <BoardPost />,
           },
         ],
       },

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import DefaultButton from "../../../components/button/DefaultButton";
-import DefaultInputField from "../../../components/inputfield/InputField";
 import PlainButton from "../../../components/button/PlainButton";
-import { platform } from "os";
+import DefaultInputField from "../../../components/inputfield/InputField";
 
 export const BC = {
   Board: styled.div`
@@ -72,6 +71,16 @@ export const BC = {
   H2: styled.h2`
     margin-left: 40px;
   `,
+  NoDataMessage: styled.div`
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #888;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px;
+  `,
 
   /* Pagination */
   PaginationWrapper: styled.div`
@@ -91,6 +100,19 @@ export const BC = {
       }
     }
   `,
+
+//   PaginationInfoWrapper: styled.div`
+//   width: 100%;
+//   display: flex;
+//   justify-content: flex-end;  /* 우측 정렬 */
+//   margin-top: 20px;
+// `,
+
+//   PaginationInfo: styled.div`
+//     width: 10em;
+//     margin-top: 20px;
+//     text-align: right;
+//   `,
 
   /* Chat */
   ChatArea: styled.div`
@@ -245,6 +267,10 @@ export const BP = {
       color: #333;
     }
   `,
+  FileSection: styled.div`
+    width: 3em;
+    height: 2em;
+  `,
   PostContent: styled.div`
     margin-top: 20px;
     font-size: 1em;
@@ -269,6 +295,11 @@ export const BP = {
     color: #333;
     margin-bottom: 15px;
   `,
+
+  AddCommentContainer: styled.div`
+    font-size: 1.2em;
+  `,
+
   Comment: styled.div`
     padding: 15px;
     margin-top: 10px;
@@ -371,6 +402,11 @@ export const BW = {
     display: flex;
     align-items: center;
   `,
+  MiddleContent: styled.div`
+    display: flex;
+    align-items: center;
+  `,
+
   ButtonContainer: styled.div`
     margin-top: 20px;
     display: flex;
