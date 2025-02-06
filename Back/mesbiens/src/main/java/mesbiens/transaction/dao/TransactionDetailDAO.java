@@ -21,14 +21,6 @@ public interface TransactionDetailDAO {
 
 	// 잔액 업데이트
 	boolean updateBalance(Optional<AccountVO> receiverAccount, Optional<AccountVO> senderAccount);
-
-	
-//    List<TransactionDetailVO> findAllTransactions();
-//    List<TransactionDetailVO> findTransactionsDate(Timestamp startDate, Timestamp endDate);
-//    void saveTransaction(TransactionDetailVO transactionDetailVO);
-//    boolean existsById(int id);
-//    void deleteTransaction(int id);
-//    void saveLog(String logMessage);
 	
 	
 }
