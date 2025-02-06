@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -45,7 +46,7 @@ public class JwtTokenProvider {
         log.debug("createAccessToken() 메서드 시작: memberId={}, role={}", memberId, roles);
         try {
             String token = createToken(memberId, roles, accessTokenValidity);
-            log.debug("createAccessToken() 메서드 종료 (성공): token={}", token); // 토큰 값은 보안에 유의하여 로그에 남기지 않도록 주의
+            log.debug("createAccessToken() 메서드 종료 (성공)"); // 토큰 값은 보안에 유의하여 로그에 남기지 않도록 주의
             return token;
         } catch (Exception e) {
             log.error("createAccessToken() 메서드 오류: {}", e.getMessage(), e);
@@ -130,6 +131,7 @@ public class JwtTokenProvider {
                     .getBody()
                     .getSubject();
         } catch (JwtException e) {
+        	log.error("JWT 파싱 오류: {}", e.getMessage()); // 구체적인 예외 로깅
             return null;
         }
     }
@@ -143,6 +145,7 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token);
             return true; //  유효하면 true 반환
         } catch (JwtException | IllegalArgumentException e) {
+        	  log.warn("JWT 토큰 검증 실패: {}", e.getMessage()); // 에러 로그 남기기
             return false; //  유효하지 않으면 false 반환
         }
     }
@@ -156,8 +159,10 @@ public class JwtTokenProvider {
                 }
             }
         }
-        return null;
+        log.warn("JWT 토큰이 요청에 포함되지 않았습니다.");
+        return null;// 토큰이 없다면 null 반환
     }
+    
 
     // 쿠키에서 JWT 토큰 추출
     public String getTokenFromCookie(HttpServletRequest request) {
@@ -189,11 +194,16 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         String memberId = getMemberId(token);
         if (memberId == null) {
-            return null;
+            return null; // 사용자 ID가 없으면 null 반환
         }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(memberId);
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(memberId);
+            return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        } catch (UsernameNotFoundException e) {
+            log.error("사용자 정보 로드 실패: {}", e.getMessage());
+            return null; // 예외 처리
+        }
     }
 /*
 	public String createToken(String memberId, String role) {

@@ -31,12 +31,17 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
     }
-
+    
+   
     //  사용자 등록 (회원가입)
     public MemberResponseDTO registerMember(MemberDTO memberDTO) {
         if (memberRepository.findByMemberEmail(memberDTO.getMemberEmail()).isPresent() ||
             memberRepository.findByMemberId(memberDTO.getMemberId()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 이메일 또는 ID입니다.");
+        }
+        // 비밀번호 null 체크
+        if (memberDTO.getMemberPassword() == null || memberDTO.getMemberPassword().isEmpty()) {
+            throw new IllegalArgumentException("비밀번호는 필수입니다.");
         }
 
         MemberVO member = new MemberVO();

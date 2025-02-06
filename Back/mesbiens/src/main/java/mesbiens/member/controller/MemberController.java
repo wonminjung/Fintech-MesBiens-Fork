@@ -126,6 +126,7 @@ public class MemberController {
         }
 
         MemberVO member = memberOpt.get();
+        System.out.println("Member Name: " + member.getMemberName());  // 로그로 확인
 
         // 비밀번호 검증
         if (!passwordEncoder.matches(loginRequest.getPassword(), member.getMemberPassword())) {
@@ -165,30 +166,31 @@ public class MemberController {
         }
     }
 
-    //  사용자 정보 조회 (JWT 검증 필수)
+ // 사용자 정보 조회 (JWT 인증 필수)
     @GetMapping("/me")
     public ResponseEntity<MemberResponseDTO> getMember(HttpServletRequest request) {
         String token = jwtTokenProvider.extractTokenFromRequest(request);
 
         if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // 토큰이 없으면 Unauthorized 반환
         }
 
         // 토큰이 유효한지 확인
         if (!jwtTokenProvider.validateToken(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // 유효하지 않으면 Unauthorized 반환
         }
 
         // 토큰이 유효하다면 memberId 추출
         String memberId = jwtTokenProvider.getMemberId(token);
 
+        // memberId로 사용자 정보 조회
         Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
 
         if (memberOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 사용자가 없으면 404 Not Found 반환
         }
 
         MemberVO member = memberOpt.get();
-        return ResponseEntity.ok(new MemberResponseDTO(member));//(new MemberResponseDTO(member.getMemberId(), member.getMemberName(), member.getMemberEmail()));
-}
+        return ResponseEntity.ok(new MemberResponseDTO(member)); // 정상적으로 사용자 정보를 반환
+    }
 }
