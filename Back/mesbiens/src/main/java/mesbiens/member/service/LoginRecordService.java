@@ -17,14 +17,22 @@ public class LoginRecordService {
 
     // 로그인 기록 저장
     public void saveLoginRecord(MemberVO member, String requestIp, String status, String failureReason) {
-        LoginRecordVo loginRecord = new LoginRecordVo();
+        
+    	 if (member == null) {
+    	        throw new IllegalArgumentException("회원 정보가 존재하지 않습니다.");
+    	    }
+    	
+    	LoginRecordVo loginRecord = new LoginRecordVo();
         loginRecord.setMemberNo(member); // 회원 정보 연결 (null 가능: 실패 시 사용)
         loginRecord.setMemberLoginTime(new java.util.Date()); // 현재 시간
         loginRecord.setMemberLoginRequestIp(requestIp); // 요청 IP 주소 저장
         loginRecord.setMemberLoginStatus(status); // 상태: S(성공), F(실패)
         loginRecord.setMemberFailureReason(failureReason); // 실패 사유 저장
-
+        
+        System.out.println("로그인 기록 저장 중: " + member);
         loginRecordRepository.save(loginRecord); // 기록 DB에 저장
+        System.out.println("로그인 기록 저장 완료");
+        
     }
 
     // 로그아웃 처리

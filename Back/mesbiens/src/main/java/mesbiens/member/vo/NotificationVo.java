@@ -24,28 +24,28 @@ public class NotificationVo {
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "NOTIFICATION_NO")
-	    private int notificationNo;
+	    private int notificationNo; //알림 ID
 
-	    @ManyToOne
+	    @ManyToOne  //ManyToOne 관계로 여러 개의 알림이 하나의 회원과 연결
 	    @JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false)
-	    private MemberVO memberVo;
+	    private MemberVO memberVo; //FK
 
 	    @ManyToOne
 	    @JoinColumn(name = "notificationTypeNo", referencedColumnName = "notificationType_No", nullable = false)
-	    private NotificationType notificationType;
+	    private NotificationType notificationType; //알림 유형
 	    
 	    @Column(name = "NTFC_title", nullable = false, length = 100)
-	    private String notificationTitle;
+	    private String notificationTitle; //알림 제목
 	   
 	    @Column(name = "NTFC_message", nullable = false, length = 255)
-	    private String notificationMessage = ""; // 기본값 설정
+	    private String notificationMessage = ""; // 알림메세지  , 기본값 설정
 
 	    @Column(name = "NTFC_read_status", nullable = false, length = 1)
-	    private String notificationReadStatus = "N";
+	    private String notificationReadStatus = "N"; //알림 읽음 상태
 
 	    @Temporal(TemporalType.TIMESTAMP)
 	    @Column(name = "NTFC_create_date", nullable = false)
-	    private Date notificationCreateDate = new Date();
+	    private Date notificationCreateDate = new Date(); //알림생성 날짜
 }
 
 

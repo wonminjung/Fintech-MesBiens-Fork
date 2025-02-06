@@ -41,10 +41,10 @@ public class JwtTokenProvider {
     }
 
     // Access Token 생성
-    public String createAccessToken(String memberId, String role) {
-        log.debug("createAccessToken() 메서드 시작: memberId={}, role={}", memberId, role);
+    public String createAccessToken(String memberId, String roles) {
+        log.debug("createAccessToken() 메서드 시작: memberId={}, role={}", memberId, roles);
         try {
-            String token = createToken(memberId, role, accessTokenValidity);
+            String token = createToken(memberId, roles, accessTokenValidity);
             log.debug("createAccessToken() 메서드 종료 (성공): token={}", token); // 토큰 값은 보안에 유의하여 로그에 남기지 않도록 주의
             return token;
         } catch (Exception e) {
@@ -66,9 +66,9 @@ public class JwtTokenProvider {
         }
     }
     //  공통적인 토큰 생성 로직
-    public String createToken(String memberId, String role, long validity) {
+    public String createToken(String memberId, String roles, long validity) {
         Claims claims = Jwts.claims().setSubject(memberId);
-        claims.put("role", role);
+        claims.put("roles", roles);
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + validity);
@@ -146,7 +146,7 @@ public class JwtTokenProvider {
             return false; //  유효하지 않으면 false 반환
         }
     }
-    
+    //HTTP 요청의 쿠키에서 jwt 이름의 쿠키를 찾아 jwt 토큰값 추출
     public String extractTokenFromRequest(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {

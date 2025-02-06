@@ -29,13 +29,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //  Access Token 검증
             if (jwtTokenProvider.validateToken(token)) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                
+                //인증된 사용자 정보를 securitycontext에 저장
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 System.out.println(" JWT 인증 성공: " + authentication.getName());
             } else {
                 System.out.println(" Access Token 만료됨");
                 if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)) {
                     //  Refresh Token이 유효하면 새로운 Access Token 발급
-                    String newAccessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getMemberId(refreshToken), "USER_ROLE");
+                    String newAccessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getMemberId(refreshToken), "USER_ROLES");
                     jwtTokenProvider.addJwtTokenToCookie(response, newAccessToken);
                     Authentication authentication = jwtTokenProvider.getAuthentication(newAccessToken);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
