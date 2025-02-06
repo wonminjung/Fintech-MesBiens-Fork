@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import jakarta.servlet.http.HttpServletResponse;
 import mesbiens.member.service.CustomUserDetailsService;
 
 
@@ -49,8 +52,23 @@ public class SecurityConfig {
                 "/notifications/{notificationNo}/read", "/notifications").permitAll() // 서버 URL에 요청할 경우 인증 없이 접근 가능
             .anyRequest().authenticated() // 나머지 요청은 인증 필요
         )
+        .formLogin(login -> login
+                .loginProcessingUrl("/login")
+                .successHandler((request, response, authentication) -> {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write("{\"message\": \"로그인 성공\"}");
+                })
+                .failureHandler((request, response, exception) -> {
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.getWriter().write("{\"error\": \"로그인 실패\"}");
+                })
+            )
+             .logout(LogoutConfigurer::permitAll);
       
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless 설정
+       // .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless 설정
    
 
     return http.build();
@@ -75,13 +93,15 @@ public class SecurityConfig {
   
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
+	 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
      CorsConfiguration configuration = new CorsConfiguration();
+     
      configuration.setAllowedOrigins(List.of("http://localhost:4000")); // 허용할 Origin
      configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); // 허용할 HTTP 메소드
      configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // 허용할 헤더
      configuration.setAllowCredentials(true); // 쿠키 허용 여부
      
-     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+     
      source.registerCorsConfiguration("/**", configuration); // 모든 경로에 적용
      
      return source;
