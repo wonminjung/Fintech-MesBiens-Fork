@@ -25,7 +25,7 @@ export const M = {
     flex-direction: column;
     align-items: center;
     overflow: auto;
-    width: 22em;
+    width: 23em;
     height: 92%;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
