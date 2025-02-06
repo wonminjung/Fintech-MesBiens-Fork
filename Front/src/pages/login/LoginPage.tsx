@@ -1,76 +1,80 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../modules/store/store";
+import { login } from "../../modules/user/userSlice"; // Redux 액션 추가
 import L from "./LoginStyle";
 import DefaultButton from "../../components/button/DefaultButton";
 import DefaultInputField from "../../components/inputfield/InputField";
 import VerticalDivider from "../../components/divider/VerticalDivider";
-import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
-import { RootState } from "../../modules/store/store";
 import ModalFunc from "../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 
 const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
   const { handleModal } = ModalFunc();
-  const [loginForm, setLoginForm] = useState({
-    userID: "",
-    userPassword: "",
-  });
-  const [cookies, setCookie, removeCookie] = useCookies<string>([
-    "userID",
-    "rememberMe",
-  ]);
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+  const [cookies, setCookie] = useCookies(["jwtToken", "rememberMe"]);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
   const [rememberMe, setRememberMe] = useState(false);
-
   const user = useSelector((state: RootState) => state.user);
-
+//removeCookie
   useEffect(() => {
     if (cookies.rememberMe) {
-      setLoginForm((prevForm) => ({
-        ...prevForm,
-        userID: cookies.rememberMe,
-      }));
+      setLoginForm((prevForm) => ({ ...prevForm, userID: cookies.rememberMe }));
       setRememberMe(true);
     }
   }, [cookies.rememberMe]);
 
-  const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
+  // 로그인 요청 함수
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const { userID, userPassword } = loginForm;
-
-    // 유효성 검사
-    if (userID === "" || userPassword === "") {
+    setErrors("");
+  
+    const { username, password } = loginForm;
+  
+    if (!username || !password) {
       setErrors("ID 또는 비밀번호를 입력해 주세요!");
-    } else if (userID !== user.username) {
-      setErrors("ID가 일치하지 않습니다.");
-    } else if (userPassword !== user.password) {
-      setErrors("비밀번호가 일치하지 않습니다.");
-    } else {
-      // 유효성 통과 시
-      console.log("아이디 : " + userID);
-      console.log("비밀번호 : " + userPassword);
-      handleModal(ModalKeys.LOGIN_SUCCESS);
-
-      setCookie("userID", userID, { maxAge: 30 * 24 * 60 * 60 });
-      if (rememberMe) {
-        setCookie("rememberMe", userID, { maxAge: 30 * 24 * 60 * 60 });
-      } else {
-        removeCookie("rememberMe");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:7200/members/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ memberId: username, password: password }),
+        credentials: "include",
+      });
+  
+      const result = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(result || "로그인 실패");
       }
-
+  
+      // JWT 토큰 저장
+      setCookie("jwtToken", result.token, { path: "/", maxAge: 3600 });
+  
+      // Redux에 사용자 정보 저장
+      dispatch(login({ 
+        name: result.memberName, 
+        email: result.memberEmail, 
+        username: result.memberId }));
+  
+      // 로그인 성공 처리
+      handleModal(ModalKeys.LOGIN_SUCCESS);
       navigate("/main");
+  
+    } catch (error: any) {
+      setErrors(error.message);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setLoginForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
+    setLoginForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,13 +89,13 @@ const LoginPage: React.FC = () => {
         </L.Container_top>
         <L.Container_bottom>
           <L.P_tag>회원 ID와 비밀번호를 입력하세요.</L.P_tag>
-          <form onSubmit={HandleLogin}>
+          <form onSubmit={handleLogin}>
             <DefaultInputField
               type="text"
               id="userID"
               name="userID"
               placeholder="회원 ID"
-              value={loginForm.userID}
+              value={loginForm.username}
               onChange={handleChange}
               required
             />
@@ -101,7 +105,7 @@ const LoginPage: React.FC = () => {
               id="userPassword"
               name="userPassword"
               placeholder="비밀번호"
-              value={loginForm.userPassword}
+              value={loginForm.password}
               onChange={handleChange}
               required
             />

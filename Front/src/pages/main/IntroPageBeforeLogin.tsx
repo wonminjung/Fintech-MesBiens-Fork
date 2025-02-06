@@ -6,10 +6,11 @@ import DefaultButton from "../../components/button/DefaultButton";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 import { RootState } from "../../modules/store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalFunc from "../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 import Carousel from "./carousel/Carousel";
+import { login } from "../../modules/user/userSlice"; // login 액션 가져오기
 
 const IntroPageBeforeLogin: React.FC = () => {
   const { handleModal } = ModalFunc();
@@ -22,9 +23,9 @@ const IntroPageBeforeLogin: React.FC = () => {
     "userID",
     "rememberMe",
   ]);
-  // const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
   const [rememberMe, setRememberMe] = useState(false);
+  const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.user);
 
@@ -38,34 +39,57 @@ const IntroPageBeforeLogin: React.FC = () => {
     }
   }, [cookies.rememberMe]);
 
-  const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
+  const HandleLogin = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
 
     const { userID, userPassword } = loginForm;
 
-    // 유효성 검사
     if (userID === "" || userPassword === "") {
       setErrors("ID 또는 비밀번호를 입력해 주세요!");
-    } else if (userID !== user.username) {
-      setErrors("ID가 일치하지 않습니다.");
-    } else if (userPassword !== user.password) {
-      setErrors("비밀번호가 일치하지 않습니다.");
-    } else {
-      // 유효성 통과 시
-      console.log("아이디 : " + userID);
-      console.log("비밀번호 : " + userPassword);
-      // alert("로그인 성공");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:7200/members/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // 쿠키 포함 요청 설정
+        body: JSON.stringify({
+          memberId: userID,
+          password: userPassword,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      dispatch(
+        login({
+          name: result.name,
+          username: result.username,
+          email: result.email,
+        })
+      );
+
       handleModal(ModalKeys.LOGIN_SUCCESS);
+      console.log("로그인 성공:", result);
 
       setCookie("userID", userID, { maxAge: 30 * 24 * 60 * 60 });
+
       if (rememberMe) {
         setCookie("rememberMe", userID, { maxAge: 30 * 24 * 60 * 60 });
       } else {
         removeCookie("rememberMe");
       }
-
-      // navigate("/main");
-      // window.location.reload();
+    } catch (error: any) {
+      setErrors(error.message);
     }
   };
 
