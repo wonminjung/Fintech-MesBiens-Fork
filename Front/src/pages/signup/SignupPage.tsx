@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
@@ -38,32 +38,66 @@ const SignupPage: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
+    // 비밀번호와 비밀번호 확인 일치 여부 검사
     if (password === "") {
       setErrors(
         "대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요."
       );
+      return;
     } else if (!isValidPassword(password)) {
       setErrors(
         "대문자/소문자/숫자/특수 문자 중 2가지 이상 조합하셔야 합니다."
       );
+      return;
     } else if (password !== confirmPassword) {
       setErrors("비밀번호가 일치하지 않습니다!");
+      return;
     } else {
-      setErrors("");
-      dispatch(signup({ name, email, username, password }));
-      console.log("Signup Data:", {
-        name,
-        email,
-        username,
-        password,
-        confirmPassword,
-      });
-      console.log("Redux State:", user);
-      handleModal(ModalKeys.SIGNUP_SUCCESS);
-      alert("회원가입 완료");
+      setErrors(""); // 오류 메시지 초기화
+  
+      // 서버로 회원가입 요청 보내기
+      try {
+        const response = await fetch("http://localhost:7200/members/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            username,
+            password, // 서버로 패스워드 전송
+          }),
+        });
+  
+        const result = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(result.message || "회원가입 실패");
+        }
+  
+        // 회원가입 성공 시, 패스워드는 제외하고 Redux에 사용자 정보 저장
+        dispatch(signup({
+          name,
+          email,
+          username,
+          // 패스워드 제외
+        }));
+  
+        // 성공적인 회원가입 후 처리
+        handleModal(ModalKeys.SIGNUP_SUCCESS);
+        console.log("Signup Data:", { name, email, username });
+        console.log("Redux State:", user);
+  
+        // 추가적인 페이지 리디렉션 혹은 알림 처리
+        // navigate("/login");  
+  
+      } catch (error: any) {
+        setErrors(error.message); // 에러 발생 시 처리
+      }
     }
   };
   return (

@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println(" Access Token 만료됨");
                 if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)) {
                     //  Refresh Token이 유효하면 새로운 Access Token 발급
-                    String newAccessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getMemberId(refreshToken), "USER_ROLE");
+                    String newAccessToken = jwtTokenProvider.createAccessToken(jwtTokenProvider.getMemberId(refreshToken), "USER_ROLES");
                     jwtTokenProvider.addJwtTokenToCookie(response, newAccessToken);
                     Authentication authentication = jwtTokenProvider.getAuthentication(newAccessToken);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
