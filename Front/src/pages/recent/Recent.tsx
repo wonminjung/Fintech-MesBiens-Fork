@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./style.css";
 import { R } from "./style";
 import { records, Record } from "./data";
@@ -23,28 +23,29 @@ const Recent: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedBank, setSelectedBank] = useState<string>("");
-  const [records, setRecords] = useState<RecentData[]>([]);
+  const [recentRecords, setRecentRecords] = useState<RecentData[]>([]);
 
   useEffect(() => {
     const today = new Date();
-    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 2);
-    const lastDayOfMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 1,
-      1
-    );
+    const oneMonthAgo = new Date(today);
+    oneMonthAgo.setMonth(today.getMonth() - 1);
 
-    const newStartDate = firstDayOfMonth.toISOString().split("T")[0];
-    const newEndDate = lastDayOfMonth.toISOString().split("T")[0];
+    const newStartDate = oneMonthAgo.toISOString().split("T")[0];
+    const newEndDate = today.toISOString().split("T")[0];
 
     setStartDate(newStartDate);
     setEndDate(newEndDate);
 
+    fetchRecentData(newStartDate, newEndDate);
+
     // 날짜를 설정한 후에 로그 출력
     console.log("Start Date:", newStartDate);
     console.log("End Date:", newEndDate);
+    console.log("Today: ", today);
+  }, []);
 
-    const requestDate = async () => {
+  const fetchRecentData = async (start: string, end: string) => {
+    try {
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/transaction/recent`,
         {
@@ -53,42 +54,53 @@ const Recent: React.FC = () => {
             "Content-Type": "application/json; charset=UTF-8",
           },
           body: JSON.stringify({
-            recentStartDate: newStartDate,
-            recentEndDate: newEndDate,
+            recentStartDate: start,
+            recentEndDate: end,
           }),
         }
       );
       const data: RecentData[] = await response.json();
-      return data;
-    };
-    requestDate()
-      .then((response) => {
-        setRecords(response);
-        console.log(response);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  }, []);
-
-  // 특정 날짜에 해당하는 거래 내역을 반환하는 함수
-  const getRecordsInRange = (start: string, end: string) => {
-    return records.filter(
-      (record) =>
-        record.trnsCreateAt >= start &&
-        record.trnsCreateAt <= end &&
-        (selectedCategory ? record.categoryName === selectedCategory : true) &&
-        (selectedStatus ? record.trnsTypeName === selectedStatus : true) &&
-        (selectedBank ? record.bankName === selectedBank : true)
-    );
+      const sortedRecords = data.sort(
+        (a, b) =>
+          new Date(b.trnsCreateAt).getTime() -
+          new Date(a.trnsCreateAt).getTime()
+      );
+      setRecentRecords(sortedRecords);
+    } catch (error) {
+      alert("Failed to fetch recent transactions.");
+      console.error(error);
+    }
   };
 
-  const filteredRecords = getRecordsInRange(startDate, endDate);
+  const filteredRecords = useMemo(
+    () =>
+      recentRecords.filter((record) => {
+        const recordDate = new Date(record.trnsCreateAt);
+        return (
+          recordDate >= new Date(startDate) &&
+          recordDate <= new Date(endDate) &&
+          (selectedCategory
+            ? record.categoryName === selectedCategory
+            : true) &&
+          (selectedStatus ? record.trnsTypeName === selectedStatus : true) &&
+          (selectedBank ? record.bankName === selectedBank : true)
+        );
+      }),
+    [
+      recentRecords,
+      startDate,
+      endDate,
+      selectedCategory,
+      selectedStatus,
+      selectedBank,
+    ]
+  );
 
-  // 카테고리 배열 생성 (중복 제거)
-  const categories = Array.from(
-    new Set(records.map((record) => record.categoryName).filter(Boolean))
-  ) as string[];
+  const categories = useMemo(
+    () =>
+      Array.from(new Set(recentRecords.map((record) => record.categoryName))),
+    [recentRecords]
+  );
 
   // 상태 배열
   const statuses = ["DEPOSIT", "WITHDRAWAL"];
@@ -180,7 +192,7 @@ const Recent: React.FC = () => {
           {filteredRecords.length > 0 ? (
             filteredRecords.map((record, index) => (
               <tr key={index}>
-                <R.TableRow>{record.trnsCreateAt}</R.TableRow>
+                <R.TableRow>{record.trnsCreateAt.split("T")[0]}</R.TableRow>
                 <R.TableRow>{record.bankName}</R.TableRow>
                 <R.TableRow>{record.accountNumber}</R.TableRow>
                 <R.TableRow>{record.memberName}</R.TableRow>

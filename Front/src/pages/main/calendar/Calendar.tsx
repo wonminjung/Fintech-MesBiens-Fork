@@ -34,28 +34,29 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
-  const [records, setRecords] = useState<RecentData[]>([]);
+  const [recentRecords, setRecentRecords] = useState<RecentData[]>([]);
 
   useEffect(() => {
     const today = new Date();
-    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 2);
-    const lastDayOfMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 1,
-      1
-    );
+    const oneMonthAgo = new Date(today);
+    oneMonthAgo.setMonth(today.getMonth() - 1);
 
-    const newStartDate = firstDayOfMonth.toISOString().split("T")[0];
-    const newEndDate = lastDayOfMonth.toISOString().split("T")[0];
+    const newStartDate = oneMonthAgo.toISOString().split("T")[0];
+    const newEndDate = today.toISOString().split("T")[0];
 
     setStartDate(newStartDate);
     setEndDate(newEndDate);
 
+    fetchRecentData(newStartDate, newEndDate);
+
     // 날짜를 설정한 후에 로그 출력
     console.log("Start Date:", newStartDate);
     console.log("End Date:", newEndDate);
+    console.log("Today: ", today);
+  }, []);
 
-    const requestDate = async () => {
+  const fetchRecentData = async (start: string, end: string) => {
+    try {
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/transaction/recent`,
         {
@@ -64,23 +65,23 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             "Content-Type": "application/json; charset=UTF-8",
           },
           body: JSON.stringify({
-            recentStartDate: newStartDate,
-            recentEndDate: newEndDate,
+            recentStartDate: start,
+            recentEndDate: end,
           }),
         }
       );
       const data: RecentData[] = await response.json();
-      return data;
-    };
-    requestDate()
-      .then((response) => {
-        setRecords(response);
-        console.log(response);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  }, []);
+      const sortedRecords = data.sort(
+        (a, b) =>
+          new Date(b.trnsCreateAt).getTime() -
+          new Date(a.trnsCreateAt).getTime()
+      );
+      setRecentRecords(sortedRecords);
+    } catch (error) {
+      alert("Failed to fetch recent transactions.");
+      console.error(error);
+    }
+  };
 
   const CalendarHeader = () => {
     return (
@@ -144,10 +145,17 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
         const cloneDay = day;
 
         // 해당 날짜의 거래 내역을 필터링
-        const recordsForDay = records.filter(
+        const recordsForDay = recentRecords.filter(
           (record) =>
             record.trnsCreateAt.split("T")[0] === format(day, "yyyy-MM-dd")
         );
+
+        // 계산된 총 거래내역
+        const totalSum = recordsForDay.reduce((sum, record) => {
+          return record.trnsTypeName === "DEPOSIT"
+            ? sum + record.trnsBalance
+            : sum - record.trnsBalance;
+        }, 0);
 
         days.push(
           <C.CalendarDayCellButton
@@ -167,13 +175,12 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             <span>{formattedDate}</span>
             {recordsForDay.length > 0 && (
               <div style={{ fontSize: "0.8em", marginTop: "25px" }}>
-                <div
-                  style={{
-                    color: getStatusColor(recordsForDay[0].trnsTypeName),
-                  }}
-                >
-                  [{recordsForDay.length}]
+                <div style={{ color: totalSum >= 0 ? "green" : "red" }}>
+                  {totalSum >= 0
+                    ? `+₩${totalSum.toLocaleString()}`
+                    : `-₩${Math.abs(totalSum).toLocaleString()}`}
                 </div>
+                <div>[{recordsForDay.length}]</div>
               </div>
             )}
           </C.CalendarDayCellButton>

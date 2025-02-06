@@ -3,7 +3,6 @@ import { M, I } from "./style";
 // import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
-import { useNavigate } from "react-router-dom";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 import { RootState } from "../../modules/store/store";
