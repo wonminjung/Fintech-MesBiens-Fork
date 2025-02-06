@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../modules/store/store";
 import ModalFunc from "../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
+import ModalRendererComponent from "../../components/modal/ModalRendererComponent";
 
 const SignupPage: React.FC = () => {
   const { handleModal } = ModalFunc();
@@ -40,7 +41,7 @@ const SignupPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     // 비밀번호와 비밀번호 확인 일치 여부 검사
     if (password === "") {
       setErrors(
@@ -57,7 +58,7 @@ const SignupPage: React.FC = () => {
       return;
     } else {
       setErrors(""); // 오류 메시지 초기화
-  
+
       // 서버로 회원가입 요청 보내기
       try {
         const response = await fetch("http://localhost:7200/members/register", {
@@ -72,29 +73,30 @@ const SignupPage: React.FC = () => {
             password, // 서버로 패스워드 전송
           }),
         });
-  
+
         const result = await response.json();
-  
+
         if (!response.ok) {
           throw new Error(result.message || "회원가입 실패");
         }
-  
+
         // 회원가입 성공 시, 패스워드는 제외하고 Redux에 사용자 정보 저장
-        dispatch(signup({
-          name,
-          email,
-          username,
-          // 패스워드 제외
-        }));
-  
+        dispatch(
+          signup({
+            name,
+            email,
+            username,
+            // 패스워드 제외
+          })
+        );
+
         // 성공적인 회원가입 후 처리
         handleModal(ModalKeys.SIGNUP_SUCCESS);
         console.log("Signup Data:", { name, email, username });
         console.log("Redux State:", user);
-  
+
         // 추가적인 페이지 리디렉션 혹은 알림 처리
-        // navigate("/login");  
-  
+        // navigate("/login");
       } catch (error: any) {
         setErrors(error.message); // 에러 발생 시 처리
       }
@@ -171,6 +173,7 @@ const SignupPage: React.FC = () => {
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>
+      <ModalRendererComponent />
     </L.Body>
   );
 };
