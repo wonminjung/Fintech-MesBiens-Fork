@@ -32,7 +32,7 @@ const SignupPage: React.FC = () => {
     if (hasUppercase.test(pwd)) matchCount++;
     if (hasSpecialChar.test(pwd)) matchCount++;
     if (hasDigit.test(pwd)) matchCount++;
-
+   
     return matchCount >= 2;
   };
 
@@ -58,47 +58,39 @@ const SignupPage: React.FC = () => {
       return;
     } else {
       setErrors(""); // 오류 메시지 초기화
-
+  
       // 서버로 회원가입 요청 보내기
       try {
+        
         const response = await fetch("http://localhost:7200/members/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            name,
-            email,
-            username,
-            password, // 서버로 패스워드 전송
+            memberName: name,
+            memberEmail: email,
+            memberId: username,
+            memberPassword: password,
           }),
         });
-
+    
         const result = await response.json();
-
+  
         if (!response.ok) {
           throw new Error(result.message || "회원가입 실패");
         }
-
-        // 회원가입 성공 시, 패스워드는 제외하고 Redux에 사용자 정보 저장
-        dispatch(
-          signup({
-            name,
-            email,
-            username,
-            // 패스워드 제외
-          })
-        );
-
-        // 성공적인 회원가입 후 처리
+    
+        // 데이터가 없을 경우 디폴트 값을 설정
+        dispatch(signup({
+          name: result.memberName || "데이터 오류", // memberName이 없으면 "데이터 오류"로 대체
+          username: result.memberId || "아이디 없음", // memberId가 없으면 "아이디 없음"으로 대체
+          email: result.memberEmail || "이메일 없음", // memberEmail이 없으면 "이메일 없음"으로 대체
+        }));
+  
         handleModal(ModalKeys.SIGNUP_SUCCESS);
-        console.log("Signup Data:", { name, email, username });
-        console.log("Redux State:", user);
-
-        // 추가적인 페이지 리디렉션 혹은 알림 처리
-        // navigate("/login");
       } catch (error: any) {
-        setErrors(error.message); // 에러 발생 시 처리
+        setErrors(error.message);
       }
     }
   };

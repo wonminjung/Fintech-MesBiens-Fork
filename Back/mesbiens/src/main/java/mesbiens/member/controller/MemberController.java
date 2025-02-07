@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import mesbiens.member.dto.LoginRequest;
 import mesbiens.member.dto.MemberDTO;
 import mesbiens.member.dto.MemberResponseDTO;
@@ -27,6 +28,7 @@ import mesbiens.security.JwtTokenProvider;
 @CrossOrigin(origins = "http://localhost:4000")
 @RestController
 @RequestMapping("/members")
+@RequiredArgsConstructor  // Lombok 사용하면 생성자 자동 생성
 public class MemberController {
 
     @Autowired
@@ -40,11 +42,7 @@ public class MemberController {
     
     @Autowired
     private JwtTokenProvider jwtTokenProvider; 
-    /*
-    public MemberController(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-*/
+   
     
     private String getClientIp(HttpServletRequest request) {
         String header = request.getHeader("X-Forwarded-For");
@@ -72,39 +70,17 @@ public class MemberController {
     }
 
 
-    //  사용자 등록 (회원가입)
+ // 회원가입 API (수정됨)
     @PostMapping("/register")
-    public ResponseEntity<?> registerMember(@RequestBody MemberDTO memberDTO, HttpServletResponse response) {
-        // 회원가입 로직 수행
-        MemberResponseDTO registeredMember = memberService.registerMember(memberDTO);
-
-        // JWT 토큰 생성
-        String memberId = registeredMember.getMemberId();  // 사용자 고유 ID
-        String[] rolesArray = {"user", "manager"};// test용으로 user manager 역활 가능
-        long validity = 3600L;  // 토큰 만료 시간 (1시간)
-        
-        String roles = String.join("," , rolesArray);
-
-        String token = jwtTokenProvider.createToken( memberId, roles, validity);  // JWT 토큰 생성
-        System.out.println("Generated Token: " + token);
-      
-        // HTTP-only 쿠키 설정
-        Cookie jwtCookie = new Cookie("token", token);
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(60 * 60 * 24 * 7); // 7일 동안 유효
-        response.addCookie(jwtCookie);
-
-        // 회원가입 성공 시 사용자 정보 반환
-        return ResponseEntity.ok(registeredMember);
+    public ResponseEntity<?> registerMember(@RequestBody MemberDTO memberDTO) {
+        try {
+            MemberResponseDTO responseDTO = memberService.register(memberDTO);
+            return ResponseEntity.ok(responseDTO);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
    
-    }
-    /*
-    public ResponseEntity<MemberResponseDTO> registerMember(@RequestBody MemberDTO memberDTO) {
-        MemberResponseDTO registeredMember = memberService.registerMember(memberDTO);
-        return ResponseEntity.ok(registeredMember);
-    }
-*/
     //  로그인              
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response, HttpServletRequest request) {
@@ -132,6 +108,7 @@ public class MemberController {
         }
 
         MemberVO member = memberOpt.get();
+        System.out.println("Member Name: " + member.getMemberName());  // 로그로 확인
 
         // 비밀번호 검증
         if (!passwordEncoder.matches(loginRequest.getPassword(), member.getMemberPassword())) {
@@ -171,30 +148,31 @@ public class MemberController {
         }
     }
 
-    //  사용자 정보 조회 (JWT 검증 필수)
+ // 사용자 정보 조회 (JWT 인증 필수)
     @GetMapping("/me")
     public ResponseEntity<MemberResponseDTO> getMember(HttpServletRequest request) {
         String token = jwtTokenProvider.extractTokenFromRequest(request);
 
         if (token == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // 토큰이 없으면 Unauthorized 반환
         }
 
         // 토큰이 유효한지 확인
         if (!jwtTokenProvider.validateToken(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // 유효하지 않으면 Unauthorized 반환
         }
 
         // 토큰이 유효하다면 memberId 추출
         String memberId = jwtTokenProvider.getMemberId(token);
 
+        // memberId로 사용자 정보 조회
         Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
 
         if (memberOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 사용자가 없으면 404 Not Found 반환
         }
 
         MemberVO member = memberOpt.get();
-        return ResponseEntity.ok(new MemberResponseDTO(member));//(new MemberResponseDTO(member.getMemberId(), member.getMemberName(), member.getMemberEmail()));
-}
+        return ResponseEntity.ok(new MemberResponseDTO(member)); // 정상적으로 사용자 정보를 반환
+    }
 }
