@@ -44,6 +44,10 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 	@Query("SELECT p FROM PostVO p WHERE p.postTitle LIKE %:findField% OR p.postCont LIKE %:findName%")
 	Page<PostVO> searchPosts(@Param("findField") String findField, @Param("findName") String findName, Pageable pageable);
 
+	// 게시글 첨부파일 여부 확인하여 목록에서 표기
+	@Query("SELECT f.postFile FROM PostVO f WHERE f.postNo = :postNo")
+	int getUploadFileValidCount(@Param("postNo") int postNo);
+
 
 	
 }

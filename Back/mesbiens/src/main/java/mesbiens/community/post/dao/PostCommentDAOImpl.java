@@ -2,12 +2,18 @@ package mesbiens.community.post.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import mesbiens.community.post.repository.PostCommentRepository;
+import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostCommentVO;
+import mesbiens.community.post.vo.PostVO;
 
 @Repository
 public class PostCommentDAOImpl implements PostCommentDAO {
@@ -44,4 +50,25 @@ public class PostCommentDAOImpl implements PostCommentDAO {
 	public List<PostCommentVO> findCommentsByPostNo(int postNo) {
 		return postCommentRepository.findByPostPostNo(postNo);
 	}
+
+
+	@Override
+	public int getCommentRowCount(int postNo) {
+		return (int) postCommentRepository.countByPost_PostNo(postNo);
+	}
+	
+//	// 게시판 목록
+//		@Override
+//		public int getRowCount() {
+//			return (int) postRepository.count();
+//		}
+//
+//		// 게시판 목록
+//		@Override
+//		public List<PostVO> getPostList(PageVO pageVO) {
+//			Pageable pageable = PageRequest.of(pageVO.getStartrow() / (pageVO.getEndrow() - pageVO.getStartrow()),
+//					pageVO.getEndrow() - pageVO.getStartrow(), Sort.by(Sort.Direction.DESC, "postNo"));
+//
+//			return postRepository.findAllPosts(pageable).getContent();
+//		}
 }

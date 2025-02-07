@@ -111,4 +111,10 @@ public class PostDAOImpl implements PostDAO {
 		return memberRepository.findById(memberNo).orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
 	}
 
+	// 게시글의 첨부파일 여부 확인
+	@Override
+	public int getUploadFileValidCount(int postNo) {
+		return postRepository.getUploadFileValidCount(postNo);
+	}
+
 }

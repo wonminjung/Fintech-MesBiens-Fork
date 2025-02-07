@@ -67,7 +67,7 @@
 //             <BC.TD>{board.memberNo}</BC.TD>
 //             <BC.TD>{board.postHit}</BC.TD>
 //           </BC.TRCont>
-          
+
 //         ))
 //       ) : (
 //         <BC.NoDataMessage>게시글이 없습니다.</BC.NoDataMessage>
@@ -97,6 +97,8 @@ type Post = {
   postTitle: string;
   postCont: string;
   postHit: number;
+  commentTotalCount: number;
+  postFile: number;
 };
 
 // ✅ props를 boards로 변경
@@ -116,7 +118,7 @@ const BoardList: React.FC<BoardListProps> = ({ boards }) => {
     navigate(`/community/C_board/${postNo}`); // (조회수 상승)게시글 상세보기로 이동
   };
 
-  
+
 
 
 
@@ -124,10 +126,18 @@ const BoardList: React.FC<BoardListProps> = ({ boards }) => {
     <>
       {boards.length > 0 ? (
         boards.map((board) => (
-          
+
           <BC.TRCont key={board.postNo} onClick={() => handleContent(board.postNo)}>
             <BC.TD>{board.postNo}</BC.TD>
-            <BC.TDTitle>{board.postTitle}</BC.TDTitle>
+            <BC.TDTitle>
+              {board.postTitle}
+              <BC.UploadFileValid>
+                {board.postFile > 0 ? "📎" : ""} {/* 첨부파일 여부에 따른 이미지 표기 */}
+              </BC.UploadFileValid>
+              <BC.CommentCount>
+                ({board.commentTotalCount}) {/* 댓글 개수 표기 */}
+              </BC.CommentCount>
+            </BC.TDTitle>
             <BC.TD>{board.memberName}</BC.TD>
             <BC.TD>{board.postHit}</BC.TD>
           </BC.TRCont>

@@ -1,5 +1,5 @@
-package mesbiens.community.chat.service;
-
-public interface ChatService {
-
-}
+//package mesbiens.community.chat.service;
+//
+//public interface ChatService {
+//
+//}

@@ -188,6 +188,9 @@ const BoardPost: React.FC = () => {
         // console.log("받은 데이터:", data);
         setBoard(data.post);
         setComments(data.postcomments);
+        // console.log(data.post.postFileName);
+        // console.log(data.post.postFilePath);
+        // console.log(data.post.postFileType);
       } else {
         console.error("API 요청 실패:", response.status);
       }
@@ -199,7 +202,7 @@ const BoardPost: React.FC = () => {
   // 게시글 수정
   const handleEdit = () => {
 
-    if(!board) return;
+    if (!board) return;
 
     setIsEditing(true);
     setEditTitle(board?.postTitle || "");
@@ -241,23 +244,23 @@ const BoardPost: React.FC = () => {
         fetchBoardData(); // 수정 후 데이터 새로고침
       } else {
         const errorData = await response.text();
-        console.error("게시글 수정 실패");
+        console.error("게시글 수정 실패", errorData);
       }
     } catch (error) {
       console.error("게시글 수정 중 에러 발생:", error);
     }
   };
 
-  // 게시글 삭제제
+  // 게시글 삭제
   const handleDelete = async () => {
     const postPassword = prompt("게시글 비밀번호를 입력하세요:");
     const memberNo = prompt("회원 번호를 입력하세요:");
-  
+
     if (!postPassword || !memberNo) {
       alert("비밀번호와 회원 번호를 입력해야 합니다.");
       return;
     }
-  
+
     try {
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/community/C_board/${postNo}`,
@@ -272,7 +275,7 @@ const BoardPost: React.FC = () => {
           }),
         }
       );
-  
+
       if (response.ok) {
         alert("게시글이 성공적으로 삭제되었습니다.");
         navigate("/community/C_board"); // 삭제 후 목록으로 이동
@@ -286,7 +289,7 @@ const BoardPost: React.FC = () => {
       console.error("게시글 삭제 중 에러 발생:", error);
     }
   };
-  
+
 
   useEffect(() => {
     fetchBoardData();
@@ -322,6 +325,25 @@ const BoardPost: React.FC = () => {
         등록일: <span>{new Date(board.postDate).toLocaleString()}</span>
       </BP.PostDate>
 
+      <BP.UploadFileSection>
+        {/* 첨부파일이 있을 경우 표시 */}
+        {board.postFilePath && board.postFileName && (
+          <BP.FileSection>
+            <BP.FileSelectionP>첨부파일:</BP.FileSelectionP>
+            <BP.FileSelectionA
+              // href={`${process.env.REACT_APP_SERVER_URL}/upload${board.postFilePath}`}
+              href={`/${process.env.Spring_SERVER_URL}/src/main/webapp/upload/${board.postFilePath}`}
+              // href="/{board.postFileName}"
+              download={board.postFileName}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {board.postFileName}
+            </BP.FileSelectionA>
+          </BP.FileSection>
+        )}
+      </BP.UploadFileSection>
+
       <BP.PostContent>
         {isEditing ? (
           <>
@@ -339,21 +361,6 @@ const BoardPost: React.FC = () => {
           <>
             <p>{board.postCont}</p>
 
-            {/* 첨부파일이 있을 경우 표시 */}
-            {board.postFilePath && board.postFileName && (
-              <BP.FileSection>
-                <p>첨부파일:</p>
-                <a
-                  href={`${process.env.REACT_APP_SERVER_URL}/upload${board.postFilePath}`}
-                  // href={`${process.env.Spring_SERVER_URL}/upload${board.postFilePath}`}
-                  download={board.postFileName}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {board.postFileName}
-                </a>
-              </BP.FileSection>
-            )}
           </>
         )}
       </BP.PostContent>

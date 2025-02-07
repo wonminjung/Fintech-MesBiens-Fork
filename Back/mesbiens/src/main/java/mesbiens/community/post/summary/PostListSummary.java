@@ -6,5 +6,9 @@ public interface PostListSummary {
 	String getMemberName();
 	String getPostTitle();
 	int getPostHit();
+	String getPostFileName();
+	String getPostFilePath();
+	String getPostFileType();
+	int getPostFile();
 	
 }

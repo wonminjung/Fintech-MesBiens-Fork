@@ -20,9 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import mesbiens.community.post.dao.PostCommentDAO;
 import mesbiens.community.post.dao.PostDAO;
 import mesbiens.community.post.summary.PostListSummary;
 import mesbiens.community.post.vo.PageVO;
+import mesbiens.community.post.vo.PostCommentVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
 import mesbiens.member.vo.MemberVO;
@@ -32,6 +34,9 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private PostDAO postDAO;
+	
+	@Autowired
+	private PostCommentDAO postCommentDAO;
 	
 //	 @Autowired
 //	private ServletContext servletContext; // ServletContext 주입
@@ -130,13 +135,13 @@ public class PostServiceImpl implements PostService {
             int Fileindex = fileName.lastIndexOf(".");
             if (Fileindex != -1 && Fileindex < fileName.length() - 1) {
                 String fileType = fileName.substring(Fileindex + 1);  // 확장자 추출
-//                System.out.println("fileType: " + fileType);      // 예: png
+                System.out.println("fileType: " + fileType);      // 예: png
+                
                 postVO.setPostFileType(fileType);                 // postFileType 저장
             } else {
 //                System.out.println("파일 확장자가 없습니다.");
                 postVO.setPostFileType("unknown");                // 확장자가 없는 경우 처리
             }
-            
             
             
         	// 동일한 파일명 존재시
@@ -212,6 +217,7 @@ public class PostServiceImpl implements PostService {
         List<PostVO> postList = postDAO.getPostList(pageVO);
         int totalCount = postDAO.getRowCount();
 
+        
         // PostRequestDTO로 매핑
         List<PostRequestDTO> responseList = postList.stream()
             .map(post -> {
@@ -220,6 +226,17 @@ public class PostServiceImpl implements PostService {
                 dto.setPostTitle(post.getPostTitle());
                 dto.setMemberName(post.getMember().getMemberName());
                 dto.setPostHit(post.getPostHit());
+                
+                // 게시글당 댓글 개수 조회
+                int commentTotalCount = postCommentDAO.getCommentRowCount(post.getPostNo());
+                dto.setCommentTotalCount(commentTotalCount);
+                
+                // 게시글당 첨부파일 여부
+                int uploadFileValid = postDAO.getUploadFileValidCount(post.getPostNo());
+                System.out.println("uploadFileValid"+uploadFileValid);
+                dto.setPostFile(uploadFileValid);
+                
+                
                 return dto;
             })
             .collect(Collectors.toList());
@@ -333,6 +350,7 @@ public class PostServiceImpl implements PostService {
 	        if (index != -1) {
 	            fileExtension = originalFileName.substring(index + 1);
 	        }
+	        System.out.println("fileExtension"+fileExtension);
 
 	        String modiFileName = "mesbiens" + today.replace("-", "") + "_" + fileCounterStr + "." + fileExtension;
 	        String postFilePath = "/" + today + "/" + modiFileName;

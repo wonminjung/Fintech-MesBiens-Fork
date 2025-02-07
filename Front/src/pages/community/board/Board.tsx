@@ -178,6 +178,8 @@ type Post = {
   postTitle: string;
   postCont: string;
   postHit: number;
+  commentTotalCount: number;
+  postFile: number;
 };
 
 // ✅ API 응답 타입 정의
@@ -188,6 +190,8 @@ type ApiResponse = {
   startPage: number;
   endPage: number;
   maxPage: number;
+  commentTotalCount: number;
+  postFile: number;
 };
 
 export const Board: React.FC = () => {
@@ -211,7 +215,7 @@ export const Board: React.FC = () => {
           `${process.env.REACT_APP_SERVER_URL}/community/C_board?page=${currentPage}`
         );
         const data: ApiResponse = await response.json();
-        console.log("API 데이터:", data)
+        // console.log("API 데이터:", data)
         setPosts(data.plist);
         setTotalPages(data.maxPage || 1);
       } catch (error) {
@@ -232,32 +236,36 @@ export const Board: React.FC = () => {
 
         <BC.HeaderContainer>
           <BC.BoardTable>
-            <BC.TR>
-              <BC.TD>글번호</BC.TD>
-              <BC.TDTitle>게시글</BC.TDTitle>
-              <BC.TD>작성자</BC.TD>
-              <BC.TD>조회수</BC.TD>
-            </BC.TR>
+            <BC.TBODY>
+              <BC.TR>
+                <BC.TD>글번호</BC.TD>
+                <BC.TDTitle>게시글</BC.TDTitle>
+                <BC.TD>작성자</BC.TD>
+                <BC.TD>조회수</BC.TD>
+              </BC.TR>
+            </BC.TBODY>
           </BC.BoardTable>
         </BC.HeaderContainer>
 
         <BC.BoardTable>
-          <BoardList boards={posts} />
+          <BC.TBODY>
+            <BoardList boards={posts} />
+          </BC.TBODY>
         </BC.BoardTable>
 
         {/* ✅ Pagination */}
         <BC.PaginationWrapper>
           <BC.Pagination>
-            <a
+            <BC.PagenationA
               href="#"
               onClick={() => handlePageChange(currentPage > 1 ? currentPage - 1 : 1)}
               style={{ pointerEvents: currentPage === 1 ? "none" : "auto" }}
             >
               &laquo;
-            </a>
+            </BC.PagenationA>
 
             {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-              <a
+              <BC.PagenationA
                 key={page}
                 href="#"
                 onClick={() => handlePageChange(page)}
@@ -267,10 +275,10 @@ export const Board: React.FC = () => {
                 }}
               >
                 {page}
-              </a>
+              </BC.PagenationA>
             ))}
 
-            <a
+            <BC.PagenationA
               href="#"
               onClick={() =>
                 handlePageChange(currentPage < totalPages ? currentPage + 1 : totalPages)
@@ -278,7 +286,7 @@ export const Board: React.FC = () => {
               style={{ pointerEvents: currentPage === totalPages ? "none" : "auto" }}
             >
               &raquo;
-            </a>
+            </BC.PagenationA>
           </BC.Pagination>
         </BC.PaginationWrapper>
       </BC.BoardContainer>

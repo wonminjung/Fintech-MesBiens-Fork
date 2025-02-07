@@ -69,19 +69,25 @@ const BoardWriter: React.FC = () => {
         />
       </BW.WriteHeader>
 
+      <BW.MiddleContent>
+        <BW.UploadLabel>첨부파일</BW.UploadLabel>
+        <BW.UploadInput type="file" onChange={handleFileChange} />
+      </BW.MiddleContent>
+
       <BW.TopContent>
         <BW.Input
           placeholder=" 작성자"
           value={memberName}
           onChange={(e) => setMemberName(e.target.value)}
         />
-        <BW.Input
+
+        {/* <BW.Input
           placeholder=" 회원번호"
           type="number"
           value={memberNo}
           onChange={(e) => setMemberNo(Number(e.target.value))}
-        />
-        <BW.Input
+        /> */}
+        <BW.PassWordInput
           placeholder=" 비밀번호"
           type="password"
           value={postPassword}
@@ -89,10 +95,6 @@ const BoardWriter: React.FC = () => {
         />
       </BW.TopContent>
 
-      <BW.MiddleContent>
-        <label>첨부파일:</label>
-        <BW.Input type="file" onChange={handleFileChange} />
-      </BW.MiddleContent>
 
       <BW.WriteContent onClick={handleInputFocus}>
         <BW.ContentInput
