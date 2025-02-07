@@ -175,12 +175,19 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             <span>{formattedDate}</span>
             {recordsForDay.length > 0 && (
               <div style={{ fontSize: "0.8em", marginTop: "25px" }}>
-                <div style={{ color: totalSum >= 0 ? "green" : "red" }}>
-                  {totalSum >= 0
-                    ? `+₩${totalSum.toLocaleString()}`
-                    : `-₩${Math.abs(totalSum).toLocaleString()}`}
+                <div>
+                  <div
+                    style={{
+                      color: totalSum >= 0 ? "green" : "red",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {totalSum >= 0
+                      ? `+₩${totalSum.toLocaleString()}`
+                      : `-₩${Math.abs(totalSum).toLocaleString()}`}
+                  </div>
+                  <div> 총 {recordsForDay.length} 건</div>
                 </div>
-                <div>[{recordsForDay.length}]</div>
               </div>
             )}
           </C.CalendarDayCellButton>

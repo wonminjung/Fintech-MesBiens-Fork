@@ -20,7 +20,7 @@ const LoginPage: React.FC = () => {
   const [errors, setErrors] = useState<string>("");
   const [rememberMe, setRememberMe] = useState(false);
   const user = useSelector((state: RootState) => state.user);
-//removeCookie
+  //removeCookie
   useEffect(() => {
     if (cookies.rememberMe) {
       setLoginForm((prevForm) => ({ ...prevForm, userID: cookies.rememberMe }));
@@ -32,14 +32,14 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrors("");
-  
+
     const { username, password } = loginForm;
-  
+
     if (!username || !password) {
       setErrors("ID 또는 비밀번호를 입력해 주세요!");
       return;
     }
-  
+
     try {
       const response = await fetch("http://localhost:7200/members/login", {
         method: "POST",
@@ -47,26 +47,28 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify({ memberId: username, password: password }),
         credentials: "include",
       });
-  
+
       const result = await response.json();
-  
+
       if (!response.ok) {
-        throw new Error(result || "로그인 실패");
+        throw new Error(result.message || "로그인 실패");
       }
-  
+
       // JWT 토큰 저장
       setCookie("jwtToken", result.token, { path: "/", maxAge: 3600 });
-  
+
       // Redux에 사용자 정보 저장
-      dispatch(login({ 
-        name: result.memberName, 
-        email: result.memberEmail, 
-        username: result.memberId }));
-  
+      dispatch(
+        login({
+          name: result.memberName,
+          email: result.memberEmail,
+          username: result.memberId,
+        })
+      );
+
       // 로그인 성공 처리
       handleModal(ModalKeys.LOGIN_SUCCESS);
       navigate("/main");
-  
     } catch (error: any) {
       setErrors(error.message);
     }
@@ -92,8 +94,8 @@ const LoginPage: React.FC = () => {
           <form onSubmit={handleLogin}>
             <DefaultInputField
               type="text"
-              id="userID"
-              name="userID"
+              id="username"
+              name="username"
               placeholder="회원 ID"
               value={loginForm.username}
               onChange={handleChange}
@@ -102,8 +104,8 @@ const LoginPage: React.FC = () => {
             <br />
             <DefaultInputField
               type="password"
-              id="userPassword"
-              name="userPassword"
+              id="password"
+              name="password"
               placeholder="비밀번호"
               value={loginForm.password}
               onChange={handleChange}
