@@ -68,7 +68,7 @@ public class SecurityConfig {
             )
              .logout(LogoutConfigurer::permitAll);
       
-       // .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless 설정
+      // .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless 설정
    
 
     return http.build();
