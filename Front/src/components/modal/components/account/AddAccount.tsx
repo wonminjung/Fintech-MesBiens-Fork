@@ -45,7 +45,7 @@ const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element
     return (
         <S.Container>
             <S.Header>
-                <S.Title>계좌 추가</S.Title>
+                <S.Title>계좌 등록</S.Title>
                 <S.CloseBtn onClick={() => closeModal()}>
                     <FontAwesomeIcon icon={faXmark} />
                 </S.CloseBtn>

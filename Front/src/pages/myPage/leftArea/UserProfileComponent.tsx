@@ -12,12 +12,12 @@ const UserProfileComponent: React.FunctionComponent = (): JSX.Element => {
   return (
     <S.UserProfileContainer>
       <S.ProfileImage onClick={() => handleModal(ModalKeys.PROFILE_SETTING)}>
-          <img src={`${process.env.PUBLIC_URL}/images/myPage/profile/user-profile.jpg`} alt="프로필 사진" />
+          <img src={`${process.env.PUBLIC_URL}${member.member.memberProfile}`} alt="프로필 사진" />
       </S.ProfileImage>
 
       <S.UserProfileInfo>
-        <S.UserProfileId>{member.name}</S.UserProfileId>
-        <S.UserProfileEmail>{member.email}</S.UserProfileEmail>
+        <S.UserProfileId>{member.member.memberId}</S.UserProfileId>
+        <S.UserProfileEmail>{member.member.memberEmail}</S.UserProfileEmail>
       </S.UserProfileInfo>
     </S.UserProfileContainer>
   );

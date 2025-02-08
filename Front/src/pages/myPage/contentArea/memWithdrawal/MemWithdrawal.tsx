@@ -5,11 +5,7 @@ import { useSelector } from 'react-redux';
 
 const MemWithdrawal: React.FunctionComponent = () => {
     const member = useSelector((state: RootState) => state.user);
-    const memberNo = 1234567;
-    const userId = "userId0805";
     const guideInputRef = useRef<HTMLInputElement>(null);
-
-    
 
     const notiList = [
         {
@@ -29,7 +25,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
     ];
 
     const fetchWithdrawal = async () => {
-        const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}`, 
+        await fetch(`${process.env.REACT_APP_SERVER_URL}`, 
             {
                 method: "DELETE",
                 headers: {
@@ -37,7 +33,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
                 },
                 body: JSON.stringify(
                     {
-                        memberNo: memberNo
+                        memberNo: member.member.memberNo
                     }
                 )
             }
@@ -45,19 +41,19 @@ const MemWithdrawal: React.FunctionComponent = () => {
     };
 
     const handleWithdrawal = () => {
-        if(guideInputRef.current && member.username !== guideInputRef.current.value.trim()) {
+        if(guideInputRef.current && member.member.memberId !== guideInputRef.current.value.trim()) {
             alert("계정 아이디가 일치하지 않습니다!");
             return;
         }
-        console.log("계정 아이디가 일치합니다!");
 
-        // fetchWithdrawal()
-        // .then((response) => {
-        //     alert(`${member.username} 탈퇴 완료`);
-        // })
-        // .catch((err) => {
-        //     alert("탈퇴 중 문제 발생");
-        // })
+        fetchWithdrawal()
+        .then((response) => {
+            console.log(response);
+            alert(`${member.member.memberId} 탈퇴 완료`);
+        })
+        .catch((err) => {
+            alert("탈퇴 중 문제 발생");
+        })
     };
 
     return (
@@ -76,7 +72,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
             </S.WithdrawalNotiContainer>
 
             <S.GuideContainer>
-                <S.GuideSpan>유의사항을 모두 확인하였으면 "<strong>{member.username}</strong>"를 입력하세요.</S.GuideSpan>
+                <S.GuideSpan>유의사항을 모두 확인하였으면 "<strong>{member.member.memberId}</strong>"를 입력하세요.</S.GuideSpan>
                 <S.GuideInput ref={guideInputRef}/>
             </S.GuideContainer>
 
