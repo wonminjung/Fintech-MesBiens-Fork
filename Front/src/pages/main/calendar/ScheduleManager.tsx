@@ -60,10 +60,21 @@ const ScheduleManager: React.FC = () => {
                         {CategoryIconComponent && <CategoryIconComponent />}
                       </SM.ImgContainer>
                       <li
-                        style={{ color: getStatusColor(record.trnsTypeName) }}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "5px",
+                        }}
                       >
-                        {record.trnsBalance.toLocaleString()}원
+                        <div
+                          style={{
+                            color: getStatusColor(record.trnsTypeName),
+                          }}
+                        >
+                          {record.trnsBalance.toLocaleString()}원
+                        </div>
                         {/* [{record.trnsTypeName}] */}
+                        <div>{record.memberName}</div>
                       </li>
                     </SM.ScheduleDetailsCell>
                   );

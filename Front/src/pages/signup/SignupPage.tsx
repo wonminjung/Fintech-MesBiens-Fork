@@ -32,7 +32,7 @@ const SignupPage: React.FC = () => {
     if (hasUppercase.test(pwd)) matchCount++;
     if (hasSpecialChar.test(pwd)) matchCount++;
     if (hasDigit.test(pwd)) matchCount++;
-   
+
     return matchCount >= 2;
   };
 
@@ -58,10 +58,9 @@ const SignupPage: React.FC = () => {
       return;
     } else {
       setErrors(""); // 오류 메시지 초기화
-  
+
       // 서버로 회원가입 요청 보내기
       try {
-        
         const response = await fetch("http://localhost:7200/members/register", {
           method: "POST",
           headers: {
@@ -74,20 +73,29 @@ const SignupPage: React.FC = () => {
             memberPassword: password,
           }),
         });
-    
+
         const result = await response.json();
-  
+
         if (!response.ok) {
           throw new Error(result.message || "회원가입 실패");
         }
-    
+
         // 데이터가 없을 경우 디폴트 값을 설정
-        dispatch(signup({
-          name: result.memberName || "데이터 오류", // memberName이 없으면 "데이터 오류"로 대체
-          username: result.memberId || "아이디 없음", // memberId가 없으면 "아이디 없음"으로 대체
-          email: result.memberEmail || "이메일 없음", // memberEmail이 없으면 "이메일 없음"으로 대체
-        }));
-  
+        dispatch(
+          signup({
+            member: {
+              memberNo: result.memberNo || 0,
+              memberId: result.memberId || "아이디 없음",
+              memberName: result.memberName || "데이터 오류",
+              memberEmail: result.memberEmail || "이메일 없음",
+              memberPhone: result.memberPhone || "",
+              memberAddress: result.memberAddress || "",
+              memberBirth: result.memberBirth || "",
+              memberProfile: result.memberProfile || "",
+            },
+          })
+        );
+
         handleModal(ModalKeys.SIGNUP_SUCCESS);
       } catch (error: any) {
         setErrors(error.message);
