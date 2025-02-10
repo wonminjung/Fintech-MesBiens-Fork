@@ -10,31 +10,165 @@ const FindIDPage: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [confirmID, setConfirmID] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordReset, setPasswordReset] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
+  const [verificationCode, setVerificationCode] = useState(""); // 인증번호
+  const [confirmID, setConfirmID] = useState(""); // 사용자가 입력한 인증번호
+  const [isVerified, setIsVerified] = useState(false); // 인증 여부
+  const [foundID, setFoundID] = useState(""); // 찾은 ID 저장
+  const [resetSuccess, setResetSuccess] = useState(false); // 비밀번호 변경 성공 여부
+  const [passwordReset, setPasswordReset] = useState(""); // 새 비밀번호
+  const [passwordCheck, setPasswordCheck] = useState(""); // 비밀번호 확인
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
+  
   };
 
-  const handleFindIDSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle Find ID logic
-    console.log({ name, email });
-  };
+  // 인증번호 요청
+const handleRequestVerificationCode = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-  const handleFindPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const response = await fetch(`http://localhost:7200/members/request-verification`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ email }), // 이메일 전송
+    });
+
+    if (response.ok) {
+      alert("인증번호가 이메일로 전송되었습니다.");
+    } else {
+      const errorText = await response.text();
+      alert(`인증번호 전송 실패: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("인증번호 요청 오류:", error);
+    alert("서버 요청 실패");
+  }
+};
+// 인증번호 검증
+const handleVerifyCode = async () => {
+  try {
+    console.log("입력된 인증번호:", confirmID); // 여기서 입력된 인증번호를 확인
+    const response = await fetch("http://localhost:7200/members/verify-code", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, code: confirmID }), // 이메일과 입력된 인증번호
+    });
+
+    if (response.ok) {
+      alert("인증 성공! 비밀번호 변경을 진행하세요.");
+      // 비밀번호 수정 페이지로 이동하거나 비밀번호 변경 기능을 활성화합니다.
+    } else {
+      const errorText = await response.text();
+      alert(`인증 실패: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("인증번호 검증 오류:", error);
+    alert("서버 요청 실패");
+  }
+};
+
+  // 아이디 찾기 - 인증번호 확인 후 ID 제공
+  const handleFindIDSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+  
+    if (confirmID !== verificationCode) {
+      alert("인증번호가 올바르지 않습니다.");
       return;
     }
-    // Handle Find Password logic
-    console.log({ name, username, email, password });
+  
+    try {
+      const response = await fetch(`http://localhost:7200/members/find-id/${email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const textData = await response.text();
+      console.log("서버 응답 (문자열):", textData);
+  
+      try {
+        const data = JSON.parse(textData);
+        console.log("파싱된 데이터:", data);
+        console.log("찾은 아이디:", data.id);
+  
+        if (data.id) {
+          setFoundID(data.id);
+          setIsVerified(true);
+        } else {
+          alert("아이디를 찾을 수 없습니다.");
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+        alert("응답 데이터를 처리할 수 없습니다.");
+      }
+  
+    } catch (error) {
+      console.error("아이디 찾기 오류:", error);
+      alert("서버 오류 발생");
+    }
   };
+
+  // 비밀번호 재설정 요청
+  const handleFindPasswordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch("http://localhost:7200/members/find-password", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      const data = await response.text(); // 백엔드 응답이 단순한 문자열이므로 .text()로 받음
+      if (response.ok) {
+        alert("비밀번호 재설정 이메일을 전송했습니다.");
+      } else {
+        alert(data || "비밀번호 재설정 요청 실패");
+      }
+    } catch (error) {
+      console.error("비밀번호 재설정 요청 에러:", error);
+      alert("서버 오류 발생");
+    }
+  };
+  // 비밀번호 변경 요청
+const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (passwordReset !== passwordCheck) {
+    alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:7200/members/reset-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, newPassword: passwordReset }),
+    });
+
+    if (response.ok) {
+      alert("비밀번호가 성공적으로 변경되었습니다.");
+    } else {
+      const errorText = await response.text();
+      alert(`비밀번호 변경 실패: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("비밀번호 변경 오류:", error);
+    alert("서버 요청 실패");
+  }
+};
+
 
   return (
     <L.Body>
@@ -87,7 +221,7 @@ const FindIDPage: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <DefaultButton type="submit" width="100%" height="2.5em">
+                <DefaultButton type="button" onClick={handleRequestVerificationCode} width="100%" height="2.5em">
                   인증번호 받기
                 </DefaultButton>
                 <L.Divider />
@@ -99,6 +233,12 @@ const FindIDPage: React.FC = () => {
                   onChange={(e) => setConfirmID(e.target.value)}
                   required
                 />
+                {/* 인증 버튼 */}
+                <DefaultButton type="button" onClick={
+                handleVerifyCode} width="100%" height="2.5em">
+                인증
+                </DefaultButton>
+                <L.Divider />
                 <DefaultButton type="submit" width="100%" height="2.5em">
                   확인
                 </DefaultButton>
@@ -147,7 +287,7 @@ const FindIDPage: React.FC = () => {
                   onChange={(e) => setPasswordCheck(e.target.value)}
                   required
                 />
-                <DefaultButton type="submit" width="100%" height="2.5em">
+                 <DefaultButton type="button" onClick={handleResetPassword} width="100%" height="2.5em">
                   비밀번호 재설정
                 </DefaultButton>
               </form>

@@ -3,6 +3,8 @@ package mesbiens.security;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -46,7 +48,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth.requestMatchers(
         		"/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/me",
                 "/members/logout/*","members/token/refresh",
-                "/quiz/list", "quiz/{quizId}", "quiz//update/{quizId}", "/quiz/delete/{quizId}",
+                "members/find-id/**","members/find-password","members/reset-password",
                 "/community/**","/account/**", "/allBankList", "/transaction/**",
                 "/notifications/member/{memberNo}",
                 "/notifications/{notificationNo}/read", "/notifications").permitAll() // 서버 URL에 요청할 경우 인증 없이 접근 가능
@@ -73,22 +75,6 @@ public class SecurityConfig {
 
     return http.build();
    
-
-//    http
-//        .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
-//        .authorizeHttpRequests(authz -> authz
-//            .requestMatchers("/members/register", "/members/login", "/members/{id}", "/quiz/create",
-//                "/members/logout/*",
-//                "/quiz/list", "quiz/{quizId}", "quiz//update/{quizId}", "/quiz/delete/{quizId}",
-//                "/commustNo}", "community/{postNo}/view", "/community/{postNo}", "/account/add",
-//                "/account/modify", "/account/delete", "/notifications/member/{memberNo}",
-//                "/notifications/{notificationNo}/read", nity/C_board/C_boardWrite", "/community/C_board/C_boardWrite_ok", "/community/C_board",
-//                "/community/{po"/notifications")
-//            .permitAll() // 경로 접근 허용
-//            .anyRequest().authenticated() // 나머지 요청은 인증 필요
-//        );
-//
-//    return http.build();
   }
   
   @Bean
@@ -106,7 +92,5 @@ public class SecurityConfig {
      
      return source;
   }
-
-  
 
 }
