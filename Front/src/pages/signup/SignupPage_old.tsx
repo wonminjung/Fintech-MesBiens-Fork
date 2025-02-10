@@ -50,13 +50,20 @@ const SignupPage: React.FC = () => {
       if (!response.ok) {
         throw new Error(result.message || "회원가입 실패");
       }
-  
-      // 회원가입 성공 시, Redux에 사용자 정보 저장 (password 제외)
+      // 데이터가 없을 경우 디폴트 값을 설정
       dispatch(signup({
-        name,
-        email,
-        username,
-      }));
+                member: {
+                  memberNo: result.memberNo || 0,  // 서버에서 받아온 회원 번호
+                  memberId: result.memberId || "아이디 없음",  // 아이디
+                  memberName: result.memberName || "이름 없음",  // 이름
+                  memberEmail: result.memberEmail || "이메일 없음",  // 이메일
+                  memberPhone: result.memberPhone || "",  // 전화번호
+                  memberAddress: result.memberAddress || "",  // 주소
+                  memberBirth: result.memberBirth || "",  // 생일
+                  memberProfile: result.memberProfile || "",  // 프로필
+                },
+                isAuthenticated: false,  // 회원가입 후 인증되지 않은 상태로 설정
+              }));
   
       // 성공적인 회원가입 후 처리
       handleModal(ModalKeys.SIGNUP_SUCCESS);

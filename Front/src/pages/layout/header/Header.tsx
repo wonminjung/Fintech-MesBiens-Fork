@@ -62,7 +62,7 @@ const Header: React.FC = () => {
   return (
     <S.HeaderContainer>
       <S.HeaderWelcome>
-        {cookies.userID ? `${user.name}님 환영합니다.` : "Welcome to MesBiens"}
+        {cookies.userID ? `${user.member.memberName}님 환영합니다.` : "Welcome to MesBiens"}
         {cookies.userID && ( // 쿠키가 있을 때만 로그아웃 버튼 표시
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         )}

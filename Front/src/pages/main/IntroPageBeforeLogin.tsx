@@ -82,11 +82,19 @@ const IntroPageBeforeLogin: React.FC = () => {
       // Redux에 로그인 정보 저장
       dispatch(
         login({
-        name: result.memberName || "데이터 오류",
-        username: result.memberId,
-        email: result.memberEmail,
-      }));
-
+          member: {
+            memberNo: result.memberNo,
+            memberId: result.memberId,
+            memberName: result.memberName,
+            memberEmail: result.memberEmail,
+            memberPhone: result.memberPhone,
+            memberAddress: result.memberAddress,
+            memberBirth: result.memberBirth,
+            memberProfile: result.memberProfile,
+          },
+          isAuthenticated: true,
+        })
+      );
       // 로그인 성공 모달 띄우기
       handleModal(ModalKeys.LOGIN_SUCCESS);
       
