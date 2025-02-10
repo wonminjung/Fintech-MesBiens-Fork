@@ -22,14 +22,14 @@ const SignupPage: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-     // 비밀번호와 비밀번호 확인 일치 여부 검사
+    // 비밀번호와 비밀번호 확인 일치 여부 검사
     if (password !== confirmPassword) {
       setErrors("비밀번호가 일치하지 않습니다!");
       return;
-    }  
+    }
     try {
       // 서버로 회원가입 요청 보내기
       const response = await fetch("http://localhost:7200/members/register", {
@@ -44,9 +44,9 @@ const SignupPage: React.FC = () => {
           password, // 비밀번호는 서버로만 전송
         }),
       });
-  
+
       const result = await response.json();
-  
+
       if (!response.ok) {
         throw new Error(result.message || "회원가입 실패");
       }
@@ -69,10 +69,9 @@ const SignupPage: React.FC = () => {
       handleModal(ModalKeys.SIGNUP_SUCCESS);
       console.log("Signup Data:", { name, email, username }); // 비밀번호는 로그에 포함하지 않음
       console.log("Redux State:", user);
-  
+
       // 추가적인 페이지 리디렉션 혹은 알림 처리
       // navigate("/login");
-  
     } catch (error: any) {
       setErrors(error.message);
     }

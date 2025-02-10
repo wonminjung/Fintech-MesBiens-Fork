@@ -32,7 +32,7 @@ const SignupPage: React.FC = () => {
     if (hasUppercase.test(pwd)) matchCount++;
     if (hasSpecialChar.test(pwd)) matchCount++;
     if (hasDigit.test(pwd)) matchCount++;
-   
+
     return matchCount >= 2;
   };
 
@@ -58,10 +58,9 @@ const SignupPage: React.FC = () => {
       return;
     } else {
       setErrors(""); // 오류 메시지 초기화
-  
+
       // 서버로 회원가입 요청 보내기
       try {
-        
         const response = await fetch("http://localhost:7200/members/register", {
           method: "POST",
           headers: {
@@ -74,13 +73,13 @@ const SignupPage: React.FC = () => {
             memberPassword: password,
           }),
         });
-    
+
         const result = await response.json();
-  
+
         if (!response.ok) {
           throw new Error(result.message || "회원가입 실패");
         }
-    
+
         // 데이터가 없을 경우 디폴트 값을 설정
         dispatch(signup({
           member: {

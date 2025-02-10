@@ -16,6 +16,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate(); // 리다이렉션을 위한 navigate 훅 사용
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state: RootState) => state.user);
+  const member = useSelector((state: RootState) => state.user.member);
 
   const handleLogout = () => {
     // 로그아웃 처리 로직 추가
@@ -62,7 +63,9 @@ const Header: React.FC = () => {
   return (
     <S.HeaderContainer>
       <S.HeaderWelcome>
-        {cookies.userID ? `${user.member.memberName}님 환영합니다.` : "Welcome to MesBiens"}
+        {cookies.userID
+          ? `${member?.memberName ?? ""}님 환영합니다.`
+          : "Welcome to MesBiens"}
         {cookies.userID && ( // 쿠키가 있을 때만 로그아웃 버튼 표시
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         )}

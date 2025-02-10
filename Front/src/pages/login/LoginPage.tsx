@@ -20,6 +20,8 @@ const LoginPage: React.FC = () => {
   const [errors, setErrors] = useState<string>("");
   const [rememberMe, setRememberMe] = useState(false);
   const user = useSelector((state: RootState) => state.user);
+  const { member } = useSelector((state: RootState) => state.user);
+
   //removeCookie
   useEffect(() => {
     if (cookies.rememberMe) {
