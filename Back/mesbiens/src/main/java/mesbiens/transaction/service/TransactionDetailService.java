@@ -22,22 +22,5 @@ public interface TransactionDetailService {
 	
 	// 송금하기
 	boolean remittance(int receiveAccountNo, int senderAccountNo, Long trnsBalance);
-
 	
-	
-	
-//	List<TransactionDetailVO> getAllTransactionList();
-//
-//	List<TransactionDetailVO> getTransactionDate(Timestamp startDate, Timestamp endDate);
-//
-//
-//	void withdrawal(TransactionDetailVO transactionDetailVO);
-//
-//	void payment(TransactionDetailVO transactionDetailVO);
-//
-//	void deleteTransaction(int id);
-//
-//	void createLog(String logMessage);
-//
-//	void deposit(TransactionDetailVO transactionDetailVO);
 }

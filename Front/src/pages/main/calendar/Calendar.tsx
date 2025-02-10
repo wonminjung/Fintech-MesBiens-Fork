@@ -15,7 +15,7 @@ import { C } from "./style";
 import "./Calendar.css";
 
 interface SmallCalendarProps {
-  onDateSelect: (date: Date) => void;
+  onDateSelect: (date: Date, records: RecentData[]) => void;
 }
 
 type RecentData = {
@@ -32,8 +32,6 @@ type RecentData = {
 const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
   const [recentRecords, setRecentRecords] = useState<RecentData[]>([]);
 
   useEffect(() => {
@@ -44,15 +42,7 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
     const newStartDate = oneMonthAgo.toISOString().split("T")[0];
     const newEndDate = today.toISOString().split("T")[0];
 
-    setStartDate(newStartDate);
-    setEndDate(newEndDate);
-
     fetchRecentData(newStartDate, newEndDate);
-
-    // 날짜를 설정한 후에 로그 출력
-    console.log("Start Date:", newStartDate);
-    console.log("End Date:", newEndDate);
-    console.log("Today: ", today);
   }, []);
 
   const fetchRecentData = async (start: string, end: string) => {
@@ -71,86 +61,84 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
         }
       );
       const data: RecentData[] = await response.json();
-      const sortedRecords = data.sort(
-        (a, b) =>
-          new Date(b.trnsCreateAt).getTime() -
-          new Date(a.trnsCreateAt).getTime()
+      setRecentRecords(
+        data.sort(
+          (a, b) =>
+            new Date(b.trnsCreateAt).getTime() -
+            new Date(a.trnsCreateAt).getTime()
+        )
       );
-      setRecentRecords(sortedRecords);
     } catch (error) {
       alert("Failed to fetch recent transactions.");
       console.error(error);
     }
   };
 
-  const CalendarHeader = () => {
-    return (
-      <C.CalendarHeader>
-        <C.CalendarHeaderButton
-          onClick={() => setCurrentDate(subMonths(currentDate, 1))}
-        >
-          &lt;
-        </C.CalendarHeaderButton>
-        <div>
-          <span>{format(currentDate, "MMMM")}</span>{" "}
-          <span>{format(currentDate, "yyyy")}</span>
-        </div>
-        <C.CalendarHeaderButton
-          onClick={() => setCurrentDate(addMonths(currentDate, 1))}
-        >
-          &gt;
-        </C.CalendarHeaderButton>
-      </C.CalendarHeader>
+  const handleDateClick = (selectedDay: Date) => {
+    setSelectedDate(selectedDay);
+    const filteredRecords = recentRecords.filter(
+      (record) =>
+        record.trnsCreateAt.split("T")[0] === format(selectedDay, "yyyy-MM-dd")
     );
-  };
-
-  const renderDays = () => {
-    const days: JSX.Element[] = [];
-    const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
-    weekDays.forEach((day) => {
-      days.push(
-        <div className="calendar-day-name" key={day}>
-          {day}
-        </div>
-      );
-    });
-    return <div className="calendar-days-row">{days}</div>;
+    onDateSelect(selectedDay, filteredRecords);
   };
 
   const getStatusColor = (trnsTypeName: string) => {
-    switch (trnsTypeName) {
-      case "DEPOSIT":
-        return "green"; // 입금은 초록색
-      case "WITHDRAWAL":
-        return "red"; // 출금은 빨간색
-      default:
-        return "black"; // 기본 색상
-    }
+    return trnsTypeName === "DEPOSIT" ? "green" : "red";
+  };
+
+  const CalendarHeader = () => (
+    <C.CalendarHeader>
+      <C.CalendarHeaderButton
+        onClick={() => setCurrentDate(subMonths(currentDate, 1))}
+      >
+        &lt;
+      </C.CalendarHeaderButton>
+      <div>
+        <span>{format(currentDate, "MMMM")}</span>{" "}
+        <span>{format(currentDate, "yyyy")}</span>
+      </div>
+      <C.CalendarHeaderButton
+        onClick={() => setCurrentDate(addMonths(currentDate, 1))}
+      >
+        &gt;
+      </C.CalendarHeaderButton>
+    </C.CalendarHeader>
+  );
+
+  const renderDays = () => {
+    const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
+    return (
+      <div className="calendar-days-row">
+        {weekDays.map((day) => (
+          <div className="calendar-day-name" key={day}>
+            {day}
+          </div>
+        ))}
+      </div>
+    );
   };
 
   const renderCells = () => {
     const monthStart = startOfMonth(currentDate);
-    const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
-    const endDate = endOfWeek(monthEnd);
+    const endDate = endOfWeek(endOfMonth(monthStart));
 
-    const rows: JSX.Element[] = [];
-    let days: JSX.Element[] = [];
     let day = startDate;
-    let formattedDate = "";
+    const rows: JSX.Element[] = [];
 
     while (day <= endDate) {
+      const days: JSX.Element[] = [];
+
       for (let i = 0; i < 7; i++) {
-        formattedDate = format(day, "d");
+        const formattedDate = format(day, "d");
         const cloneDay = day;
 
-        // 해당 날짜의 거래 내역을 필터링
         const recordsForDay = recentRecords.filter(
           (record) =>
             record.trnsCreateAt.split("T")[0] === format(day, "yyyy-MM-dd")
         );
 
-        // 계산된 총 거래내역
         const totalSum = recordsForDay.reduce((sum, record) => {
           return record.trnsTypeName === "DEPOSIT"
             ? sum + record.trnsBalance
@@ -159,6 +147,7 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
 
         days.push(
           <C.CalendarDayCellButton
+            key={day.toString()}
             className={`calendar-cell ${
               !isSameMonth(day, monthStart)
                 ? "disabled"
@@ -166,11 +155,7 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
                 ? "selected"
                 : ""
             }`}
-            key={day.toString()}
-            onClick={() => {
-              setSelectedDate(cloneDay);
-              onDateSelect(cloneDay); // 날짜를 부모로 전달
-            }}
+            onClick={() => handleDateClick(cloneDay)}
           >
             <span>{formattedDate}</span>
             {recordsForDay.length > 0 && (
@@ -192,14 +177,15 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             )}
           </C.CalendarDayCellButton>
         );
+
         day = addDays(day, 1);
       }
+
       rows.push(
         <div className="calendar-row" key={day.toString()}>
           {days}
         </div>
       );
-      days = [];
     }
     return <div className="calendar-body">{rows}</div>;
   };

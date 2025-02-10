@@ -1,9 +1,4 @@
-export type BirthDay = {
-    first: string;
-    second: string;
-    third: string;
-}
-export type Info = {
+export type MemInfo = {
     fieldName: string;
-    value: string | BirthDay;
-};
+    value: string;
+}

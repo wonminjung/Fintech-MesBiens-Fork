@@ -15,6 +15,7 @@ const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Ele
     const [ selectedFile, setSelectedFile ] = useState<File|null>(null);
     const { closeModal } = ModalFunc();
     const member = useSelector((state: RootState) => state.user);
+    const [ currentProfile, setCurrentProfile ] = useState<string>(member.member.memberProfile);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFile(e.target.files?.[0] || null);
@@ -38,15 +39,15 @@ const ProfileSetting: React.FunctionComponent<Props> = ({ modalProps }): JSX.Ele
                 <S.ProfileBody>
                     <S.ProfileImageContainer>
                         <S.ProfileLabel htmlFor="profileImg">
-                            <S.ProfileImage src={`${process.env.PUBLIC_URL}/images/myPage/profile/user-profile.jpg`} alt="사용자 프로필" />
+                            <S.ProfileImage src={currentProfile} alt="사용자 프로필" />
                             <S.ImageUploadBtn>
                                 <FontAwesomeIcon icon={faUpRightFromSquare} />
                             </S.ImageUploadBtn>
                         </S.ProfileLabel>
                     </S.ProfileImageContainer>
                     <S.ImageUpload type="file" id="profileImg" name="profileImg" onChange={handleFileChange}/>
-                    <S.UserName>{member.name}</S.UserName>
-                    <S.UserEmail>{member.email}</S.UserEmail>
+                    <S.UserName>{member.member.memberId}</S.UserName>
+                    <S.UserEmail>{member.member.memberEmail}</S.UserEmail>
                 </S.ProfileBody>
 
                 <S.ProfileFooter>

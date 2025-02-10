@@ -76,7 +76,7 @@ const SignupPage: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password === "") {
       setErrors(
@@ -91,48 +91,47 @@ const SignupPage: React.FC = () => {
     } else {
       setErrors("");
 
-       // 서버로 회원가입 요청 보내기
-    try {
-      const response = await fetch("http://localhost:7200/members/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          username,
-          password, // 서버로 패스워드 전송
-        }),
-      });
+      // 서버로 회원가입 요청 보내기
+      try {
+        const response = await fetch("http://localhost:7200/members/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            username,
+            password, // 서버로 패스워드 전송
+          }),
+        });
 
-      const result = await response.json();
+        const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.message || "회원가입 실패");
+        if (!response.ok) {
+          throw new Error(result.message || "회원가입 실패");
+        }
+
+        // 회원가입 성공 시, 패스워드는 제외하고 Redux에 사용자 정보 저장
+        // dispatch(signup({
+        //   name,
+        //   email,
+        //   username,
+        //   // 패스워드 제외
+        // }));
+
+        // 성공적인 회원가입 후 처리
+        handleModal(ModalKeys.SIGNUP_SUCCESS);
+        console.log("Signup Data:", { name, email, username });
+        console.log("Redux State:", user);
+
+        // 추가적인 페이지 리디렉션 혹은 알림 처리
+        // navigate("/login");
+      } catch (error: any) {
+        setErrors(error.message); // 에러 발생 시 처리
       }
-
-      // 회원가입 성공 시, 패스워드는 제외하고 Redux에 사용자 정보 저장
-      dispatch(signup({
-        name,
-        email,
-        username,
-        // 패스워드 제외
-      }));
-
-      // 성공적인 회원가입 후 처리
-      handleModal(ModalKeys.SIGNUP_SUCCESS);
-      console.log("Signup Data:", { name, email, username });
-      console.log("Redux State:", user);
-
-      // 추가적인 페이지 리디렉션 혹은 알림 처리
-      // navigate("/login");  
-
-    } catch (error: any) {
-      setErrors(error.message); // 에러 발생 시 처리
     }
-  }
-};
+  };
 
   return (
     <L.Body>
