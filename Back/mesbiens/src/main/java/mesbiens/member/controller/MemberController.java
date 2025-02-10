@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import mesbiens.member.dto.LoginRequest;
+import mesbiens.member.dto.LoginRequest; 
 import mesbiens.member.dto.MemberDTO;
 import mesbiens.member.dto.MemberResponseDTO;
 import mesbiens.member.service.LoginRecordService;
