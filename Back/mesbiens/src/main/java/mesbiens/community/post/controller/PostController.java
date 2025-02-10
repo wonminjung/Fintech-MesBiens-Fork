@@ -65,7 +65,7 @@ public class PostController {
 		) {  
 		    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		    
-		    System.out.println(postRequest);
+//		    System.out.println(postRequest);
 
 		    // 유효성 검증 실패 시 처리
 		    if (bindingResult.hasErrors()) {
