@@ -32,15 +32,12 @@ public class TransactionDetailController {
 	
 	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@PostMapping("/recent")
-	public List<RecentTransactionResponseDTO> getTrnsList(@RequestBody RecentTransactionRequestDTO request) {		
-		// LocalDate 타입을 localDateTime 타입으로 변환하면서 시간 정보 추가
+	public List<RecentTransactionResponseDTO> getTrnsList(@RequestBody RecentTransactionRequestDTO request) {
+		int memberNo = request.getMemberNo();
 		LocalDateTime startDate = request.getRecentStartDate().atStartOfDay();
 		LocalDateTime endDate = request.getRecentEndDate().atTime(23, 59, 59);
 		
-		System.out.println("현재 로그인 유저 정보 : " + request.getMemberNo());
-		System.out.println(trnsService.getTrnsList(request.getMemberNo(), startDate, endDate).toString());
-		
-		return trnsService.getTrnsList(request.getMemberNo(), startDate, endDate);
+		return trnsService.getTrnsList(memberNo, startDate, endDate);
 	}
 
 	// 송금
@@ -54,7 +51,7 @@ public class TransactionDetailController {
 		Map<String, String> response = new HashMap<>();
 		
 		boolean isExistAccounts = acctService.existsByIdAcct(receiverAccountNo) && acctService.existsByIdAcct(senderAccountNo);
-		if(isExistAccounts) {
+		if(!isExistAccounts) {
 			response.put("message", "보내는 계좌나 받는 계좌가 존재하지 않습니다.");
 			return ResponseEntity.badRequest().body(response);
 		}

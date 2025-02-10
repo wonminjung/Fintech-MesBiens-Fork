@@ -1,6 +1,5 @@
 package mesbiens.account.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import mesbiens.account.dto.AccountResponseDTO;
 import mesbiens.account.service.AccountService;
@@ -25,19 +25,17 @@ public class AccountController {
 	@Autowired
 	private AccountService acctService;
 	
-	// 모든 계좌 가져오기
-	@GetMapping
-	public List<AccountResponseDTO> getAcctInfo() {
+	// 현재 로그인 계정의 계좌 정보 가져오기
+	@PostMapping
+	public List<AccountResponseDTO> getAccountList(@RequestBody JsonNode data) {
+		JsonNode memberNo = data.get("memberNo");
 		
-		List<AccountVO> accounts = acctService.getAllAcct();
-		List<AccountResponseDTO> response = new ArrayList<>();
+		boolean validate = data == null || memberNo.toString().trim().equals("0") || memberNo.asInt() < 0;
+		if(validate) {
+			return null;
+		}
 		
-		accounts.stream().forEach((account) -> {
-			AccountResponseDTO res = new AccountResponseDTO(account);
-			response.add(res);
-		});
-		
-		return response;
+		return acctService.getAccountList(memberNo.asInt());
 	}
 	
 	// 계좌 추가하기
@@ -82,12 +80,6 @@ public class AccountController {
 	}
 	
 }
-
-
-
-
-
-
 
 
 
