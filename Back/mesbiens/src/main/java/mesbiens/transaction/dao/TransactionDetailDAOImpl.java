@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import jakarta.transaction.Transactional;
 import mesbiens.transaction.vo.TransactionDetailVO;
 import mesbiens.account.repository.AccountJpaRepository;
 import mesbiens.account.vo.AccountVO;
@@ -26,12 +27,6 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
     @Autowired
     private AccountJpaRepository acctJpaRepo;
 
-	// 모든 거래내역 반환
-	@Override
-	public List<TransactionDetailVO> allList() {
-		return trnsJpaRepo.findAll();
-	}
-
 	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@Override
 	public List<RecentTransactionResponseDTO> getTrnsList(int memberNo, LocalDateTime startDate, LocalDateTime endDate) {
@@ -46,6 +41,7 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 
 	// 잔액 업데이트
 	@Override
+	@Transactional
 	public boolean updateBalance(Optional<AccountVO> receiverAccount, Optional<AccountVO> senderAccount) {
 		AccountVO updateReceiverAccount = acctJpaRepo.save(receiverAccount.get());
 		AccountVO updateSenderAccount = acctJpaRepo.save(senderAccount.get());

@@ -10,9 +10,6 @@ import mesbiens.transaction.vo.TransactionDetailVO;
 
 public interface TransactionDetailDAO {
 
-	// 모든 거래내역 반환
-	List<TransactionDetailVO> allList();
-
 	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	List<RecentTransactionResponseDTO> getTrnsList(int memberNo, LocalDateTime startDate, LocalDateTime endDate);
 	

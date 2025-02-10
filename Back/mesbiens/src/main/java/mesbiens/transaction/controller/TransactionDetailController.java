@@ -2,7 +2,6 @@ package mesbiens.transaction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +11,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import mesbiens.transaction.dto.RecentTransactionRequestDTO;
 import mesbiens.transaction.dto.RecentTransactionResponseDTO;
-import mesbiens.transaction.dto.TransactionResponseDTO;
 import mesbiens.transaction.service.TransactionDetailService;
-import mesbiens.transaction.vo.TransactionDetailVO;
 
 import mesbiens.account.service.AccountService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,27 +30,15 @@ public class TransactionDetailController {
 	@Autowired
 	private AccountService acctService;
 	
-	
-	// 모든 거래내역 반환
-	@GetMapping("/all")
-	public List<TransactionResponseDTO> all() {
-		List<TransactionDetailVO> trnsList = trnsService.allList();
-		List<TransactionResponseDTO> response = new ArrayList<>();
-		
-		trnsList.stream().forEach((trns) -> {
-			TransactionResponseDTO res = new TransactionResponseDTO(trns);
-			response.add(res);
-		});
-		
-		return response;
-	}
-	
 	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@PostMapping("/recent")
 	public List<RecentTransactionResponseDTO> getTrnsList(@RequestBody RecentTransactionRequestDTO request) {		
 		// LocalDate 타입을 localDateTime 타입으로 변환하면서 시간 정보 추가
 		LocalDateTime startDate = request.getRecentStartDate().atStartOfDay();
 		LocalDateTime endDate = request.getRecentEndDate().atTime(23, 59, 59);
+		
+		System.out.println("현재 로그인 유저 정보 : " + request.getMemberNo());
+		System.out.println(trnsService.getTrnsList(request.getMemberNo(), startDate, endDate).toString());
 		
 		return trnsService.getTrnsList(request.getMemberNo(), startDate, endDate);
 	}
