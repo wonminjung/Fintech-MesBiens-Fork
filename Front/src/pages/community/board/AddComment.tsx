@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../modules/store/store";
 import { BP } from "./style";
 
 interface AddCommentProps {
@@ -7,6 +9,7 @@ interface AddCommentProps {
 }
 
 const AddComment: React.FC<AddCommentProps> = ({ postNo, onCommentAdded }) => {
+  const {member} = useSelector((state: RootState) => state.user);
   const [commentContent, setCommentContent] = useState("");
   const [commentPassword, setCommentPassword] = useState("");
   const [memberNo, setMemberNo] = useState("");
@@ -18,7 +21,7 @@ const AddComment: React.FC<AddCommentProps> = ({ postNo, onCommentAdded }) => {
     }
 
     const commentData = {
-      member: { memberNo: parseInt(memberNo) },
+      member: { memberNo: (member?.memberNo) },
       postCommentContent: commentContent,
       postCommentPassword: commentPassword,
     };

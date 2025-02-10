@@ -391,6 +391,12 @@ export const BP = {
     color: #555;
     margin-bottom: 5px;
   `,
+  EditCommentContainer: styled.div`
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+  `,
+
   CommentActions: styled.div`
     display: flex;
     /* gap: 2px; */
@@ -452,6 +458,24 @@ export const BW = {
     align-items: center;
     &::placeholder {
       text-align: center
+    }
+  `,
+
+  BoardWriter: styled.label`
+    height: 20px;
+    width: 8em;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    &::placeholder {
+      text-align: center;
     }
   `,
 
