@@ -65,8 +65,9 @@ public class AccountController {
 	public ResponseEntity<Map<String, String>> delAcct(@RequestBody AccountVO acct) {
 		Map<String, String> response = new HashMap<>();
 		
-		if(acct == null) {
-			response.put("message", "계좌 번호가 제공되지 않았습니다.");
+		boolean isExistAcct = acctService.existsByIdAcct(acct.getAccountNo());
+		if(isExistAcct) {
+			response.put("message", "계좌 정보가 제공되지 않았습니다.");
 			return ResponseEntity.badRequest().body(response);
 		}
 		

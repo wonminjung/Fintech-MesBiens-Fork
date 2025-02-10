@@ -32,6 +32,12 @@ public class AccountServiceImpl implements AccountService {
 		return true;
 	}
 
+	// 계좌 존재 여부 검사
+	@Override
+	public boolean existsByIdAcct(int accountNo) {
+		return acctDao.existsByIdAcct(accountNo);
+	}
+
 	// 계좌 삭제하기
 	@Override
 	public boolean delAcct(int accountNo) {

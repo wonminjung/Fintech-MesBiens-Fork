@@ -29,7 +29,7 @@ public class AccountDAOImpl implements AccountDAO {
 		return acctJpaRepo.save(acct);
 	}
 
-	// 제거할 계좌가 존재하는지 검색(Primary key 기준)
+	// 계좌가 존재하는지 검색(Primary key 기준)
 	@Override
 	public boolean existsByIdAcct(int accountNo) {
 		return acctJpaRepo.findById(accountNo) != null;

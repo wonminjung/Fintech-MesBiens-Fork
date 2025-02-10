@@ -32,10 +32,10 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 		return trnsJpaRepo.findAll();
 	}
 
-	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
+	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@Override
-	public List<RecentTransactionResponseDTO> getTrnsList(LocalDateTime startDate, LocalDateTime endDate) {
-		return trnsJpaRepo.findRecentList(startDate, endDate);
+	public List<RecentTransactionResponseDTO> getTrnsList(int memberNo, LocalDateTime startDate, LocalDateTime endDate) {
+		return trnsJpaRepo.findRecentList(memberNo, startDate, endDate);
 	}
 
 	// 계좌 정보 가져오기
@@ -52,6 +52,7 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 		
 		return updateReceiverAccount != null && updateSenderAccount != null;
 	}
+
 
 }
 

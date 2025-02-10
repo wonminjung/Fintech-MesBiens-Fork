@@ -11,8 +11,12 @@ public interface AccountService {
 
 	// 계좌 추가하기
 	boolean addAcct(AccountVO acct);
+	
+	// 계좌 존재하는지 검색
+	boolean existsByIdAcct(int accountNo);
 
 	// 계좌 삭제하기
 	boolean delAcct(int accountNo);
+
 
 }

@@ -16,6 +16,8 @@ import mesbiens.transaction.dto.TransactionResponseDTO;
 import mesbiens.transaction.service.TransactionDetailService;
 import mesbiens.transaction.vo.TransactionDetailVO;
 
+import mesbiens.account.service.AccountService;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +30,10 @@ public class TransactionDetailController {
     
 	@Autowired
     private TransactionDetailService trnsService;
+	
+	@Autowired
+	private AccountService acctService;
+	
 	
 	// 모든 거래내역 반환
 	@GetMapping("/all")
@@ -43,14 +49,14 @@ public class TransactionDetailController {
 		return response;
 	}
 	
-	// 시작일과 종료일 사이의 거래내역 반환
+	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@PostMapping("/recent")
-	public List<RecentTransactionResponseDTO> getTrnsList(@RequestBody RecentTransactionRequestDTO requestDate) {		
+	public List<RecentTransactionResponseDTO> getTrnsList(@RequestBody RecentTransactionRequestDTO request) {		
 		// LocalDate 타입을 localDateTime 타입으로 변환하면서 시간 정보 추가
-		LocalDateTime startDate = requestDate.getRecentStartDate().atStartOfDay();
-		LocalDateTime endDate = requestDate.getRecentEndDate().atTime(23, 59, 59);
+		LocalDateTime startDate = request.getRecentStartDate().atStartOfDay();
+		LocalDateTime endDate = request.getRecentEndDate().atTime(23, 59, 59);
 		
-		return trnsService.getTrnsList(startDate, endDate);
+		return trnsService.getTrnsList(request.getMemberNo(), startDate, endDate);
 	}
 
 	// 송금
@@ -59,16 +65,27 @@ public class TransactionDetailController {
 		int receiverAccountNo = requestData.get("receiverAccountNo").asInt();
 		int senderAccountNo = requestData.get("senderAccountNo").asInt();
 		Long trnsBalance = requestData.get("trnsBalance").asLong();
-		String receiveAccountPassword = requestData.get("receiveAccountPassword").asText();
+		String senderAccountPassword = requestData.get("senderAccountPassword").asText();
 		
 		Map<String, String> response = new HashMap<>();
+		
+		boolean isExistAccounts = acctService.existsByIdAcct(receiverAccountNo) && acctService.existsByIdAcct(senderAccountNo);
+		if(isExistAccounts) {
+			response.put("message", "보내는 계좌나 받는 계좌가 존재하지 않습니다.");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		if(senderAccountPassword.length() != 4) {
+			response.put("message", "계좌 비밀번호는 4자로 입력해주세요.");
+			return ResponseEntity.badRequest().body(response);
+		}
 		
 		if(trnsBalance < 0) {
 			response.put("message", "이체 금액이 0보다 작습니다.");
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		boolean passwordMatch = trnsService.pwdMatch(senderAccountNo, receiveAccountPassword);
+		boolean passwordMatch = trnsService.pwdMatch(senderAccountNo, senderAccountPassword);
 		if(!passwordMatch) {
 			response.put("message", "계좌 패스워드가 일치하지 않습니다.");
 			return ResponseEntity.badRequest().body(response);
