@@ -1,13 +1,19 @@
 package mesbiens.member.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -72,6 +78,15 @@ public class MemberVO {
 	private String memberSnsSignUpYN;
 
 	private String roles; // 역할을 저장하는 필드
+	
+	// 회원과 연결된 인증 코드 목록을 저장하는 필드
+    @OneToMany(
+    //VerificationCode 클래스에서 memberVO 필드가 MemberVO와의 관계를 매핑		
+    //cascade = CascadeType.ALL: 회원을 삭제하거나 수정하면 인증 코드도 함께 처리
+    //fetch = FetchType.LAZY: 인증 코드 목록을 지연 로딩하여 성능을 최적화		
+    mappedBy =  "memberVO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    
+    private List<VerificationCode> verificationCodes; // 회원이 받은 인증 코드 목록
 	
 
 
