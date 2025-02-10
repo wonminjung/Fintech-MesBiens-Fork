@@ -87,9 +87,9 @@ const IntroPageBeforeLogin: React.FC = () => {
             memberBirth: result.memberBirth,
             memberProfile: result.memberProfile,
           },
+          isAuthenticated: true,
         })
       );
-
       // 로그인 성공 모달 띄우기
       handleModal(ModalKeys.LOGIN_SUCCESS);
 

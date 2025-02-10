@@ -65,14 +65,14 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    signup: (state, action: PayloadAction<Omit<UserState, "isAuthenticated">>) => {
+    signup: (state, action: PayloadAction<UserState>) => {
       state.member = action.payload.member;
-      state.isAuthenticated = false;
+      state.isAuthenticated = false; // 회원가입 시 isAuthenticated는 false로 설정
       saveState(state);
     },
-    login: (state, action: PayloadAction<Omit<UserState, "isAuthenticated">>) => {
+    login: (state, action: PayloadAction<UserState>) => { // UserState로 타입 변경
       state.member = action.payload.member;
-      state.isAuthenticated = true; // 로그인 성공
+      state.isAuthenticated = true; //로그인 성공
       saveState(state);
     },
     logout: (state) => {
