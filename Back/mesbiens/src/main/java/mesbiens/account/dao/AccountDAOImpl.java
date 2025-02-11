@@ -12,11 +12,11 @@ import mesbiens.account.vo.AccountVO;
 public class AccountDAOImpl implements AccountDAO {
 	@Autowired
 	private AccountJpaRepository acctJpaRepo;
-
-	// 모든 계좌 가져오기
+	
+	// 회원 정보에 맞는 계좌 정보 가져오기
 	@Override
-	public List<AccountVO> getAllAcct() {
-		return acctJpaRepo.findAll();
+	public List<AccountVO> getAccountList(int memberNo) {
+		return acctJpaRepo.findByMemNo(memberNo);
 	}
 
 	// 계좌 추가하기
@@ -29,7 +29,7 @@ public class AccountDAOImpl implements AccountDAO {
 		return acctJpaRepo.save(acct);
 	}
 
-	// 제거할 계좌가 존재하는지 검색(Primary key 기준)
+	// 계좌가 존재하는지 검색(Primary key 기준)
 	@Override
 	public boolean existsByIdAcct(int accountNo) {
 		return acctJpaRepo.findById(accountNo) != null;
@@ -40,6 +40,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public int delAcct(int accountNo) {
 		return acctJpaRepo.delAcct(accountNo);
 	}
+	
 	
 	
 }

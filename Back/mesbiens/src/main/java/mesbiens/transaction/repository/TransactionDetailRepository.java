@@ -16,6 +16,6 @@ public interface TransactionDetailRepository extends JpaRepository<TransactionDe
 	
 	// 시작날짜와 종료날짜 사이의 최근 거래내역 조회
 	@Query(JpaQuery.RECENT_QUERY)
-	List<RecentTransactionResponseDTO> findRecentList(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+	List<RecentTransactionResponseDTO> findRecentList(@Param("memberNo") int memberNo, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 	
 }

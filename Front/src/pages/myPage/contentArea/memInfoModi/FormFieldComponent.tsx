@@ -1,26 +1,32 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import S from './style';
 import { MemInfo } from './types';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../../../modules/store/store';
 
 type Props = {
-    info: MemInfo;
-    index: number;
-    setMemInfo: React.Dispatch<React.SetStateAction<MemInfo[]>>
+    data: MemInfo;
 };
 
-const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index, setMemInfo }): JSX.Element => {
-    const { fieldName, value } = info;
-    const yearMonDay = [ "년 ", "월 ", "일 " ];
-    const valueByType = fieldName === "출생년도" ? value.split("-").reduce((prev, current, index) => current + yearMonDay[index]) : value;
+const FormFieldComponent: React.FunctionComponent<Props> = ({ data }): JSX.Element => {
+    const { member } = useSelector((state: RootState) => state.user);
+    const { fieldName, value } = data;
+    const dispatch = useAppDispatch();
+
+    // 생년월일 파싱
+    const yearMonDay: string[] = [ "년 ", "월 ", "일 " ];
+    const valueByType = fieldName === "생년월일" && typeof member[value] === "string" 
+                    ? (member[value] as string).split("-").reduce((prev: string, current: string, index: number): string => prev + current + yearMonDay[index], "") 
+                    : member[value];
     
     // 수정 상태
     const [ isEdited, setIsEdited ] = useState<boolean>(false);
-    const handleEdited = useCallback((): void => {
-        setIsEdited((prevState) => !prevState);
-    }, []);
+    const handleEdited = (): void => {
+        setIsEdited(!isEdited);
+    };
 
     // 수정 입력필드 상태
-    const [ inputValue, setInputValue ] = useState<string>(valueByType);
+    const [ inputValue, setInputValue ] = useState<string | number>(member[value]);
     const inputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
         setInputValue(() => e.target.value);
     }, []);
@@ -47,4 +53,4 @@ const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index, setMe
     );
 };
 
-export default FormFiledComponent;
+export default FormFieldComponent;

@@ -7,18 +7,20 @@ public class JpaQuery {
 		select new mesbiens.transaction.dto.RecentTransactionResponseDTO(
 			t.trnsCreateAt,
 			b.bankName,
-			acct.accountNumber,
-			m.memberName,
+			sacct.accountNumber,
+			rm.memberName,
 			t.trnsMemo,
 			cate.categoryName,
 			t.trnsBalance,
 			t.trnsTypeName
 		)
 		from TransactionDetailVO t
-		join t.receiverAccountNo acct
-		join acct.bankCode b
-		join acct.memberNo m
+		join t.senderAccountNo sacct
+		join sacct.bankCode b
+		join sacct.memberNo sm
+		join t.receiverAccountNo racct
+		join racct.memberNo rm
 		join t.consumptionCateNo cate
-		where t.trnsCreateAt between :startDate and :endDate
+		where sm.memberNo = :memberNo and t.trnsCreateAt between :startDate and :endDate
 	""";
 }

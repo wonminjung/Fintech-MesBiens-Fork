@@ -7,17 +7,17 @@ import { RootState } from '../../../modules/store/store';
 
 const UserProfileComponent: React.FunctionComponent = (): JSX.Element => {
   const { handleModal } = ModalFunc();
-  const member = useSelector((state: RootState) => state.user);
+  const { member } = useSelector((state: RootState) => state.user);
 
   return (
     <S.UserProfileContainer>
       <S.ProfileImage onClick={() => handleModal(ModalKeys.PROFILE_SETTING)}>
-          <img src={`${process.env.PUBLIC_URL}${member.member.memberProfile}`} alt="프로필 사진" />
+          <img src={`${process.env.PUBLIC_URL}${member.memberProfile}`} alt="프로필 사진" />
       </S.ProfileImage>
 
       <S.UserProfileInfo>
-        <S.UserProfileId>{member.member.memberId}</S.UserProfileId>
-        <S.UserProfileEmail>{member.member.memberEmail}</S.UserProfileEmail>
+        <S.UserProfileId>{member.memberId}</S.UserProfileId>
+        <S.UserProfileEmail>{member.memberEmail}</S.UserProfileEmail>
       </S.UserProfileInfo>
     </S.UserProfileContainer>
   );

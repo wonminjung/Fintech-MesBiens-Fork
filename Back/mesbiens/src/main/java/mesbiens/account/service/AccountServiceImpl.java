@@ -1,5 +1,6 @@
 package mesbiens.account.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import mesbiens.account.dao.AccountDAO;
+import mesbiens.account.dto.AccountResponseDTO;
 import mesbiens.account.vo.AccountVO;
 
 @Service
@@ -15,10 +17,19 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountDAO acctDao;
 
-	// 모든 계좌 정보 가져오기
+	// 회원 정보에 맞는 계좌 정보 가져오기
 	@Override
-	public List<AccountVO> getAllAcct() {
-		return acctDao.getAllAcct();
+	public List<AccountResponseDTO> getAccountList(int memberNo) {
+		List<AccountVO> accounts = acctDao.getAccountList(memberNo);
+		List<AccountResponseDTO> response = new ArrayList<>();
+		
+		accounts.stream().forEach((acct) -> {
+			AccountResponseDTO res = new AccountResponseDTO(acct);
+			
+			response.add(res);
+		});
+		
+		return response;
 	}
 
 	// 계좌 추가하기
@@ -30,6 +41,12 @@ public class AccountServiceImpl implements AccountService {
 		}
 		
 		return true;
+	}
+
+	// 계좌 존재 여부 검사
+	@Override
+	public boolean existsByIdAcct(int accountNo) {
+		return acctDao.existsByIdAcct(accountNo);
 	}
 
 	// 계좌 삭제하기
@@ -45,5 +62,6 @@ public class AccountServiceImpl implements AccountService {
 		return result > 0;
 	}
 
+	
 	
 }
