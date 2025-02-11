@@ -29,6 +29,8 @@ export const S = {
     }
   `,
   LogoutBtn: styled(PlainButton)`
+    display: flex;
+    align-items: center;
     font-size: 12px;
     cursor: pointer;
     margin-right: 15px;
