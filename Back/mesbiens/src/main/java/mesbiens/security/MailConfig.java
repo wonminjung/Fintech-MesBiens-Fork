@@ -16,8 +16,10 @@ public class MailConfig {
     	JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com"); // SMTP 서버 호스트
         mailSender.setPort(587); // SMTP 포트 (Gmail 기준)
-        mailSender.setUsername("dudals9187@gmail.com"); // 보내는 이메일
-        mailSender.setPassword("hvmx qdmi gnol sadw");// 구글에서 생성한 앱 비밀번호 입력
+//        mailSender.setUsername("dudals9187@gmail.com"); // 보내는 이메일
+        mailSender.setUsername("ecjung97@gmail.com");
+//        mailSender.setPassword("hvmx qdmi gnol sadw");// 구글에서 생성한 앱 비밀번호 입력
+        mailSender.setPassword("xown usyc gjzv yuxf");
 
         Properties properties = mailSender.getJavaMailProperties();
         properties.put("mail.smtp.starttls.enable", "true");  // TLS 사용
