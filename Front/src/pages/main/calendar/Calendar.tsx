@@ -91,10 +91,26 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
     return trnsTypeName === "DEPOSIT" ? "green" : "red";
   };
 
+  const handleMonthChange = (newDate: Date) => {
+    setCurrentDate(newDate);
+    const previousMonthStart = startOfMonth(subMonths(newDate, 1));
+    const monthEnd = endOfMonth(newDate);
+
+    const today = new Date();
+    const isCurrentMonth =
+      newDate.getMonth() === today.getMonth() &&
+      newDate.getFullYear() === today.getFullYear();
+
+    const newStartDate = previousMonthStart.toISOString().split("T")[0];
+    const newEndDate = today.toISOString().split("T")[0];
+
+    fetchRecentData(newStartDate, newEndDate);
+  };
+
   const CalendarHeader = () => (
     <C.CalendarHeader>
       <C.CalendarHeaderButton
-        onClick={() => setCurrentDate(subMonths(currentDate, 1))}
+        onClick={() => handleMonthChange(subMonths(currentDate, 1))}
       >
         &lt;
       </C.CalendarHeaderButton>
@@ -103,7 +119,7 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
         <span>{format(currentDate, "yyyy")}</span>
       </div>
       <C.CalendarHeaderButton
-        onClick={() => setCurrentDate(addMonths(currentDate, 1))}
+        onClick={() => handleMonthChange(addMonths(currentDate, 1))}
       >
         &gt;
       </C.CalendarHeaderButton>
