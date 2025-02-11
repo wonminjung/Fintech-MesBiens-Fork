@@ -14,12 +14,13 @@ export type Member = {
 interface UserState {
   member: Member;
   isAuthenticated: boolean;
+  token: string | null;
 }
 
 const loadState = (): UserState => {
   try {
-    const serializedState = localStorage.getItem("userState");
-    if (serializedState === null) {
+    const serializedState: string | null = localStorage.getItem("userState"); //`string | null` 타입 지정
+    if (!serializedState) {
       return { 
         member: {
           memberNo: 0,
@@ -31,11 +32,13 @@ const loadState = (): UserState => {
           memberBirth: "",
           memberProfile: ""
         },
-        isAuthenticated: false 
+        isAuthenticated: false, 
+        token: null,
       };
     }
     return JSON.parse(serializedState);
   } catch (err) {
+    console.error(" 상태 로드 오류:", err);
     return { 
       member: {
         memberNo: 0,
@@ -47,7 +50,8 @@ const loadState = (): UserState => {
         memberBirth: "",
         memberProfile: ""
       },
-      isAuthenticated: false 
+      isAuthenticated: false ,
+      token: null,
     };
   }
 };
@@ -57,6 +61,7 @@ const saveState = (state: UserState) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("userState", serializedState);
   } catch (err) {
+    console.error(" 상태 저장 실패:", err);
     // 저장 실패 시 무시
   }
 };
@@ -70,11 +75,13 @@ export const userSlice = createSlice({
     signup: (state, action: PayloadAction<UserState>) => {
       state.member = action.payload.member;
       state.isAuthenticated = false; // 회원가입 시 isAuthenticated는 false로 설정
+      state.token = null; //  회원가입 시 토큰 없음
       saveState(state);
     },
     login: (state, action: PayloadAction<UserState>) => { // UserState로 타입 변경
       state.member = action.payload.member;
       state.isAuthenticated = true; //로그인 성공
+      state.token = action.payload.token; //  로그인 시 토큰 저장
       saveState(state);
     },
     logout: (state) => {
@@ -89,6 +96,7 @@ export const userSlice = createSlice({
         memberProfile: ""
       };
       state.isAuthenticated = false;
+      state.token = null;//로그아웃 시 토큰 삭제
       localStorage.removeItem("userState");
     }
   },

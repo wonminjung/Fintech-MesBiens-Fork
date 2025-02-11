@@ -14,25 +14,23 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import mesbiens.member.service.CustomUserDetailsService;
 
 
 
 @Configuration
+@RequiredArgsConstructor
 
 public class SecurityConfig {
 
   private final JwtTokenProvider jwtTokenProvider;
   private final CustomUserDetailsService customUserDetailsService;
+  private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
-  // CustomUserDetailsService가 주입된 생성자
-  public SecurityConfig(JwtTokenProvider jwtTokenProvider, CustomUserDetailsService customUserDetailsService) {
-    this.jwtTokenProvider = jwtTokenProvider;
-    this.customUserDetailsService = customUserDetailsService;
-  }
-
+  
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder(); // 비밀번호 인코더 설정
@@ -41,56 +39,57 @@ public class SecurityConfig {
   // SecurityFilterChain을 사용한 보안 설정
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+	        .csrf(csrf -> csrf.disable())
+	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT 사용 시 Stateless 유지
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers(
+	            		
+	                "/members/register", "/members/login", "/members/{id}", "/quiz/create", "/members/me",
+	                "/members/logout/*", "/members/token/refresh", "/members/find-id/**", "/members/find-password",
+	                "/members/reset-password", "/community/**", "/account/**", "/allBankList", "/transaction/**",
+	                "/notifications/member/{memberNo}", "/notifications/{notificationNo}/read", "/notifications",
+	                "/", "/login", "/oauth2/**","/members/validate-password","/members/*" //  OAuth2 관련 경로 추가 (비로그인 허용)
+	            ).permitAll()
+	            .anyRequest().authenticated()
+	        )
+	        .oauth2Login(oauth2 -> oauth2
+	            .defaultSuccessUrl("/loginSuccess", true)
+	            .userInfoEndpoint(userInfo -> userInfo.userService(new DefaultOAuth2UserService())) 
+	            .successHandler(oAuth2LoginSuccessHandler)
+	        )
+	        .formLogin(login -> login
+	            .loginProcessingUrl("/login")
+	            .successHandler((request, response, authentication) -> {
+	                response.setContentType("application/json");
+	                response.setCharacterEncoding("UTF-8");
+	                response.getWriter().write("{\"message\": \"로그인 성공\"}");
+	            })
+	            .failureHandler((request, response, exception) -> {
+	                response.setContentType("application/json");
+	                response.setCharacterEncoding("UTF-8");
+	                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	                response.getWriter().write("{\"error\": \"로그인 실패\"}");
+	            })
+	        )
+	        .logout(LogoutConfigurer::permitAll);
 
-    http
-        .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 활성화
-        .csrf(csrf -> csrf.disable()) // REST API는 대부분 stateless(JWT 등)을 사용하기 때문에 csrf 비활성화
-        .authorizeHttpRequests(auth -> auth.requestMatchers(
-        		"/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/me",
-                "/members/logout/*","members/token/refresh",
-                "members/find-id/**","members/find-password","members/reset-password",
-                "/community/**","/account/**", "/allBankList", "/transaction/**",
-                "/notifications/member/{memberNo}",
-                "/notifications/{notificationNo}/read", "/notifications").permitAll() // 서버 URL에 요청할 경우 인증 없이 접근 가능
-            .anyRequest().authenticated() // 나머지 요청은 인증 필요
-        )
-        .formLogin(login -> login
-                .loginProcessingUrl("/login")
-                .successHandler((request, response, authentication) -> {
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write("{\"message\": \"로그인 성공\"}");
-                })
-                .failureHandler((request, response, exception) -> {
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.getWriter().write("{\"error\": \"로그인 실패\"}");
-                })
-            )
-             .logout(LogoutConfigurer::permitAll);
-      
-      // .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless 설정
-   
+	    return http.build();
+	}
 
-    return http.build();
-   
-  }
-  
-  @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
-	 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-     CorsConfiguration configuration = new CorsConfiguration();
-     
-     configuration.setAllowedOrigins(List.of("http://localhost:4000")); // 허용할 Origin
-     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE")); // 허용할 HTTP 메소드
-     configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // 허용할 헤더
-     configuration.setAllowCredentials(true); // 쿠키 허용 여부
-     
-     
-     source.registerCorsConfiguration("/**", configuration); // 모든 경로에 적용
-     
-     return source;
-  }
-
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    
+	    configuration.setAllowedOrigins(List.of("http://localhost:4000")); 
+	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // OPTIONS 추가
+	    configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); 
+	    configuration.setAllowCredentials(true);
+	    
+	    source.registerCorsConfiguration("/**", configuration);
+	    
+	    return source;
+	}
 }
