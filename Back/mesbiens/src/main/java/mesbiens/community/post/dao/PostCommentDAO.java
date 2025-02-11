@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 
+import mesbiens.community.post.vo.PostCommentRequestDTO;
 import mesbiens.community.post.vo.PostCommentVO;
 
 public interface PostCommentDAO {

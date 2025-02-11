@@ -160,7 +160,7 @@ public class MemberController {
 		// memberId로 사용자 정보 조회
 		Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
 
-		if (memberOpt.isEmpty()) {
+		if (memberOpt.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 사용자가 없으면 404 Not Found 반환
 		}
 

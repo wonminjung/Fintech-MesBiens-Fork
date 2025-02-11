@@ -1,6 +1,7 @@
 package mesbiens.community.post.dao;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import jakarta.transaction.Transactional;
 import mesbiens.community.post.repository.PostCommentRepository;
 import mesbiens.community.post.vo.PageVO;
+import mesbiens.community.post.vo.PostCommentRequestDTO;
 import mesbiens.community.post.vo.PostCommentVO;
 import mesbiens.community.post.vo.PostVO;
 
@@ -45,11 +47,13 @@ public class PostCommentDAOImpl implements PostCommentDAO {
 		postCommentRepository.deleteById(postCommentNo); 
 	}
 
-	// 게시판 내용보기에서 댓글 같이 보기
+//	// 게시판 내용보기에서 댓글 같이 보기
 	@Override
 	public List<PostCommentVO> findCommentsByPostNo(int postNo) {
-		return postCommentRepository.findByPostPostNo(postNo);
+	    return postCommentRepository.findByPostPostNo(postNo);
 	}
+
+
 
 
 	@Override
