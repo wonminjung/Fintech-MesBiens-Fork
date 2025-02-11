@@ -83,7 +83,6 @@ export const R = {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
     width: 100px;
     padding: 0;
   `,
