@@ -48,7 +48,7 @@ public class SecurityConfig {
             "/members/logout/*", "members/token/refresh",
             "members/find-id/**", "members/find-password", "members/reset-password",
             "/community/**", "/account/**", "/allBankList", "/transaction/**",
-            "/notifications/member/{memberNo}",
+            "/notifications/member/{memberNo}", "/chat/**",
             "/notifications/{notificationNo}/read", "/notifications").permitAll() // 서버 URL에 요청할 경우 인증 없이 접근 가능
             .anyRequest().authenticated() // 나머지 요청은 인증 필요
         )

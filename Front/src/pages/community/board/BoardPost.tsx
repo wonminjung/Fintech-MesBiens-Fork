@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { H1 } from "../../../components/htags/style";
 import { RootState } from "../../../modules/store/store";
-import AddComment from "./AddComment"; // 추가된 컴포넌트
+import AddComment from "./AddComment";
 import { BP } from "./style";
 
 // 게시글 타입 정의
@@ -39,7 +39,7 @@ interface ApiResponse {
 }
 
 const BoardPost: React.FC = () => {
-  const {member} = useSelector((state: RootState) => state.user);
+  const { member } = useSelector((state: RootState) => state.user);
   const { postNo } = useParams<{ postNo: string }>();
   const navigate = useNavigate();
   const [buttonVisible, setButtonVisible] = useState(false);
@@ -161,14 +161,14 @@ const BoardPost: React.FC = () => {
       alert("작성자만 수정할 수 있습니다.");
       return;
     }
-    
+
     const postPassword = prompt("게시글 비밀번호를 입력하세요:");
     // const memberNo = prompt("회원 번호를 입력하세요:");
     // console.log(board?.member.memberNo)
 
 
 
-    
+
 
     if (!postPassword) {
       alert("비밀번호를 입력해야 합니다.");
@@ -207,19 +207,19 @@ const BoardPost: React.FC = () => {
   // 댓글수정
   const handleEditComment = (commentNo: number, content: string) => {
     if (!comments) return;
-  
+
     // 현재 로그인한 사용자의 memberNo와 댓글 작성자의 memberNo 비교
     const comment = comments.find(c => c.postCommentNo === commentNo);
     if (!comment || member?.memberNo !== comment.member.memberNo) {
       alert("작성자만 수정할 수 있습니다.");
       return;
     }
-  
+
     // 기존 댓글 내용을 수정할 수 있도록 상태 업데이트
     setEditingCommentNo(commentNo); // 수정할 댓글 번호 설정
     setEditingCommentContent(content); // 기존 댓글 내용 입력창에 채워 넣기
   };
-  
+
   // 댓글 수정후 저장
   const handleSaveCommentEdit = async (commentNo: number) => {
     const postCommentPassword = prompt("댓글 비밀번호를 입력하세요:");
@@ -227,7 +227,7 @@ const BoardPost: React.FC = () => {
       alert("비밀번호를 입력해야 합니다.");
       return;
     }
-  
+
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/community/C_board/${postNo}/${commentNo}`, {
         method: "PUT",
@@ -239,7 +239,7 @@ const BoardPost: React.FC = () => {
           postCommentPassword: postCommentPassword, // 비밀번호 추가
         }),
       });
-  
+
       if (response.ok) {
         alert("댓글이 수정되었습니다.");
         setEditingCommentNo(null); // 수정 모드 종료
@@ -253,7 +253,7 @@ const BoardPost: React.FC = () => {
       console.error("댓글 수정 중 에러 발생:", error);
     }
   };
-  
+
 
   // 댓글 삭제
   const handleDeleteComment = async (commentNo: number) => {
@@ -262,9 +262,9 @@ const BoardPost: React.FC = () => {
       alert("비밀번호를 입력해야 합니다.");
       return;
     }
-  
+
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
-  
+
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/community/C_board/${postNo}/${commentNo}`, {
         method: "DELETE",
@@ -275,7 +275,7 @@ const BoardPost: React.FC = () => {
           postCommentPassword: postCommentPassword, // 비밀번호 추가
         }),
       });
-  
+
       if (response.ok) {
         alert("댓글이 삭제되었습니다.");
         fetchBoardData(); // 삭제 후 데이터 갱신
@@ -288,8 +288,8 @@ const BoardPost: React.FC = () => {
       console.error("댓글 삭제 중 에러 발생:", error);
     }
   };
-  
-  
+
+
 
 
   useEffect(() => {
@@ -380,27 +380,27 @@ const BoardPost: React.FC = () => {
               {/* 수정 버튼 클릭 시 아래에 입력창과 저장 버튼 표시 */}
               {editingCommentNo === comment.postCommentNo ? (
                 <BP.EditCommentContainer>
-                <textarea
-                  value={editingCommentContent}
-                  onChange={(e) => setEditingCommentContent(e.target.value)}
-                />
-                <BP.Button onClick={() => handleSaveCommentEdit(comment.postCommentNo)}>저장</BP.Button>
-                {/* <BP.Button onClick={() => setEditingCommentNo(null)}>취소</BP.Button> */}
-              </BP.EditCommentContainer>
-            ) : (
-              <BP.CommentActions>
-                {member?.memberNo === comment.member.memberNo && (
-                  <>
-                    <BP.Button onClick={() => handleEditComment(comment.postCommentNo, comment.postCommentContent)}>
-                      수정
-                    </BP.Button>
-                    <BP.Button onClick={() => handleDeleteComment(comment.postCommentNo)}>
-                      삭제
-                    </BP.Button>
-                  </>
-                )}
-              </BP.CommentActions>
-        )}
+                  <textarea
+                    value={editingCommentContent}
+                    onChange={(e) => setEditingCommentContent(e.target.value)}
+                  />
+                  <BP.Button onClick={() => handleSaveCommentEdit(comment.postCommentNo)}>저장</BP.Button>
+                  {/* <BP.Button onClick={() => setEditingCommentNo(null)}>취소</BP.Button> */}
+                </BP.EditCommentContainer>
+              ) : (
+                <BP.CommentActions>
+                  {member?.memberNo === comment.member.memberNo && (
+                    <>
+                      <BP.Button onClick={() => handleEditComment(comment.postCommentNo, comment.postCommentContent)}>
+                        수정
+                      </BP.Button>
+                      <BP.Button onClick={() => handleDeleteComment(comment.postCommentNo)}>
+                        삭제
+                      </BP.Button>
+                    </>
+                  )}
+                </BP.CommentActions>
+              )}
             </BP.Comment>
           ))
         ) : (

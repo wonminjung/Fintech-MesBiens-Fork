@@ -97,7 +97,7 @@ public class MemberController {
 		Optional<MemberVO> memberOpt = memberService.findByMemberId(loginRequest.getMemberId());
 
 		// isEmpty() 값이 있는지 없는지 확인하고 값이 있다면 true 없다면 false 따라서 값이 없으면 에러가 발생
-		if (memberOpt.isPresent()) {
+		if (memberOpt.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자를 찾을 수 없습니다.");
 		}
 
@@ -160,7 +160,7 @@ public class MemberController {
 		// memberId로 사용자 정보 조회
 		Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
 
-		if (memberOpt.isEmpty()) {
+		if (memberOpt.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 사용자가 없으면 404 Not Found 반환
 		}
 
