@@ -4,6 +4,9 @@ select * from member;
 insert into member (member_no, member_address, member_birth, member_email, member_id, member_name, member_password, member_phone, member_create_at, member_sns_sign_up_yn)
 values (member_no_seq.nextval, '서울', '2025-01-01', 'T1@gmail.com', 'hong', '홍길동', 'test', '010-1234-1234', sysdate, 'N');
 
+-- 'test' 문자열을 암호화한 값을 패스워드가 'test' 인 레코드 전부 업데이트
+update member set member_password='$2a$10$BLKx0ctm4.IfQEdgGrKt1e4fyesu1XBha4MTvw7K5sFFbceW8ZsN6' where member_password = 'test';
+
 insert into member (member_no, member_address, member_birth, member_email, member_id, member_name, member_password, member_phone, member_create_at, member_sns_sign_up_yn)
 values (member_no_seq.nextval, '서울', '2025-01-01', 'T2@gmail.com', 'seta', '세탁소', 'test', '010-1234-1234', sysdate, 'N');
 

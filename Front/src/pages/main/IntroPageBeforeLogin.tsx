@@ -28,7 +28,6 @@ const IntroPageBeforeLogin: React.FC = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.user);
- 
 
   useEffect(() => {
     if (cookies.rememberMe) {
@@ -44,18 +43,15 @@ const IntroPageBeforeLogin: React.FC = () => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
-  
+
     const { userID, userPassword } = loginForm;
 
-    
-
-
-     // ID 또는 비밀번호가 빈 값이면 에러 메시지 설정
+    // ID 또는 비밀번호가 빈 값이면 에러 메시지 설정
     if (userID === "" || userPassword === "") {
       setErrors("ID 또는 비밀번호를 입력해 주세요!");
       return;
     }
-    
+
     try {
       // 서버에 로그인 요청
       const response = await fetch("http://localhost:7200/members/login", {
@@ -63,48 +59,51 @@ const IntroPageBeforeLogin: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",  // 쿠키 포함 요청 설정
-        
+        credentials: "include", // 쿠키 포함 요청 설정
+
         body: JSON.stringify({
           memberId: userID,
           password: userPassword,
         }),
-        
       });
-      
-       // 응답이 성공적이지 않으면 에러 던지기
+
+      // 응답이 성공적이지 않으면 에러 던지기
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-       // 응답을 JSON으로 파싱하여 처리
+      // 응답을 JSON으로 파싱하여 처리
       const result = await response.json();
-      
+
       // Redux에 로그인 정보 저장
       dispatch(
         login({
-        name: result.memberName || "데이터 오류",
-        username: result.memberId,
-        email: result.memberEmail,
-      }));
-
+          member: {
+            memberNo: result.memberNo,
+            memberId: result.memberId,
+            memberName: result.memberName,
+            memberEmail: result.memberEmail,
+            memberPhone: result.memberPhone,
+            memberAddress: result.memberAddress,
+            memberBirth: result.memberBirth,
+            memberProfile: result.memberProfile,
+          },
+          isAuthenticated: true,
+        })
+      );
       // 로그인 성공 모달 띄우기
       handleModal(ModalKeys.LOGIN_SUCCESS);
-      
-       // 쿠키에 사용자 ID 저장
-      setCookie("userID", userID, { maxAge: 30 * 24 * 60 * 60 });
-      
 
-       // "Remember Me" 체크 여부에 따라 쿠키 설정
+      // 쿠키에 사용자 ID 저장
+      setCookie("userID", userID, { maxAge: 30 * 24 * 60 * 60 });
+
+      // "Remember Me" 체크 여부에 따라 쿠키 설정
       if (rememberMe) {
         setCookie("rememberMe", userID, { maxAge: 30 * 24 * 60 * 60 });
-        
       } else {
         removeCookie("rememberMe");
-       
       }
     } catch (error: any) {
       setErrors(error.message);
-      
     }
   };
 

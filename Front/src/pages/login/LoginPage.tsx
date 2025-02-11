@@ -20,6 +20,8 @@ const LoginPage: React.FC = () => {
   const [errors, setErrors] = useState<string>("");
   const [rememberMe, setRememberMe] = useState(false);
   const user = useSelector((state: RootState) => state.user);
+  const { member } = useSelector((state: RootState) => state.user);
+
   //removeCookie
   useEffect(() => {
     if (cookies.rememberMe) {
@@ -59,12 +61,20 @@ const LoginPage: React.FC = () => {
 
       // Redux에 사용자 정보 저장
       dispatch(
-        login({
-          name: result.memberName,
-          email: result.memberEmail,
-          username: result.memberId,
-        })
-      );
+              login({
+                member: {
+                  memberNo: result.memberNo,
+                  memberId: result.memberId,
+                  memberName: result.memberName,
+                  memberEmail: result.memberEmail,
+                  memberPhone: result.memberPhone,
+                  memberAddress: result.memberAddress,
+                  memberBirth: result.memberBirth,
+                  memberProfile: result.memberProfile,
+                },
+                isAuthenticated: true,
+              })
+            );
 
       // 로그인 성공 처리
       handleModal(ModalKeys.LOGIN_SUCCESS);

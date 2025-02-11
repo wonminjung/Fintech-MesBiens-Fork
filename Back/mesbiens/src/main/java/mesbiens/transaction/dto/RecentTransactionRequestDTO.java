@@ -12,6 +12,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RecentTransactionRequestDTO {
+	private int memberNo;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate recentStartDate;
 	

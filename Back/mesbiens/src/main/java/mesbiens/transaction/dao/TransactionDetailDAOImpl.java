@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import jakarta.transaction.Transactional;
 import mesbiens.transaction.vo.TransactionDetailVO;
 import mesbiens.account.repository.AccountJpaRepository;
 import mesbiens.account.vo.AccountVO;
@@ -23,16 +27,10 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
     @Autowired
     private AccountJpaRepository acctJpaRepo;
 
-	// 모든 거래내역 반환
+	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@Override
-	public List<TransactionDetailVO> allList() {
-		return trnsJpaRepo.findAll();
-	}
-
-	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
-	@Override
-	public List<RecentTransactionResponseDTO> getTrnsList(LocalDateTime startDate, LocalDateTime endDate) {
-		return trnsJpaRepo.findRecentList(startDate, endDate);
+	public List<RecentTransactionResponseDTO> getTrnsList(int memberNo, LocalDateTime startDate, LocalDateTime endDate) {
+		return trnsJpaRepo.findRecentList(memberNo, startDate, endDate);
 	}
 
 	// 계좌 정보 가져오기
@@ -43,6 +41,7 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 
 	// 잔액 업데이트
 	@Override
+	@Transactional
 	public boolean updateBalance(Optional<AccountVO> receiverAccount, Optional<AccountVO> senderAccount) {
 		AccountVO updateReceiverAccount = acctJpaRepo.save(receiverAccount.get());
 		AccountVO updateSenderAccount = acctJpaRepo.save(senderAccount.get());
@@ -50,38 +49,12 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 		return updateReceiverAccount != null && updateSenderAccount != null;
 	}
 
-    
-	
 
-
-//    @Override // 전체 조회
-//    public List<TransactionDetailVO> findAllTransactions() {
-//        return trsdrepo.findAll();
-//    }
-//
-//    @Override // 특정 날짜 조회
-//    public List<TransactionDetailVO> findTransactionsDate(Timestamp startDate, Timestamp endDate) {
-//        return trsdrepo.findByTransactionCreateAtBetween(startDate, endDate);
-//    }
-//
-//    @Override // 거래 내역 저장
-//    public void saveTransaction(TransactionDetailVO transactionDetailVO) {
-//        trsdrepo.save(transactionDetailVO);
-//    }
-//
-//    @Override // 거래 내역 삭제
-//    public void deleteTransaction(int id) {
-//        trsdrepo.deleteById(id);
-//    }
-//
-//    @Override
-//    public boolean existsById(int id) {
-//        return trsdrepo.existsById(id);
-//    }
-//
-//    @Override // 로그 저장
-//    public void saveLog(String logMessage) {
-//        // 로그 저장 로직 구현
-//        // 예: 로그를 별도의 테이블에 저장하거나 파일에 기록
-//    }
 }
+
+
+
+
+
+
+

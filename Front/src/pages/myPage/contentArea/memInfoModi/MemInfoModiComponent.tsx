@@ -1,42 +1,40 @@
 import React, { useState } from 'react';
 import S from './style';
 import FormFiledComponent from './FormFiledComponent';
-import { Info } from './types';
 import { RootState } from '../../../../modules/store/store';
 import { useSelector } from 'react-redux';
+import { MemInfo } from './types';
+
+
 
 const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
     const member = useSelector((state: RootState) => state.user);
-    const tempMemInfo = [
+    const [ memInfo, setMemInfo ] = useState<MemInfo[]>([
         {
             fieldName: "아이디",
-            value: member.username
-        },
-        {
-            fieldName: "닉네임",
-            value: member.name
+            value: member.member.memberId
         },
         {
             fieldName: "이름",
-            value: "나일론 머스크"
+            value: member.member.memberName
         },
         {
             fieldName: "핸드폰",
-            value: "010-xxxx-xxxx"
+            value: member.member.memberPhone
         },
         {
             fieldName: "이메일",
-            value: member.email
+            value: member.member.memberEmail
         },
         {
             fieldName: "주소",
-            value: "미국 캘리포니아주 팔로알토"
+            value: member.member.memberAddress
         },
         {
             fieldName: "출생년도",
-            value: { first: "1971", second: "06", third: "28" }
+            value: member.member.memberBirth
         }
-    ];
+    ]);
 
     return (
         <S.FormField method="post">
@@ -45,8 +43,8 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
 
                 <S.FieldTable>
                     <tbody>
-                        {tempMemInfo.map((info: Info, i: number): JSX.Element => (
-                            <FormFiledComponent key={i} info={info} index={i} />
+                        {memInfo.map((info: MemInfo, i: number): JSX.Element => (
+                            <FormFiledComponent key={i} info={info} index={i} setMemInfo={setMemInfo} />
                         ))}
                     </tbody>
                 </S.FieldTable>

@@ -1,15 +1,17 @@
 import React, { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import S from './style';
-import { Info,  } from './types';
+import { MemInfo } from './types';
 
 type Props = {
-    info: Info;
+    info: MemInfo;
     index: number;
+    setMemInfo: React.Dispatch<React.SetStateAction<MemInfo[]>>
 };
 
-const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index }): JSX.Element => {
+const FormFiledComponent: React.FunctionComponent<Props> = ({ info, index, setMemInfo }): JSX.Element => {
     const { fieldName, value } = info;
-    const valueByType = typeof value === "object" ? `${value.first}년 ${value.second}월 ${value.third}일` : value;
+    const yearMonDay = [ "년 ", "월 ", "일 " ];
+    const valueByType = fieldName === "출생년도" ? value.split("-").reduce((prev, current, index) => current + yearMonDay[index]) : value;
     
     // 수정 상태
     const [ isEdited, setIsEdited ] = useState<boolean>(false);
