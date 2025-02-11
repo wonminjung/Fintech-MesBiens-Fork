@@ -46,5 +46,4 @@ public class ChatServiceImpl implements ChatService {
                          .collect(Collectors.toList());
     }
 
-
 }

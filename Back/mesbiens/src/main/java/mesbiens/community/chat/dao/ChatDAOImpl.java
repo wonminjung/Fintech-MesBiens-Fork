@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
-import mesbiens.community.chat.dto.ChatRequestDTO;
 import mesbiens.community.chat.vo.ChatVO;
-import mesbiens.member.repository.MemberRepository;
 import mesbiens.member.vo.MemberVO;
 
 @Repository
@@ -25,9 +22,6 @@ public class ChatDAOImpl implements ChatDAO {
 	private EntityManager entityManager;
 	// JPA 사용 → entityManager.persist(post);로 데이터 저장.
 
-//	@Autowired
-//	private MemberRepository memberRepository;
-	
 	@Override
 	public void insertChat(ChatVO chatVO) {
 		System.out.println("📥 DB 저장: " + chatVO);
@@ -61,8 +55,6 @@ public class ChatDAOImpl implements ChatDAO {
 
         return randomId;
     }
-	
-	
 	
 	// 모든 채팅 조회 (최신순)
 	@Override

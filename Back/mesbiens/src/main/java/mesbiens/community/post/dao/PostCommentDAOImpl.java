@@ -50,29 +50,13 @@ public class PostCommentDAOImpl implements PostCommentDAO {
 //	// 게시판 내용보기에서 댓글 같이 보기
 	@Override
 	public List<PostCommentVO> findCommentsByPostNo(int postNo) {
-	    return postCommentRepository.findByPostPostNo(postNo);
+	    return postCommentRepository.findByPostPostNoOrderByPostCommentDateAsc(postNo);
 	}
 
 
-
-
+	// 한개 게시판 답글수 세기
 	@Override
 	public int getCommentRowCount(int postNo) {
 		return (int) postCommentRepository.countByPost_PostNo(postNo);
 	}
-	
-//	// 게시판 목록
-//		@Override
-//		public int getRowCount() {
-//			return (int) postRepository.count();
-//		}
-//
-//		// 게시판 목록
-//		@Override
-//		public List<PostVO> getPostList(PageVO pageVO) {
-//			Pageable pageable = PageRequest.of(pageVO.getStartrow() / (pageVO.getEndrow() - pageVO.getStartrow()),
-//					pageVO.getEndrow() - pageVO.getStartrow(), Sort.by(Sort.Direction.DESC, "postNo"));
-//
-//			return postRepository.findAllPosts(pageable).getContent();
-//		}
 }

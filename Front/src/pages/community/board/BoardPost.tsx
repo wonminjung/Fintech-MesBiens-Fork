@@ -18,7 +18,8 @@ interface PostComment {
   postCommentNo: number;
   postCommentContent: string;
   postCommentDate: string;
-  member: Member;
+  memberNo: number;
+  memberName: string;
 }
 
 interface Post {
@@ -80,7 +81,7 @@ const BoardPost: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // console.log("받은 데이터:", data);
+        console.log("받은 데이터:", data);
         setBoard(data.post);
         setComments(data.postcomments);
         // console.log(data.post.postFileName);
@@ -166,10 +167,6 @@ const BoardPost: React.FC = () => {
     // const memberNo = prompt("회원 번호를 입력하세요:");
     // console.log(board?.member.memberNo)
 
-
-
-
-
     if (!postPassword) {
       alert("비밀번호를 입력해야 합니다.");
       return;
@@ -210,7 +207,7 @@ const BoardPost: React.FC = () => {
 
     // 현재 로그인한 사용자의 memberNo와 댓글 작성자의 memberNo 비교
     const comment = comments.find(c => c.postCommentNo === commentNo);
-    if (!comment || member?.memberNo !== comment.member.memberNo) {
+    if (!comment || member?.memberNo !== comment.memberNo) {
       alert("작성자만 수정할 수 있습니다.");
       return;
     }
@@ -373,7 +370,7 @@ const BoardPost: React.FC = () => {
           comments.map((comment) => (
             <BP.Comment key={comment.postCommentNo}>
               <BP.CommentInfo>
-                {comment.member.memberName} | {new Date(comment.postCommentDate).toLocaleString()}
+                {comment.memberName} | {new Date(comment.postCommentDate).toLocaleString()}
               </BP.CommentInfo>
               <p>{comment.postCommentContent}</p> {/* 기본적으로 댓글이 보임 */}
 
@@ -389,7 +386,7 @@ const BoardPost: React.FC = () => {
                 </BP.EditCommentContainer>
               ) : (
                 <BP.CommentActions>
-                  {member?.memberNo === comment.member.memberNo && (
+                  {member?.memberNo === comment.memberNo && (
                     <>
                       <BP.Button onClick={() => handleEditComment(comment.postCommentNo, comment.postCommentContent)}>
                         수정

@@ -1,15 +1,15 @@
 // CartPage.tsx
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../modules/store/store"; // RootState 타입 임포트
-import { shop, cart } from "./style";
-import ShoppingNav from "./ShoppingNav";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
+  clearCart,
   removeFromCart,
   updateQuantity,
-  clearCart,
 } from "../../modules/cart/cartSlice";
-import { useNavigate } from "react-router-dom";
+import { RootState } from "../../modules/store/store"; // RootState 타입 임포트
+import ShoppingNav from "./ShoppingNav";
+import { cart, shop } from "./style";
 
 const CartPage: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -57,7 +57,7 @@ const CartPage: React.FC = () => {
     const selectedProducts = items.filter((item) =>
       selectedItems.includes(item.productNo)
     );
-    navigate("/Purchase", { state: { selectedProducts } });
+    navigate("/shop/Purchase", { state: { selectedProducts } });
   };
 
   // cartItems가 undefined일 경우 빈 배열을 기본값으로 설정

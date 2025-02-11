@@ -31,7 +31,6 @@ import mesbiens.community.post.vo.PostCommentRequestDTO;
 import mesbiens.community.post.vo.PostCommentVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
-import mesbiens.member.vo.MemberVO;
 
 @RestController // JSON 데이터를 반환하는 컨트롤러로 설정
 @RequestMapping("/community") // RESTful API 기본 경로 설정
@@ -66,8 +65,6 @@ public class PostController {
 		) {  
 		    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		    
-//		    System.out.println(postRequest);
-
 		    // 유효성 검증 실패 시 처리
 		    if (bindingResult.hasErrors()) {
 		        StringBuilder errorMsg = new StringBuilder();
@@ -155,9 +152,6 @@ public class PostController {
     	// JSON Data로 받기위함
     	String postPassword = requestbody.get("postPassword");
     	String memberNo = requestbody.get("memberNo");
-
-//    	System.out.println(postPassword);
-//    	System.out.println(requestbody.get("postPassword"));
     	
         try {
             postService.deletePost(postNo, postPassword, request, memberNo);
@@ -173,12 +167,6 @@ public class PostController {
     @PostMapping("/C_board/{postNo}/postComment_Write")
     public ResponseEntity<PostCommentVO> createComment(@PathVariable(name = "postNo") int postNo,
                                                        @RequestBody PostCommentRequestDTO postCommentRequestDTO) {
-//    												   @RequestBody PostCommentVO postCommentVO) {
-    	System.out.println("🚀 댓글 작성 요청 수신");
-        System.out.println("📌 postNo: " + postNo);
-        System.out.println("📌 memberNo: " + postCommentRequestDTO.getMemberNo());
-        System.out.println("📌 내용: " + postCommentRequestDTO.getPostCommentContent());
-    	
     	try {
             PostCommentVO savedComment = postCommentService.createComment(postCommentRequestDTO); // DTO 전달
             return ResponseEntity.ok(savedComment); // 성공 시 저장된 댓글 반환

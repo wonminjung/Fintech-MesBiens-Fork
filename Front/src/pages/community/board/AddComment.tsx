@@ -21,7 +21,8 @@ const AddComment: React.FC<AddCommentProps> = ({ postNo, onCommentAdded }) => {
     }
 
     const commentData = {
-      member: { memberNo: (member?.memberNo) },
+      memberNo: member?.memberNo ,
+      postNo: postNo,
       postCommentContent: commentContent,
       postCommentPassword: commentPassword,
     };
@@ -40,7 +41,7 @@ const AddComment: React.FC<AddCommentProps> = ({ postNo, onCommentAdded }) => {
 
       if (response.ok) {
         console.log("댓글 작성 성공");
-        setMemberNo(""); // 입력 필드 초기화
+        // setMemberNo(""); // 입력 필드 초기화
         setCommentContent("");
         setCommentPassword("");
         onCommentAdded(); // 댓글 추가 후 새로고침
