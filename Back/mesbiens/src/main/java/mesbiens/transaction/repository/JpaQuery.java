@@ -19,6 +19,7 @@ public class JpaQuery {
 		join acct.bankCode b
 		join acct.memberNo m
 		join t.consumptionCateNo cate
-		where t.trnsCreateAt between :startDate and :endDate
+		where m.memberNo = :memberNo and t.trnsCreateAt between :startDate and :endDate
+		order by t.trnsCreateAt desc
 	""";
 }

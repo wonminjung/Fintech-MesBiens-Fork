@@ -19,16 +19,10 @@ public class TransactionDetailServiceImpl implements TransactionDetailService {
     @Autowired
     private TransactionDetailDAO trnsDao; // 거래내역 DAO
 
-	// 모든 거래내역 반환
+	// 현재 로그인 사용자의 memberNo와 시작날짜, 종료날짜 기준으로 거래내역 반환
 	@Override
-	public List<TransactionDetailVO> allList() {
-		return trnsDao.allList();
-	}
-
-	// 인증 토큰에 저장된 현재 로그인 사용자의 memberNo를 기준으로 거래내역 반환
-	@Override
-	public List<RecentTransactionResponseDTO> getTrnsList(LocalDateTime startDate, LocalDateTime endDate) {
-		return trnsDao.getTrnsList(startDate, endDate);
+	public List<RecentTransactionResponseDTO> getTrnsList(int memberNo, LocalDateTime startDate, LocalDateTime endDate) {
+		return trnsDao.getTrnsList(memberNo, startDate, endDate);
 	}
 	
 	// 전송 계좌 패스워드 일치하는지 확인
@@ -51,7 +45,6 @@ public class TransactionDetailServiceImpl implements TransactionDetailService {
 
 	// 송금하기
 	@Override
-	@Transactional
 	public boolean remittance(int receiverAccountNo, int senderAccountNo, Long trnsBalance) {
 		Optional<AccountVO> receiverAccount = trnsDao.getAccount(receiverAccountNo);
 		Optional<AccountVO> senderAccount = trnsDao.getAccount(senderAccountNo);
@@ -63,7 +56,7 @@ public class TransactionDetailServiceImpl implements TransactionDetailService {
 		
 		return trnsDao.updateBalance(receiverAccount, senderAccount);
 	}
-    
+
 }
 
 
