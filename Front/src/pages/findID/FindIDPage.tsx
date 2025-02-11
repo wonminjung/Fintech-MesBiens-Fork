@@ -3,6 +3,7 @@ import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
 import VerticalDivider from "../../components/divider/VerticalDivider";
+import { redirect } from "react-router-dom";
 // import "./FindIDPage.css";
 
 const FindIDPage: React.FC = () => {
@@ -24,6 +25,8 @@ const FindIDPage: React.FC = () => {
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
     setShowVerificationInput(false);
+    setShowID(false);
+    setShowPwdReset(false);
   };
 
   // 인증번호 요청
@@ -55,6 +58,7 @@ const FindIDPage: React.FC = () => {
       alert("서버 요청 실패");
     }
   };
+
   // 인증번호 검증
   const handleVerifyCode = async () => {
     try {
@@ -71,9 +75,9 @@ const FindIDPage: React.FC = () => {
       );
 
       if (response.ok) {
-        alert("인증 성공! 비밀번호 변경을 진행하세요.");
+        alert(`인증 성공!`);
         // 비밀번호 수정 페이지로 이동하거나 비밀번호 변경 기능을 활성화합니다.
-        setShowPwdReset(true);
+        setShowID(true);
       } else {
         const errorText = await response.text();
         alert(`인증 실패: ${errorText}`);
@@ -115,7 +119,6 @@ const FindIDPage: React.FC = () => {
         if (data.id) {
           setFoundID(data.id);
           setIsVerified(true);
-          setShowID(true);
         } else {
           alert("아이디를 찾을 수 없습니다.");
         }
@@ -158,6 +161,7 @@ const FindIDPage: React.FC = () => {
       alert("서버 오류 발생");
     }
   };
+
   // 비밀번호 변경 요청
   const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -189,6 +193,10 @@ const FindIDPage: React.FC = () => {
       console.error("비밀번호 변경 오류:", error);
       alert("서버 요청 실패");
     }
+  };
+
+  const handleLoginPage = () => {
+    redirect("/");
   };
 
   return (
@@ -244,7 +252,10 @@ const FindIDPage: React.FC = () => {
                 />
                 <DefaultButton
                   type="button"
-                  onClick={handleRequestVerificationCode}
+                  onClick={() => {
+                    handleRequestVerificationCode();
+                    setConfirmID("");
+                  }}
                   width="100%"
                   height="2.5em"
                 >
@@ -277,11 +288,15 @@ const FindIDPage: React.FC = () => {
                 <>
                   <L.Divider />
                   <L.P_tag style={{ textAlign: "center", margin: "0" }}>
-                    회원님의 ID는 000입니다.
-                    {/* 값이 들어 올 수 있도록 수정 필요 */}
+                    회원님의 ID는 {foundID}입니다.
                   </L.P_tag>{" "}
-                  <DefaultButton type="submit" width="100%" height="2.5em">
-                    확인
+                  <DefaultButton
+                    type="submit"
+                    width="100%"
+                    height="2.5em"
+                    onClick={handleLoginPage}
+                  >
+                    로그인 하러가기
                   </DefaultButton>
                 </>
               )}
@@ -317,7 +332,10 @@ const FindIDPage: React.FC = () => {
                   type="button"
                   width="100%"
                   height="2.5em"
-                  onClick={handleRequestVerificationCode}
+                  onClick={() => {
+                    handleRequestVerificationCode();
+                    setConfirmID("");
+                  }}
                 >
                   인증번호 받기
                 </DefaultButton>
