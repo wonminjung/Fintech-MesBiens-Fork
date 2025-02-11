@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type Member = {
+  memberNo: number;
+  memberId: string;
+  memberName: string;
+  memberEmail: string;
+  memberPhone: string;
+  memberAddress: string;
+  memberBirth: string;
+  memberProfile: string;
+}
+
 interface UserState {
-  member: {
-    memberNo: number;
-    memberId: string;
-    memberName: string;
-    memberEmail: string;
-    memberPhone: string;
-    memberAddress: string;
-    memberBirth: string;
-    memberProfile: string;
-  }
+  member: Member;
   isAuthenticated: boolean;
 }
 
