@@ -1,4 +1,6 @@
+import { Member } from "../../../../modules/user/userSlice";
+
 export type MemInfo = {
     fieldName: string;
-    value: string;
+    value: keyof Member;
 }

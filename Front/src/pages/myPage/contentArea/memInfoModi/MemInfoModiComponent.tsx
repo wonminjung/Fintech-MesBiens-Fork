@@ -1,40 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import S from './style';
-import FormFiledComponent from './FormFiledComponent';
-import { RootState } from '../../../../modules/store/store';
-import { useSelector } from 'react-redux';
+import FormFieldComponent from './FormFieldComponent';
 import { MemInfo } from './types';
 
 
 
 const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
-    const member = useSelector((state: RootState) => state.user);
-    const [ memInfo, setMemInfo ] = useState<MemInfo[]>([
-        {
-            fieldName: "아이디",
-            value: member.member.memberId
-        },
+    const fieldMap: MemInfo[] = [
         {
             fieldName: "이름",
-            value: member.member.memberName
-        },
-        {
-            fieldName: "핸드폰",
-            value: member.member.memberPhone
+            value: "memberName"
         },
         {
             fieldName: "이메일",
-            value: member.member.memberEmail
+            value: "memberEmail"
+        },
+        {
+            fieldName: "핸드폰번호",
+            value: "memberPhone"
         },
         {
             fieldName: "주소",
-            value: member.member.memberAddress
+            value: "memberAddress"
         },
         {
-            fieldName: "출생년도",
-            value: member.member.memberBirth
+            fieldName: "생년월일",
+            value: "memberBirth"
         }
-    ]);
+    ];
+
+    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        const fetchData = async () => {
+            const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/`);
+        };
+
+        fetchData()
+        .then(() => {})
+        .catch(() => {});
+    };
 
     return (
         <S.FormField method="post">
@@ -43,13 +48,13 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
 
                 <S.FieldTable>
                     <tbody>
-                        {memInfo.map((info: MemInfo, i: number): JSX.Element => (
-                            <FormFiledComponent key={i} info={info} index={i} setMemInfo={setMemInfo} />
+                        {fieldMap.map((data: MemInfo, i: number): JSX.Element => (
+                            <FormFieldComponent key={i} data={data} />
                         ))}
                     </tbody>
                 </S.FieldTable>
                 <S.EditBtnContainer>
-                    <S.EditBtn>수정 완료</S.EditBtn>
+                    <S.EditBtn onClick={handleSubmit}>수정 완료</S.EditBtn>
                 </S.EditBtnContainer>
             </S.FieldWrapper>
         </S.FormField>
