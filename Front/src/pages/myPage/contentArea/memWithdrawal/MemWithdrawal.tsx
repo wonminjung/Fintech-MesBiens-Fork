@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import S from './style';
 import { RootState } from '../../../../modules/store/store';
 import { useSelector } from 'react-redux';
 
 const MemWithdrawal: React.FunctionComponent = () => {
-    const member = useSelector((state: RootState) => state.user);
-    const guideInputRef = useRef<HTMLInputElement>(null);
+    const { member } = useSelector((state: RootState) => state.user);
+    const [ inputPwd, setInputPwd ] = useState<string>("");
 
     const notiList = [
         {
@@ -25,7 +25,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
     ];
 
     const fetchWithdrawal = async () => {
-        await fetch(`${process.env.REACT_APP_SERVER_URL}`, 
+        const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}`, 
             {
                 method: "DELETE",
                 headers: {
@@ -33,27 +33,30 @@ const MemWithdrawal: React.FunctionComponent = () => {
                 },
                 body: JSON.stringify(
                     {
-                        memberNo: member.member.memberNo
+                        memberNo: member.memberNo,
+                        memberPassword: inputPwd
                     }
                 )
             }
         );
+
+        return response;
     };
 
     const handleWithdrawal = () => {
-        if(guideInputRef.current && member.member.memberId !== guideInputRef.current.value.trim()) {
-            alert("계정 아이디가 일치하지 않습니다!");
-            return;
-        }
-
         fetchWithdrawal()
         .then((response) => {
-            console.log(response);
-            alert(`${member.member.memberId} 탈퇴 완료`);
+            if(response.ok) {
+                alert(`${member.memberId} 탈퇴 완료`);
+            }
         })
         .catch((err) => {
             alert("탈퇴 중 문제 발생");
         })
+    };
+
+    const onChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputPwd(() => e.target.value);
     };
 
     return (
@@ -72,8 +75,8 @@ const MemWithdrawal: React.FunctionComponent = () => {
             </S.WithdrawalNotiContainer>
 
             <S.GuideContainer>
-                <S.GuideSpan>유의사항을 모두 확인하였으면 "<strong>{member.member.memberId}</strong>"를 입력하세요.</S.GuideSpan>
-                <S.GuideInput ref={guideInputRef}/>
+                <S.GuideSpan>유의사항을 모두 확인하였으면 <strong>"현재 패스워드"</strong>를 입력하세요.</S.GuideSpan>
+                <S.GuideInput type="password" onChange={onChangePwd} />
             </S.GuideContainer>
 
             <S.BtnContainer>

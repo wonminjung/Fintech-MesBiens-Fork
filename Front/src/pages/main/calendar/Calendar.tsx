@@ -13,6 +13,8 @@ import {
 } from "date-fns";
 import { C } from "./style";
 import "./Calendar.css";
+import { RootState } from "../../../modules/store/store";
+import { useSelector } from "react-redux";
 
 interface SmallCalendarProps {
   onDateSelect: (date: Date, records: RecentData[]) => void;
@@ -33,6 +35,7 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [recentRecords, setRecentRecords] = useState<RecentData[]>([]);
+  const { member } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const today = new Date();
@@ -55,6 +58,7 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             "Content-Type": "application/json; charset=UTF-8",
           },
           body: JSON.stringify({
+            memberNo: member.memberNo,
             recentStartDate: start,
             recentEndDate: end,
           }),
