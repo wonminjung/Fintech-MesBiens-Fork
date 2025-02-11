@@ -8,10 +8,6 @@ import { MemInfo } from './types';
 const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
     const fieldMap: MemInfo[] = [
         {
-            fieldName: "아이디",
-            value: "memberId"
-        },
-        {
             fieldName: "이름",
             value: "memberName"
         },

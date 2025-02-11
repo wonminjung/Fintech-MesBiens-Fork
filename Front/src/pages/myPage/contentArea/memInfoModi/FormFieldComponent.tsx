@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import S from './style';
 import { MemInfo } from './types';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../../modules/store/store';
+import { RootState, useAppDispatch } from '../../../../modules/store/store';
 
 type Props = {
     data: MemInfo;
@@ -11,6 +11,7 @@ type Props = {
 const FormFieldComponent: React.FunctionComponent<Props> = ({ data }): JSX.Element => {
     const { member } = useSelector((state: RootState) => state.user);
     const { fieldName, value } = data;
+    const dispatch = useAppDispatch();
 
     // 생년월일 파싱
     const yearMonDay: string[] = [ "년 ", "월 ", "일 " ];
@@ -20,9 +21,9 @@ const FormFieldComponent: React.FunctionComponent<Props> = ({ data }): JSX.Eleme
     
     // 수정 상태
     const [ isEdited, setIsEdited ] = useState<boolean>(false);
-    const handleEdited = useCallback((): void => {
-        setIsEdited((prevState) => !prevState);
-    }, []);
+    const handleEdited = (): void => {
+        setIsEdited(!isEdited);
+    };
 
     // 수정 입력필드 상태
     const [ inputValue, setInputValue ] = useState<string | number>(member[value]);

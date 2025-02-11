@@ -90,7 +90,7 @@ export const userSlice = createSlice({
       };
       state.isAuthenticated = false;
       localStorage.removeItem("userState");
-    },
+    }
   },
 });
 
