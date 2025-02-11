@@ -5,6 +5,8 @@ import { records, Record } from "./data";
 import { faBank } from "@fortawesome/free-solid-svg-icons";
 import { H1 } from "../../components/htags/style";
 import S from "../assets/style";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules/store/store";
 
 type RecentData = {
   trnsCreateAt: string;
@@ -24,6 +26,7 @@ const Recent: React.FC = () => {
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [selectedBank, setSelectedBank] = useState<string>("");
   const [recentRecords, setRecentRecords] = useState<RecentData[]>([]);
+  const { member } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const today = new Date();
@@ -54,6 +57,7 @@ const Recent: React.FC = () => {
             "Content-Type": "application/json; charset=UTF-8",
           },
           body: JSON.stringify({
+            memberNo: member.memberNo,
             recentStartDate: start,
             recentEndDate: end,
           }),
@@ -182,7 +186,7 @@ const Recent: React.FC = () => {
                   <option value="">입/출금</option>
                   {statuses.map((status) => (
                     <option key={status} value={status}>
-                      {status}
+                      {status === "WITHDRAWAL" ? "출금" : "입금"}
                     </option>
                   ))}
                 </R.CategorySelect>
@@ -194,11 +198,11 @@ const Recent: React.FC = () => {
               <tr key={index}>
                 <R.TableRow>{record.trnsCreateAt.split("T")[0]}</R.TableRow>
                 <R.TableRow>{record.bankName}</R.TableRow>
-                <R.TableRow>{record.accountNumber}</R.TableRow>
+                <R.TableRow>{record.accountNumber.match(/\d{3}/g)?.join("-")}</R.TableRow>
                 <R.TableRow>{record.memberName}</R.TableRow>
                 <R.TableRow>{record.trnsMemo}</R.TableRow>
                 <R.TableRow>{record.categoryName}</R.TableRow>
-                <R.TableRow>{record.trnsBalance}</R.TableRow>
+                <R.TableRow>{record.trnsBalance.toLocaleString()}원</R.TableRow>
                 <R.TableRow
                   className={`status ${
                     record.trnsTypeName === "DEPOSIT" ? "success" : "failure"
