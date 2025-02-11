@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../modules/store/store";
 import { BP, BW } from "./style";
 
 const BoardWriter: React.FC = () => {
+  const {member} = useSelector((state: RootState) => state.user);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const handleInputFocus = () => {
     if (inputRef.current) {
@@ -10,10 +13,19 @@ const BoardWriter: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (member) {
+      setMemberName(member.memberName || ""); 
+      setMemberNo(member.memberNo || 1);
+    }
+  }, [member]); // member 값이 바뀌면 업데이트
+
+
+
   const navigate = useNavigate();
   const [postTitle, setPostTitle] = useState("");
-  const [memberName, setMemberName] = useState("");
-  const [memberNo, setMemberNo] = useState(1); // 회원 번호 임시로 1로 설정 (나중에 로그인 정보로 대체 가능)
+  const [memberName, setMemberName] = useState(member?.memberName || ""); 
+  const [memberNo, setMemberNo] = useState(member?.memberNo || "");
   const [postPassword, setPostPassword] = useState("");
   const [postCont, setPostCont] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -75,11 +87,9 @@ const BoardWriter: React.FC = () => {
       </BW.MiddleContent>
 
       <BW.TopContent>
-        <BW.Input
-          placeholder=" 작성자"
-          value={memberName}
-          onChange={(e) => setMemberName(e.target.value)}
-        />
+        <BW.BoardWriter>
+          작성자 : {memberName}
+        </BW.BoardWriter>
 
         {/* <BW.Input
           placeholder=" 회원번호"

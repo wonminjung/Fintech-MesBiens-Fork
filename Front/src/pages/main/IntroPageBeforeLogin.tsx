@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { M, I } from "./style";
+import { I, M } from "./style";
 // import L from "../login/LoginStyle";
-import DefaultInputField from "../../components/inputfield/InputField";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
 import DefaultButton from "../../components/button/DefaultButton";
 import VerticalDivider from "../../components/divider/VerticalDivider";
-import { useCookies } from "react-cookie";
-import { RootState } from "../../modules/store/store";
-import { useDispatch, useSelector } from "react-redux";
-import ModalFunc from "../../components/modal/utils/ModalFunc";
+import DefaultInputField from "../../components/inputfield/InputField";
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
-import Carousel from "./carousel/Carousel";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { RootState } from "../../modules/store/store";
 import { login } from "../../modules/user/userSlice"; // login 액션 가져오기
+import Carousel from "./carousel/Carousel";
 
 const IntroPageBeforeLogin: React.FC = () => {
   const { handleModal } = ModalFunc();
@@ -66,6 +66,7 @@ const IntroPageBeforeLogin: React.FC = () => {
           password: userPassword,
         }),
       });
+
 
       // 응답이 성공적이지 않으면 에러 던지기
       if (!response.ok) {
