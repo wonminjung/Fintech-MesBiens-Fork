@@ -2,11 +2,12 @@ package mesbiens.community.post.service;
 
 import java.util.List;
 
+import mesbiens.community.post.vo.PostCommentRequestDTO;
 import mesbiens.community.post.vo.PostCommentVO;
 
 public interface PostCommentService {
 
-	PostCommentVO createComment(PostCommentVO postComment); // 댓글 생성
+	PostCommentVO createComment(PostCommentRequestDTO postCommentRequestDTO); // 댓글 생성
 
 	PostCommentVO getCommentById(int postCommentNo); // 댓글 조회
 
@@ -14,6 +15,6 @@ public interface PostCommentService {
 
 	void deleteComment(int postCommentNo); // 댓글 삭제
 
-	List<PostCommentVO> getCommentsByPostNo(int postNo);
+	List<PostCommentRequestDTO> getCommentsByPostNo(int postNo);
 
 }

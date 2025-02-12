@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // useNavigate 훅 임포트
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../modules/cart/cartSlice"; // addToCart 액션 임포트
-import { shop, p } from "./style";
-import ShoppingNav from "./ShoppingNav";
-import { ProductData } from "./ProductData";
-import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { useNavigate, useParams } from "react-router-dom"; // useNavigate 훅 임포트
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 import ModalRendererComponent from "../../components/modal/ModalRendererComponent";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { addToCart } from "../../modules/cart/cartSlice"; // addToCart 액션 임포트
+import { ProductData } from "./ProductData";
+import ShoppingNav from "./ShoppingNav";
+import { p, shop } from "./style";
 
 const ProductPage: React.FC = () => {
   const { productNo } = useParams<{ productNo: string }>();
@@ -21,9 +21,20 @@ const ProductPage: React.FC = () => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json`
+          // `${process.env.REACT_APP_SERVER_URL}/shop/catogry/All`
+          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
+          // , {
+          //   method: "GET",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // }
         );
+        // console.log(response);
+        // const text = await response.text();
+        // console.log(text);
         const data: ProductData[] = await response.json();
+        console.log(data);
         const selectedProduct = data.find(
           (item) => item.productNo === Number(productNo)
         );
@@ -40,6 +51,7 @@ const ProductPage: React.FC = () => {
     if (product) {
       const cartItem = {
         productNo: product.productNo,
+        accountNo: product.accountNo,
         productName: product.productName,
         productPrice: product.productPrice,
         productImg: product.productImg,
@@ -62,7 +74,7 @@ const ProductPage: React.FC = () => {
         productImg: product.productImg,
         quantity,
       };
-      navigate("/Purchase", { state: { selectedProducts: [selectedProduct] } });
+      navigate("/shop/Purchase", { state: { selectedProducts: [selectedProduct] } });
     }
   };
 

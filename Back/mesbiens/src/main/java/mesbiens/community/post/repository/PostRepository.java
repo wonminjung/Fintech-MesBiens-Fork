@@ -1,17 +1,14 @@
 package mesbiens.community.post.repository;
 
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import mesbiens.community.post.summary.PostListSummary;
 import mesbiens.community.post.vo.PostVO;
 
 @Repository
@@ -43,6 +40,10 @@ public interface PostRepository extends JpaRepository<PostVO, Integer> {
 	// 게시물 리스트 조회 (페이징 + 검색)
 	@Query("SELECT p FROM PostVO p WHERE p.postTitle LIKE %:findField% OR p.postCont LIKE %:findName%")
 	Page<PostVO> searchPosts(@Param("findField") String findField, @Param("findName") String findName, Pageable pageable);
+
+	// 게시글 첨부파일 여부 확인하여 목록에서 표기
+	@Query("SELECT f.postFile FROM PostVO f WHERE f.postNo = :postNo")
+	int getUploadFileValidCount(@Param("postNo") int postNo);
 
 
 	

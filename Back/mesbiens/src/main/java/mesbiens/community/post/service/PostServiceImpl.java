@@ -20,8 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import mesbiens.community.post.dao.PostCommentDAO;
 import mesbiens.community.post.dao.PostDAO;
-import mesbiens.community.post.summary.PostListSummary;
 import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
@@ -33,8 +33,8 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDAO postDAO;
 	
-//	 @Autowired
-//	private ServletContext servletContext; // ServletContext 주입
+	@Autowired
+	private PostCommentDAO postCommentDAO;
 	
 	// 게시판 저장시 이름을 순차적인 숫자를 넣기위한 카운터
 	private static final String COUNTER_FILE_PATH = "src/main/webapp/upload/counter.txt"; // 카운터 파일 위치
@@ -55,13 +55,11 @@ public class PostServiceImpl implements PostService {
 	public void insertPost(PostRequestDTO postRequest, HttpServletRequest request) throws Exception {
 		
 		PostVO postVO = new PostVO();
-//		postVO.setPostNo(0);
 		postVO.setPostTitle(postRequest.getPostTitle());
 	    postVO.setPostCont(postRequest.getPostCont());
 	    postVO.setPostFindField(postRequest.getPostFindField());
 	    postVO.setPostFindName(postRequest.getPostFindName());
 	    postVO.setPostPassword(postRequest.getPostPassword());
-//	    postVO.setPostModify(postRequest.getPostModify());
 	    
 	 // 회원 정보를 담은 MemberVO 객체 생성
 	    int memberNo = postRequest.getMemberNo();
@@ -106,7 +104,7 @@ public class PostServiceImpl implements PostService {
             // path01로 지정된 "uploadFolder/today" 폴더가 없다면 폴더를 생성해라
 
 
-         // **파일 카운터 로드 및 업데이트**
+            // **파일 카운터 로드 및 업데이트**
             int fileCounter = getFileCounter(today);
             String fileCounterStr = String.format("%06d", fileCounter); // 6자리 숫자 포맷
             updateFileCounter(today, fileCounter + 1); // 카운터 증가
@@ -130,13 +128,12 @@ public class PostServiceImpl implements PostService {
             int Fileindex = fileName.lastIndexOf(".");
             if (Fileindex != -1 && Fileindex < fileName.length() - 1) {
                 String fileType = fileName.substring(Fileindex + 1);  // 확장자 추출
-//                System.out.println("fileType: " + fileType);      // 예: png
-                postVO.setPostFileType(fileType);                 // postFileType 저장
+                System.out.println("fileType: " + fileType); // 예: png
+                
+                postVO.setPostFileType(fileType);   // postFileType 저장
             } else {
-//                System.out.println("파일 확장자가 없습니다.");
-                postVO.setPostFileType("unknown");                // 확장자가 없는 경우 처리
+                postVO.setPostFileType("파일 확장자가 없습니다."); // 확장자가 없는 경우 처리
             }
-            
             
             
         	// 동일한 파일명 존재시
@@ -212,6 +209,7 @@ public class PostServiceImpl implements PostService {
         List<PostVO> postList = postDAO.getPostList(pageVO);
         int totalCount = postDAO.getRowCount();
 
+        
         // PostRequestDTO로 매핑
         List<PostRequestDTO> responseList = postList.stream()
             .map(post -> {
@@ -220,6 +218,17 @@ public class PostServiceImpl implements PostService {
                 dto.setPostTitle(post.getPostTitle());
                 dto.setMemberName(post.getMember().getMemberName());
                 dto.setPostHit(post.getPostHit());
+                
+                // 게시글당 댓글 개수 조회
+                int commentTotalCount = postCommentDAO.getCommentRowCount(post.getPostNo());
+                dto.setCommentTotalCount(commentTotalCount);
+                
+                // 게시글당 첨부파일 여부
+                int uploadFileValid = postDAO.getUploadFileValidCount(post.getPostNo());
+                System.out.println("uploadFileValid"+uploadFileValid);
+                dto.setPostFile(uploadFileValid);
+                
+                
                 return dto;
             })
             .collect(Collectors.toList());
@@ -284,8 +293,6 @@ public class PostServiceImpl implements PostService {
         // 게시글 정보 설정
         postVO.setMember(member); // MemberVO 설정
 	    
-//	    System.out.println(postVO.getMemberNo());
-//	    System.out.println(postRequest.getMemberNo());
 
 	    // 게시글 작성자 검증
 	    if (postVO.getMember() == null || postVO.getMember().getMemberNo() != postRequest.getMemberNo()) {
@@ -333,6 +340,7 @@ public class PostServiceImpl implements PostService {
 	        if (index != -1) {
 	            fileExtension = originalFileName.substring(index + 1);
 	        }
+	        System.out.println("fileExtension"+fileExtension);
 
 	        String modiFileName = "mesbiens" + today.replace("-", "") + "_" + fileCounterStr + "." + fileExtension;
 	        String postFilePath = "/" + today + "/" + modiFileName;
@@ -393,7 +401,6 @@ public class PostServiceImpl implements PostService {
 	// 댓글 작성을 위한 postNo 가져오기
 	@Override
 	public PostVO getPostById(int postNo) {
-//		System.out.println(postDAO.findById(postNo));
 		return postDAO.findById(postNo);
 	}
 }

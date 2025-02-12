@@ -37,6 +37,7 @@ public class PostRequestDTO {
 	private Timestamp postModifyDate; // 게시글 수정일시
 	private int postStartPageRow; // 쪽 시작 행 번호
 	private int postEndPageRow; // 쪽 끝 행 번호
+	private int commentTotalCount; // 댓글 개수 필드
 	
 	private MultipartFile uploadFile;
 	// 실제 업로드 되어진 파일을 저장. Post.tsx의 <input type="file" name="uploadFile"의 네임파라미터 이름과 멤버변수명(속성명, 필드명)을 같게 한다.
@@ -50,6 +51,10 @@ public class PostRequestDTO {
         this.memberNo = post.getMemberNo();
         this.memberName = post.getMemberName();
         this.postHit = post.getPostHit();
+        this.postFile = post.getPostFile();
+        this.postFileName = post.getPostFileName();
+        this.postFilePath = post.getPostFilePath();
+        this.postFileType = post.getPostFileType();
         
     }
     

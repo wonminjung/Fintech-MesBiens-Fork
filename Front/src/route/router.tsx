@@ -121,19 +121,19 @@ const routes: RouteObject[] = [
     element: <MesBiensShop />,
   },
   {
-    path: "/product/:productNo",
+    path: "/shop/product/:productNo",
     element: <ProductPage />,
   },
   {
-    path: "/category/:category",
+    path: "/shop/category/:category",
     element: <CategoryPage />,
   },
   {
-    path: "/Cart",
+    path: "/shop/Cart",
     element: <CartPage />,
   },
   {
-    path: "/Purchase",
+    path: "/shop/Purchase",
     element: <PurchasePage />,
   },
   // {

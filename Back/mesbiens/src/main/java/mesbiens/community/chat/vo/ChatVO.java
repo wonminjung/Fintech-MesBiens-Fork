@@ -1,5 +1,9 @@
 package mesbiens.community.chat.vo;
 
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,6 +52,9 @@ public class ChatVO {
 	private String chatSessionId; // 사용자 익명 아이디
 	@Column(name="chat_content", nullable = false)
 	private String chatContent; // 익명채팅 내용
+	@CreationTimestamp
+	@Column(name="chat_time")
+	private Timestamp chatTime; // 익명채팅 전송 시간
 
 	
 	

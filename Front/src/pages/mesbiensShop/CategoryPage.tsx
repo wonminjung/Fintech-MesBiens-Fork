@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { shop } from "./style";
 import ShoppingNav from "./ShoppingNav";
+import { shop } from "./style";
 
 interface ProductData {
   productNo: number;
@@ -17,18 +17,25 @@ const CategoryPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleProductClick = (productNo: number) => {
-    navigate(`/product/${productNo}`); // 제품 상세 페이지로 이동
+    navigate(`/shop/product/${productNo}`); // 제품 상세 페이지로 이동
   };
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json`
+          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
+          // `${process.env.REACT_APP_SERVER_URL}/product/{productNo}`
+          // , {
+          //   method: "GET",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // }
         );
         const data: ProductData[] = await response.json();
         const filteredProducts = data.filter(
-          (item) => category === "전체" || item.category === category
+          (item) => category === "All" || item.category === category
         );
         setProducts(filteredProducts);
       } catch (error) {

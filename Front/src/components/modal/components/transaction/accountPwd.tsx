@@ -1,30 +1,22 @@
-import ModalFunc from "../../utils/ModalFunc";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Memo } from "./style";
-import { useDispatch } from "react-redux";
-import { setAccountPwd } from "../../../../modules/transaction/accountPwdSlice";
-import DefaultButton from "../../../button/DefaultButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../modules/store/store";
 import Inputter from "../../../inputter/Inputter";
 
 const AccountPwdModal: React.FC = () => {
-  const password = useSelector(
-    (state: RootState) => state.accountPwd.accountPwd
+  const transactionProps = useSelector(
+    (state: RootState) => state.modal.modalProps
   );
-  const dispatch = useDispatch();
-
-  const handleButton = () => {
-    if (password === "0000") {
-      dispatch(setAccountPwd(password));
-    } else {
-      alert("비밀번호가 틀립니다!");
-    }
-  };
 
   return (
     <Memo.MainContainer>
       <h1>계좌 비밀번호 입력</h1>
+      {/* <p>입금 계좌 : {transactionProps?.receiverAccountNumber}</p>
+      <p>출금 계좌 : {transactionProps?.senderAccountNumber}</p>
+      <p>
+        송금 금액 : {Number(transactionProps?.trnsBalance).toLocaleString()}원
+      </p> */}
       <Inputter />
     </Memo.MainContainer>
   );

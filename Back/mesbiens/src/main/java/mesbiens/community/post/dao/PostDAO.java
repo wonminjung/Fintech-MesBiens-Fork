@@ -29,4 +29,6 @@ public interface PostDAO {
 
 	MemberVO getMemberById(int memberNo); // 답변글에서 memberNo 찾기
 
+	int getUploadFileValidCount(int postNo);
+
 }
