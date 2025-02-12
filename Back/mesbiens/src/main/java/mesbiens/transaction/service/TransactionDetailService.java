@@ -20,4 +20,7 @@ public interface TransactionDetailService {
 	// 송금하기
 	boolean remittance(int receiveAccountNo, int senderAccountNo, Long trnsBalance);
 
+	// 거래내역 생성
+	void createTrnsDetail(int receiverAccountNo, int senderAccountNo, Long trnsBalance);
+
 }

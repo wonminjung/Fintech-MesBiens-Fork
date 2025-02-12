@@ -83,6 +83,8 @@ public class TransactionDetailController {
 		
 		boolean result = trnsService.remittance(receiverAccountNo, senderAccountNo, trnsBalance);
 		if(result) {
+			trnsService.createTrnsDetail(receiverAccountNo, senderAccountNo, trnsBalance);
+			
 			response.put("message", "송금 완료");
 			return ResponseEntity.ok(response);
 		}
