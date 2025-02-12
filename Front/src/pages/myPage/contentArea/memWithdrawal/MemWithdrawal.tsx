@@ -2,10 +2,15 @@ import React, { useRef, useState } from 'react';
 import S from './style';
 import { RootState } from '../../../../modules/store/store';
 import { useSelector } from 'react-redux';
+import { MenuList } from '../../types';
 
 const BASE_URL = "http://localhost:7200"; // 백엔드 서버 주소
 
-const MemWithdrawal: React.FunctionComponent = () => {
+type Props = {
+    menuList: MenuList;
+}
+
+const MemWithdrawal: React.FunctionComponent<Props> = ({ menuList }) => {
     const { member, token } = useSelector((state: RootState) => state.user);//Redux에서 현재 로그인된 사용자 정보 가져오기
     
     // 사용자 입력 상태
@@ -19,7 +24,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
             notiId: 1,
             title: "회원탈퇴 시 유의사항",
             desc: `탈퇴 이후에는 동일한 계정으로 복구가 불가능합니다.
-                   탈퇴 시 회원님의 모든 데이터가 삭제됩니다. 이는 계좌 정보, 퀴즈 기록 등이 포함됩니다.
+                   탈퇴 시 회원님의 모든 데이터가 삭제됩니다. 이는 계좌 정보 등이 포함됩니다.
                    일정 기간(예: 법적으로 요구되는 보존 기간 동안) 일부 데이터는 보존될 수 있습니다. 
                    예를 들어, 금융 거래 기록은 관련 규정에 따라 5년간 보관될 수 있습니다.`
         },
@@ -31,7 +36,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
         }
     ];
 
-           /** 비밀번호 입력 핸들러 */
+    /** 비밀번호 입력 핸들러 */
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputPwd(e.target.value);
         setError(""); // 에러 메시지 초기화
@@ -120,7 +125,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
 
     return (
         <S.SelectedMenuHeaderContainer>
-            <S.MenuTitle>회원 탈퇴</S.MenuTitle>
+            <S.MenuTitle>{menuList.list}</S.MenuTitle>
 
             <S.WithdrawalNotiContainer>
                 <S.NotiWrapper>

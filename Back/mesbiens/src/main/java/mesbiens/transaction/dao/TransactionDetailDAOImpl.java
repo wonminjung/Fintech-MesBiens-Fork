@@ -49,6 +49,14 @@ public class TransactionDetailDAOImpl implements TransactionDetailDAO {
 		return updateReceiverAccount != null && updateSenderAccount != null;
 	}
 
+	// 거래 내역 생성
+	@Override
+	@Transactional
+	public void createTrnsDetail(TransactionDetailVO trnsDetailDeposit, TransactionDetailVO trnsDetailWithdrawal) {
+		trnsJpaRepo.save(trnsDetailDeposit);
+		trnsJpaRepo.save(trnsDetailWithdrawal);
+	}
+
 
 }
 
