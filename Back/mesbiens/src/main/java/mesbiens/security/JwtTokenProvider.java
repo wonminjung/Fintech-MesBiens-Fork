@@ -17,10 +17,13 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mesbiens.member.service.CustomAuthenticationException;
 
 @Component
 public class JwtTokenProvider {
@@ -87,7 +90,8 @@ public class JwtTokenProvider {
     //  JWT 토큰을 쿠키에 저장 (Access Token)
     public void addJwtTokenToCookie(HttpServletResponse response, String token) {
         String cookieValue = "jwt=" + token +
-                             "; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=" + (accessTokenValidity / 1000);
+        		  "; Path=/; HttpOnly; Secure; SameSite=None; Domain=localhost; Max-Age=" + 
+        		(accessTokenValidity / 1000);
 
         response.addHeader("Set-Cookie", cookieValue); // 기존 setHeader → addHeader 로 수정
     }
@@ -123,16 +127,20 @@ public class JwtTokenProvider {
 
     //  토큰에서 사용자 ID 추출
     public String getMemberId(String token) {
+        if (token == null || token.trim().isEmpty()) {
+            throw new IllegalArgumentException("JWT 토큰이 없습니다.");
+        }
         try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
-        } catch (JwtException e) {
-        	log.error("JWT 파싱 오류: {}", e.getMessage()); // 구체적인 예외 로깅
-            return null;
+        	Claims claims = Jwts.parserBuilder()
+        		    .setSigningKey(key)
+        		    .build()
+        		    .parseClaimsJws(token)
+        		    .getBody();
+
+            return claims.getSubject();
+        } catch (MalformedJwtException | SignatureException | IllegalArgumentException e) {
+            log.error("유효하지 않은 JWT 토큰: {}", e.getMessage());
+            throw new CustomAuthenticationException("유효하지 않은 JWT 토큰입니다.");
         }
     }
 
