@@ -1,23 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import S from './style';
-import { MemInfo } from './types';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../../../modules/store/store';
+import { MemInfo, TempFormData } from './types';
 
 type Props = {
     data: MemInfo;
+    tempFormData: TempFormData;
+    setTempFormData: React.Dispatch<React.SetStateAction<TempFormData>>;
 };
 
-const FormFieldComponent: React.FunctionComponent<Props> = ({ data }): JSX.Element => {
-    const { member } = useSelector((state: RootState) => state.user);
+const FormFieldComponent: React.FunctionComponent<Props> = ({ data, tempFormData, setTempFormData }): JSX.Element => {
     const { fieldName, value } = data;
-    const dispatch = useAppDispatch();
 
     // 생년월일 파싱
     const yearMonDay: string[] = [ "년 ", "월 ", "일 " ];
-    const valueByType = fieldName === "생년월일" && typeof member[value] === "string" 
-                    ? (member[value] as string).split("-").reduce((prev: string, current: string, index: number): string => prev + current + yearMonDay[index], "") 
-                    : member[value];
+    const valueByType = fieldName === "생년월일" 
+                    ? tempFormData[value].split("-").reduce((prev: string, current: string, index: number): string => prev + current + yearMonDay[index], "") 
+                    : tempFormData[value];
     
     // 수정 상태
     const [ isEdited, setIsEdited ] = useState<boolean>(false);
@@ -26,19 +24,23 @@ const FormFieldComponent: React.FunctionComponent<Props> = ({ data }): JSX.Eleme
     };
 
     // 수정 입력필드 상태
-    const [ inputValue, setInputValue ] = useState<string | number>(member[value]);
-    const inputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
-        setInputValue(() => e.target.value);
-    }, []);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTempFormData(
+            {
+                ...tempFormData,
+                [value]: e.target.value
+            }
+        );
+    };
 
     return (
         <S.FieldTr>
             <th>{fieldName}</th>
             <td>
                 {
-                    isEdited ? 
+                    isEdited ?
                     (
-                        <S.FieldEditValue type="text" value={inputValue} onChange={inputOnChange} />
+                        <S.FieldEditValue type="text" value={tempFormData[value]} onChange={handleChange} />
                     )
                     :
                     (

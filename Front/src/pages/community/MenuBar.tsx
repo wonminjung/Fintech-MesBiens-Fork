@@ -22,11 +22,11 @@ const MenuBar: React.FC = () => {
               <P.MenuButton>심리 테스트</P.MenuButton>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to={"C_calculator"}>
               <P.MenuButton>금융 계산기</P.MenuButton>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </P.MenuBar>
     </>

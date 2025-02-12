@@ -43,14 +43,17 @@ public class TransactionDetailController {
 	// 송금
 	@PostMapping("/remittance")
 	public ResponseEntity<Map<String, String>> remittance(@RequestBody JsonNode requestData) {
-		int receiverAccountNo = requestData.get("receiverAccountNo").asInt();
-		int senderAccountNo = requestData.get("senderAccountNo").asInt();
+		String receiverAccountNumber = requestData.get("receiverAccountNumber").asText();
+		String senderAccountNumber = requestData.get("senderAccountNumber").asText();
 		Long trnsBalance = requestData.get("trnsBalance").asLong();
 		String senderAccountPassword = requestData.get("senderAccountPassword").asText();
 		
+		int receiverAccountNo = acctService.acctNumToAcctNo(receiverAccountNumber);
+		int senderAccountNo = acctService.acctNumToAcctNo(senderAccountNumber);
+		
 		Map<String, String> response = new HashMap<>();
 		
-		boolean isExistAccounts = acctService.existsByIdAcct(receiverAccountNo) && acctService.existsByIdAcct(senderAccountNo);
+		boolean isExistAccounts = acctService.existsByAcctNumber(receiverAccountNumber) && acctService.existsByAcctNumber(senderAccountNumber);
 		if(!isExistAccounts) {
 			response.put("message", "보내는 계좌나 받는 계좌가 존재하지 않습니다.");
 			return ResponseEntity.badRequest().body(response);
@@ -80,6 +83,8 @@ public class TransactionDetailController {
 		
 		boolean result = trnsService.remittance(receiverAccountNo, senderAccountNo, trnsBalance);
 		if(result) {
+			trnsService.createTrnsDetail(receiverAccountNo, senderAccountNo, trnsBalance);
+			
 			response.put("message", "송금 완료");
 			return ResponseEntity.ok(response);
 		}

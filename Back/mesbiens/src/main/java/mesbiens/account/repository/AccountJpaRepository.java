@@ -24,6 +24,7 @@ public interface AccountJpaRepository extends JpaRepository<AccountVO, Integer> 
 	@Query(value = "delete from account where account.account_no = :accountNo", nativeQuery = true)
 	public int delAcct(@Param("accountNo") int accountNo);
 	
-	
+	// 계좌번호 존재하는지 검색
+	public AccountVO findByAccountNumber(@Param("accountNumber") String accountNumber);
 	
 }
