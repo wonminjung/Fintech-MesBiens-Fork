@@ -28,6 +28,7 @@ public interface AccountJpaRepository extends JpaRepository<AccountVO, Integer> 
 	// 메비앙샵 결제를 위한 memberNo로 accountNo 찾기
 	List<AccountVO> findByMemberNo(MemberVO member);
 	
-	
+	// 계좌번호 존재하는지 검색
+	public AccountVO findByAccountNumber(@Param("accountNumber") String accountNumber);
 	
 }

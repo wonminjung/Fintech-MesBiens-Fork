@@ -1,6 +1,13 @@
-import { Member } from "../../../../modules/user/userSlice";
+
+export type TempFormData = {
+    memberName: string;
+    memberEmail: string;
+    memberPhone: string;
+    memberAddress: string;
+    memberBirth: string;
+}
 
 export type MemInfo = {
     fieldName: string;
-    value: keyof Member;
+    value: keyof TempFormData;
 }

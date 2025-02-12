@@ -24,12 +24,19 @@ const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element
             accountPassword: ""
         }
     );
+    const bankList = [
+        "KB국민은행",
+        "우리은행",
+        "신한은행",
+        "하나은행",
+        "IBK기업은행"
+    ];
 
-    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
         setFormdata(
             {
                 ...formData,
-                [e.target.name]: e.target.value
+                [e.target.id]: e.target.value
             }
         );
     };
@@ -53,18 +60,40 @@ const AddAccount: React.FunctionComponent<Props> = ({ modalProps }): JSX.Element
 
             <S.Form method="POST" action="#" onSubmit={onSubmit}>
                 <S.FormBody>
-                    <S.FieldContainer>
-                        <S.FieldLabel htmlFor="bankName">은행명</S.FieldLabel>
-                        <S.FieldInput id="bankName" name="bankName" placeholder="은행명을 입력하세요" onBlur={handleBlur} />
-                    </S.FieldContainer>
-                    <S.FieldContainer>
-                        <S.FieldLabel htmlFor="accountNumber">계좌번호</S.FieldLabel>
-                        <S.FieldInput id="accountNumber" name="accountNumber" placeholder="계좌번호를 입력하세요" onBlur={handleBlur} />
-                    </S.FieldContainer>
-                    <S.FieldContainer>
-                        <S.FieldLabel htmlFor="accountPassword">계좌 비밀번호</S.FieldLabel>
-                        <S.FieldInput type="password" id="accountPassword" name="accountPassword" placeholder="비밀번호를 입력하세요" onBlur={handleBlur} />
-                    </S.FieldContainer>
+                    <table>
+                        <tbody>
+                            <S.FieldContainer>
+                                <th >
+                                    <S.FieldLabel htmlFor="bankName">은행명</S.FieldLabel>
+                                </th>
+                                <td>
+                                    <S.SelectBank id="bankName" value={formData.bankName} onChange={handleChange} required >
+                                        {bankList.map((bank) => (
+                                            <option key={bank} value={bank}>
+                                                {bank}
+                                            </option>
+                                        ))}
+                                    </S.SelectBank>
+                                </td>
+                            </S.FieldContainer>
+                            <S.FieldContainer>
+                                <th>
+                                    <S.FieldLabel htmlFor="accountNumber">계좌번호</S.FieldLabel>
+                                </th>
+                                <td>
+                                    <S.FieldInput id="accountNumber" name="accountNumber" placeholder="계좌번호를 입력하세요" onChange={handleChange} maxLength={12} />
+                                </td>
+                            </S.FieldContainer>
+                            <S.FieldContainer>
+                                <th>
+                                    <S.FieldLabel htmlFor="accountPassword">계좌 비밀번호</S.FieldLabel>
+                                </th>
+                                <td>
+                                    <S.FieldInput type="password" id="accountPassword" name="accountPassword" placeholder="비밀번호를 입력하세요" onChange={handleChange} maxLength={4} />
+                                </td>
+                            </S.FieldContainer>
+                        </tbody>
+                    </table>
                 </S.FormBody>
                 
                 <S.Footer>

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import S from './style';
 import FormFieldComponent from './FormFieldComponent';
-import { MemInfo } from './types';
-
-
+import { MemInfo, TempFormData } from './types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../modules/store/store';
 
 const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
     const fieldMap: MemInfo[] = [
@@ -28,17 +28,46 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
             value: "memberBirth"
         }
     ];
+    
+    const { member } = useSelector((state: RootState) => state.user);
+    const [ tempFormData, setTempFormData ] = useState<TempFormData>(
+        {
+            memberName: member.memberName,
+            memberEmail: member.memberEmail,
+            memberPhone: member.memberPhone,
+            memberAddress: member.memberAddress,
+            memberBirth: member.memberBirth
+        }
+    );
 
+    // 임시용 (백엔드 API 완성되면 끝낼 예정)
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        
+        console.log(tempFormData);
 
-        const fetchData = async () => {
-            const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/`);
-        };
+        // const fetchData = async () => {
+        //     const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/`, 
+        //         {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json; charset=UTF-8"
+        //             },
+        //             body: JSON.stringify(tempFormData)
+        //         }
+        //     );
+        //     const data: any = await response.json();
 
-        fetchData()
-        .then(() => {})
-        .catch(() => {});
+        //     return { data, response };
+        // };
+
+        // fetchData()
+        // .then(({ data, response }) => {
+        //     if(response.ok || response.status === 200) {
+
+        //     }
+        // })
+        // .catch(() => {});
     };
 
     return (
@@ -49,7 +78,7 @@ const MemInfoModiComponent: React.FunctionComponent = ():JSX.Element => {
                 <S.FieldTable>
                     <tbody>
                         {fieldMap.map((data: MemInfo, i: number): JSX.Element => (
-                            <FormFieldComponent key={i} data={data} />
+                            <FormFieldComponent key={i} data={data} tempFormData={tempFormData} setTempFormData={setTempFormData}/>
                         ))}
                     </tbody>
                 </S.FieldTable>

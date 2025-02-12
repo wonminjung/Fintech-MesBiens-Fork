@@ -19,5 +19,8 @@ public interface TransactionDetailDAO {
 	// 잔액 업데이트
 	boolean updateBalance(Optional<AccountVO> receiverAccount, Optional<AccountVO> senderAccount);
 
+	// 거래 내역 생성
+	void createTrnsDetail(TransactionDetailVO trnsDetailDeposit, TransactionDetailVO trnsDetailWithdrawal);
+
 	
 }

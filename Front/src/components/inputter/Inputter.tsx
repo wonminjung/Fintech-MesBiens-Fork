@@ -1,8 +1,9 @@
 import React, { useState, MouseEvent, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { setAccountPwd } from "../../modules/transaction/accountPwdSlice";
 import ModalFunc from "../modal/utils/ModalFunc";
 import I from "./InputterStyle";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../modules/store/store";
+import { ApiResponse, setMessage } from "../../modules/transaction/apiResponse";
 
 const PASSWORD_MAX_LENGTH = 8; // 비밀번호 입력길이 제한 설정
 
@@ -23,8 +24,8 @@ const Inputter = () => {
   let nums_init = Array.from({ length: 10 }, (v, k) => k);
   const [nums, setNums] = useState(nums_init);
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
   const { closeModal } = ModalFunc();
+  const dispatch = useAppDispatch();
 
   const handlePasswordChange = useCallback(
     (num: number) => {
@@ -59,19 +60,56 @@ const Inputter = () => {
     [handlePasswordChange]
   );
 
-  const onClickSubmitButton = (e: MouseEvent) => {
-    // 비밀번호 제출
+  const transactionProps = useSelector(
+    (state: RootState) => state.modal.modalProps
+  );
+
+  const fetchReq = async () => {
+    const response: Response = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/transaction/remittance`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          receiverAccountNumber: transactionProps?.receiverAccountNumber,
+          senderAccountNumber: transactionProps?.senderAccountNumber,
+          trnsBalance: transactionProps?.trnsBalance,
+          senderAccountPassword: password,
+        }),
+      }
+    );
+    const data: ApiResponse = await response.json();
+
+    return { data, response };
+  };
+
+  const onClickSubmitButton = async () => {
     if (password.length === 0) {
       alert("비밀번호를 입력 후 눌러주세요!");
     } else {
-      dispatch(setAccountPwd(password));
-      closeModal();
+      fetchReq()
+        .then(({ data, response }) => {
+          if (response.status === 200 || response.ok) {
+            dispatch(setMessage(data.message));
+            closeModal();
+            return;
+          }
+          alert(data.message);
+          setPassword("");
+        })
+        .catch(() => alert("송금 실패"));
     }
   };
 
   return (
     <I.MainContainer>
-      <I.InputContainer type="password" value={password}></I.InputContainer>
+      <I.InputContainer
+        type="password"
+        value={password}
+        maxLength={4}
+      ></I.InputContainer>
       <I.InputterContainer>
         {nums.map((n, i) => {
           const Basic_button = (

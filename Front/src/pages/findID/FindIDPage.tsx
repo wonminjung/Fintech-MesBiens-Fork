@@ -86,16 +86,6 @@ const FindIDPage: React.FC = () => {
       console.error("인증번호 검증 오류:", error);
       alert("서버 요청 실패");
     }
-  };
-
-  // 아이디 찾기 - 인증번호 확인 후 ID 제공
-  const handleFindIDSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (confirmID !== verificationCode) {
-      alert("인증번호가 올바르지 않습니다.");
-      return;
-    }
 
     try {
       const response = await fetch(
@@ -233,7 +223,7 @@ const FindIDPage: React.FC = () => {
                 회원님의 <strong>이름</strong>과 <strong>이메일 주소</strong>를
                 입력해주세요.
               </L.P_tag>
-              <form onSubmit={handleFindIDSubmit}>
+              <form>
                 <DefaultInputField
                   type="text"
                   id="name"
@@ -287,8 +277,16 @@ const FindIDPage: React.FC = () => {
               {showID && (
                 <>
                   <L.Divider />
-                  <L.P_tag style={{ textAlign: "center", margin: "0" }}>
-                    회원님의 ID는 {foundID}입니다.
+                  <L.P_tag
+                    style={{
+                      textAlign: "center",
+                      margin: "0",
+                      paddingBottom: "20px",
+                    }}
+                  >
+                    회원님의 ID는{" "}
+                    <strong style={{ color: "black" }}>{foundID}</strong>{" "}
+                    입니다.
                   </L.P_tag>{" "}
                   <DefaultButton
                     type="submit"
