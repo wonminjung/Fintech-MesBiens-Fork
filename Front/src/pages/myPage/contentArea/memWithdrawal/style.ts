@@ -67,6 +67,39 @@ const S = {
         width: 36%;
         margin: 0 10px;
     `,
+    Modal: styled.div`
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    `,
+
+    ModalContent: styled.div`
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 400px;
+    `,
+
+    CancelBtn: styled(DefaultButton)`
+        background-color: #ccc;
+        color: black;
+        &:hover {
+            background-color: #a6a6a6;
+        }
+    `,
+    ErrorMessage: styled.p`
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+`,
 };
 
 export default S;

@@ -88,6 +88,7 @@ const IntroPageBeforeLogin: React.FC = () => {
             memberBirth: result.memberBirth,
             memberProfile: result.memberProfile,
           },
+          token: result.token,
           isAuthenticated: true,
         })
       );
