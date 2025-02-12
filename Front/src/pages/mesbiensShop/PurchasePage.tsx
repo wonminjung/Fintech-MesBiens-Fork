@@ -27,7 +27,7 @@ const PurchasePage: React.FC = () => {
           <cart.ContentUl>
             {selectedProducts.map((item: ProductData) => (
               <cart.ContentLi key={item.productNo}>
-                <cart.Thumbnail src={item.productImg} alt={item.productName} />
+                <cart.Thumbnail src={item.productImageUrl} alt={item.productName} />
                 <cart.ProductInfo>{item.productName}</cart.ProductInfo>
                 <cart.QtyContainer>수량: {item.quantity}</cart.QtyContainer>
                 <cart.AmountContainer>

@@ -85,7 +85,7 @@ const CartPage: React.FC = () => {
                     onChange={() => handleSelectItem(item.productNo)}
                   />
                   <cart.Thumbnail
-                    src={item.productImg}
+                    src={item.productImageUrl}
                     alt={item.productName}
                   />
                   <cart.ProductInfo>{item.productName}</cart.ProductInfo>
