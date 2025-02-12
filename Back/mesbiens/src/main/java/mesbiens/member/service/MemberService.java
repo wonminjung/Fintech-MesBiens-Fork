@@ -2,17 +2,21 @@ package mesbiens.member.service;
 
 import java.util.Optional;
 
+import org.springframework.boot.json.JsonWriter.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.servlet.http.HttpServletResponse;
 import mesbiens.member.dto.MemberDTO;
 import mesbiens.member.dto.MemberResponseDTO;
+import mesbiens.member.repository.LoginRecordRepository;
 import mesbiens.member.repository.MemberRepository;
 import mesbiens.member.vo.MemberVO;
 import mesbiens.security.JwtTokenProvider;
 
 @Service
+@Transactional
 public class MemberService {
 
 	private final MemberRepository memberRepository;
@@ -21,10 +25,11 @@ public class MemberService {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final EmailService emailService;
 	private final VerificationCodeService verificationCodeService;
+	private final LoginRecordRepository loginRecordRepository;
 
 	public MemberService(MemberRepository memberRepository, LoginRecordService loginRecordService,
 			PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, EmailService emailService,
-			VerificationCodeService verificationCodeService) {
+			VerificationCodeService verificationCodeService, LoginRecordRepository loginRecordRepository) {
 
 		this.memberRepository = memberRepository;
 		this.loginRecordService = loginRecordService;
@@ -32,6 +37,7 @@ public class MemberService {
 		this.jwtTokenProvider = jwtTokenProvider;
 		this.emailService = emailService;
 		this.verificationCodeService = verificationCodeService;
+		this.loginRecordRepository = loginRecordRepository;
 
 	}
 
@@ -175,17 +181,21 @@ public class MemberService {
         }
     }
     //회원탈퇴
-	public boolean deleteMember(String memberId) {
-		Optional<MemberVO> memberOpt = memberRepository.findByMemberId(memberId);
-	    
-	    if (memberOpt.isEmpty()) {
-	        return false; // 사용자 없음
-	    }
+	public void deleteMember(String token) {
+		 String memberId = jwtTokenProvider.getMemberId(token); // 토큰에서 memberId 추출
+		    
+		    if (memberId == null) {
+		        throw new RuntimeException("잘못된 토큰입니다. 다시 로그인하세요.");
+		    }
 
-	    memberRepository.delete(memberOpt.get());
-	    return true; // 삭제 성공
-	}
+		    MemberVO member = memberRepository.findByMemberId(memberId)
+		        .orElseThrow(() -> new RuntimeException("해당 회원을 찾을 수 없습니다."));
+
+		    memberRepository.delete(member);
+		}
 }
+
+
 
 
 

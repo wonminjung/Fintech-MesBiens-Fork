@@ -39,6 +39,20 @@ const IntroPageBeforeLogin: React.FC = () => {
     }
   }, [cookies.rememberMe]);
 
+  const fetchJwtToken = async () => {
+    const response = await fetch(`http://localhost:7200/members/get-jwt`, {
+        method: "GET",
+        credentials: "include", //  쿠키 포함
+    });
+
+    if (response.ok) {
+        const { jwt } = await response.json();
+        return jwt;
+    }
+
+    return null;
+};
+
   const HandleLogin = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -74,6 +88,8 @@ const IntroPageBeforeLogin: React.FC = () => {
       }
       // 응답을 JSON으로 파싱하여 처리
       const result = await response.json();
+      //로그인 성공 후 jwt 쿠키 가져오기
+      const jwtToken = await fetchJwtToken();
 
       // Redux에 로그인 정보 저장
       dispatch(
@@ -88,7 +104,7 @@ const IntroPageBeforeLogin: React.FC = () => {
             memberBirth: result.memberBirth,
             memberProfile: result.memberProfile,
           },
-          token: result.token,
+          token: jwtToken,
           isAuthenticated: true,
         })
       );

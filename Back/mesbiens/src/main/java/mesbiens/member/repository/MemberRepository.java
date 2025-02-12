@@ -21,5 +21,6 @@ public interface MemberRepository extends JpaRepository<MemberVO, Integer> {
     
     // 게시판에서 MemberNo 기준으로 조회하는 메소드
     MemberVO getMemberByMemberNo(int memberNo);
+
     
 }
