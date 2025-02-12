@@ -174,6 +174,17 @@ public class MemberService {
             throw new RuntimeException("인증번호 발송 중 오류 발생: " + e.getMessage());
         }
     }
+    //회원탈퇴
+	public boolean deleteMember(String memberId) {
+		Optional<MemberVO> memberOpt = memberRepository.findByMemberId(memberId);
+	    
+	    if (memberOpt.isEmpty()) {
+	        return false; // 사용자 없음
+	    }
+
+	    memberRepository.delete(memberOpt.get());
+	    return true; // 삭제 성공
+	}
 }
 
 

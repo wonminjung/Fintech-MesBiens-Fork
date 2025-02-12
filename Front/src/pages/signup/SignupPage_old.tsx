@@ -62,6 +62,7 @@ const SignupPage: React.FC = () => {
                   memberBirth: result.memberBirth || "",  // 생일
                   memberProfile: result.memberProfile || "",  // 프로필
                 },
+                token: result.token,
                 isAuthenticated: false,  // 회원가입 후 인증되지 않은 상태로 설정
               }));
   

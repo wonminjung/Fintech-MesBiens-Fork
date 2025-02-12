@@ -10,7 +10,9 @@ import { RootState } from "../../modules/store/store";
 import ModalFunc from "../../components/modal/utils/ModalFunc";
 import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 import ModalRendererComponent from "../../components/modal/ModalRendererComponent";
-
+import GoogleLoginButton from "../../components/button/GoogleLoginButton";
+import NaverLoginButton from "../../components/button/NaverLoginButton";
+import KakaoLoginButton from "../../components/button/KakaoLoginButton";
 const SignupPage: React.FC = () => {
   const { handleModal } = ModalFunc();
   const [name, setName] = useState("");
@@ -92,6 +94,7 @@ const SignupPage: React.FC = () => {
             memberBirth: result.memberBirth || "",  // 생일
             memberProfile: result.memberProfile || "",  // 프로필
           },
+          token: result.token,
           isAuthenticated: false,  // 회원가입 후 인증되지 않은 상태로 설정
         }));
   
@@ -157,9 +160,13 @@ const SignupPage: React.FC = () => {
             <span>또는</span>
           </L.Divider>
           <L.SNSLogin>
-            <L.SNSButton id={"NaverLogin"} />
-            <L.SNSButton id={"KakaoLogin"} />
-            <L.SNSButton id={"GoogleLogin"} />
+            <NaverLoginButton/>
+            <KakaoLoginButton/>
+            {/*<L.SNSButton id={"NaverLogin"} />*/}
+            {/*<L.SNSButton id={"KakaoLogin"} />*/}
+            {/*<L.SNSButton id={"GoogleLogin"} />*/}
+            <GoogleLoginButton />
+           {/*<GoogleLoginButton /> */} 
           </L.SNSLogin>
         </L.Container_bottom>
         <L.SignUp>

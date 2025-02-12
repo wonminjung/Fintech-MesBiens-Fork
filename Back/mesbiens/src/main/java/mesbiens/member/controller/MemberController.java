@@ -8,10 +8,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -139,7 +141,69 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그아웃 실패: " + e.getMessage());
 		}
 	}
+	 //비밀번호 검증
+	 @PostMapping("/validate-password")
+	 public ResponseEntity<?> validatePassword(@RequestBody Map<String, String> request, @RequestHeader(value = "Authorization", required = false) String token) {
+		    //  JWT 토큰 확인 로그 추가
+		    System.out.println("받은 Authorization 헤더: " + token);
 
+		    if (token == null || !token.startsWith("Bearer ")) {
+		        return ResponseEntity.status(401).body("로그인이 필요합니다. (Authorization 헤더 없음)");
+		    }
+
+		    //  JWT에서 사용자 ID 가져오기
+		    String memberId;
+		    try {
+		        memberId = jwtTokenProvider.getMemberId(token.replace("Bearer ", ""));
+		    } catch (Exception e) {
+		        return ResponseEntity.status(401).body("JWT 토큰이 유효하지 않습니다.");
+		    }
+
+		    System.out.println("JWT에서 추출한 memberId: " + memberId);
+
+		    if (memberId == null) {
+		        return ResponseEntity.status(401).body("로그인이 필요합니다. (유효하지 않은 토큰)");
+		    }
+
+		    Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
+		    if (memberOpt.isEmpty()) {
+		        return ResponseEntity.status(404).body("사용자를 찾을 수 없습니다.");
+		    }
+
+		    MemberVO member = memberOpt.get();
+		    String password = request.get("password");
+
+		    //  비밀번호 검증 로그 추가
+		    System.out.println("입력된 비밀번호: " + password);
+
+		    if (!passwordEncoder.matches(password, member.getMemberPassword())) {
+		        return ResponseEntity.status(401).body("비밀번호가 일치하지 않습니다.");
+		    }
+
+		    return ResponseEntity.ok("비밀번호 검증 성공");
+		}
+
+	    //회원 탈퇴
+	    @DeleteMapping("/delete")
+	    public ResponseEntity<?> deleteMember(@RequestHeader("Authorization") String token, HttpServletResponse response) {
+	        // JWT 토큰에서 사용자 ID 가져오기
+	        String memberId = jwtTokenProvider.getMemberId(token.replace("Bearer ", ""));
+	        if (memberId == null) {
+	            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+	        }
+
+	        // 회원 탈퇴 처리
+	        boolean deleted = memberService.deleteMember(memberId);
+	        if (!deleted) {
+	            return ResponseEntity.status(500).body("회원 탈퇴 중 오류가 발생했습니다.");
+	        }
+
+	        // JWT 쿠키 삭제
+	        jwtTokenProvider.removeJwtTokenFromCookie(response);
+
+	        return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+	    }
+	
 	// 사용자 정보 조회 (JWT 인증 필수)
 	@GetMapping("/me")
 	public ResponseEntity<MemberResponseDTO> getMember(HttpServletRequest request) {
