@@ -40,6 +40,18 @@ public class AccountDAOImpl implements AccountDAO {
 	public int delAcct(int accountNo) {
 		return acctJpaRepo.delAcct(accountNo);
 	}
+
+	// 계좌번호 존재하는지 검색
+	@Override
+	public boolean existsByAcctNumber(String accountNumber) {
+		return acctJpaRepo.findByAccountNumber(accountNumber) != null;
+	}
+
+	// 계좌번호를 기준으로 계좌 PK 가져오기
+	@Override
+	public int acctNumToAcctNo(String accountNumber) {
+		return acctJpaRepo.findByAccountNumber(accountNumber).getAccountNo();
+	}
 	
 	
 	
