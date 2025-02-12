@@ -3,10 +3,7 @@ import ModalFunc from "../modal/utils/ModalFunc";
 import I from "./InputterStyle";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../modules/store/store";
-import {
-  ApiResponse,
-  setMessage,
-} from "../../modules/transaction/accountPwdSlice";
+import { ApiResponse, setMessage } from "../../modules/transaction/apiResponse";
 
 const PASSWORD_MAX_LENGTH = 8; // 비밀번호 입력길이 제한 설정
 

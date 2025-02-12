@@ -12,9 +12,11 @@ const AccountPwdModal: React.FC = () => {
   return (
     <Memo.MainContainer>
       <h1>계좌 비밀번호 입력</h1>
-      <p>입금 은행 : {transactionProps?.receiverAccountNumber}</p>
-      <p>출금 은행 : {transactionProps?.senderAccountNumber}</p>
-      <p>송금 금액 : {transactionProps?.trnsBalance}</p>
+      {/* <p>입금 계좌 : {transactionProps?.receiverAccountNumber}</p>
+      <p>출금 계좌 : {transactionProps?.senderAccountNumber}</p>
+      <p>
+        송금 금액 : {Number(transactionProps?.trnsBalance).toLocaleString()}원
+      </p> */}
       <Inputter />
     </Memo.MainContainer>
   );

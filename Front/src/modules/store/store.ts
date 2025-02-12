@@ -4,7 +4,7 @@ import { cartSlice } from "../cart/cartSlice";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../user/userSlice";
 import { memoSlice } from "../transaction/memoSlice";
-import { apiResponse } from "../transaction/accountPwdSlice";
+import { apiResponse } from "../transaction/apiResponse";
 
 export const store = configureStore({
   reducer: {

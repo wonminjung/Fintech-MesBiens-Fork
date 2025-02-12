@@ -7,6 +7,8 @@ import { RootState } from "../../modules/store/store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Account } from "../assets/types";
+import { useDispatch } from "react-redux";
+import { resetMessage } from "../../modules/transaction/apiResponse";
 
 const Transaction: React.FC = () => {
   const [showBankDetails, setShowBankDetails] = useState(false);
@@ -22,6 +24,7 @@ const Transaction: React.FC = () => {
   const navigate = useNavigate();
   const { member } = useSelector((state: RootState) => state.user);
   const [bankInfo, setBankInfo] = useState<Account[]>([]);
+  const dispatch = useDispatch();
 
   const { message } = useSelector((state: RootState) => state.apiResponse);
 
@@ -32,19 +35,28 @@ const Transaction: React.FC = () => {
     const 입력금액 = event.target.value;
     set입력금액(입력금액);
   };
+
   const handle금액 = () => {
     console.log(`출금 금액: ${입력금액}`);
   };
+
   const handleInputClick = () => {
     console.log("입금 계좌번호 : " + 계좌번호);
-    if (계좌번호.length >= 10 && 계좌번호.length <= 14) {
-      setShowBankDetails(true);
-    } else if (계좌번호 === "") {
-      alert("계좌번호를 입력하세요.");
-    } else {
-      alert("계좌번호를 확인하세요.");
+    if (accountNumberRef.current) {
+      const inputAcctNum = accountNumberRef.current.value;
+      set계좌번호(inputAcctNum);
+      if (inputAcctNum.length >= 10 && inputAcctNum.length <= 14) {
+        setShowBankDetails(true);
+      } else if (inputAcctNum === "") {
+        alert("계좌번호를 입력하세요.");
+      } else {
+        alert("계좌번호를 확인하세요.");
+      }
     }
+
+    console.log(accountNumberRef.current?.value);
   };
+
   const handleInputClick2 = () => {
     setShowLastInfo(true);
   };
@@ -73,6 +85,11 @@ const Transaction: React.FC = () => {
     set계좌번호(selectedBankKey || "");
   };
 
+  const handleBankSelect2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedBank = event.target.value;
+    setSelectedBank(selectedBank);
+  };
+
   const handleMyBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const mySelectedBank = event.target.value;
     const selectedMyBankKey =
@@ -86,11 +103,6 @@ const Transaction: React.FC = () => {
     }
   };
 
-  const handle계좌번호 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const 계좌번호 = event.target.value;
-    set계좌번호(계좌번호);
-  };
-
   const handleToMain = () => {
     setShowConfirm(false);
     navigate("/main");
@@ -100,6 +112,7 @@ const Transaction: React.FC = () => {
     if (accountNumberRef.current) {
       accountNumberRef.current.focus();
     }
+    dispatch(resetMessage());
   }, []);
 
   const handleSendMemo = () => {
@@ -142,14 +155,13 @@ const Transaction: React.FC = () => {
         <T.H1>어디로 돈을 보낼까요?</T.H1>
         <T.NumInput
           placeholder={"계좌번호 입력 (- 제외)"}
-          onChange={handle계좌번호}
           ref={accountNumberRef}
         />
         <T.Button onClick={handleInputClick}>입력</T.Button>
         {showBankDetails && <T.H1>어떤 계좌로 보낼까요?</T.H1>}
         {showBankDetails && (
           <>
-            <T.Select id="BankSelect" onChange={handleBankSelect}>
+            <T.Select id="BankSelect" onChange={handleBankSelect2}>
               <option value="" disabled selected>
                 은행 선택
               </option>
