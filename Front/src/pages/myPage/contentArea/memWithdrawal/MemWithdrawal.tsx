@@ -1,19 +1,43 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import S from './style';
 import { RootState } from '../../../../modules/store/store';
 import { useSelector } from 'react-redux';
+import { useCookies } from "react-cookie";
 
 const BASE_URL = "http://localhost:7200"; // 백엔드 서버 주소
 
 const MemWithdrawal: React.FunctionComponent = () => {
-    const { member, token } = useSelector((state: RootState) => state.user);//Redux에서 현재 로그인된 사용자 정보 가져오기
-    
-    // 사용자 입력 상태
+    const userState = useSelector((state: RootState) => state.user);
+    const { token: reduxToken } = userState || {}; // Redux에서 token 가져오기
+
+    console.log("Redux User State:", userState);
+    console.log("Redux Token:", reduxToken);
+
+    const [cookies] = useCookies<string>(["jwtToken"]); // useCookies 훅 사용
+    console.log("쿠키 전체:", cookies);
+    console.log("Cookies jwtToken:", cookies.jwtToken);
+
+    // document.cookie로 쿠키 직접 확인 (HttpOnly 쿠키는 접근 불가)
+    console.log("document.cookie 값:", document.cookie);
+    const cookieToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("jwtToken="))
+        ?.split("=")[1];
+
+    console.log("Cookie Token from document.cookie:", cookieToken);
+
+    // localStorage 확인
+    const localStorageToken = localStorage.getItem("jwtToken");
+    console.log("Local Storage Token:", localStorageToken);
+
+    // 최종적으로 token 설정
+    const token = reduxToken || cookies.jwtToken || localStorageToken;
+    console.log("Final Token:", token);
+
+    const [isUserDeleted, setIsUserDeleted] = useState<boolean>(false); // 회원 탈퇴 여부 상태 추가
     const [inputPwd, setInputPwd] = useState<string>(""); // 입력한 비밀번호
     const [error, setError] = useState<string>(""); // 에러 메시지 상태
     const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false); // 탈퇴 확인 모달 상태
-    
-
     const notiList = [
         {
             notiId: 1,
@@ -31,7 +55,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
         }
     ];
 
-           /** 비밀번호 입력 핸들러 */
+     /** 비밀번호 입력 핸들러 */
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputPwd(e.target.value);
         setError(""); // 에러 메시지 초기화
@@ -44,14 +68,12 @@ const MemWithdrawal: React.FunctionComponent = () => {
             return;
         }
 
+        if (!token) {
+            setError("로그인이 필요합니다.");
+            return;
+        }
+
         try {
-            console.log(" Redux에서 가져온 토큰:", token);
-
-            if (!token) {
-                setError("로그인이 필요합니다.");
-                return;
-            }
-
             console.log(" 프론트에서 전송할 Authorization 헤더:", `Bearer ${token}`);
 
             const response = await fetch(`${BASE_URL}/members/validate-password`, {
@@ -64,7 +86,6 @@ const MemWithdrawal: React.FunctionComponent = () => {
                 body: JSON.stringify({ password: inputPwd }),
             });
 
-            console.log(" API 응답 상태:", response.status);
             const responseData = await response.text();
             console.log(" 응답 본문:", responseData);
 
@@ -82,85 +103,120 @@ const MemWithdrawal: React.FunctionComponent = () => {
             setError("서버 오류가 발생했습니다.");
         }
     };
+    // userID 쿠키 삭제 함수
+const removeUserIDCookie = () => {
+    document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; secure; SameSite=None;";
+};
 
     /** 회원 탈퇴 요청 */
-    const handleDeleteAccount = async () => {
-        try {
-            console.log(" 회원 탈퇴 요청 시 토큰:", token);
+const handleDeleteAccount = async () => {
+    if (!token) {
+        setError("로그인이 필요합니다.");
+        return;
+    }
 
-            if (!token) {
-                setError("로그인이 필요합니다.");
-                return;
-            }
+    try {
+        console.log(" 회원 탈퇴 요청 시 토큰:", token);
 
-            const response = await fetch(`${BASE_URL}/members/delete`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                credentials: "include",
-            });
+        const response = await fetch(`${BASE_URL}/members/delete`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            credentials: "include",
+        });
 
-            console.log(" 탈퇴 API 응답 상태:", response.status);
-            const responseData = await response.text();
-            console.log(" 탈퇴 응답 본문:", responseData);
+        const responseData = await response.text();
+        console.log(" 탈퇴 응답 본문:", responseData);
 
-            if (response.ok) {
-                alert("회원 탈퇴가 완료되었습니다.");
-                window.location.href = "/";
-            } else {
-                alert("회원 탈퇴 중 오류가 발생했습니다.");
-            }
-        } catch (error) {
-            console.error(" 회원 탈퇴 오류:", error);
+        if (response.ok) {
+            alert("회원 탈퇴가 완료되었습니다.");
+
+              
+            //  쿠키 및 localStorage에서 userID 삭제
+            localStorage.removeItem("userId"); // localStorage에서 userId 삭제
+            sessionStorage.removeItem("userId"); // sessionStorage에서 userId 삭제 (필요한 경우)
+
+            // 쿠키에서 userID 삭제
+            removeUserIDCookie();
+
+            //  쿠키 및 Redux 스토어 초기화 (로그아웃 처리)
+            document.cookie = "jwtToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            localStorage.removeItem("jwtToken");
+
+            // 강제로 페이지 리디렉션 (캐시 문제 해결)
+            setIsUserDeleted(true);
+        } else {
             alert("회원 탈퇴 중 오류가 발생했습니다.");
         }
-    };
+    } catch (error) {
+        console.error("회원 탈퇴 오류:", error);
+        alert("회원 탈퇴 중 오류가 발생했습니다.");
+    }
+};
+    
+return (
+    <S.SelectedMenuHeaderContainer>
+        {isUserDeleted ? (
+            <S.Modal>
+                <S.ModalContent>
+                    <S.NotiTitle>회원 탈퇴가 완료되었습니다.</S.NotiTitle>
+                    <S.NotiDescription>
+                        다시 로그인하려면 새 계정을 만들어주세요.
+                    </S.NotiDescription>
+                    <S.BtnContainer>
+                        <S.Btn onClick={() => window.location.href = "/"}>홈으로</S.Btn>
+                    </S.BtnContainer>
+                </S.ModalContent>
+            </S.Modal>
+        ) : (
+            <>
+                <S.MenuTitle>회원 탈퇴</S.MenuTitle>
 
-    return (
-        <S.SelectedMenuHeaderContainer>
-            <S.MenuTitle>회원 탈퇴</S.MenuTitle>
+                <S.WithdrawalNotiContainer>
+                    <S.NotiWrapper>
+                        {notiList.map(({ notiId, title, desc }) => (
+                            <S.NotiList key={notiId}>
+                                <S.NotiTitle>{title}</S.NotiTitle>
+                                <S.NotiDescription style={{ whiteSpace: "pre-line" }}>{desc}</S.NotiDescription>
+                            </S.NotiList>
+                        ))}
+                    </S.NotiWrapper>
+                </S.WithdrawalNotiContainer>
 
-            <S.WithdrawalNotiContainer>
-                <S.NotiWrapper>
-                    {notiList.map(({ notiId, title, desc }) => (
-                        <S.NotiList key={notiId}>
-                            <S.NotiTitle>{title}</S.NotiTitle>
-                            <S.NotiDescription style={{ whiteSpace: "pre-line" }}>{desc}</S.NotiDescription>
-                        </S.NotiList>
-                    ))}
-                </S.NotiWrapper>
-            </S.WithdrawalNotiContainer>
+                <S.GuideContainer>
+                    <S.GuideSpan>유의사항을 모두 확인하였으면 <strong>"현재 패스워드"</strong>를 입력하세요.</S.GuideSpan>
+                    <S.GuideInput 
+                        type="password" 
+                        onChange={handlePasswordChange} 
+                        value={inputPwd}
+                    />
+                    {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
+                </S.GuideContainer>
 
-            <S.GuideContainer>
-                <S.GuideSpan>유의사항을 모두 확인하였으면 <strong>"현재 패스워드"</strong>를 입력하세요.</S.GuideSpan>
-                <S.GuideInput type="password" 
-                onChange={handlePasswordChange} 
-                value={inputPwd}/>
-                {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
-            </S.GuideContainer>
+                <S.BtnContainer>
+                    <S.Btn onClick={validatePassword}>확인</S.Btn>
+                </S.BtnContainer>
 
-            <S.BtnContainer>
-                <S.Btn onClick={validatePassword}>확인</S.Btn>
-            </S.BtnContainer>
-
-            {isConfirmOpen && (
-                <S.Modal>
-                    <S.ModalContent>
-                        <S.NotiTitle>정말 회원 탈퇴하시겠습니까?</S.NotiTitle>
-                        <S.NotiDescription>
-                            탈퇴하면 계정이 삭제되며 모든 데이터가 사라집니다.
-                        </S.NotiDescription>
-                        <S.BtnContainer>
-                            <S.Btn onClick={handleDeleteAccount}>회원 탈퇴</S.Btn>
-                            <S.CancelBtn onClick={() => setIsConfirmOpen(false)}>돌아가기</S.CancelBtn>
-                        </S.BtnContainer>
-                    </S.ModalContent>
-                </S.Modal>
-            )}
-        </S.SelectedMenuHeaderContainer>
-    );
+                {isConfirmOpen && (
+                    <S.Modal>
+                        <S.ModalContent>
+                            <S.NotiTitle>정말 회원 탈퇴하시겠습니까?</S.NotiTitle>
+                            <S.NotiDescription>
+                                탈퇴하면 계정이 삭제되며 모든 데이터가 사라집니다.
+                            </S.NotiDescription>
+                            <S.BtnContainer>
+                                <S.Btn onClick={handleDeleteAccount}>회원 탈퇴</S.Btn>
+                                <S.CancelBtn onClick={() => setIsConfirmOpen(false)}>돌아가기</S.CancelBtn>
+                            </S.BtnContainer>
+                        </S.ModalContent>
+                    </S.Modal>
+                )}
+            </>
+        )}
+    </S.SelectedMenuHeaderContainer>
+);
 };
 
 export default MemWithdrawal;

@@ -1,12 +1,17 @@
 package mesbiens.member.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +31,7 @@ import mesbiens.member.dto.FindPasswordRequest;
 import mesbiens.member.dto.LoginRequest;
 import mesbiens.member.dto.MemberDTO;
 import mesbiens.member.dto.MemberResponseDTO;
+import mesbiens.member.service.CustomAuthenticationException;
 import mesbiens.member.service.LoginRecordService;
 import mesbiens.member.service.MemberService;
 import mesbiens.member.service.VerificationCodeService;
@@ -133,77 +142,90 @@ public class MemberController {
 			// 로그인 기록 업데이트
 			loginRecordService.logout(recordNo);
 
-			// JWT 쿠키 삭제
-			jwtTokenProvider.removeJwtTokenFromCookie(response);
+			// JWT 쿠키 삭제 (강제 리디렉트 방지)
+			 Cookie cookie = new Cookie("Authorization", null);
+		        cookie.setHttpOnly(true);
+		        cookie.setSecure(true); // HTTPS 환경에서만 적용
+		        cookie.setPath("/"); // 모든 경로에서 쿠키 삭제 적용
+		        cookie.setMaxAge(0); // 즉시 만료
+		        response.addCookie(cookie);
 
-			return ResponseEntity.ok("로그아웃 성공");
+			// 클라이언트가 추가적인 처리를 할 수 있도록 JSON 응답 반환
+			return ResponseEntity.ok().body("{\"message\": \"로그아웃 성공\"}");
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그아웃 실패: " + e.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("{\"message\": \"로그아웃 실패: " + e.getMessage() + "\"}");
 		}
 	}
-	 //비밀번호 검증
-	 @PostMapping("/validate-password")
-	 public ResponseEntity<?> validatePassword(@RequestBody Map<String, String> request, @RequestHeader(value = "Authorization", required = false) String token) {
-		    //  JWT 토큰 확인 로그 추가
-		    System.out.println("받은 Authorization 헤더: " + token);
 
-		    if (token == null || !token.startsWith("Bearer ")) {
-		        return ResponseEntity.status(401).body("로그인이 필요합니다. (Authorization 헤더 없음)");
-		    }
+	// 비밀번호 검증
+	@PostMapping("/validate-password")
+	public ResponseEntity<?> validatePassword(@RequestBody Map<String, String> request,
+			@RequestHeader(value = "Authorization", required = false) String token) {
+		// JWT 토큰 확인 로그 추가
+		System.out.println("받은 Authorization 헤더: " + token);
 
-		    //  JWT에서 사용자 ID 가져오기
-		    String memberId;
-		    try {
-		        memberId = jwtTokenProvider.getMemberId(token.replace("Bearer ", ""));
-		    } catch (Exception e) {
-		        return ResponseEntity.status(401).body("JWT 토큰이 유효하지 않습니다.");
-		    }
-
-		    System.out.println("JWT에서 추출한 memberId: " + memberId);
-
-		    if (memberId == null) {
-		        return ResponseEntity.status(401).body("로그인이 필요합니다. (유효하지 않은 토큰)");
-		    }
-
-		    Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
-		    if (memberOpt.isEmpty()) {
-		        return ResponseEntity.status(404).body("사용자를 찾을 수 없습니다.");
-		    }
-
-		    MemberVO member = memberOpt.get();
-		    String password = request.get("password");
-
-		    //  비밀번호 검증 로그 추가
-		    System.out.println("입력된 비밀번호: " + password);
-
-		    if (!passwordEncoder.matches(password, member.getMemberPassword())) {
-		        return ResponseEntity.status(401).body("비밀번호가 일치하지 않습니다.");
-		    }
-
-		    return ResponseEntity.ok("비밀번호 검증 성공");
+		if (token == null || !token.startsWith("Bearer ")) {
+			return ResponseEntity.status(401).body("로그인이 필요합니다. (Authorization 헤더 없음)");
 		}
 
-	    //회원 탈퇴
-	    @DeleteMapping("/delete")
-	    public ResponseEntity<?> deleteMember(@RequestHeader("Authorization") String token, HttpServletResponse response) {
-	        // JWT 토큰에서 사용자 ID 가져오기
-	        String memberId = jwtTokenProvider.getMemberId(token.replace("Bearer ", ""));
-	        if (memberId == null) {
-	            return ResponseEntity.status(401).body("로그인이 필요합니다.");
-	        }
+		// JWT에서 사용자 ID 가져오기
+		String memberId;
+		try {
+			memberId = jwtTokenProvider.getMemberId(token.replace("Bearer ", ""));
+		} catch (Exception e) {
+			return ResponseEntity.status(401).body("JWT 토큰이 유효하지 않습니다.");
+		}
 
-	        // 회원 탈퇴 처리
-	        boolean deleted = memberService.deleteMember(memberId);
-	        if (!deleted) {
-	            return ResponseEntity.status(500).body("회원 탈퇴 중 오류가 발생했습니다.");
-	        }
+		System.out.println("JWT에서 추출한 memberId: " + memberId);
 
-	        // JWT 쿠키 삭제
-	        jwtTokenProvider.removeJwtTokenFromCookie(response);
+		if (memberId == null) {
+			return ResponseEntity.status(401).body("로그인이 필요합니다. (유효하지 않은 토큰)");
+		}
 
-	        return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+		Optional<MemberVO> memberOpt = memberService.findByMemberId(memberId);
+		if (memberOpt.isEmpty()) {
+			return ResponseEntity.status(404).body("사용자를 찾을 수 없습니다.");
+		}
+
+		MemberVO member = memberOpt.get();
+		String password = request.get("password");
+
+		// 비밀번호 검증 로그 추가
+		System.out.println("입력된 비밀번호: " + password);
+
+		if (!passwordEncoder.matches(password, member.getMemberPassword())) {
+			return ResponseEntity.status(401).body("비밀번호가 일치하지 않습니다.");
+		}
+
+		return ResponseEntity.ok("비밀번호 검증 성공");
+	}
+
+	// 회원 탈퇴
+	@DeleteMapping("/delete")
+	public ResponseEntity<String> deleteMember(@RequestHeader("Authorization") String authorizationHeader, HttpServletResponse response) {
+	    if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+	        throw new CustomAuthenticationException("JWT 토큰이 제공되지 않았습니다.");
 	    }
-	
+
+	    String token = authorizationHeader.substring(7); // "Bearer " 이후의 실제 토큰 부분만 추출
+	    memberService.deleteMember(token);
+	    
+	    // 회원 탈퇴 후 JWT 쿠키 삭제
+	    removeJwtTokenFromCookie(response);
+	    
+	    return ResponseEntity.ok("회원 삭제 성공");
+	}
+	private void removeJwtTokenFromCookie(HttpServletResponse response) {
+		Cookie cookie = new Cookie("jwt", null);
+	    cookie.setHttpOnly(true);
+	    cookie.setSecure(true);  // HTTPS 환경에서만 전송되도록 설정 (필요시 사용)
+	    cookie.setPath("/");  // 전체 경로에서 사용 가능하도록 설정
+	    cookie.setMaxAge(0);  // 쿠키의 유효 기간을 0으로 설정하여 삭제
+	    response.addCookie(cookie);
+		
+	}
+
 	// 사용자 정보 조회 (JWT 인증 필수)
 	@GetMapping("/me")
 	public ResponseEntity<MemberResponseDTO> getMember(HttpServletRequest request) {
@@ -230,6 +252,19 @@ public class MemberController {
 
 		MemberVO member = memberOpt.get();
 		return ResponseEntity.ok(new MemberResponseDTO(member)); // 정상적으로 사용자 정보를 반환
+	}
+
+	@GetMapping("/get-jwt")
+	public ResponseEntity<Map<String, String>> getJwtFromCookie(
+			@CookieValue(name = "jwt", required = false) String jwt) {
+		if (jwt == null || jwt.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // 토큰이 없으면 401 반환
+		}
+
+		Map<String, String> response = new HashMap<>();
+		response.put("jwt", jwt);
+
+		return ResponseEntity.ok(response); // { "jwt": "토큰값" } 반환
 	}
 
 	// 회원 아이디 찾기
@@ -285,17 +320,18 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 재설정 요청 실패: " + e.getMessage());
 		}
 	}
-	//비밀번호 변경
+
+	// 비밀번호 변경
 	@PostMapping("/reset-password")
 	public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) {
-	    String email = request.get("email");
-	    String newPassword = request.get("newPassword");
-	  
-	    try {
-	        memberService.resetPassword(email, newPassword);  // 비밀번호 변경 로직
-	        return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경 실패: " + e.getMessage());
-	    }
+		String email = request.get("email");
+		String newPassword = request.get("newPassword");
+
+		try {
+			memberService.resetPassword(email, newPassword); // 비밀번호 변경 로직
+			return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경 실패: " + e.getMessage());
+		}
 	}
 }
