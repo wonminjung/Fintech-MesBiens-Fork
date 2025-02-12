@@ -3,6 +3,6 @@ export interface ProductData {
   accountNo: number;
   productName: string;
   productPrice: number;
-  productImg: string;
+  productImageUrl: string;
   quantity: number;
 }

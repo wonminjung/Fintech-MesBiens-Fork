@@ -18,31 +18,68 @@ const ProductPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // const fetchProductData = async () => {
+    //   try {
+    //     const response = await fetch(
+    //       `${process.env.REACT_APP_SERVER_URL}/shop/category/All`
+    //       // `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
+    //       , {
+    //         method: "GET",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       }
+    //     );
+    //     console.log(response);
+    //     const text = await response.text();
+    //     console.log(text);
+
+    //     if (!response.ok) {
+    //       throw new Error(`❌ 서버 오류: ${response.status}`);
+    //     }
+
+    //     const data: ProductData[] = await response.json();
+    //     console.log(data);
+    //     const selectedProduct = data.find(
+    //       (item) => item.productNo === Number(productNo)
+    //     );
+    //     setProduct(selectedProduct || null);
+    //   } catch (error) {
+    //     console.error("Error fetching product data:", error);
+    //   }
+    // };
     const fetchProductData = async () => {
       try {
+        console.log("📢 fetch 요청 시작");
+
         const response = await fetch(
-          // `${process.env.REACT_APP_SERVER_URL}/shop/catogry/All`
-          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
-          // , {
-          //   method: "GET",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // }
+          `${process.env.REACT_APP_SERVER_URL}/product/{productNo}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
-        // console.log(response);
-        // const text = await response.text();
-        // console.log(text);
-        const data: ProductData[] = await response.json();
-        console.log(data);
-        const selectedProduct = data.find(
-          (item) => item.productNo === Number(productNo)
-        );
-        setProduct(selectedProduct || null);
+
+        console.log("📢 Response Status:", response.status);
+
+        const text = await response.text();
+        console.log("📢 Raw response:", text);
+
+        if (!response.ok) {
+          throw new Error(`❌ 서버 오류: ${response.status}`);
+        }
+
+        const data: ProductData[] = JSON.parse(text);
+        console.log("📢 Parsed data:", data);
+        setProduct(data.find((item) => item.productNo === Number(productNo)) || null);
       } catch (error) {
-        console.error("Error fetching product data:", error);
+        console.error("❌ Error fetching product data:", error);
       }
     };
+
+
 
     fetchProductData();
   }, [productNo]);
@@ -54,7 +91,7 @@ const ProductPage: React.FC = () => {
         accountNo: product.accountNo,
         productName: product.productName,
         productPrice: product.productPrice,
-        productImg: product.productImg,
+        productImageUrl: product.productImageUrl,
         quantity,
       };
       dispatch(addToCart(cartItem)); // cartItem 객체를 addToCart 액션에 전달
@@ -71,7 +108,7 @@ const ProductPage: React.FC = () => {
         productNo: product.productNo,
         productName: product.productName,
         productPrice: product.productPrice,
-        productImg: product.productImg,
+        productImageUrl: product.productImageUrl,
         quantity,
       };
       navigate("/shop/Purchase", { state: { selectedProducts: [selectedProduct] } });
@@ -88,7 +125,7 @@ const ProductPage: React.FC = () => {
 
       <shop.BodyContainer>
         <p.ContentContainer>
-          <p.ProductImg src={product.productImg} alt={product.productName} />
+          <p.ProductImg src={product.productImageUrl} alt={product.productName} />
           <p.ProductInfo>
             <h1>{product.productName}</h1>
             <h3>{product.productPrice.toLocaleString()}원</h3>

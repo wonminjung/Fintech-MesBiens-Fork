@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shop")
+@RequestMapping
 @CrossOrigin(origins = "http://localhost:4000") // React 개발 서버 허용(하나의 URL에서 두개의 페이지를 불러올경우 CORS 방지)
 public class ProductController {
 
@@ -18,13 +18,16 @@ public class ProductController {
     private ProductService productService;
 
     // 전체 상품 목록 조회
-    @GetMapping("/category/All")
+    @GetMapping("/shop/category/All")
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
+    	System.out.println("📢 API 요청 받음: /shop/category/All"); // 요청 확인 로그
+        List<ProductDTO> products = productService.getAllProducts();
+        System.out.println("📢 반환할 데이터: " + products); // 반환 데이터 로그
         return ResponseEntity.ok(productService.getAllProducts());
     }
     
     // 특정 카테고리 상품 목록 조회
-    @GetMapping("/category/{category}")
+    @GetMapping("/shop/category/{category}")
     public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable(name = "category") String category) {
     	return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
