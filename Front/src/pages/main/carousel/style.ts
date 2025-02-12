@@ -11,7 +11,7 @@ export const C = {
     margin: auto; /* 중앙 정렬 */
     align-items: center;
   `,
-  CarouselImg: styled.img`
+  CarouselVideo: styled.video`
     width: 100%;
     height: auto;
   `,
