@@ -9,7 +9,7 @@ const LoginRequireModal: React.FC = () => {
 
   const handleButton = () => {
     closeModal();
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {

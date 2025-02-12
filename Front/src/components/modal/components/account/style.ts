@@ -1,11 +1,12 @@
 import { styled } from "styled-components";
 import DefaultButton from "../../../button/DefaultButton";
+import DefaultInputField from "../../../inputfield/InputField";
 
 const S = {
     /** AddAccount.tsx */
     Container: styled.div`
-        width: 400px;
-        height: 400px;
+        width: 450px;
+        height: 450px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -40,22 +41,39 @@ const S = {
         }
     `,
     Form: styled.form`
-        height: 64%;
+        height: 70%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     `,
     FormBody: styled.div`
-        padding-left: 52px;
-        margin-bottom: 32px;
+        display: flex;
+        justify-content: center;
     `,
-    FieldContainer: styled.div`
-        margin-bottom: 22px;
+    FieldContainer: styled.tr`
+        width: 300px;
+        & > th {
+            width: 40%;
+            text-align: left;
+        }
+
+        & > th, td {
+            padding: 10px 2px;
+        }
     `,
     FieldLabel: styled.label`
-        margin-right: 12px;
+        /* margin-right: 12px; */
     `,
-    FieldInput: styled.input`
+    SelectBank: styled.select`
+        padding: 12px 40px;
+        border-radius: 8px;
+    `,
+    FieldInput: styled(DefaultInputField)`
+        width: 100%;
+        height: 42px;
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 2px 18px;
         
     `,
     Footer: styled.div`

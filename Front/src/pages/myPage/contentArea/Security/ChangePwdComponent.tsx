@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import S from './style';
+import { RootState } from '../../../../modules/store/store';
+import { useSelector } from 'react-redux';
 
 const ChangePwdComponent: React.FunctionComponent = () => {
     const [ currentPass, setCurrentPass ] = useState<string>("");
@@ -7,12 +9,14 @@ const ChangePwdComponent: React.FunctionComponent = () => {
     const [ pass2, setPass2 ] = useState<string>("");
     const [ passCheck, setPassCheck ] = useState<boolean>(false);
     const [ pass2Check, setPass2Check ] = useState<boolean>(false);
-    const [ passMessage, setPassMessage ] = useState<string>("대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요.");
+    const [ passMessage, setPassMessage ] = useState<string>("");
     const [ pass2Message, setPass2Message ] = useState<string>("");
 
     const currentPassRef = useRef<HTMLInputElement>(null);
     const passRef = useRef<HTMLInputElement>(null);
     const pass2Ref = useRef<HTMLInputElement>(null);
+
+    const { member } = useSelector((state: RootState) => state.user);
 
     // 정규표현식 검사
     const hasLowercase = /[a-z]/;
@@ -80,11 +84,42 @@ const ChangePwdComponent: React.FunctionComponent = () => {
         refReset(pass2Ref);
     };
 
+    const fetchRequest = async () => {
+        console.log(passRef.current?.value);
+        console.log(member.memberEmail);
+        // 현재 패스워드도 같이 보내야 하는데 백엔드에서 아직 미완성
+        // currentPassword: currentPassRef.current?.value,
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/members/reset-password`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify(
+                    {
+                        
+                        email: member.memberEmail,
+
+                        newPassword: passRef.current?.value
+                    }
+                )
+            }
+        );
+        const data: any = await response.json();
+        // const message: string = await response.json();
+
+        // return message;
+        return { data, response };
+    };
+
     // 서버로 데이터 전송
     const handleSubmit = () => {
-        console.log(currentPass);
-        console.log(pass);
-        console.log(pass2);
+        fetchRequest()
+        .then(({ data, response }) => {
+            console.log(data);
+            console.log(response);
+        })
+        // .catch(() => alert("비밀번호 변경 실패"));
     };
 
     return (

@@ -3,9 +3,18 @@ import S from './style';
 import { RootState } from '../../../../modules/store/store';
 import { useSelector } from 'react-redux';
 import { useCookies } from "react-cookie";
+import { MenuList } from '../../types';
 
 const BASE_URL = "http://localhost:7200"; // 백엔드 서버 주소
 
+type Props = {
+    menuList: MenuList;
+}
+
+const MemWithdrawal: React.FunctionComponent<Props> = ({ menuList }) => {
+    const { member, token } = useSelector((state: RootState) => state.user);//Redux에서 현재 로그인된 사용자 정보 가져오기
+    
+    // 사용자 입력 상태
 const MemWithdrawal: React.FunctionComponent = () => {
     const userState = useSelector((state: RootState) => state.user);
     const { token: reduxToken } = userState || {}; // Redux에서 token 가져오기
@@ -43,7 +52,7 @@ const MemWithdrawal: React.FunctionComponent = () => {
             notiId: 1,
             title: "회원탈퇴 시 유의사항",
             desc: `탈퇴 이후에는 동일한 계정으로 복구가 불가능합니다.
-                   탈퇴 시 회원님의 모든 데이터가 삭제됩니다. 이는 계좌 정보, 퀴즈 기록 등이 포함됩니다.
+                   탈퇴 시 회원님의 모든 데이터가 삭제됩니다. 이는 계좌 정보 등이 포함됩니다.
                    일정 기간(예: 법적으로 요구되는 보존 기간 동안) 일부 데이터는 보존될 수 있습니다. 
                    예를 들어, 금융 거래 기록은 관련 규정에 따라 5년간 보관될 수 있습니다.`
         },
@@ -130,49 +139,21 @@ const handleDeleteAccount = async () => {
         const responseData = await response.text();
         console.log(" 탈퇴 응답 본문:", responseData);
 
-        if (response.ok) {
-            alert("회원 탈퇴가 완료되었습니다.");
-
-              
-            //  쿠키 및 localStorage에서 userID 삭제
-            localStorage.removeItem("userId"); // localStorage에서 userId 삭제
-            sessionStorage.removeItem("userId"); // sessionStorage에서 userId 삭제 (필요한 경우)
-
-            // 쿠키에서 userID 삭제
-            removeUserIDCookie();
-
-            //  쿠키 및 Redux 스토어 초기화 (로그아웃 처리)
-            document.cookie = "jwtToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            localStorage.removeItem("jwtToken");
-
-            // 강제로 페이지 리디렉션 (캐시 문제 해결)
-            setIsUserDeleted(true);
-        } else {
+            if (response.ok) {
+                alert("회원 탈퇴가 완료되었습니다.");
+                window.location.href = "/";
+            } else {
+                alert("회원 탈퇴 중 오류가 발생했습니다.");
+            }
+        } catch (error) {
+            console.error(" 회원 탈퇴 오류:", error);
             alert("회원 탈퇴 중 오류가 발생했습니다.");
         }
-    } catch (error) {
-        console.error("회원 탈퇴 오류:", error);
-        alert("회원 탈퇴 중 오류가 발생했습니다.");
-    }
-};
-    
-return (
-    <S.SelectedMenuHeaderContainer>
-        {isUserDeleted ? (
-            <S.Modal>
-                <S.ModalContent>
-                    <S.NotiTitle>회원 탈퇴가 완료되었습니다.</S.NotiTitle>
-                    <S.NotiDescription>
-                        다시 로그인하려면 새 계정을 만들어주세요.
-                    </S.NotiDescription>
-                    <S.BtnContainer>
-                        <S.Btn onClick={() => window.location.href = "/"}>홈으로</S.Btn>
-                    </S.BtnContainer>
-                </S.ModalContent>
-            </S.Modal>
-        ) : (
-            <>
-                <S.MenuTitle>회원 탈퇴</S.MenuTitle>
+    };
+
+    return (
+        <S.SelectedMenuHeaderContainer>
+            <S.MenuTitle>회원 탈퇴</S.MenuTitle>
 
                 <S.WithdrawalNotiContainer>
                     <S.NotiWrapper>

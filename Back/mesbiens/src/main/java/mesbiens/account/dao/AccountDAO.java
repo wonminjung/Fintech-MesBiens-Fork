@@ -18,6 +18,12 @@ public interface AccountDAO {
 	// 계좌 삭제하기
 	int delAcct(int accountNo);
 
+	// 계좌번호 존재하는지 검색
+	boolean existsByAcctNumber(String accountNumber);
+
+	// 계좌번호를 기준으로 계좌 PK 가져오기
+	int acctNumToAcctNo(String accountNumber);
+
 
 
 }
