@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouteObject } from "react-router-dom";
 import AssetsContainer from "../pages/assets/AssetsContainer";
 import {
   Board,
@@ -56,6 +56,10 @@ const routes: RouteObject[] = [
         path: "community",
         element: <InnerLayout />,
         children: [
+          {
+            index: true, // path가 없으면 index route로 간주됨
+            element: <Navigate to="/community/C_board" replace />,
+          },
           {
             path: "C_news",
             element: <News />,
