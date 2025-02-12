@@ -62,6 +62,17 @@ public class AccountServiceImpl implements AccountService {
 		return result > 0;
 	}
 
+	// 계좌번호 존재하는지 검색
+	@Override
+	public boolean existsByAcctNumber(String accountNumber) {
+		return acctDao.existsByAcctNumber(accountNumber);
+	}
+
+	// 계좌번호를 기준으로 계좌 PK 가져오기
+	@Override
+	public int acctNumToAcctNo(String accountNumber) {
+		return acctDao.acctNumToAcctNo(accountNumber);
+	}
 	
 	
 }

@@ -1,24 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface AccountPwdState {
-  accountPwd: string;
+export interface ApiResponse {
+  message: string;
 }
 
-const initialState: AccountPwdState = {
-  accountPwd: "",
+const initialState: ApiResponse = {
+  message: "",
 };
 
-export const accountPwdSlice = createSlice({
-  name: "accountPwd",
+export const apiResponse = createSlice({
+  name: "apiResponse",
   initialState,
   reducers: {
-    setAccountPwd: (state, action: PayloadAction<string>) => {
-      state.accountPwd = action.payload;
+    setMessage: (state, action: PayloadAction<string>) => {
+      state.message = action.payload;
     },
-    resetAccountPwd: (state) => {
-      state.accountPwd = "";
+    resetMessage: (state) => {
+      state.message = "";
     },
   },
 });
 
-export const { setAccountPwd, resetAccountPwd } = accountPwdSlice.actions;
+export const { setMessage, resetMessage } = apiResponse.actions;
