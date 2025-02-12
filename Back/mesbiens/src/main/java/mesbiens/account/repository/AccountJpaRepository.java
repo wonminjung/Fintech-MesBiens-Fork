@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import mesbiens.account.vo.AccountVO;
+import mesbiens.member.vo.MemberVO;
 
 @Repository
 public interface AccountJpaRepository extends JpaRepository<AccountVO, Integer> {
@@ -23,6 +24,9 @@ public interface AccountJpaRepository extends JpaRepository<AccountVO, Integer> 
 	@Transactional
 	@Query(value = "delete from account where account.account_no = :accountNo", nativeQuery = true)
 	public int delAcct(@Param("accountNo") int accountNo);
+
+	// 메비앙샵 결제를 위한 memberNo로 accountNo 찾기
+	List<AccountVO> findByMemberNo(MemberVO member);
 	
 	
 	

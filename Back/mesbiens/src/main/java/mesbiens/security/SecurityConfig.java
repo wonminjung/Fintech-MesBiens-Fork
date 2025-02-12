@@ -42,12 +42,14 @@ public class SecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT 사용 시
                                                                                                       // Stateless 유지
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-
+        	.requestMatchers(
+        				"/shop/**"
+        			).permitAll()
+    		.requestMatchers(
                 "/members/register", "/members/login", "/members/{id}", "/quiz/create", "/members/me",
                 "/members/logout/*", "/members/token/refresh", "/members/find-id/**", "/members/find-password",
                 "/members/reset-password", "/community/**", "/account/**", "/allBankList", "/transaction/**",
-                "/notifications/member/{memberNo}", "/notifications/{notificationNo}/read", "/notifications", "/shop/**",
+                "/notifications/member/{memberNo}", "/notifications/{notificationNo}/read", "/notifications",
                 "/", "/login", "/oauth2/**", "/members/validate-password", "/members/*" // OAuth2 관련 경로 추가 (비로그인 허용)
             ).permitAll()
             .anyRequest().authenticated())
@@ -79,7 +81,7 @@ public class SecurityConfig {
     CorsConfiguration configuration = new CorsConfiguration();
 
     configuration.setAllowedOrigins(List.of("http://localhost:4000"));
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // OPTIONS 추가
+    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // OPTIONS 추가
     configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
     configuration.setAllowCredentials(true);
 

@@ -10,7 +10,7 @@ const ShoppingCartModal: React.FC = () => {
       <h2>장바구니에 담겼습니다!</h2>
       <p>장바구니로 이동하시겠습니까?</p>
       <CartModal.BtnContainer>
-        <Link to="/Cart" style={{ textDecoration: "none" }}>
+        <Link to="/shop/Cart" style={{ textDecoration: "none" }}>
           <CartModal.Btn onClick={() => closeModal()}>
             장바구니로 이동
           </CartModal.Btn>
