@@ -44,6 +44,10 @@ export const BC = {
       border-bottom: 1px solid var(--forth-color);
     }
   `,
+
+  TBODY: styled.tbody`
+  `,
+
   TR: styled.tr`
     background: var(--third-color);
     /* border-radius: 20px; */
@@ -68,6 +72,19 @@ export const BC = {
     text-overflow: ellipsis; // 넘치는 부분을 ...으로 표시
     max-width: 100px;
   `,
+  UploadFileValid: styled.div`
+    display: inline-block;
+    width: 1em;
+  `,
+
+  CommentCount: styled.div`// 댓글수
+    width: 2em;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 0.8em;
+    color: #888;
+  `,
+
   H2: styled.h2`
     margin-left: 40px;
   `,
@@ -91,28 +108,28 @@ export const BC = {
   Pagination: styled.div`
     text-align: center;
     padding-bottom: 1em;
-    & a {
-      margin: 0 5px;
-      text-decoration: none;
-      color: var(--button-color);
-      &:hover {
-        color: var(--button-hover-color);
-      }
+  `,
+  PagenationA: styled.a`
+    margin: 0 5px;
+    text-decoration: none;
+    color: var(--button-color);
+    &:hover {
+      color: var(--button-hover-color);
     }
   `,
 
-//   PaginationInfoWrapper: styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: flex-end;  /* 우측 정렬 */
-//   margin-top: 20px;
-// `,
+  //   PaginationInfoWrapper: styled.div`
+  //   width: 100%;
+  //   display: flex;
+  //   justify-content: flex-end;  /* 우측 정렬 */
+  //   margin-top: 20px;
+  // `,
 
-//   PaginationInfo: styled.div`
-//     width: 10em;
-//     margin-top: 20px;
-//     text-align: right;
-//   `,
+  //   PaginationInfo: styled.div`
+  //     width: 10em;
+  //     margin-top: 20px;
+  //     text-align: right;
+  //   `,
 
   /* Chat */
   ChatArea: styled.div`
@@ -249,7 +266,8 @@ export const BP = {
     /* flex-direction: column; */
     margin-left: 10px;
     position: absolute;
-    top: 270px;
+    top: 255px;
+    right: 40px;
     background-color: var(--white);
   `,
   Button: styled(DefaultButton)`
@@ -267,10 +285,32 @@ export const BP = {
       color: #333;
     }
   `,
-  FileSection: styled.div`
-    width: 3em;
-    height: 2em;
+  UploadFileSection: styled.div`
+    display: flex;
+    width: 30em;
+    align-items: center;
+    margin-top: 10px;
+    font-size: .8em;
   `,
+
+  FileSection: styled.div`
+    width: 30em;
+    height: 2em;
+    display: flex;
+  `,
+
+  FileSelectionP: styled.div`
+    display: flex;
+    width: 4em;
+    /* justify-content: center; */
+    align-items: center;
+  `,
+
+  FileSelectionA: styled.a`
+    display: flex;
+    align-items: center;
+  `,
+
   PostContent: styled.div`
     margin-top: 20px;
     font-size: 1em;
@@ -297,8 +337,43 @@ export const BP = {
   `,
 
   AddCommentContainer: styled.div`
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 10px;
     font-size: 1.2em;
   `,
+
+  CommentInput: styled.input`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3em;
+    font-size: 1.2em;
+  `,
+
+  CommentInputPwd: styled.input`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0.5em;
+    width: 3.5em;
+    padding: 5px 10px;
+    margin-right: 0.5em;
+    font-size: .8em;
+    &::placeholder {
+      font-size: 0.8em;
+    }
+  `,
+
+  CommentBtn: styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+    padding: 5px 5px;
+  `,
+
 
   Comment: styled.div`
     padding: 15px;
@@ -316,6 +391,12 @@ export const BP = {
     color: #555;
     margin-bottom: 5px;
   `,
+  EditCommentContainer: styled.div`
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+  `,
+
   CommentActions: styled.div`
     display: flex;
     /* gap: 2px; */
@@ -361,6 +442,43 @@ export const BW = {
       cursor: text;
     }
   `,
+  PassWordInput: styled.input`
+    height: 20px;
+    width: 6em;
+    margin-left: 10px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    &::placeholder {
+      text-align: center
+    }
+  `,
+
+  BoardWriter: styled.label`
+    height: 20px;
+    width: 8em;
+    margin-left: 10px;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    &::placeholder {
+      text-align: center;
+    }
+  `,
+
   Input: styled.input`
     height: 20px;
     width: 4em;
@@ -373,6 +491,40 @@ export const BW = {
     border: 1px solid #e0e0e0;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-top: 10px;
+    &::placeholder {
+      text-align: center;
+    }
+  `,
+  UploadLabel: styled.label`
+    height: 30px;
+    width: 4em;
+    margin-left: 10px;
+    font-size: 1em;
+    line-height: 1.6;
+    background-color:#d3d3d3;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 10px;
+  `,
+  UploadInput: styled.input`
+    height: 30px;
+    width: 25em;
+    margin-left: 10px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #444;
+    background-color: #f9f9f9;
+    /* border-radius: 8px; */
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    cursor: pointer;
+    &:focus {
+      width: 30em;
+    }
   `,
   TitleInput: styled.input`
     height: 30px;

@@ -1,6 +1,6 @@
 import React from "react";
-import P from "./style";
 import { Link } from "react-router-dom";
+import P from "./style";
 
 const MenuBar: React.FC = () => {
   return (

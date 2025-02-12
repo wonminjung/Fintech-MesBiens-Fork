@@ -93,14 +93,5 @@ public class PostVO {
 	@Column(name="post_modify_date")
 	@CreationTimestamp
 	private Date postModifyDate; // 게시글 수정일시
-	
-	
-//	@OneToMany(mappedBy = "postVO", orphanRemoval = true)
-//    private List<PostLogVO> logList = new ArrayList<>();
-	
-	
-	private int postStartPageRow; // 쪽 시작 행 번호
-	private int postEndPageRow; // 쪽 끝 행 번호
-	
 }
 	
