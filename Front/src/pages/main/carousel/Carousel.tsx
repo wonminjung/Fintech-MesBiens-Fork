@@ -15,7 +15,7 @@ const Carousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 10000); // 3초마다 변경
+    }, 60000); // 60초마다 변경
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 클리어
   }, [images]);
@@ -33,10 +33,7 @@ const Carousel = () => {
   return (
     <C.Carousel>
       {images.length > 0 && (
-        <C.CarouselImg
-          src={images[currentIndex]}
-          alt={`Slide ${currentIndex}`}
-        />
+        <C.CarouselVideo src={images[currentIndex]} autoPlay loop />
       )}
       <C.Controls>
         <C.Buttons onClick={handlePrev}>
