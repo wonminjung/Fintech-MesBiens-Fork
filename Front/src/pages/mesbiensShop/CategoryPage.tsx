@@ -9,6 +9,7 @@ interface ProductData {
   productName: string;
   productPrice: number;
   category: string;
+  ischecked: string;
 }
 
 const CategoryPage: React.FC = () => {
@@ -20,6 +21,7 @@ const CategoryPage: React.FC = () => {
     navigate(`/shop/product/${productNo}`); // 제품 상세 페이지로 이동
   };
 
+  // 제품 카테고리페이지 이동
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -36,16 +38,16 @@ const CategoryPage: React.FC = () => {
         const data: ProductData[] = await response.json();
 
         // productImageUrl 경로 변환 추가
-        const formattedProducts = data.map((item) => ({
-          ...item,
-          productImageUrl: `/images/${item.productImageUrl.split("/").slice(1).join("/")}`, // React의 public 폴더 경로로 변환
-        }));
-        console.log("변환된 productImageUrl:", formattedProducts);
+        // const formattedProducts = data.map((item) => ({
+        //   ...item,
+        //   productImageUrl: `/images/${item.productImageUrl.split("/").slice(1).join("/")}`, // React의 public 폴더 경로로 변환
+        // }));
+        // console.log("변환된 productImageUrl:", formattedProducts);
 
-        const filteredProducts = data.filter(
-          (item) => category === "All" || item.category === category
-        );
-        setProducts(filteredProducts);
+        // const filteredProducts = data.filter(
+        //   (item) => category === "All" || item.category === category
+        // );
+        setProducts(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
@@ -65,7 +67,7 @@ const CategoryPage: React.FC = () => {
               key={item.productNo}
               onClick={() => handleProductClick(item.productNo)}
             >
-              <shop.ItemImg src={item.productImageUrl} alt={item.productName} />
+              <shop.ItemImg src={`/images/shoppingImg/${item.productImageUrl}`} alt={item.productName} />
               <shop.ItemDescription>
                 <li>{item.productName}</li>
                 <li>{item.productPrice.toLocaleString()}원</li>

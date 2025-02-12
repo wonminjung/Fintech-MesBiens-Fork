@@ -2,6 +2,7 @@ package mesbiens.shop.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,16 +37,18 @@ public class CartVO {
     @Column(name = "cart_no")
     private int cartNo; // 장바구니 ID
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_no", referencedColumnName = "member_no", nullable = false)
     private MemberVO member; // 장바구니 소유자
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_no", referencedColumnName = "product_no", nullable = false)
     private ProductVO product; // 장바구니에 담긴 상품
 
     @Column(name = "quantity", nullable = false)
     private int quantity; // 상품 개수
+    
+    private String ischecked; // 장바구니 상품체크 여부
 
     // 총 금액 계산
     public int getTotalPrice() {
