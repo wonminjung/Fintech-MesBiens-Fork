@@ -1,7 +1,8 @@
 {
   "images": [
-    "../images/carouselImages/calendar.png",
-    "../images/carouselImages/recent.png",
-    "../images/carouselImages/transaction.png"
+    "../images/carouselImages/video1.mp4",
+    "../images/carouselImages/video2.mp4",
+    "../images/carouselImages/video3.mp4",
+    "../images/carouselImages/video4.mp4"
   ]
 }
