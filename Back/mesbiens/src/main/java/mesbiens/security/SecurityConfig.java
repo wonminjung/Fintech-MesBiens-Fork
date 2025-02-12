@@ -47,7 +47,7 @@ public class SecurityConfig {
                 "/members/register", "/members/login", "/members/{id}", "/quiz/create", "/members/me",
                 "/members/logout/*", "/members/token/refresh", "/members/find-id/**", "/members/find-password",
                 "/members/reset-password", "/community/**", "/account/**", "/allBankList", "/transaction/**",
-                "/notifications/member/{memberNo}", "/notifications/{notificationNo}/read", "/notifications", "/shop",
+                "/notifications/member/{memberNo}", "/notifications/{notificationNo}/read", "/notifications", "/shop/**",
                 "/", "/login", "/oauth2/**", "/members/validate-password", "/members/*" // OAuth2 관련 경로 추가 (비로그인 허용)
             ).permitAll()
             .anyRequest().authenticated())

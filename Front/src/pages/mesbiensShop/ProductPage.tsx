@@ -21,9 +21,20 @@ const ProductPage: React.FC = () => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json`
+          // `${process.env.REACT_APP_SERVER_URL}/shop/catogry/All`
+          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
+          // , {
+          //   method: "GET",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // }
         );
+        // console.log(response);
+        // const text = await response.text();
+        // console.log(text);
         const data: ProductData[] = await response.json();
+        console.log(data);
         const selectedProduct = data.find(
           (item) => item.productNo === Number(productNo)
         );
@@ -40,6 +51,7 @@ const ProductPage: React.FC = () => {
     if (product) {
       const cartItem = {
         productNo: product.productNo,
+        accountNo: product.accountNo,
         productName: product.productName,
         productPrice: product.productPrice,
         productImg: product.productImg,

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shop")
+@CrossOrigin(origins = "http://localhost:4000") // React 개발 서버 허용(하나의 URL에서 두개의 페이지를 불러올경우 CORS 방지)
 public class ProductController {
 
 	@Autowired

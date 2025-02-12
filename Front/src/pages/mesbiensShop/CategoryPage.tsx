@@ -24,7 +24,14 @@ const CategoryPage: React.FC = () => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json`
+          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
+          // `${process.env.REACT_APP_SERVER_URL}/product/{productNo}`
+          // , {
+          //   method: "GET",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // }
         );
         const data: ProductData[] = await response.json();
         const filteredProducts = data.filter(
