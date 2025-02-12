@@ -13,7 +13,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import mesbiens.community.post.repository.PostRepository;
-import mesbiens.community.post.summary.PostListSummary;
 import mesbiens.community.post.vo.PageVO;
 import mesbiens.community.post.vo.PostVO;
 import mesbiens.member.repository.MemberRepository;
@@ -37,16 +36,6 @@ public class PostDAOImpl implements PostDAO {
 	// 게시판 저장
 	@Override
 	public void insertPost(PostVO postVO) {
-
-//		long postSeq_no = postRepository.getPostNextSequenceValue();
-//	    
-//	    // DB에 해당 postNo가 이미 존재하는지 확인
-//	    if (postRepository.existsById((int) postSeq_no)) {
-//	        throw new IllegalStateException("중복된 postNo: " + postSeq_no);
-//	    }
-//	    
-//	    postVO.setPostNo((int) postSeq_no);
-
 		postRepository.save(postVO); // JPA save 메서드를 사용해 저장
 	}
 
@@ -70,7 +59,6 @@ public class PostDAOImpl implements PostDAO {
 	public void increaseViewCount(int postNo) {
 		PostVO postVO = postRepository.findById(postNo)
 				.orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다: " + postNo));
-		// .orElseThrow() postNO 를 찾이 못했을 경우 RuntimeException 에러발생
 		postVO.setPostHit(postVO.getPostHit() + 1);
 		postRepository.save(postVO); // 변경된 조회수 저장
 	}
@@ -101,7 +89,6 @@ public class PostDAOImpl implements PostDAO {
 	// 댓글 작성을 위한 postNo 가져오기
 	@Override
 	public PostVO findById(int postNo) {
-//		System.out.println(postRepository.findById(postNo));
 		return postRepository.findById(postNo)
 				.orElseThrow(() -> new EntityNotFoundException("Post not found with ID: " + postNo));
 	}
@@ -109,6 +96,12 @@ public class PostDAOImpl implements PostDAO {
 	@Override
 	public MemberVO getMemberById(int memberNo) {
 		return memberRepository.findById(memberNo).orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+	}
+
+	// 게시글의 첨부파일 여부 확인
+	@Override
+	public int getUploadFileValidCount(int postNo) {
+		return postRepository.getUploadFileValidCount(postNo);
 	}
 
 }

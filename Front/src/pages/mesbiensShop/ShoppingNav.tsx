@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import { shop } from "./style";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../modules/store/store";
+import { shop } from "./style";
 
 const ShoppingNav: React.FC = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
   const handleButtonClick = (category: string) => {
-    navigate(`/category/${category}`); // 카테고리 페이지로 이동
+    navigate(`/shop/category/${category}`); // 카테고리 페이지로 이동
   };
 
   const cartIcon =
@@ -25,7 +25,7 @@ const ShoppingNav: React.FC = () => {
         />
       </shop.LogoContainer>
       <shop.Nav>
-        {["전체", "생활", "뷰티"].map((category, index) => (
+        {["All", "Life", "Beauty"].map((category, index) => (
           <shop.NavTab key={index} onClick={() => handleButtonClick(category)}>
             {category}
           </shop.NavTab>
@@ -34,7 +34,7 @@ const ShoppingNav: React.FC = () => {
           <shop.CartIcon
             src={cartIcon}
             alt="cart"
-            onClick={() => navigate("/Cart")}
+            onClick={() => navigate("/shop/Cart")}
           />
           <shop.Home onClick={() => navigate("/main")} />
         </shop.RightContainer>

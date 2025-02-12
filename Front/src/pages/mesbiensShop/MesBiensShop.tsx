@@ -5,7 +5,7 @@ const MesBiensShop: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/category/전체");
+    navigate("/shop/category/All");
   }, [navigate]);
 
   return null;

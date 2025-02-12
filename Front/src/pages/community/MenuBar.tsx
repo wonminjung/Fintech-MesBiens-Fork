@@ -1,6 +1,6 @@
 import React from "react";
-import P from "./style";
 import { Link } from "react-router-dom";
+import P from "./style";
 
 const MenuBar: React.FC = () => {
   return (
@@ -12,11 +12,11 @@ const MenuBar: React.FC = () => {
               <P.MenuButton>자유 게시판</P.MenuButton>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to={"C_news"}>
               <P.MenuButton>뉴스</P.MenuButton>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to={"C_quiz"}>
               <P.MenuButton>심리 테스트</P.MenuButton>

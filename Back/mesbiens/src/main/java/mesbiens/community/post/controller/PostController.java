@@ -27,10 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpServletRequest;
 import mesbiens.community.post.service.PostCommentService;
 import mesbiens.community.post.service.PostService;
+import mesbiens.community.post.vo.PostCommentRequestDTO;
 import mesbiens.community.post.vo.PostCommentVO;
 import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
-import mesbiens.member.vo.MemberVO;
 
 @RestController // JSON 데이터를 반환하는 컨트롤러로 설정
 @RequestMapping("/community") // RESTful API 기본 경로 설정
@@ -65,8 +65,6 @@ public class PostController {
 		) {  
 		    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		    
-		    System.out.println(postRequest);
-
 		    // 유효성 검증 실패 시 처리
 		    if (bindingResult.hasErrors()) {
 		        StringBuilder errorMsg = new StringBuilder();
@@ -111,7 +109,7 @@ public class PostController {
         	postVO = postService.getPostWithoutViewIncrease(postNo); // 조회수 증가 없이 조회
         }
         
-        List<PostCommentVO> postcomments = postCommentService.getCommentsByPostNo(postNo); // 댓글 조회
+        List<PostCommentRequestDTO> postcomments = postCommentService.getCommentsByPostNo(postNo); // 댓글 조회
 
         Map<String, Object> response = new HashMap<>();
         response.put("post", postVO);
@@ -154,9 +152,6 @@ public class PostController {
     	// JSON Data로 받기위함
     	String postPassword = requestbody.get("postPassword");
     	String memberNo = requestbody.get("memberNo");
-
-//    	System.out.println(postPassword);
-//    	System.out.println(requestbody.get("postPassword"));
     	
         try {
             postService.deletePost(postNo, postPassword, request, memberNo);
@@ -171,14 +166,9 @@ public class PostController {
     // 답글 작성
     @PostMapping("/C_board/{postNo}/postComment_Write")
     public ResponseEntity<PostCommentVO> createComment(@PathVariable(name = "postNo") int postNo,
-                                                       @RequestBody PostCommentVO postComment) {
+                                                       @RequestBody PostCommentRequestDTO postCommentRequestDTO) {
     	try {
-            // 게시글 ID를 PostCommentVO에 설정
-            PostVO post = new PostVO();
-            post.setPostNo(postNo);
-            postComment.setPost(post);
-
-            PostCommentVO savedComment = postCommentService.createComment(postComment); // Service 호출
+            PostCommentVO savedComment = postCommentService.createComment(postCommentRequestDTO); // DTO 전달
             return ResponseEntity.ok(savedComment); // 성공 시 저장된 댓글 반환
 
         } catch (IllegalArgumentException e) {
@@ -190,25 +180,34 @@ public class PostController {
     
     // 답글 수정
     @PutMapping("/C_board/{postNo}/{postCommentNo}")
-    public ResponseEntity<PostCommentVO> updateComment(@PathVariable(name = "postCommentNo") int postCommentNo, @RequestBody PostCommentVO updatedComment) {
-        PostCommentVO existingComment = postCommentService.getCommentById(postCommentNo); // 기존 댓글 조회
+    public ResponseEntity<PostCommentVO> updateComment(
+            @PathVariable(name = "postCommentNo") int postCommentNo,
+            @RequestBody PostCommentRequestDTO updatedComment) {
+        
+        PostCommentVO existingComment = postCommentService.getCommentById(postCommentNo);
         if (existingComment == null || !existingComment.getPostCommentPassword().equals(updatedComment.getPostCommentPassword())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 댓글이 없거나 비밀번호 불일치 시 403 반환
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        existingComment.setPostCommentContent(updatedComment.getPostCommentContent()); // 댓글 내용 수정
-        PostCommentVO savedComment = postCommentService.updateComment(existingComment); // 수정된 댓글 저장
-        return ResponseEntity.ok(savedComment); // 수정된 댓글 반환
+        
+        existingComment.setPostCommentContent(updatedComment.getPostCommentContent());
+        PostCommentVO savedComment = postCommentService.updateComment(existingComment);
+        return ResponseEntity.ok(savedComment);
     }
+
 
     // 답글 삭제
     @DeleteMapping("/C_board/{postNo}/{postCommentNo}")
-    public ResponseEntity<Void> deleteComment(@PathVariable(name = "postCommentNo") int postCommentNo, @RequestBody PostCommentVO comment) {
-        PostCommentVO existingComment = postCommentService.getCommentById(postCommentNo); // 기존 댓글 조회
+    public ResponseEntity<Void> deleteComment(
+            @PathVariable(name = "postCommentNo") int postCommentNo,
+            @RequestBody PostCommentRequestDTO comment) {
+        
+        PostCommentVO existingComment = postCommentService.getCommentById(postCommentNo);
         if (existingComment == null || !existingComment.getPostCommentPassword().equals(comment.getPostCommentPassword())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 댓글이 없거나 비밀번호 불일치 시 403 반환
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        postCommentService.deleteComment(postCommentNo); // 댓글 삭제
-        return ResponseEntity.noContent().build();  // 204 No Content 반환
+        
+        postCommentService.deleteComment(postCommentNo);
+        return ResponseEntity.noContent().build();
     }
 
 
