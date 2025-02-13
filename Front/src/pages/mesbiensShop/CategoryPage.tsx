@@ -5,10 +5,11 @@ import { shop } from "./style";
 
 interface ProductData {
   productNo: number;
-  productImg: string;
+  productImageUrl: string;
   productName: string;
   productPrice: number;
   category: string;
+  ischecked: string;
 }
 
 const CategoryPage: React.FC = () => {
@@ -20,28 +21,29 @@ const CategoryPage: React.FC = () => {
     navigate(`/shop/product/${productNo}`); // 제품 상세 페이지로 이동
   };
 
+  // 제품 카테고리페이지 이동
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
-          // `${process.env.REACT_APP_SERVER_URL}/product/{productNo}`
-          // , {
-          //   method: "GET",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // }
+          // `${process.env.PUBLIC_URL}/dummyDatas/shoppingData.json}`
+          `${process.env.REACT_APP_SERVER_URL}/shop/category/All`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data: ProductData[] = await response.json();
-        const filteredProducts = data.filter(
-          (item) => category === "All" || item.category === category
-        );
-        setProducts(filteredProducts);
+
+        console.log("제품 데이터:", data);
+        setProducts(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
     };
+
 
     fetchProductData();
   }, [category]);
@@ -56,7 +58,7 @@ const CategoryPage: React.FC = () => {
               key={item.productNo}
               onClick={() => handleProductClick(item.productNo)}
             >
-              <shop.ItemImg src={item.productImg} alt={item.productName} />
+              <shop.ItemImg src={`/images/shoppingImg/${item.productImageUrl}`} alt={item.productName} />
               <shop.ItemDescription>
                 <li>{item.productName}</li>
                 <li>{item.productPrice.toLocaleString()}원</li>

@@ -20,7 +20,10 @@ public class ProductController {
     // 전체 상품 목록 조회
     @GetMapping("/category/All")
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    	System.out.println("📢 API 요청 받음: /shop/category/All"); // 요청 확인 로그
+        List<ProductDTO> products = productService.getAllProducts();
+        System.out.println("📢 반환할 데이터: " + products); // 반환 데이터 로그
+        return ResponseEntity.ok(products);
     }
     
     // 특정 카테고리 상품 목록 조회
@@ -32,6 +35,7 @@ public class ProductController {
     // 상품 상세 조회
     @GetMapping("/product/{productNo}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable(name = "productNo") int productNo) {
-        return ResponseEntity.ok(productService.getProductById(productNo));
+    	ProductDTO product = productService.getProductById(productNo);
+        return ResponseEntity.ok(product);
     }
 }

@@ -1,8 +1,9 @@
 export interface ProductData {
   productNo: number;
   accountNo: number;
+  memberNo: number;
   productName: string;
   productPrice: number;
-  productImg: string;
+  productImageUrl: string;
   quantity: number;
 }

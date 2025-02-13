@@ -42,7 +42,8 @@ public class ProductVO {
 
     @Column(name = "product_image_url", nullable = false)
     private String productImageUrl; // 상품 이미지 URL
+    
+    @Column(name = "product_stock")
+    private int productStock;
 
-//    @Column(name = "product_stock", nullable = false)
-//    private int productStock; // 상품 재고량
 }

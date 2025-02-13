@@ -1,6 +1,7 @@
 package mesbiens.shop.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import mesbiens.member.vo.MemberVO;
 import mesbiens.shop.vo.CartVO;
@@ -17,5 +18,11 @@ public interface CartDAO {
 	void removeCartItem(int cartNo);
 
 	void clearCart(MemberVO member);
-	
+
+	CartVO findByMemberAndProduct(MemberVO member, ProductVO product);
+
+	void delete(CartVO cart);
+
+	void updateQuantity(CartVO cart);
+
 }

@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import mesbiens.shop.vo.CartVO;
 
-@Getter
 @Setter
-public class CartRequestDTO {
-    private int cartNo;
+@Getter
+public class CartSelectionDTO {
+	private int cartNo;
     private int memberNo;
     private int productNo;
     private String productName;
@@ -15,10 +15,11 @@ public class CartRequestDTO {
     private int productPrice;
     private int totalPrice;
     private String productImageUrl;
+    private String ischecked;
 
     // Entity → DTO 변환
-    public static CartRequestDTO fromEntity(CartVO cart) {
-        CartRequestDTO dto = new CartRequestDTO();
+    public static CartSelectionDTO fromEntity(CartVO cart) {
+    	CartSelectionDTO dto = new CartSelectionDTO();
         dto.setCartNo(cart.getCartNo());
         dto.setMemberNo(cart.getMember().getMemberNo());
         dto.setProductNo(cart.getProduct().getProductNo());
@@ -27,7 +28,7 @@ public class CartRequestDTO {
         dto.setProductPrice(cart.getProduct().getProductPrice());
         dto.setTotalPrice(cart.getTotalPrice());
         dto.setProductImageUrl(cart.getProduct().getProductImageUrl());
+        dto.setIschecked(cart.getIschecked());
         return dto;
     }
-
 }

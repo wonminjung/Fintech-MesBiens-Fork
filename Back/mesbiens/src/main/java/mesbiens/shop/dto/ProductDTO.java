@@ -24,7 +24,7 @@ public class ProductDTO {
         dto.setProductCategory(product.getProductCategory());
         dto.setProductDescription(product.getProductDescription());
         dto.setProductImageUrl(product.getProductImageUrl());
-//        dto.setProductStock(product.getProductStock());
+        dto.setProductStock(product.getProductStock());
         return dto;
     }
 }

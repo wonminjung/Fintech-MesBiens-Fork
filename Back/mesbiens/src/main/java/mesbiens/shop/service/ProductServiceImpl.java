@@ -21,6 +21,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> getAllProducts() {
 		List<ProductVO> products = productDAO.getAllProducts();
 		System.out.println(products);
+		if (products == null || products.isEmpty()) {
+	        throw new RuntimeException("⚠ 데이터가 없습니다!");
+	    }
 		return products.stream() // List<ProductVO>를 스트림 객체로 변환
 				.map(ProductDTO::fromEntity) // VO객체를 DTO객체로 변환하기 위한 fromEntity메소드 호출
 				.collect(Collectors.toList()); // 변환된 DTO객체를 새로운 List<ProductDTO>에 담아 return

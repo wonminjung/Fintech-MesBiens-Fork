@@ -131,7 +131,7 @@ export const shop = {
   `,
   Item: styled.a`
     width: 18rem;
-    height: 22rem;
+    height: 23rem;
     transition: transform 0.3s ease-in-out;
     text-decoration: none;
     color: black;
@@ -228,20 +228,53 @@ export const cart = {
     display: flex;
     justify-content: flex-end;
   `,
+  QtyContainerLabel: styled.label`
+    display: block;
+    width: 5rem;
+  `,
   ProductInfo: styled.div`
     text-align: left;
     padding-left: 20px;
+    padding-right: 20px;
     flex: 1;
   `,
-  QtyContainer: styled.div``,
+  PurchaseDiv: styled.div`
+    width: 10rem;
+  `,
+  QtyContainer: styled.div`
+    width: 10rem;
+  `,
+  PurchaseCountLabel: styled.label`
+    width: 5rem;
+  `,
+  PurchaseInput: styled.input`
+    width: 5rem;
+  `,
+
   AmountContainer: styled.div`
-    padding: 0 2rem;
+    width: 10rem;
+    padding: 0 0.5rem;
+    margin: 1rem;
   `,
   Price: styled.div`
     padding: 3px 0;
   `,
-  Input: styled.input`
+  Label: styled.label`
     width: 2rem;
+    border: none;
+  `,
+  BuyInput: styled.input`
+    display: inline-block;
+    width: 1.5rem;
+    text-align: center;
+    padding-left: 10%;
+  `,
+  BuyLabel: styled.label`
+    width: 2rem;
+  `,
+  Input: styled.input`
+    margin-left: 1rem;
+    width: 3rem;
     border: none;
   `,
   Btn: styled.button`
@@ -254,6 +287,14 @@ export const cart = {
     justify-content: flex-end;
     align-items: center;
     padding-top: 20px;
+  `,
+  PurchaseLabel: styled.label`
+    width: 6.5rem;
+  `,
+  PurchaseSelect: styled.select`
+    width: 13.3rem;
+  `,
+  PurchaseOption: styled.option`
   `,
   TotalAmount: styled.div`
     padding-right: 20px;
