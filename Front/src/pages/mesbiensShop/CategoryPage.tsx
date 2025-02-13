@@ -37,16 +37,7 @@ const CategoryPage: React.FC = () => {
         );
         const data: ProductData[] = await response.json();
 
-        // productImageUrl 경로 변환 추가
-        // const formattedProducts = data.map((item) => ({
-        //   ...item,
-        //   productImageUrl: `/images/${item.productImageUrl.split("/").slice(1).join("/")}`, // React의 public 폴더 경로로 변환
-        // }));
-        // console.log("변환된 productImageUrl:", formattedProducts);
-
-        // const filteredProducts = data.filter(
-        //   (item) => category === "All" || item.category === category
-        // );
+        console.log("제품 데이터:", data);
         setProducts(data);
       } catch (error) {
         console.error("Error fetching product data:", error);

@@ -23,7 +23,7 @@ public class ProductController {
     	System.out.println("📢 API 요청 받음: /shop/category/All"); // 요청 확인 로그
         List<ProductDTO> products = productService.getAllProducts();
         System.out.println("📢 반환할 데이터: " + products); // 반환 데이터 로그
-        return ResponseEntity.ok(productService.getAllProducts());
+        return ResponseEntity.ok(products);
     }
     
     // 특정 카테고리 상품 목록 조회

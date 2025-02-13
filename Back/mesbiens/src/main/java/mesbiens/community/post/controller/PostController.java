@@ -35,7 +35,6 @@ import mesbiens.community.post.vo.PostVO;
 @RestController // JSON 데이터를 반환하는 컨트롤러로 설정
 @RequestMapping("/community") // RESTful API 기본 경로 설정
 public class PostController {
-/*
 	@Autowired
 	private PostService postService;
 	
@@ -211,5 +210,4 @@ public class PostController {
     }
 
 
-*/
 }
