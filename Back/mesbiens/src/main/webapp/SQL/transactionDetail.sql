@@ -19,7 +19,7 @@ DECLARE
 BEGIN
   -- 오늘 기준 1달 전부터 1달 후까지 (총 61일)에 대해 반복
   FOR i IN 0 .. 60 LOOP
-    v_date := TRUNC(SYSDATE) - 30 + i;
+    v_date := TRUNC(SYSDATE) - 90 + i;
     -- 하루 거래 건수 : 1 ~ 10건
     v_num_transactions := TRUNC(DBMS_RANDOM.VALUE(1, 11));
     
@@ -156,35 +156,31 @@ BEGIN
          -- [Case 1] 홍길동이 **송금(출금)** 하는 경우
          --     → 홍길동 계좌에서는 출금, 상대방 계좌에서는 입금
          INSERT INTO TRANSACTION_DETAIL 
-           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CANCEL_YN, TRNS_CREATE_AT, 
-            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, TRNS_UPDATE_AT, 
+           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CREATE_AT, 
+            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME,
             CONSUMPTION_CATE_NO, RECEIVER_ACCOUNT_NO, SENDER_ACCOUNT_NO)
          VALUES 
            (transaction_no_seq.NEXTVAL, 
             v_trns_balance, 
-            'N', 
             v_tx_date, 
             v_trns_memo, 
             v_trns_place, 
             'DEPOSIT', 
-            v_tx_date, 
             v_consumption_cate_no, 
             v_counter_account,    -- 상대방 계좌가 받음
             v_hong_account);      -- 홍길동 계좌에서 송금
 
          INSERT INTO TRANSACTION_DETAIL 
-           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CANCEL_YN, TRNS_CREATE_AT, 
-            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, TRNS_UPDATE_AT, 
+           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CREATE_AT, 
+            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, 
             CONSUMPTION_CATE_NO, RECEIVER_ACCOUNT_NO, SENDER_ACCOUNT_NO)
          VALUES 
            (transaction_no_seq.NEXTVAL, 
             v_trns_balance, 
-            'N', 
             v_tx_date, 
             v_trns_memo, 
             v_trns_place, 
             'WITHDRAWAL', 
-            v_tx_date, 
             v_consumption_cate_no, 
             v_hong_account,      -- 홍길동 계좌에서 출금
             v_counter_account);
@@ -192,35 +188,31 @@ BEGIN
          -- [Case 2] 홍길동이 **입금** 하는 경우
          --     → 홍길동 계좌에서는 입금, 상대방 계좌에서는 출금
          INSERT INTO TRANSACTION_DETAIL 
-           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CANCEL_YN, TRNS_CREATE_AT, 
-            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, TRNS_UPDATE_AT, 
+           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CREATE_AT, 
+            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, 
             CONSUMPTION_CATE_NO, RECEIVER_ACCOUNT_NO, SENDER_ACCOUNT_NO)
          VALUES 
            (transaction_no_seq.NEXTVAL, 
             v_trns_balance, 
-            'N', 
             v_tx_date, 
             v_trns_memo, 
             v_trns_place, 
             'DEPOSIT', 
-            v_tx_date, 
             v_consumPTION_CATE_NO, 
             v_hong_account,      -- 홍길동 계좌가 받음
             v_counter_account);
 
          INSERT INTO TRANSACTION_DETAIL 
-           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CANCEL_YN, TRNS_CREATE_AT, 
-            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, TRNS_UPDATE_AT, 
+           (TRANSACTION_NO, TRNS_BALANCE, TRNS_CREATE_AT, 
+            TRNS_MEMO, TRNS_PLACE, TRNS_TYPE_NAME, 
             CONSUMPTION_CATE_NO, RECEIVER_ACCOUNT_NO, SENDER_ACCOUNT_NO)
          VALUES 
            (transaction_no_seq.NEXTVAL, 
             v_trns_balance, 
-            'N', 
             v_tx_date, 
             v_trns_memo, 
             v_trns_place, 
             'WITHDRAWAL', 
-            v_tx_date, 
             v_consumption_cate_no, 
             v_counter_account,    -- 상대방 계좌에서 출금
             v_hong_account);

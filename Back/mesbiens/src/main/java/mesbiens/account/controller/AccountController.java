@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import mesbiens.account.dto.AccountResponseDTO;
+import mesbiens.account.dto.AddAccountRequestDTO;
 import mesbiens.account.service.AccountService;
 import mesbiens.account.vo.AccountVO;
 
@@ -40,7 +41,7 @@ public class AccountController {
 	
 	// 계좌 추가하기
 	@PostMapping("/add")
-	public ResponseEntity<Map<String, String>> addAcct(@RequestBody AccountVO acct) {
+	public ResponseEntity<Map<String, String>> addAcct(@RequestBody AddAccountRequestDTO acct) {
 		Map<String, String> response = new HashMap<>();
 		
 		if(acct == null) {

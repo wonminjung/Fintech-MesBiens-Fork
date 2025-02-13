@@ -6,16 +6,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import mesbiens.account.dao.AccountDAO;
 import mesbiens.account.dto.AccountResponseDTO;
+import mesbiens.account.dto.AddAccountRequestDTO;
 import mesbiens.account.vo.AccountVO;
+import mesbiens.account.vo.BankInfoVO;
+import mesbiens.member.vo.MemberVO;
 
 @Service
 @Transactional
 public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private AccountDAO acctDao;
+	
+	@Autowired
+	private BankService bankService;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	// 회원 정보에 맞는 계좌 정보 가져오기
 	@Override
@@ -34,8 +45,18 @@ public class AccountServiceImpl implements AccountService {
 
 	// 계좌 추가하기
 	@Override
-	public boolean addAcct(AccountVO acct) {
-		AccountVO isSaved = acctDao.addAcct(acct);
+	public boolean addAcct(AddAccountRequestDTO acct) {
+		String bankCode = bankService.nameToCode(acct.getBankName());
+		BankInfoVO bank = entityManager.getReference(BankInfoVO.class, bankCode);
+		MemberVO member = entityManager.getReference(MemberVO.class, acct.getMemberNo());
+		
+		AccountVO addAcct = new AccountVO();
+		addAcct.setBankCode(bank);
+		addAcct.setAccountNumber(acct.getAccountNumber());
+		addAcct.setMemberNo(member);
+		addAcct.setAccountPassword(acct.getAccountPassword());
+		
+		AccountVO isSaved = acctDao.addAcct(addAcct);
 		if(isSaved == null) {
 			return false;
 		}

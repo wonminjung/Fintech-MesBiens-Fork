@@ -17,6 +17,7 @@ type Props = {
 const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBankInfo }): JSX.Element => {
   const { handleModal } = ModalFunc();
   const { member } = useSelector((state: RootState) => state.user);
+  const modal = useSelector((state: RootState) => state.modal);
   const [ dataLoading, setDataLoading ] = useState<boolean>(false);
 
   const getAccountList = async () => {
@@ -49,7 +50,7 @@ const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBan
       }
     })
     .catch(() => { console.log("데이터 가져오기 실패") });
-  }, []);
+  }, [modal.isOpen]);
 
   return (
     <S.AccountListContainer>

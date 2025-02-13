@@ -18,5 +18,13 @@ public class BankServiceImpl implements BankService {
 	public List<BankInfoVO> getAllBankList() {
 		return bankDao.getAllBankList();
 	}
+
+	// 뱅크 이름을 코드로 반환
+	@Override
+	public String nameToCode(String bankName) {
+		return bankDao.nameToCode(bankName);
+	}
+	
+	
 	
 }

@@ -18,6 +18,12 @@ public class BankDAOImpl implements BankDAO {
 	public List<BankInfoVO> getAllBankList() {
 		return bankJpaRepository.findAll();
 	}
+
+	// 뱅크 이름을 코드로 반환
+	@Override
+	public String nameToCode(String bankName) {
+		return bankJpaRepository.findByBankName(bankName).getBankCode();
+	}
 	
 	
 }

@@ -3,6 +3,7 @@ package mesbiens.account.service;
 import java.util.List;
 
 import mesbiens.account.dto.AccountResponseDTO;
+import mesbiens.account.dto.AddAccountRequestDTO;
 import mesbiens.account.vo.AccountVO;
 
 public interface AccountService {
@@ -11,7 +12,7 @@ public interface AccountService {
 	List<AccountResponseDTO> getAccountList(int memberNo);
 
 	// 계좌 추가하기
-	boolean addAcct(AccountVO acct);
+	boolean addAcct(AddAccountRequestDTO acct);
 	
 	// 계좌 존재하는지 검색
 	boolean existsByIdAcct(int accountNo);
